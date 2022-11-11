@@ -65,9 +65,14 @@ namespace BetterGameUI
         [Label("$Mods.BetterGameUI.Config.Label.ExtraPlayerBuffSlots")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.ExtraPlayerBuffSlots")]
         public int ExtraPlayerBuffSlots { get; set; }
-        
+
+
+        [DefaultValue(false)]
+        [Label("Order icons from right to left")]
+        public bool OrderIconsFromRightToLeft { get; set; }
+
         // TODO: public ... SnapPoint;
-        
+
         [DefaultValue(16)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("X")]

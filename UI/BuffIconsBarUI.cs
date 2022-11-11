@@ -10,34 +10,41 @@ using Microsoft.Xna.Framework;
 using ReLogic.Graphics;
 using Terraria.DataStructures;
 using ReLogic.Content;
+using System.Linq.Expressions;
 
 namespace BetterGameUI.UI {
+    public enum BuffIconsHorizontalOrder {
+        LeftToRight,
+        RightToLeft,
+    }
+
     public class BuffIconsBarUI : UIState {
         public const int IconW = 32;
         public const int IconH = 32;
         public const int IconTextH = 12;
         public const int IconToIconPad = 6;
-        public const int FirstIconsColX = 16;
-        public const int FirstIconsRowY = 0;
-        public ushort IconRowsCount { get; set; }
-        public ushort IconColsCount { get; set; }
+        public static int ScrollbarReservedWidth = 16;
+
+        public ushort IconRowsCount;
+        public ushort IconColsCount;
+        public BuffIconsHorizontalOrder IconsHorizontalOrder;
         public ScrollbarUI ScrollbarUI {
             get => Elements[0] as ScrollbarUI;
             set => Elements[0] = value;
         }
 
         public static BuffIconsBarUI Default() {
-            ushort iconRowsCount = (ushort)Mod.ClientConfig.IconRowsCount;
-            ushort iconColsCount = (ushort)Mod.ClientConfig.IconColsCount;
             var output = new BuffIconsBarUI {
-                IconRowsCount = iconRowsCount,
-                IconColsCount = iconColsCount,
+                IconRowsCount = (ushort)Mod.ClientConfig.IconRowsCount,
+                IconColsCount = (ushort)Mod.ClientConfig.IconColsCount,
                 Top = StyleDimension.FromPixels(Mod.ClientConfig.Y),
                 Left = StyleDimension.FromPixels(Mod.ClientConfig.X),
                 Width = StyleDimension.FromPixels(((IconW + IconToIconPad) *
-                    iconRowsCount) - IconToIconPad + 16),
+                    (ushort)Mod.ClientConfig.IconRowsCount) - IconToIconPad + 16),
                 Height = StyleDimension.FromPixels(((IconH + IconTextH + IconToIconPad) *
-                    iconColsCount) - IconToIconPad),
+                    (ushort)Mod.ClientConfig.IconColsCount) - IconToIconPad),
+                IconsHorizontalOrder = Mod.ClientConfig.OrderIconsFromRightToLeft ?
+                    BuffIconsHorizontalOrder.RightToLeft : BuffIconsHorizontalOrder.LeftToRight,
             };
 
             output.Append(new ScrollbarUI {
@@ -45,8 +52,8 @@ namespace BetterGameUI.UI {
                 Left = StyleDimension.FromPixels(2f),
                 Width = StyleDimension.FromPixels(10f),
                 Height = StyleDimension.FromPixelsAndPercent(-16f, 1f),
-                Alpha = 0.5f,
                 CornerHeight = 4,
+                Alpha = 0.5f,
             });
 
             output.ScrollbarUI.Append(new ScrollerUI {
@@ -55,9 +62,9 @@ namespace BetterGameUI.UI {
                 Width = StyleDimension.FromPixels(6f),
                 Height = StyleDimension.FromPixels(8f),
                 MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinScrollerHeight),
-                CornerHeight = 2,
                 HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier,
                 HitboxHeightModifier = Mod.ClientConfig.ScrollerHitboxHeightModifier,
+                CornerHeight = 2,
                 Alpha = 0.5f,
             });
 
@@ -68,13 +75,6 @@ namespace BetterGameUI.UI {
         }
 
         public override void Update(GameTime gameTime) {
-            // TODO: this should be called at a higher level
-            Mod.UpdateActiveBuffsIndexes();
-
-            if (ingameOptionsWindow | playerInventory | inFancyUI) {
-                return;
-            }
-
             if (Mod.ActiveBuffsIndexes.Count <= 0) {
                 ScrollbarUI.MaxScrolls = 0;
             } else {
@@ -98,24 +98,36 @@ namespace BetterGameUI.UI {
             base.Update(gameTime);
         }
 
-        public override void Draw(SpriteBatch spriteBatch) {
-            // TODO: override OnActivate
-            // TODO: rethink
-            if (ingameOptionsWindow | playerInventory | inFancyUI) {
-                return;
-            }
-
-            base.Draw(spriteBatch);
-        }
-
         protected override void DrawSelf(SpriteBatch spriteBatch) {
             var rec = GetDimensions().ToRectangle();
             int mouseoveredIcon = -1;
             int buffsBegin = (int)ScrollbarUI.Scrolls * IconColsCount;
             int iconsEnd = Math.Min(Mod.ActiveBuffsIndexes.Count - buffsBegin, IconRowsCount * IconColsCount);
             for (int iconsI = 0; iconsI < iconsEnd; ++iconsI) {
-                int x = rec.Left + FirstIconsColX + (IconW + IconToIconPad) * (iconsI % IconColsCount);
-                int y = rec.Top + FirstIconsRowY + (IconH + IconTextH + IconToIconPad) * (iconsI / IconColsCount);
+                int x = 0;
+                switch (IconsHorizontalOrder) {
+                    case BuffIconsHorizontalOrder.LeftToRight:
+                        x = rec.Left + ScrollbarReservedWidth + 
+                            (IconW + IconToIconPad) * (iconsI % IconColsCount) ;
+                        break;
+                    case BuffIconsHorizontalOrder.RightToLeft: 
+                        x = rec.Left + ScrollbarReservedWidth + 
+                            (IconW + IconToIconPad) * (IconColsCount - 1 - (iconsI % IconColsCount));
+                        break;
+                }
+                int y = rec.Top + (IconH + IconTextH + IconToIconPad) * (iconsI / IconColsCount);
+
+                // TODO: scrolling needs to be inverted for this to work
+                //int y = 0;
+                //switch (IconsVerticalOrder) {
+                //    case BuffIconsVerticalOrder.TopToBottom:
+                //        y = rec.Top + (IconH + IconTextH + IconToIconPad) * (iconsI / IconColsCount);
+                //        break;
+                //    case BuffIconsVerticalOrder.BottomToTop:
+                //        y = rec.Top + (IconH + IconTextH + IconToIconPad) * (IconRowsCount - 1 - (iconsI / IconColsCount));
+                //        break;
+                //}
+
                 mouseoveredIcon = DrawBuffIcon(mouseoveredIcon, Mod.ActiveBuffsIndexes[iconsI + buffsBegin], x, y);
             }
 
@@ -221,6 +233,8 @@ namespace BetterGameUI.UI {
                 IconColsCount) - IconToIconPad + 16);
             Height = StyleDimension.FromPixels(((IconH + IconTextH + IconToIconPad) *
                 IconRowsCount) - IconToIconPad);
+            IconsHorizontalOrder = Mod.ClientConfig.OrderIconsFromRightToLeft ? 
+                BuffIconsHorizontalOrder.RightToLeft : BuffIconsHorizontalOrder.LeftToRight;
 
             // TODO: rows and cols
             ScrollbarUI.ScrollerUI.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinScrollerHeight);

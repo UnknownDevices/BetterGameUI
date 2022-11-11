@@ -12,14 +12,14 @@ using Terraria.GameContent;
 using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.UI;
-using static Terraria.Main;
-using static BetterGameUI.MainReflection;
 using Terraria.Audio;
 using Terraria.UI.Gamepad;
 using Terraria.UI.Chat;
 using Terraria.ID;
 using Terraria.GameContent.UI.States;
 using Terraria.Localization;
+using static Terraria.Main;
+using static BetterGameUI.MainReflection;
 
 namespace BetterGameUI {
     public class UISystem : ModSystem {
@@ -280,58 +280,10 @@ namespace BetterGameUI {
                     }
                 }
 
-                num24 += 247;
-                num23 += 8;
-                int num27 = -1;
-                int num28 = 0;
-                int num29 = 3;
-                int num30 = 260;
-                if (screenHeight > 630 + num30 * (mapStyle == 1).ToInt())
-                    num29++;
-
-                if (screenHeight > 680 + num30 * (mapStyle == 1).ToInt())
-                    num29++;
-
-                if (screenHeight > 730 + num30 * (mapStyle == 1).ToInt())
-                    num29++;
-
-                int num31 = 46;
-                for (int n = 0; n < Terraria.Player.MaxBuffs; n++) {
-                    if (player[myPlayer].buffType[n] != 0) {
-                        int num32 = num28 / num29;
-                        int num33 = num28 % num29;
-                        Microsoft.Xna.Framework.Point point = new Microsoft.Xna.Framework.Point(num23 + num32 * -num31, num24 + num33 * num31);
-                        num27 = DrawBuffIcon(num27, n, point.X, point.Y);
-                        UILinkPointNavigator.SetPosition(9000 + num28, new Vector2(point.X + 30, point.Y + 30));
-                        num28++;
-                        if (buffAlpha[n] < 0.65f)
-                            buffAlpha[n] = 0.65f;
-                    }
-                }
-
-                UILinkPointNavigator.Shortcuts.BUFFS_DRAWN = num28;
-                UILinkPointNavigator.Shortcuts.BUFFS_PER_COLUMN = num29;
-                if (num27 >= 0) {
-                    int num34 = player[myPlayer].buffType[num27];
-                    if (num34 > 0) {
-                        string buffName = Lang.GetBuffName(num34);
-                        string buffTooltip = GetBuffTooltip(player[myPlayer], num34);
-                        if (num34 == 147)
-                            bannerMouseOver = true;
-
-                        int rare = 0;
-                        if (meleeBuff[num34])
-                            rare = -10;
-
-                        BuffLoader.ModifyBuffTip(num34, ref buffTooltip, ref rare);
-                        instance.MouseTextHackZoom(buffName, rare, 0);
-                    }
-                }
-            }
-            else if (EquipPage == 1) {
+                DrawInventoryBuffIconsBar(ref num23, ref num24);
+            } else if (EquipPage == 1) {
                 DrawNPCHousesInUI(instance);
-            }
-            else if (EquipPage == 0) {// allow mods to add custom equip pages
+            } else if (EquipPage == 0) {// allow mods to add custom equip pages
                 int num35 = 4;
                 if (mouseX > screenWidth - 64 - 28 && mouseX < (int)((float)(screenWidth - 64 - 28) + 56f * inventoryScale) && mouseY > num20 && mouseY < (int)((float)num20 + 448f * inventoryScale) && !PlayerInput.IgnoreMouseInterface)
                     player[myPlayer].mouseInterface = true;
@@ -1128,6 +1080,56 @@ namespace BetterGameUI {
                 instance.MouseText(Language.GetTextValue("GameUI.SortInventory"), 0, 0);
         }
 
+        public static void DrawInventoryBuffIconsBar(ref int num23, ref int num24) {
+            num24 += 247;
+            num23 += 8;
+            int mouseoveredIcon = -1;
+            int num28 = 0;
+            int num29 = 3;
+            int num30 = 260;
+            if (screenHeight > 630 + num30 * (mapStyle == 1).ToInt())
+                num29++;
+
+            if (screenHeight > 680 + num30 * (mapStyle == 1).ToInt())
+                num29++;
+
+            if (screenHeight > 730 + num30 * (mapStyle == 1).ToInt())
+                num29++;
+
+            int num31 = 46;
+            for (int n = 0; n < Terraria.Player.MaxBuffs; n++) {
+                if (player[myPlayer].buffType[n] != 0) {
+                    int num32 = num28 / num29;
+                    int num33 = num28 % num29;
+                    var point = new Point(num23 + num32 * -num31, num24 + num33 * num31);
+                    mouseoveredIcon = DrawBuffIcon(mouseoveredIcon, n, point.X, point.Y);
+                    UILinkPointNavigator.SetPosition(9000 + num28, new Vector2(point.X + 30, point.Y + 30));
+                    num28++;
+                    if (buffAlpha[n] < 0.65f)
+                        buffAlpha[n] = 0.65f;
+                }
+            }
+
+            UILinkPointNavigator.Shortcuts.BUFFS_DRAWN = num28;
+            UILinkPointNavigator.Shortcuts.BUFFS_PER_COLUMN = num29;
+            if (mouseoveredIcon >= 0) {
+                int num34 = player[myPlayer].buffType[mouseoveredIcon];
+                if (num34 > 0) {
+                    string buffName = Lang.GetBuffName(num34);
+                    string buffTooltip = GetBuffTooltip(player[myPlayer], num34);
+                    if (num34 == 147)
+                        bannerMouseOver = true;
+
+                    int rare = 0;
+                    if (meleeBuff[num34])
+                        rare = -10;
+
+                    BuffLoader.ModifyBuffTip(num34, ref buffTooltip, ref rare);
+                    instance.MouseTextHackZoom(buffName, rare, 0);
+                }
+            }
+        }
+
         public static void DrawBreath() {
             bool flag = false;
             if (player[myPlayer].dead)
@@ -1202,10 +1204,11 @@ namespace BetterGameUI {
         }
 
         public override void UpdateUI(GameTime gameTime) {
-            // TODO: activate/deactivate buffIconsBarUI
-            LastUpdateUIGameTime = gameTime;
+            // TODO: this should be called at a higher level
+            BetterGameUI.Mod.UpdateActiveBuffsIndexes();
 
-            if (BuffIconsBarUIInterface.CurrentState != null) {
+            LastUpdateUIGameTime = gameTime;
+            if (BuffIconsBarUIInterface.CurrentState != null & !ingameOptionsWindow & !playerInventory & !inFancyUI) {
                 BuffIconsBarUIInterface.Update(gameTime);
             }
         }
@@ -1219,16 +1222,13 @@ namespace BetterGameUI {
                 if (ignoreErrors) {
                     try {
                         UISystem.DrawInventory();
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         TimeLogger.DrawException(e);
                     }
-                }
-                else {
+                } else {
                     UISystem.DrawInventory();
                 }
-            }
-            else {
+            } else {
                 CreativeMenu.CloseMenu();
                 recFastScroll = true;
                 instance.SetMouseNPC(-1, -1);
@@ -1249,8 +1249,8 @@ namespace BetterGameUI {
                 // TODO: just call Main.DrawBreath through reflection
                 DrawBreath();
                 DrawInterface_Resources_ClearBuffs();
-
-                if (BuffIconsBarUIInterface.CurrentState != null) {
+                
+                if (BuffIconsBarUIInterface.CurrentState != null & !ingameOptionsWindow & !playerInventory & !inFancyUI) {
                     BuffIconsBarUIInterface.Draw(spriteBatch, LastUpdateUIGameTime);
                 }
             }
