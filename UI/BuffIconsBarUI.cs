@@ -1,7 +1,6 @@
 ﻿using Terraria;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.GameInput;
@@ -13,32 +12,32 @@ using Terraria.DataStructures;
 using ReLogic.Content;
 
 namespace BetterGameUI.UI {
-    public class BuffIconsBarUI : UIElement {
+    public class BuffIconsBarUI : UIState {
         public const int IconW = 32;
         public const int IconH = 32;
         public const int IconTextH = 12;
         public const int IconToIconPad = 6;
         public const int FirstIconsColX = 16;
         public const int FirstIconsRowY = 0;
-        public static int IconRowsCount => Mod.ClientConfig.IconRowsCount;
-        public static int IconColsCount => Mod.ClientConfig.IconColsCount;
+        public ushort IconRowsCount { get; set; }
+        public ushort IconColsCount { get; set; }
         public ScrollbarUI ScrollbarUI {
             get => Elements[0] as ScrollbarUI;
             set => Elements[0] = value;
         }
-        public ScrollerUI ScrollerUI {
-            get => ScrollbarUI.ScrollerUI;
-            set => ScrollbarUI.ScrollerUI = value;
-        }
 
         public static BuffIconsBarUI Default() {
+            ushort iconRowsCount = (ushort)Mod.ClientConfig.IconRowsCount;
+            ushort iconColsCount = (ushort)Mod.ClientConfig.IconColsCount;
             var output = new BuffIconsBarUI {
+                IconRowsCount = iconRowsCount,
+                IconColsCount = iconColsCount,
                 Top = StyleDimension.FromPixels(Mod.ClientConfig.Y),
                 Left = StyleDimension.FromPixels(Mod.ClientConfig.X),
                 Width = StyleDimension.FromPixels(((IconW + IconToIconPad) *
-                    IconColsCount) - IconToIconPad + 16),
+                    iconRowsCount) - IconToIconPad + 16),
                 Height = StyleDimension.FromPixels(((IconH + IconTextH + IconToIconPad) *
-                    IconRowsCount) - IconToIconPad)
+                    iconColsCount) - IconToIconPad),
             };
 
             output.Append(new ScrollbarUI {
@@ -56,8 +55,10 @@ namespace BetterGameUI.UI {
                 Width = StyleDimension.FromPixels(6f),
                 Height = StyleDimension.FromPixels(8f),
                 MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinScrollerHeight),
-                Alpha = 0.5f,
                 CornerHeight = 2,
+                HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier,
+                HitboxHeightModifier = Mod.ClientConfig.ScrollerHitboxHeightModifier,
+                Alpha = 0.5f,
             });
 
             output.Recalculate();
@@ -70,6 +71,10 @@ namespace BetterGameUI.UI {
             // TODO: this should be called at a higher level
             Mod.UpdateActiveBuffsIndexes();
 
+            if (ingameOptionsWindow | playerInventory | inFancyUI) {
+                return;
+            }
+
             if (Mod.ActiveBuffsIndexes.Count <= 0) {
                 ScrollbarUI.MaxScrolls = 0;
             } else {
@@ -79,21 +84,28 @@ namespace BetterGameUI.UI {
 
             ScrollbarUI.IsVisible = Mod.ClientConfig.AlwaysShowScrollbar | 0 < ScrollbarUI.MaxScrolls;
 
-            bool isMouseScrollAllowed =
+            ScrollbarUI.IsMouseScrollAllowed =
                 !Mod.ClientConfig.NeverAllowMouseScroll &
                 Player.IsMouseScrollAllowed &
                 (!Mod.ClientConfig.HoverUIToAllowMouseScroll | IsMouseHovering);
-            bool isScrollerDraggingAllowed = Mod.ClientConfig.AllowScrollerDragging &&
+            ScrollbarUI.IsDraggingScrollerAllowed = Mod.ClientConfig.AllowScrollerDragging &&
                 (!Mod.ClientConfig.LockWhenHotbarIsLocked | !player[myPlayer].hbLocked);
 
-            if (isMouseScrollAllowed & Mod.ClientConfig.SmartLockVanillaMouseScroll) {
+            if (ScrollbarUI.IsMouseScrollAllowed & Mod.ClientConfig.SmartLockVanillaMouseScroll) {
                 PlayerInput.LockVanillaMouseScroll("BuffIconsBarUI");
             }
 
-            ScrollbarUI.ProcessInput(isMouseScrollAllowed, isScrollerDraggingAllowed,
-                Mod.ClientConfig.ScrollerHitboxWidthModifier, Mod.ClientConfig.ScrollerHitboxHeightModifier);
-
             base.Update(gameTime);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch) {
+            // TODO: override OnActivate
+            // TODO: rethink
+            if (ingameOptionsWindow | playerInventory | inFancyUI) {
+                return;
+            }
+
+            base.Draw(spriteBatch);
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
@@ -201,6 +213,8 @@ namespace BetterGameUI.UI {
         }
 
         public void HandleClientConfigChanged() {
+            IconRowsCount = (ushort)Mod.ClientConfig.IconRowsCount;
+            IconColsCount = (ushort)Mod.ClientConfig.IconColsCount;
             Top = StyleDimension.FromPixels(Mod.ClientConfig.Y);
             Left = StyleDimension.FromPixels(Mod.ClientConfig.X);
             Width = StyleDimension.FromPixels(((IconW + IconToIconPad) *
@@ -208,7 +222,10 @@ namespace BetterGameUI.UI {
             Height = StyleDimension.FromPixels(((IconH + IconTextH + IconToIconPad) *
                 IconRowsCount) - IconToIconPad);
 
+            // TODO: rows and cols
             ScrollbarUI.ScrollerUI.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinScrollerHeight);
+            ScrollbarUI.ScrollerUI.HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier;
+            ScrollbarUI.ScrollerUI.HitboxHeightModifier = Mod.ClientConfig.ScrollerHitboxHeightModifier;
             Recalculate();
         }
     }

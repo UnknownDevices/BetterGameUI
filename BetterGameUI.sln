@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.2.32616.157
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetterGameUI", "BetterGameUI.csproj", "{DAA1CBFF-DD7D-49D7-99D9-C56D87D1B4DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetterGameUI", "BetterGameUI.csproj", "{3D1C8068-52CD-46E0-AD27-4172A935706A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DAA1CBFF-DD7D-49D7-99D9-C56D87D1B4DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DAA1CBFF-DD7D-49D7-99D9-C56D87D1B4DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DAA1CBFF-DD7D-49D7-99D9-C56D87D1B4DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DAA1CBFF-DD7D-49D7-99D9-C56D87D1B4DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D1C8068-52CD-46E0-AD27-4172A935706A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D1C8068-52CD-46E0-AD27-4172A935706A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D1C8068-52CD-46E0-AD27-4172A935706A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D1C8068-52CD-46E0-AD27-4172A935706A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {A2F63040-07AB-46AE-8EDC-2DD64AEF0C67}
+		SolutionGuid = {50147476-4E9C-4403-A738-1ECA6C654E50}
 	EndGlobalSection
 EndGlobal

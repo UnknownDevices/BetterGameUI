@@ -6,11 +6,13 @@ using Microsoft.Xna.Framework.Graphics.PackedVector;
 
 namespace BetterGameUI.UI {
     public class ScrollerUI : UIElement {
-        public bool IsVisible { get; set; }
         public int CornerHeight { get; set; }
+        public bool IsVisible { get; set; }
         public bool IsMouseHoveringHitbox { get; set; }
         public bool IsBeingDragged { get; set; }
         public float DraggingPointY { get; set; }
+        public float HitboxWidthModifier { get; set; }
+        public float HitboxHeightModifier { get; set; }
         public float Alpha { get; set; }
 
         public override void Draw(SpriteBatch spriteBatch) {

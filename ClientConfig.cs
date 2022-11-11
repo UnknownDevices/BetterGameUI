@@ -13,6 +13,7 @@ namespace BetterGameUI
         public override void OnLoaded() => BetterGameUI.Mod.ClientConfig = this;
         public override void OnChanged() => BetterGameUI.Mod.RaiseClientConfigChanged();
 
+        // TODO: someway to reset individual fields to default
         // TODO: Rename mod to BetterGameUI
         // TODO: Icons horizontal order config??
         // TODO: Icons vertical order config??
