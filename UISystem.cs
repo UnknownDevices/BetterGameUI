@@ -26,11 +26,14 @@ namespace BetterGameUI
     public class UISystem : ModSystem
     {
         public static UserInterface GameBuffIconsBarUIInterface;
+        public static UserInterface InventoryBuffIconsBarUIInterface;
         public static GameTime LastUpdateUIGameTime;
 
-        public static GameBuffIconsBarUI GameBuffIconsBarUI {
-            get => GameBuffIconsBarUIInterface.CurrentState as GameBuffIconsBarUI;
-        }
+        public static GameBuffIconsBarUI GameBuffIconsBarUI => 
+            GameBuffIconsBarUIInterface.CurrentState as GameBuffIconsBarUI;
+
+        public static InventoryBuffIconsBarUI InventoryBuffIconsBarUI => 
+            InventoryBuffIconsBarUIInterface.CurrentState as InventoryBuffIconsBarUI;
 
         public static void DrawInventory() {
             Recipe.GetThroughDelayedFindRecipes();
@@ -1092,53 +1095,12 @@ namespace BetterGameUI
         }
 
         public static void DrawInventoryBuffIconsBar(ref int num23, ref int num24) {
+            if (InventoryBuffIconsBarUIInterface.CurrentState != null) {
+                InventoryBuffIconsBarUIInterface.Draw(spriteBatch, LastUpdateUIGameTime);
+            }
+
             num24 += 247;
             num23 += 8;
-            int mouseoveredIcon = -1;
-            int num28 = 0;
-            int num29 = 3;
-            int num30 = 260;
-            if (screenHeight > 630 + num30 * (mapStyle == 1).ToInt())
-                num29++;
-
-            if (screenHeight > 680 + num30 * (mapStyle == 1).ToInt())
-                num29++;
-
-            if (screenHeight > 730 + num30 * (mapStyle == 1).ToInt())
-                num29++;
-
-            int num31 = 46;
-            for (int n = 0; n < Terraria.Player.MaxBuffs; n++) {
-                if (player[myPlayer].buffType[n] != 0) {
-                    int num32 = num28 / num29;
-                    int num33 = num28 % num29;
-                    var point = new Point(num23 + num32 * -num31, num24 + num33 * num31);
-                    mouseoveredIcon = DrawBuffIcon(mouseoveredIcon, n, point.X, point.Y);
-                    UILinkPointNavigator.SetPosition(9000 + num28, new Vector2(point.X + 30, point.Y + 30));
-                    num28++;
-                    if (buffAlpha[n] < 0.65f)
-                        buffAlpha[n] = 0.65f;
-                }
-            }
-
-            UILinkPointNavigator.Shortcuts.BUFFS_DRAWN = num28;
-            UILinkPointNavigator.Shortcuts.BUFFS_PER_COLUMN = num29;
-            if (mouseoveredIcon >= 0) {
-                int num34 = player[myPlayer].buffType[mouseoveredIcon];
-                if (num34 > 0) {
-                    string buffName = Lang.GetBuffName(num34);
-                    string buffTooltip = GetBuffTooltip(player[myPlayer], num34);
-                    if (num34 == 147)
-                        bannerMouseOver = true;
-
-                    int rare = 0;
-                    if (meleeBuff[num34])
-                        rare = -10;
-
-                    BuffLoader.ModifyBuffTip(num34, ref buffTooltip, ref rare);
-                    instance.MouseTextHackZoom(buffName, rare, 0);
-                }
-            }
         }
 
         public static bool DrawInterface_Inventory() {
@@ -1193,12 +1155,17 @@ namespace BetterGameUI
                 GameBuffIconsBarUIInterface = new();
                 GameBuffIconsBarUIInterface.SetState(new GameBuffIconsBarUI());
                 GameBuffIconsBarUI.Activate();
+
+                InventoryBuffIconsBarUIInterface = new();
+                InventoryBuffIconsBarUIInterface.SetState(new InventoryBuffIconsBarUI());
+                InventoryBuffIconsBarUI.Activate();
             }
         }
 
         public override void Unload() {
             LastUpdateUIGameTime = null;
             GameBuffIconsBarUIInterface = null;
+            InventoryBuffIconsBarUIInterface = null;
         }
 
         public override void UpdateUI(GameTime gameTime) {
@@ -1206,7 +1173,12 @@ namespace BetterGameUI
             BetterGameUI.Mod.UpdateActiveBuffsIndexes();
 
             LastUpdateUIGameTime = gameTime;
-            if (GameBuffIconsBarUIInterface.CurrentState != null & !ingameOptionsWindow & !playerInventory & !inFancyUI) {
+            if (playerInventory) {
+                if (InventoryBuffIconsBarUIInterface.CurrentState != null & EquipPage == 2) {
+                    // TODO: join Update and Draw
+                    InventoryBuffIconsBarUIInterface.Update(gameTime);
+                }
+            } else if (GameBuffIconsBarUIInterface.CurrentState != null & !ingameOptionsWindow & !inFancyUI) {
                 GameBuffIconsBarUIInterface.Update(gameTime);
             }
         }

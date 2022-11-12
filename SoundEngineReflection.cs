@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Terraria;
 using Terraria.Audio;
 
 namespace BetterGameUI
@@ -11,9 +12,13 @@ namespace BetterGameUI
         public static readonly PlaySoundDelegate PlaySound;
 
         static SoundEngineReflection() {
-            PlaySound = typeof(SoundEngine).
+            try {
+                PlaySound = typeof(SoundEngine).
                 GetMethod("PlaySound", BindingFlags.NonPublic | BindingFlags.Static).
                 CreateDelegate(typeof(PlaySoundDelegate)) as PlaySoundDelegate;
+            } catch {
+                Main.NewText("LOL");
+            }
         }
     }
 }

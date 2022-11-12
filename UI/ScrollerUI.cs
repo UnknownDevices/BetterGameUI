@@ -21,13 +21,13 @@ namespace BetterGameUI.UI
                 base.Draw(spriteBatch);
             }
         }
-
+        
         protected override void DrawSelf(SpriteBatch spriteBatch) {
             var texture = Assets.Scroller.Value;
             var rec = GetDimensions().ToRectangle();
 
             float alpha = Alpha;
-            if (IsMouseHoveringHitbox | IsBeingDragged) {
+            if (((Parent as ScrollbarUI).IsDraggingScrollerAllowed & IsMouseHoveringHitbox) | IsBeingDragged) {
                 // TODO: mod by % of current alpha??
                 alpha = Math.Min(Alpha + 0.5f, 1f);
             }

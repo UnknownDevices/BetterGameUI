@@ -14,6 +14,8 @@ namespace BetterGameUI
 
         public override void OnChanged() => BetterGameUI.Mod.RaiseClientConfigChanged();
 
+        // TODO: config to set bottom or right of an icon bar alternatively
+        // TODO: draw entire equip pages relative to the bottom right of the screen?
         // TODO: someway to reset individual fields to default
         // TODO: Rename mod to BetterGameUI
         // TODO: Icons horizontal order config??
@@ -100,23 +102,25 @@ namespace BetterGameUI
 
         [Header("Inventory's Buff Icons Bar Config")]
 
-        [DefaultValue(16)]
+        // TODO: ability to set pxs and percent
+
+        [DefaultValue(-250)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("X")]
         public int InventoryBarX { get; set; }
 
-        [DefaultValue(76)]
+        [DefaultValue(-60)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("Y")]
         public int InventoryBarY { get; set; }
 
-        [DefaultValue(2)]
+        [DefaultValue(3)]
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconRowsCount")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconRowsCount")]
         public int InventoryBarIconRowsCount { get; set; }
 
-        [DefaultValue(11)]
+        [DefaultValue(6)]
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconColsCount")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconColsCount")]
@@ -128,7 +132,7 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.MinScrollerHeight")]
         public int InventoryBarMinScrollerHeight { get; set; }
 
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         [Label("Order icons from right to left")]
         public bool InventoryBarOrderIconsFromRightToLeft { get; set; }
 

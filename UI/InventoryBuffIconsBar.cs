@@ -1,25 +1,26 @@
-﻿using System.Buffers.Text;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.UI;
 
 namespace BetterGameUI.UI
 {
-    public class GameBuffIconsBarUI : BuffIconsBarUI
+    public class InventoryBuffIconsBarUI : BuffIconsBarUI
     {
-        public GameBuffIconsBarUI() {
+        public InventoryBuffIconsBarUI() {
             ScrollbarReservedWidth = 16;
-            IconRowsCount = (ushort)Mod.ClientConfig.GameBarIconRowsCount;
-            IconColsCount = (ushort)Mod.ClientConfig.GameBarIconColsCount;
-            Top = StyleDimension.FromPixels(Mod.ClientConfig.GameBarY);
-            Left = StyleDimension.FromPixels(Mod.ClientConfig.GameBarX);
+            IconRowsCount = (ushort)Mod.ClientConfig.InventoryBarIconRowsCount;
+            IconColsCount = (ushort)Mod.ClientConfig.InventoryBarIconColsCount;
+            Top = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.InventoryBarY, 1f);
+            Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.InventoryBarX, 1f);
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconRowsCount) - IconToIconPad + ScrollbarReservedWidth);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
                 IconColsCount) - IconToIconPad);
-            IconsHorOrder = Mod.ClientConfig.GameBarOrderIconsFromRightToLeft ?
+            IconsHorOrder = Mod.ClientConfig.InventoryBarOrderIconsFromRightToLeft ?
                 BuffIconsHorOrder.RightToLeft : BuffIconsHorOrder.LeftToRight;
 
+            // TODO: this should be done in BuffIconsBarUI
             Append(new ScrollbarUI
             {
                 Top = StyleDimension.FromPixels(2f),
@@ -37,7 +38,7 @@ namespace BetterGameUI.UI
                 Left = StyleDimension.FromPixels(2f),
                 Width = StyleDimension.FromPixels(6f),
                 Height = StyleDimension.FromPixels(8f),
-                MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.GameBarMinScrollerHeight),
+                MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.InventoryBarMinScrollerHeight),
                 HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier,
                 HitboxHeightModifier = Mod.ClientConfig.ScrollerHitboxHeightModifier,
                 CornerHeight = 2,
@@ -59,7 +60,6 @@ namespace BetterGameUI.UI
                 !Mod.ClientConfig.NeverAllowMouseScroll &
                 Player.IsMouseScrollAllowed &
                 (!Mod.ClientConfig.OnlyAllowMouseScrollWhenHoveringUI | UIElem.IsMouseHovering);
-            UIElem.IsLocked = Mod.ClientConfig.LockGameIconsBarWhenHotbarLocks & Main.player[Main.myPlayer].hbLocked;
 
             BuffIconsBarUI.HandleUpdate(affectedElement);
 
@@ -71,19 +71,20 @@ namespace BetterGameUI.UI
             }
         }
 
+        // TODO: add configs to toggle automatic calculation of X, Y, IconColsCount and IconsRowsCount
         public void HandleClientConfigChanged() {
-            IconRowsCount = (ushort)Mod.ClientConfig.GameBarIconRowsCount;
-            IconColsCount = (ushort)Mod.ClientConfig.GameBarIconColsCount;
-            Top = StyleDimension.FromPixels(Mod.ClientConfig.GameBarY);
-            Left = StyleDimension.FromPixels(Mod.ClientConfig.GameBarX);
+            IconRowsCount = (ushort)Mod.ClientConfig.InventoryBarIconRowsCount;
+            IconColsCount = (ushort)Mod.ClientConfig.InventoryBarIconColsCount;
+            Top = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.InventoryBarY, 1f);
+            Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.InventoryBarX, 1f);
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
                 IconRowsCount) - IconToIconPad);
-            IconsHorOrder = Mod.ClientConfig.GameBarOrderIconsFromRightToLeft ?
+            IconsHorOrder = Mod.ClientConfig.InventoryBarOrderIconsFromRightToLeft ?
                 BuffIconsHorOrder.RightToLeft : BuffIconsHorOrder.LeftToRight;
 
-            ScrollbarUI.ScrollerUI.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.GameBarMinScrollerHeight);
+            ScrollbarUI.ScrollerUI.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.InventoryBarMinScrollerHeight);
             ScrollbarUI.ScrollerUI.HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier;
             ScrollbarUI.ScrollerUI.HitboxHeightModifier = Mod.ClientConfig.ScrollerHitboxHeightModifier;
 

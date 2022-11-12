@@ -24,8 +24,11 @@ namespace BetterGameUI.UI
         public const int IconWidth = 32;
         public const int IconHeight = 32;
         public const int IconTextHeight = 12;
+        // FIXME: am I crazy or is the game's bar not aligned to the center of the hotbar?
+        // FIXME: Inventory's bar's icons are slightly further apart, 41 pxs in total iirc
         public const int IconToIconPad = 6;
 
+        public bool IsLocked;
         public int ScrollbarReservedWidth;
         public BuffIconsHorOrder IconsHorOrder;
         public ushort IconRowsCount;
@@ -39,77 +42,18 @@ namespace BetterGameUI.UI
         public BuffIconsBarUI() {
             OnUpdate += HandleUpdate;
         }
-
-        // TODO: reformat
-        public static int DrawBuffIcon(int drawBuffText, int buffSlotOnPlayer, int x, int y) {
-            int buffTy = player[myPlayer].buffType[buffSlotOnPlayer];
-            if (buffTy == 0) {
-                return drawBuffText;
-            }
-
-            var color = new Color(buffAlpha[buffSlotOnPlayer], buffAlpha[buffSlotOnPlayer], buffAlpha[buffSlotOnPlayer],
-                buffAlpha[buffSlotOnPlayer]);
-
-            Asset<Texture2D> buffAsset = TextureAssets.Buff[buffTy];
-            Texture2D texture = buffAsset.Value;
-            Vector2 drawPosition = new Vector2(x, y);
-            int width = buffAsset.Width();
-            int height = buffAsset.Height();
-            Vector2 textPosition = new Vector2(x, y + height);
-            Rectangle sourceRectangle = new Rectangle(0, 0, width, height);
-            Rectangle mouseRectangle = new Rectangle(x, y, width, height);
-            Color drawColor = color;
-
-            BuffDrawParams drawParams = new BuffDrawParams(texture, drawPosition, textPosition, sourceRectangle, mouseRectangle, drawColor);
-
-            bool skipped = !BuffLoader.PreDraw(spriteBatch, buffTy, buffSlotOnPlayer, ref drawParams);
-
-            (texture, drawPosition, textPosition, sourceRectangle, mouseRectangle, drawColor) = drawParams;
-
-            if (!skipped)
-                spriteBatch.Draw(texture, drawPosition, sourceRectangle, drawColor, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
-
-            BuffLoader.PostDraw(spriteBatch, buffTy, buffSlotOnPlayer, drawParams);
-
-            if (TryGetBuffTime(buffSlotOnPlayer, out int buffTimeValue) && buffTimeValue > 2) {
-                string text = Lang.LocalizedDuration(new TimeSpan(0, 0, buffTimeValue / 60), abbreviated: true, showAllAvailableUnits: false);
-                spriteBatch.DrawString(FontAssets.ItemStack.Value, text, textPosition, color, 0f, default(Vector2), 0.8f, SpriteEffects.None, 0f);
-            }
-
-            if ((!Mod.ClientConfig.LockGameIconsBarWhenHotbarLocks | !player[myPlayer].hbLocked) &&
-                mouseRectangle.Contains(mouseX, mouseY)) {
-                drawBuffText = buffSlotOnPlayer;
-                buffAlpha[buffSlotOnPlayer] += 0.1f;
-
-                bool flag = mouseRight && mouseRightRelease;
-                if (PlayerInput.UsingGamepad) {
-                    flag = (mouseLeft && mouseLeftRelease && playerInventory);
-                    if (playerInventory)
-                        player[myPlayer].mouseInterface = true;
-                }
-                else {
-                    player[myPlayer].mouseInterface = true;
-                }
-
-                if (flag)
-                    flag &= BuffLoader.RightClick(buffTy, buffSlotOnPlayer);
-
-                if (flag)
-                    TryRemovingBuff(buffSlotOnPlayer, buffTy);
+        
+        public static void HandleUpdate(UIElement affectedElement) {
+            var UIElem = affectedElement as BuffIconsBarUI;
+            if (Mod.ActiveBuffsIndexes.Count <= 0) {
+                UIElem.ScrollbarUI.MaxScrolls = 0;
             }
             else {
-                buffAlpha[buffSlotOnPlayer] -= 0.05f;
+                UIElem.ScrollbarUI.MaxScrolls = (uint)Math.Max(
+                    Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)UIElem.IconColsCount) - UIElem.IconRowsCount, 0);
             }
 
-            if (buffAlpha[buffSlotOnPlayer] > 1f)
-                buffAlpha[buffSlotOnPlayer] = 1f;
-            else if (buffAlpha[buffSlotOnPlayer] < 0.4)
-                buffAlpha[buffSlotOnPlayer] = 0.4f;
-
-            if (PlayerInput.UsingGamepad && !playerInventory)
-                drawBuffText = -1;
-
-            return drawBuffText;
+            UIElem.ScrollbarUI.IsDraggingScrollerAllowed = !UIElem.IsLocked;
         }
 
         // TODO: allow inverting icons vertical order
@@ -156,15 +100,77 @@ namespace BetterGameUI.UI
             }
         }
 
-        public static void HandleUpdate(UIElement affectedElement) {
-            var UIElem = affectedElement as BuffIconsBarUI;
-            if (Mod.ActiveBuffsIndexes.Count <= 0) {
-                UIElem.ScrollbarUI.MaxScrolls = 0;
+        // TODO: reformat
+        public int DrawBuffIcon(int drawBuffText, int buffSlotOnPlayer, int x, int y) {
+            int buffTy = player[myPlayer].buffType[buffSlotOnPlayer];
+            if (buffTy == 0) {
+                return drawBuffText;
+            }
+
+            var color = new Color(buffAlpha[buffSlotOnPlayer], buffAlpha[buffSlotOnPlayer], buffAlpha[buffSlotOnPlayer],
+                buffAlpha[buffSlotOnPlayer]);
+
+            Asset<Texture2D> buffAsset = TextureAssets.Buff[buffTy];
+            Texture2D texture = buffAsset.Value;
+            Vector2 drawPosition = new Vector2(x, y);
+            int width = buffAsset.Width();
+            int height = buffAsset.Height();
+            Vector2 textPosition = new Vector2(x, y + height);
+            Rectangle sourceRectangle = new Rectangle(0, 0, width, height);
+            Rectangle mouseRectangle = new Rectangle(x, y, width, height);
+            Color drawColor = color;
+
+            BuffDrawParams drawParams = new BuffDrawParams(texture, drawPosition, textPosition, sourceRectangle, mouseRectangle, drawColor);
+
+            bool skipped = !BuffLoader.PreDraw(spriteBatch, buffTy, buffSlotOnPlayer, ref drawParams);
+
+            (texture, drawPosition, textPosition, sourceRectangle, mouseRectangle, drawColor) = drawParams;
+
+            if (!skipped)
+                spriteBatch.Draw(texture, drawPosition, sourceRectangle, drawColor, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
+
+            BuffLoader.PostDraw(spriteBatch, buffTy, buffSlotOnPlayer, drawParams);
+
+            if (TryGetBuffTime(buffSlotOnPlayer, out int buffTimeValue) && buffTimeValue > 2) {
+                string text = Lang.LocalizedDuration(new TimeSpan(0, 0, buffTimeValue / 60), abbreviated: true, showAllAvailableUnits: false);
+                spriteBatch.DrawString(FontAssets.ItemStack.Value, text, textPosition, color, 0f, default(Vector2), 0.8f, SpriteEffects.None, 0f);
+            }
+
+            if (!IsLocked && mouseRectangle.Contains(mouseX, mouseY)) {
+                drawBuffText = buffSlotOnPlayer;
+                buffAlpha[buffSlotOnPlayer] += 0.1f;
+
+                bool flag = mouseRight && mouseRightRelease;
+                if (PlayerInput.UsingGamepad) {
+                    flag = (mouseLeft && mouseLeftRelease && playerInventory);
+                    if (playerInventory)
+                        player[myPlayer].mouseInterface = true;
+                }
+                else {
+                    player[myPlayer].mouseInterface = true;
+                }
+
+                if (flag)
+                    flag &= BuffLoader.RightClick(buffTy, buffSlotOnPlayer);
+
+                if (flag)
+                    TryRemovingBuff(buffSlotOnPlayer, buffTy);
             }
             else {
-                UIElem.ScrollbarUI.MaxScrolls = (uint)Math.Max(
-                    Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)UIElem.IconColsCount) - UIElem.IconRowsCount, 0);
+                buffAlpha[buffSlotOnPlayer] -= 0.05f;
             }
+
+            if (buffAlpha[buffSlotOnPlayer] > 1f)
+                buffAlpha[buffSlotOnPlayer] = 1f;
+            else if (buffAlpha[buffSlotOnPlayer] < 0.4)
+                buffAlpha[buffSlotOnPlayer] = 0.4f;
+
+            if (PlayerInput.UsingGamepad && !playerInventory)
+                drawBuffText = -1;
+
+            return drawBuffText;
         }
+
+
     }
 }
