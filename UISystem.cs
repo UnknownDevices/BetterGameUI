@@ -25,11 +25,11 @@ namespace BetterGameUI
 {
     public class UISystem : ModSystem
     {
-        public static UserInterface RegularBuffIconsBarUIInterface;
+        public static UserInterface GameBuffIconsBarUIInterface;
         public static GameTime LastUpdateUIGameTime;
 
-        public static RegularBuffIconsBarUI RegularBuffIconsBarUI {
-            get => RegularBuffIconsBarUIInterface.CurrentState as RegularBuffIconsBarUI;
+        public static GameBuffIconsBarUI GameBuffIconsBarUI {
+            get => GameBuffIconsBarUIInterface.CurrentState as GameBuffIconsBarUI;
         }
 
         public static void DrawInventory() {
@@ -1180,8 +1180,8 @@ namespace BetterGameUI
                 DrawInterface_Resources_Breath();
                 DrawInterface_Resources_ClearBuffs();
 
-                if (RegularBuffIconsBarUIInterface.CurrentState != null & !ingameOptionsWindow & !playerInventory & !inFancyUI) {
-                    RegularBuffIconsBarUIInterface.Draw(spriteBatch, LastUpdateUIGameTime);
+                if (GameBuffIconsBarUIInterface.CurrentState != null & !ingameOptionsWindow & !playerInventory & !inFancyUI) {
+                    GameBuffIconsBarUIInterface.Draw(spriteBatch, LastUpdateUIGameTime);
                 }
             }
 
@@ -1190,15 +1190,15 @@ namespace BetterGameUI
 
         public override void Load() {
             if (!dedServ) {
-                RegularBuffIconsBarUIInterface = new();
-                RegularBuffIconsBarUIInterface.SetState(new RegularBuffIconsBarUI());
-                RegularBuffIconsBarUI.Activate();
+                GameBuffIconsBarUIInterface = new();
+                GameBuffIconsBarUIInterface.SetState(new GameBuffIconsBarUI());
+                GameBuffIconsBarUI.Activate();
             }
         }
 
         public override void Unload() {
             LastUpdateUIGameTime = null;
-            RegularBuffIconsBarUIInterface = null;
+            GameBuffIconsBarUIInterface = null;
         }
 
         public override void UpdateUI(GameTime gameTime) {
@@ -1206,8 +1206,8 @@ namespace BetterGameUI
             BetterGameUI.Mod.UpdateActiveBuffsIndexes();
 
             LastUpdateUIGameTime = gameTime;
-            if (RegularBuffIconsBarUIInterface.CurrentState != null & !ingameOptionsWindow & !playerInventory & !inFancyUI) {
-                RegularBuffIconsBarUIInterface.Update(gameTime);
+            if (GameBuffIconsBarUIInterface.CurrentState != null & !ingameOptionsWindow & !playerInventory & !inFancyUI) {
+                GameBuffIconsBarUIInterface.Update(gameTime);
             }
         }
 

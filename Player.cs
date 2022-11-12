@@ -11,7 +11,7 @@ namespace BetterGameUI
             if (KeybindSystem.AllowMouseScroll.GetAssignedKeys().Count <= 0) {
                 IsMouseScrollAllowed = true;
             }
-            else switch (BetterGameUI.Mod.ClientConfig.AllowMouseScrollMode) {
+            else switch (BetterGameUI.Mod.ClientConfig.AllowMouseScrollKeybindMode) {
                     case KeybindMode.Hold: {
                             IsMouseScrollAllowed = KeybindSystem.AllowMouseScroll.Current;
                         }
@@ -28,11 +28,11 @@ namespace BetterGameUI
             if (KeybindSystem.ScrollUp.JustPressed) {
                 // TODO: shouldn't scroll if dragging??
                 // FIXME: wut
-                UISystem.RegularBuffIconsBarUI.ScrollbarUI.Scrolls++;
+                UISystem.GameBuffIconsBarUI.ScrollbarUI.Scrolls++;
             }
 
             if (KeybindSystem.ScrollDown.JustPressed) {
-                UISystem.RegularBuffIconsBarUI.ScrollbarUI.Scrolls--;
+                UISystem.GameBuffIconsBarUI.ScrollbarUI.Scrolls--;
             }
         }
     }

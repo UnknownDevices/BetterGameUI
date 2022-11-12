@@ -4,9 +4,9 @@ using Terraria.UI;
 
 namespace BetterGameUI.UI
 {
-    public class RegularBuffIconsBarUI : BuffIconsBarUI
+    public class GameBuffIconsBarUI : BuffIconsBarUI
     {
-        public RegularBuffIconsBarUI() {
+        public GameBuffIconsBarUI() {
             ScrollbarReservedWidth = 16;
             IconRowsCount = (ushort)Mod.ClientConfig.IconRowsCount;
             IconColsCount = (ushort)Mod.ClientConfig.IconColsCount;
@@ -53,14 +53,14 @@ namespace BetterGameUI.UI
         public new static void HandleUpdate(UIElement affectedElement) {
             var UIElem = affectedElement as BuffIconsBarUI;
             // TODO: just use active/deactive
-            UIElem.ScrollbarUI.IsVisible = Mod.ClientConfig.AlwaysShowScrollbar | 0 < UIElem.ScrollbarUI.MaxScrolls;
+            UIElem.ScrollbarUI.IsVisible = Mod.ClientConfig.NeverHideScrollbar | 0 < UIElem.ScrollbarUI.MaxScrolls;
 
             UIElem.ScrollbarUI.IsMouseScrollAllowed =
                 !Mod.ClientConfig.NeverAllowMouseScroll &
                 Player.IsMouseScrollAllowed &
                 (!Mod.ClientConfig.HoverUIToAllowMouseScroll | UIElem.IsMouseHovering);
             UIElem.ScrollbarUI.IsDraggingScrollerAllowed = Mod.ClientConfig.AllowScrollerDragging &&
-                (!Mod.ClientConfig.LockWhenHotbarIsLocked | !Main.player[Main.myPlayer].hbLocked);
+                (!Mod.ClientConfig.LockWhenHotbarLocks | !Main.player[Main.myPlayer].hbLocked);
 
             if (UIElem.ScrollbarUI.IsMouseScrollAllowed & Mod.ClientConfig.SmartLockVanillaMouseScroll) {
                 PlayerInput.LockVanillaMouseScroll("BuffIconsBarUI");
