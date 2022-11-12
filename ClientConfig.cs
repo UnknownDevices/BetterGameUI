@@ -28,6 +28,16 @@ namespace BetterGameUI
         [Label("Allow mouse scroll keybind mode")]
         public KeybindMode AllowMouseScrollKeybindMode { get; set; }
 
+        [DefaultValue(0)]
+        [Range(int.MinValue, int.MaxValue)]
+        [Label("Scroller hitbox width modifier")]
+        public int ScrollerHitboxWidthModifier { get; set; }
+
+        [DefaultValue(0)]
+        [Range(int.MinValue, int.MaxValue)]
+        [Label("Scroller hitbox height modifier")]
+        public int ScrollerHitboxHeightModifier { get; set; }
+        
         [DefaultValue(true)]
         [Label("Allow scroller dragging")]
         public bool AllowScrollerDragging { get; set; }
@@ -48,16 +58,6 @@ namespace BetterGameUI
         [Label("Lock game's icons bar when hotbar locks")]
         public bool LockGameIconsBarWhenHotbarLocks { get; set; }
 
-        [DefaultValue(0)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("Scroller hitbox width modifier")]
-        public int ScrollerHitboxWidthModifier { get; set; }
-
-        [DefaultValue(0)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("Scroller hitbox height modifier")]
-        public int ScrollerHitboxHeightModifier { get; set; }
-
         // TODO: public ... SnapPoint;
 
         [Header("Game's Buff Icons Bar Config")]
@@ -65,76 +65,76 @@ namespace BetterGameUI
         [DefaultValue(16)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("X")]
-        public int X { get; set; }
+        public int GameBarX { get; set; }
 
         [DefaultValue(76)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("Y")]
-        public int Y { get; set; }
+        public int GameBarY { get; set; }
 
         [DefaultValue(2)]
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconRowsCount")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconRowsCount")]
-        public int IconRowsCount { get; set; }
+        public int GameBarIconRowsCount { get; set; }
 
         [DefaultValue(11)]
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconColsCount")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconColsCount")]
-        public int IconColsCount { get; set; }
+        public int GameBarIconColsCount { get; set; }
 
         [DefaultValue(12)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.MinScrollerHeight")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.MinScrollerHeight")]
-        public int MinScrollerHeight { get; set; }
+        public int GameBarMinScrollerHeight { get; set; }
 
         [DefaultValue(false)]
         [Label("Order icons from right to left")]
-        public bool OrderIconsFromRightToLeft { get; set; }
+        public bool GameBarOrderIconsFromRightToLeft { get; set; }
 
         [DefaultValue(false)]
         [Label("Never hide scrollbar")]
-        public bool NeverHideScrollbar { get; set; }
+        public bool GameBarNeverHideScrollbar { get; set; }
 
         [Header("Inventory's Buff Icons Bar Config")]
 
         [DefaultValue(16)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("X")]
-        public int InventoryX { get; set; }
+        public int InventoryBarX { get; set; }
 
         [DefaultValue(76)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("Y")]
-        public int InventoryY { get; set; }
+        public int InventoryBarY { get; set; }
 
         [DefaultValue(2)]
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconRowsCount")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconRowsCount")]
-        public int InventoryIconRowsCount { get; set; }
+        public int InventoryBarIconRowsCount { get; set; }
 
         [DefaultValue(11)]
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconColsCount")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconColsCount")]
-        public int InventoryIconColsCount { get; set; }
+        public int InventoryBarIconColsCount { get; set; }
 
         [DefaultValue(12)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.MinScrollerHeight")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.MinScrollerHeight")]
-        public int InventoryMinScrollerHeight { get; set; }
+        public int InventoryBarMinScrollerHeight { get; set; }
 
         [DefaultValue(false)]
         [Label("Order icons from right to left")]
-        public bool InventoryOrderIconsFromRightToLeft { get; set; }
+        public bool InventoryBarOrderIconsFromRightToLeft { get; set; }
 
         [DefaultValue(false)]
         [Label("Never hide scrollbar")]
-        public bool InventoryNeverHideScrollbar { get; set; }
+        public bool InventoryBarNeverHideScrollbar { get; set; }
 
         [Header("Misc Config")]
 

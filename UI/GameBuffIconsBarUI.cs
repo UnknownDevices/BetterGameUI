@@ -8,15 +8,15 @@ namespace BetterGameUI.UI
     {
         public GameBuffIconsBarUI() {
             ScrollbarReservedWidth = 16;
-            IconRowsCount = (ushort)Mod.ClientConfig.IconRowsCount;
-            IconColsCount = (ushort)Mod.ClientConfig.IconColsCount;
-            Top = StyleDimension.FromPixels(Mod.ClientConfig.Y);
-            Left = StyleDimension.FromPixels(Mod.ClientConfig.X);
+            IconRowsCount = (ushort)Mod.ClientConfig.GameBarIconRowsCount;
+            IconColsCount = (ushort)Mod.ClientConfig.GameBarIconColsCount;
+            Top = StyleDimension.FromPixels(Mod.ClientConfig.GameBarY);
+            Left = StyleDimension.FromPixels(Mod.ClientConfig.GameBarX);
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconRowsCount) - IconToIconPad + ScrollbarReservedWidth);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
                 IconColsCount) - IconToIconPad);
-            IconsHorOrder = Mod.ClientConfig.OrderIconsFromRightToLeft ?
+            IconsHorOrder = Mod.ClientConfig.GameBarOrderIconsFromRightToLeft ?
                 BuffIconsHorOrder.RightToLeft : BuffIconsHorOrder.LeftToRight;
 
             Append(new ScrollbarUI
@@ -36,7 +36,7 @@ namespace BetterGameUI.UI
                 Left = StyleDimension.FromPixels(2f),
                 Width = StyleDimension.FromPixels(6f),
                 Height = StyleDimension.FromPixels(8f),
-                MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinScrollerHeight),
+                MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.GameBarMinScrollerHeight),
                 HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier,
                 HitboxHeightModifier = Mod.ClientConfig.ScrollerHitboxHeightModifier,
                 CornerHeight = 2,
@@ -53,7 +53,7 @@ namespace BetterGameUI.UI
         public new static void HandleUpdate(UIElement affectedElement) {
             var UIElem = affectedElement as BuffIconsBarUI;
             // TODO: just use active/deactive
-            UIElem.ScrollbarUI.IsVisible = Mod.ClientConfig.NeverHideScrollbar | 0 < UIElem.ScrollbarUI.MaxScrolls;
+            UIElem.ScrollbarUI.IsVisible = Mod.ClientConfig.GameBarNeverHideScrollbar | 0 < UIElem.ScrollbarUI.MaxScrolls;
 
             UIElem.ScrollbarUI.IsMouseScrollAllowed =
                 !Mod.ClientConfig.NeverAllowMouseScroll &
@@ -68,18 +68,18 @@ namespace BetterGameUI.UI
         }
 
         public void HandleClientConfigChanged() {
-            IconRowsCount = (ushort)Mod.ClientConfig.IconRowsCount;
-            IconColsCount = (ushort)Mod.ClientConfig.IconColsCount;
-            Top = StyleDimension.FromPixels(Mod.ClientConfig.Y);
-            Left = StyleDimension.FromPixels(Mod.ClientConfig.X);
+            IconRowsCount = (ushort)Mod.ClientConfig.GameBarIconRowsCount;
+            IconColsCount = (ushort)Mod.ClientConfig.GameBarIconColsCount;
+            Top = StyleDimension.FromPixels(Mod.ClientConfig.GameBarY);
+            Left = StyleDimension.FromPixels(Mod.ClientConfig.GameBarX);
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
                 IconRowsCount) - IconToIconPad);
-            IconsHorOrder = Mod.ClientConfig.OrderIconsFromRightToLeft ?
+            IconsHorOrder = Mod.ClientConfig.GameBarOrderIconsFromRightToLeft ?
                 BuffIconsHorOrder.RightToLeft : BuffIconsHorOrder.LeftToRight;
 
-            ScrollbarUI.ScrollerUI.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinScrollerHeight);
+            ScrollbarUI.ScrollerUI.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.GameBarMinScrollerHeight);
             ScrollbarUI.ScrollerUI.HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier;
             ScrollbarUI.ScrollerUI.HitboxHeightModifier = Mod.ClientConfig.ScrollerHitboxHeightModifier;
 
