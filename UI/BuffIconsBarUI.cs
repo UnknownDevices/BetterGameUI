@@ -76,7 +76,7 @@ namespace BetterGameUI.UI
                 spriteBatch.DrawString(FontAssets.ItemStack.Value, text, textPosition, color, 0f, default(Vector2), 0.8f, SpriteEffects.None, 0f);
             }
 
-            if ((!Mod.ClientConfig.LockWhenHotbarLocks | !player[myPlayer].hbLocked) &&
+            if ((!Mod.ClientConfig.LockGameIconsBarWhenHotbarLocks | !player[myPlayer].hbLocked) &&
                 mouseRectangle.Contains(mouseX, mouseY)) {
                 drawBuffText = buffSlotOnPlayer;
                 buffAlpha[buffSlotOnPlayer] += 0.1f;

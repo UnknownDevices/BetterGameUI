@@ -58,9 +58,9 @@ namespace BetterGameUI.UI
             UIElem.ScrollbarUI.IsMouseScrollAllowed =
                 !Mod.ClientConfig.NeverAllowMouseScroll &
                 Player.IsMouseScrollAllowed &
-                (!Mod.ClientConfig.HoverUIToAllowMouseScroll | UIElem.IsMouseHovering);
+                (!Mod.ClientConfig.OnlyAllowMouseScrollWhenHoveringUI | UIElem.IsMouseHovering);
             UIElem.ScrollbarUI.IsDraggingScrollerAllowed = Mod.ClientConfig.AllowScrollerDragging &&
-                (!Mod.ClientConfig.LockWhenHotbarLocks | !Main.player[Main.myPlayer].hbLocked);
+                (!Mod.ClientConfig.LockGameIconsBarWhenHotbarLocks | !Main.player[Main.myPlayer].hbLocked);
 
             if (UIElem.ScrollbarUI.IsMouseScrollAllowed & Mod.ClientConfig.SmartLockVanillaMouseScroll) {
                 PlayerInput.LockVanillaMouseScroll("BuffIconsBarUI");
