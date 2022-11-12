@@ -152,13 +152,13 @@ namespace BetterGameUI.UI {
             }
         }
 
-        public void HandleUpdate(UIElement affectedElement) {
+        public static void HandleUpdate(UIElement affectedElement) {
+            var UIElem = affectedElement as BuffIconsBarUI;
             if (Mod.ActiveBuffsIndexes.Count <= 0) {
-                ScrollbarUI.MaxScrolls = 0;
-            }
-            else {
-                ScrollbarUI.MaxScrolls = (uint)Math.Max(
-                    Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)IconColsCount) - IconRowsCount, 0);
+                UIElem.ScrollbarUI.MaxScrolls = 0;
+            } else {
+                UIElem.ScrollbarUI.MaxScrolls = (uint)Math.Max(
+                    Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)UIElem.IconColsCount) - UIElem.IconRowsCount, 0);
             }
         }
     }

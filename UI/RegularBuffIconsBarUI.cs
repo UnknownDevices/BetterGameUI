@@ -52,19 +52,19 @@ namespace BetterGameUI.UI {
             Mod.OnClientConfigChanged += HandleClientConfigChanged;
         }
 
-        // TODO: make static??
-        public new void HandleUpdate(UIElement affectedElement) {
+        public static new void HandleUpdate(UIElement affectedElement) {
+            var UIElem = affectedElement as BuffIconsBarUI;
             // TODO: just use active/deactive
-            ScrollbarUI.IsVisible = Mod.ClientConfig.AlwaysShowScrollbar | 0 < ScrollbarUI.MaxScrolls;
+            UIElem.ScrollbarUI.IsVisible = Mod.ClientConfig.AlwaysShowScrollbar | 0 < UIElem.ScrollbarUI.MaxScrolls;
 
-            ScrollbarUI.IsMouseScrollAllowed =
+            UIElem.ScrollbarUI.IsMouseScrollAllowed =
                 !Mod.ClientConfig.NeverAllowMouseScroll &
                 Player.IsMouseScrollAllowed &
-                (!Mod.ClientConfig.HoverUIToAllowMouseScroll | IsMouseHovering);
-            ScrollbarUI.IsDraggingScrollerAllowed = Mod.ClientConfig.AllowScrollerDragging &&
+                (!Mod.ClientConfig.HoverUIToAllowMouseScroll | UIElem.IsMouseHovering);
+            UIElem.ScrollbarUI.IsDraggingScrollerAllowed = Mod.ClientConfig.AllowScrollerDragging &&
                 (!Mod.ClientConfig.LockWhenHotbarIsLocked | !Main.player[Main.myPlayer].hbLocked);
 
-            if (ScrollbarUI.IsMouseScrollAllowed & Mod.ClientConfig.SmartLockVanillaMouseScroll) {
+            if (UIElem.ScrollbarUI.IsMouseScrollAllowed & Mod.ClientConfig.SmartLockVanillaMouseScroll) {
                 PlayerInput.LockVanillaMouseScroll("BuffIconsBarUI");
             }
         }
