@@ -39,6 +39,7 @@ namespace BetterGameUI
         public static readonly DrawGuideCraftTextDelegate DrawGuideCraftText;
         public static readonly Action<int> HoverOverCraftingItemButton;
         public static readonly Action<int> SetRecipeMaterialDisplayName;
+        public static readonly Action DrawInterface_Resources_Breath;
 
         static MainReflection() {
             HackForGamepadInputHell = typeof(Main).
@@ -88,6 +89,9 @@ namespace BetterGameUI
             SetRecipeMaterialDisplayName = typeof(Main).
                 GetMethod("SetRecipeMaterialDisplayName", BindingFlags.NonPublic | BindingFlags.Static).
                 CreateDelegate(typeof(Action<int>)) as Action<int>;
+            DrawInterface_Resources_Breath = typeof(Main).
+                GetMethod("DrawInterface_Resources_Breath", BindingFlags.NonPublic | BindingFlags.Static).
+                CreateDelegate(typeof(Action)) as Action;
         }
     }
 }
