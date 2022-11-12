@@ -1,5 +1,6 @@
 ﻿// STFU Microsoft
 #pragma warning disable CA2211
+
 using BetterGameUI.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,23 +8,26 @@ using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.GameContent.UI.States;
 using Terraria.GameInput;
+using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
-using Terraria.Audio;
-using Terraria.UI.Gamepad;
 using Terraria.UI.Chat;
-using Terraria.ID;
-using Terraria.GameContent.UI.States;
-using Terraria.Localization;
-using static Terraria.Main;
+using Terraria.UI.Gamepad;
 using static BetterGameUI.MainReflection;
+using static Terraria.Main;
 
-namespace BetterGameUI {
-    public class UISystem : ModSystem {
+namespace BetterGameUI
+{
+    public class UISystem : ModSystem
+    {
         public static UserInterface RegularBuffIconsBarUIInterface;
         public static GameTime LastUpdateUIGameTime;
+
         public static RegularBuffIconsBarUI RegularBuffIconsBarUI {
             get => RegularBuffIconsBarUIInterface.CurrentState as RegularBuffIconsBarUI;
         }
@@ -180,9 +184,11 @@ namespace BetterGameUI {
                     case 1:
                         hoverItemName = Lang.inter[80].Value;
                         break;
+
                     case 2:
                         hoverItemName = Lang.inter[79].Value;
                         break;
+
                     case 3:
                         hoverItemName = (CaptureModeDisabled ? Lang.inter[115].Value : Lang.inter[81].Value);
                         break;
@@ -200,6 +206,7 @@ namespace BetterGameUI {
                         case 0:
                             inv = player[myPlayer].miscEquips;
                             break;
+
                         case 1:
                             inv = player[myPlayer].miscDyes;
                             break;
@@ -214,16 +221,20 @@ namespace BetterGameUI {
                                 context = 19;
                                 num25 = 0;
                                 break;
+
                             case 1:
                                 context = 20;
                                 num25 = 1;
                                 break;
+
                             case 2:
                                 context = 18;
                                 break;
+
                             case 3:
                                 context = 17;
                                 break;
+
                             case 4:
                                 context = 16;
                                 break;
@@ -279,9 +290,11 @@ namespace BetterGameUI {
                 }
 
                 DrawInventoryBuffIconsBar(ref num23, ref num24);
-            } else if (EquipPage == 1) {
+            }
+            else if (EquipPage == 1) {
                 DrawNPCHousesInUI(instance);
-            } else if (EquipPage == 0) {// allow mods to add custom equip pages
+            }
+            else if (EquipPage == 0) {// allow mods to add custom equip pages
                 int num35 = 4;
                 if (mouseX > screenWidth - 64 - 28 && mouseX < (int)((float)(screenWidth - 64 - 28) + 56f * inventoryScale) && mouseY > num20 && mouseY < (int)((float)num20 + 448f * inventoryScale) && !PlayerInput.IgnoreMouseInterface)
                     player[myPlayer].mouseInterface = true;
@@ -1204,7 +1217,8 @@ namespace BetterGameUI {
                 layers[index] = new LegacyGameInterfaceLayer(
                     "BetterGameUI: Resource Bars", DrawInterface_ResourceBars,
                     InterfaceScaleType.UI);
-            } else {
+            }
+            else {
                 NewText("[Vanilla: Resource Bars] not found");
             }
 
@@ -1213,7 +1227,8 @@ namespace BetterGameUI {
                 layers[index] = new LegacyGameInterfaceLayer(
                     "BetterGameUI: Inventory", DrawInterface_Inventory,
                     InterfaceScaleType.UI);
-            } else {
+            }
+            else {
                 NewText("[Vanilla: Inventory] not found");
             }
         }

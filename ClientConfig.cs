@@ -1,16 +1,17 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Terraria.ModLoader.Config;
-using System;
-using Humanizer;
-using Newtonsoft.Json.Linq;
 
 namespace BetterGameUI
 {
     // TODO: decide on color scheme
     [Label("$Mods.BetterGameUI.Config.Title.ClientConfig")]
-    public class ClientConfig : ModConfig {
+    public class ClientConfig : ModConfig
+    {
         public override ConfigScope Mode => ConfigScope.ClientSide;
+
         public override void OnLoaded() => BetterGameUI.Mod.ClientConfig = this;
+
         public override void OnChanged() => BetterGameUI.Mod.RaiseClientConfigChanged();
 
         // TODO: someway to reset individual fields to default
@@ -23,7 +24,7 @@ namespace BetterGameUI
         [DefaultValue(KeybindMode.Hold)]
         [Label("Allow mouse scroll mode")]
         public KeybindMode AllowMouseScrollMode { get; set; }
-        
+
         // TODO: sort into categories
         // TODO: have tooltips display the min and max value for the field, as well as the reasoning for these if not obvious
         [DefaultValue(false)]
@@ -36,7 +37,7 @@ namespace BetterGameUI
         [Label("Hover UI to allow mouse scroll")]
         public bool HoverUIToAllowMouseScroll { get; set; }
 
-         [DefaultValue(true)]
+        [DefaultValue(true)]
         [Label("Smart lock vanilla mouse scroll")]
         public bool SmartLockVanillaMouseScroll { get; set; }
 
@@ -65,7 +66,6 @@ namespace BetterGameUI
         [Label("$Mods.BetterGameUI.Config.Label.ExtraPlayerBuffSlots")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.ExtraPlayerBuffSlots")]
         public int ExtraPlayerBuffSlots { get; set; }
-
 
         [DefaultValue(false)]
         [Label("Order icons from right to left")]

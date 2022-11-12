@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using Terraria.Audio;
 
-namespace BetterGameUI {
-    public static class SoundEngineReflection {
+namespace BetterGameUI
+{
+    public static class SoundEngineReflection
+    {
         public delegate void PlaySoundDelegate(
             int type, int x = -1, int y = -1, int Style = 1, float volumeScale = 1f, float pitchOffset = 0f);
+
         public static readonly PlaySoundDelegate PlaySound;
 
         static SoundEngineReflection() {

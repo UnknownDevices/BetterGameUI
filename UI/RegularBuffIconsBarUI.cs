@@ -1,15 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.GameInput;
 using Terraria.UI;
 
-namespace BetterGameUI.UI {
-    public class RegularBuffIconsBarUI : BuffIconsBarUI {
+namespace BetterGameUI.UI
+{
+    public class RegularBuffIconsBarUI : BuffIconsBarUI
+    {
         public RegularBuffIconsBarUI() {
             ScrollbarReservedWidth = 16;
             IconRowsCount = (ushort)Mod.ClientConfig.IconRowsCount;
@@ -23,7 +19,8 @@ namespace BetterGameUI.UI {
             IconsHorOrder = Mod.ClientConfig.OrderIconsFromRightToLeft ?
                 BuffIconsHorOrder.RightToLeft : BuffIconsHorOrder.LeftToRight;
 
-            Append(new ScrollbarUI {
+            Append(new ScrollbarUI
+            {
                 Top = StyleDimension.FromPixels(2f),
                 Left = StyleDimension.FromPixels(2f),
                 Width = StyleDimension.FromPixels(10f),
@@ -33,7 +30,8 @@ namespace BetterGameUI.UI {
                 Alpha = 0.5f,
             });
 
-            ScrollbarUI.Append(new ScrollerUI {
+            ScrollbarUI.Append(new ScrollerUI
+            {
                 Top = StyleDimension.FromPixels(0f),
                 Left = StyleDimension.FromPixels(2f),
                 Width = StyleDimension.FromPixels(6f),
@@ -43,7 +41,7 @@ namespace BetterGameUI.UI {
                 HitboxHeightModifier = Mod.ClientConfig.ScrollerHitboxHeightModifier,
                 CornerHeight = 2,
                 // TODO: this should be set on OnActivate or something like that
-                IsVisible = true, 
+                IsVisible = true,
                 Alpha = 0.5f,
             });
 
@@ -52,7 +50,7 @@ namespace BetterGameUI.UI {
             Mod.OnClientConfigChanged += HandleClientConfigChanged;
         }
 
-        public static new void HandleUpdate(UIElement affectedElement) {
+        public new static void HandleUpdate(UIElement affectedElement) {
             var UIElem = affectedElement as BuffIconsBarUI;
             // TODO: just use active/deactive
             UIElem.ScrollbarUI.IsVisible = Mod.ClientConfig.AlwaysShowScrollbar | 0 < UIElem.ScrollbarUI.MaxScrolls;

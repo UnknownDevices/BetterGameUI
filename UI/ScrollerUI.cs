@@ -1,11 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Terraria.UI;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
+using Terraria.UI;
 
-namespace BetterGameUI.UI {
-    public class ScrollerUI : UIState {
+namespace BetterGameUI.UI
+{
+    public class ScrollerUI : UIState
+    {
         public int CornerHeight;
         public bool IsVisible;
         public bool IsMouseHoveringHitbox;

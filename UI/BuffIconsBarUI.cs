@@ -1,24 +1,26 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using ReLogic.Graphics;
 using System;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.UI;
-using Terraria.GameInput;
 using static Terraria.Main;
-using Terraria.GameContent;
-using Microsoft.Xna.Framework;
-using ReLogic.Graphics;
-using Terraria.DataStructures;
-using ReLogic.Content;
-using System.Linq.Expressions;
 
-namespace BetterGameUI.UI {
-    public enum BuffIconsHorOrder {
+namespace BetterGameUI.UI
+{
+    public enum BuffIconsHorOrder
+    {
         LeftToRight,
         RightToLeft,
     }
 
-    public class BuffIconsBarUI : UIState {
+    public class BuffIconsBarUI : UIState
+    {
         public const int IconWidth = 32;
         public const int IconHeight = 32;
         public const int IconTextHeight = 12;
@@ -28,6 +30,7 @@ namespace BetterGameUI.UI {
         public BuffIconsHorOrder IconsHorOrder;
         public ushort IconRowsCount;
         public ushort IconColsCount;
+
         public ScrollbarUI ScrollbarUI {
             get => Elements[0] as ScrollbarUI;
             set => Elements[0] = value;
@@ -119,16 +122,17 @@ namespace BetterGameUI.UI {
                 int x = 0;
                 switch (IconsHorOrder) {
                     case BuffIconsHorOrder.LeftToRight:
-                        x = rec.Left + ScrollbarReservedWidth + 
-                            (IconWidth + IconToIconPad) * (iconsI % IconColsCount) ;
+                        x = rec.Left + ScrollbarReservedWidth +
+                            (IconWidth + IconToIconPad) * (iconsI % IconColsCount);
                         break;
-                    case BuffIconsHorOrder.RightToLeft: 
-                        x = rec.Left + ScrollbarReservedWidth + 
+
+                    case BuffIconsHorOrder.RightToLeft:
+                        x = rec.Left + ScrollbarReservedWidth +
                             (IconWidth + IconToIconPad) * (IconColsCount - 1 - (iconsI % IconColsCount));
                         break;
                 }
                 int y = rec.Top + (IconHeight + IconTextHeight + IconToIconPad) * (iconsI / IconColsCount);
-                 
+
                 mouseoveredIcon = DrawBuffIcon(mouseoveredIcon, Mod.ActiveBuffsIndexes[iconsI + buffsBegin], x, y);
             }
 
@@ -156,7 +160,8 @@ namespace BetterGameUI.UI {
             var UIElem = affectedElement as BuffIconsBarUI;
             if (Mod.ActiveBuffsIndexes.Count <= 0) {
                 UIElem.ScrollbarUI.MaxScrolls = 0;
-            } else {
+            }
+            else {
                 UIElem.ScrollbarUI.MaxScrolls = (uint)Math.Max(
                     Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)UIElem.IconColsCount) - UIElem.IconRowsCount, 0);
             }

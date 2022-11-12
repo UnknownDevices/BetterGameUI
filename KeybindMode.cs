@@ -1,6 +1,7 @@
 ﻿namespace BetterGameUI
 {
-    public enum KeybindMode { 
+    public enum KeybindMode
+    {
         Hold,
         Toggle,
     }

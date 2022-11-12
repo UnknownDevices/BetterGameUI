@@ -1,13 +1,15 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Terraria.UI;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.GameInput;
+using Terraria.UI;
 
-namespace BetterGameUI.UI {
+namespace BetterGameUI.UI
+{
     // TODO: refactor and generalize to TModLoaderExtensions or something
-    public static class CalculatedStyleExtensions {
+    public static class CalculatedStyleExtensions
+    {
         public static bool Contains(this CalculatedStyle self, float x, float y) {
             if (self.X <= x && x < self.X + self.Width && self.Y <= y) {
                 return y < self.Y + self.Height;
@@ -17,7 +19,8 @@ namespace BetterGameUI.UI {
         }
     }
 
-    public class ScrollbarUI : UIState {
+    public class ScrollbarUI : UIState
+    {
         public int CornerHeight;
         public uint Scrolls;
         public uint MaxScrolls;
@@ -25,6 +28,7 @@ namespace BetterGameUI.UI {
         public bool IsMouseScrollAllowed;
         public bool IsDraggingScrollerAllowed;
         public float Alpha;
+
         public ScrollerUI ScrollerUI {
             get => Elements[0] as ScrollerUI;
             set => Elements[0] = value;
