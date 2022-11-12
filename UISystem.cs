@@ -1164,7 +1164,6 @@ namespace BetterGameUI {
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None,
                    RasterizerState.CullCounterClockwise, null, UIScaleMatrix);
 
-                // TODO: just call Main.DrawBreath through reflection
                 DrawInterface_Resources_Breath();
                 DrawInterface_Resources_ClearBuffs();
 

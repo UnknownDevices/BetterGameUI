@@ -42,7 +42,8 @@ namespace BetterGameUI.UI {
                 HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier,
                 HitboxHeightModifier = Mod.ClientConfig.ScrollerHitboxHeightModifier,
                 CornerHeight = 2,
-                IsVisible = true, // TODO: this should be set on OnActivate or something like that
+                // TODO: this should be set on OnActivate or something like that
+                IsVisible = true, 
                 Alpha = 0.5f,
             });
 
@@ -83,6 +84,7 @@ namespace BetterGameUI.UI {
             ScrollbarUI.ScrollerUI.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinScrollerHeight);
             ScrollbarUI.ScrollerUI.HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier;
             ScrollbarUI.ScrollerUI.HitboxHeightModifier = Mod.ClientConfig.ScrollerHitboxHeightModifier;
+
             Recalculate();
         }
     }
