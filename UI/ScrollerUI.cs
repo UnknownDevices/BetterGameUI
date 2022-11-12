@@ -5,7 +5,7 @@ using System;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 
 namespace BetterGameUI.UI {
-    public class ScrollerUI : UIElement {
+    public class ScrollerUI : UIState {
         public int CornerHeight { get; set; }
         public bool IsVisible { get; set; }
         public bool IsMouseHoveringHitbox { get; set; }
@@ -16,7 +16,7 @@ namespace BetterGameUI.UI {
         public float Alpha { get; set; }
 
         public override void Draw(SpriteBatch spriteBatch) {
-            if (!IsVisible) {
+            if (IsVisible) {
                 base.Draw(spriteBatch);
             }
         }

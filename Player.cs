@@ -19,15 +19,15 @@ namespace BetterGameUI {
                 } break;
             }
 
-            //if (KeybindSystem.ScrollUp.JustPressed) {
-            //    // TODO: shouldn't scroll if dragging??
-            //    // FIXME: wut
-            //    UISystem.BuffIconsBarUI.ScrollbarUI.Scrolls++;
-            //}
+            if (KeybindSystem.ScrollUp.JustPressed) {
+                // TODO: shouldn't scroll if dragging??
+                // FIXME: wut
+                UISystem.RegularBuffIconsBarUI.ScrollbarUI.Scrolls++;
+            }
 
-            //if (KeybindSystem.ScrollDown.JustPressed) {
-            //    UISystem.BuffIconsBarUI.ScrollbarUI.Scrolls--;
-            //}
+            if (KeybindSystem.ScrollDown.JustPressed) {
+                UISystem.RegularBuffIconsBarUI.ScrollbarUI.Scrolls--;
+            }
         }
     }
 }

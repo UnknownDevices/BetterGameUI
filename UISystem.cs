@@ -24,10 +24,10 @@ using static BetterGameUI.MainReflection;
 namespace BetterGameUI {
     public class UISystem : ModSystem {
         // TODO: remove this field if possible
-        public static BuffIconsBarUI BuffIconsBarUI {
-            get => BuffIconsBarUIInterface?.CurrentState as BuffIconsBarUI;
+        public static RegularBuffIconsBarUI RegularBuffIconsBarUI {
+            get => RegularBuffIconsBarUIInterface.CurrentState as RegularBuffIconsBarUI;
         }
-        public static UserInterface BuffIconsBarUIInterface { get; set; }
+        public static UserInterface RegularBuffIconsBarUIInterface { get; set; }
         public static GameTime LastUpdateUIGameTime { get; private set; }
 
         public static void DrawInventory() {
@@ -1189,18 +1189,15 @@ namespace BetterGameUI {
 
         public override void Load() {
             if (!dedServ) {
-                var buffIconsBarUI = BuffIconsBarUI.Default();
-                buffIconsBarUI.Activate();
-                buffIconsBarUI.Recalculate();
-
-                BuffIconsBarUIInterface = new();
-                BuffIconsBarUIInterface.SetState(buffIconsBarUI);
+                RegularBuffIconsBarUIInterface = new();
+                RegularBuffIconsBarUIInterface.SetState(new RegularBuffIconsBarUI());
+                RegularBuffIconsBarUI.Activate();
             }
         }
 
         public override void Unload() {
             LastUpdateUIGameTime = null;
-            BuffIconsBarUIInterface = null;
+            RegularBuffIconsBarUIInterface = null;
         }
 
         public override void UpdateUI(GameTime gameTime) {
@@ -1208,8 +1205,8 @@ namespace BetterGameUI {
             BetterGameUI.Mod.UpdateActiveBuffsIndexes();
 
             LastUpdateUIGameTime = gameTime;
-            if (BuffIconsBarUIInterface.CurrentState != null & !ingameOptionsWindow & !playerInventory & !inFancyUI) {
-                BuffIconsBarUIInterface.Update(gameTime);
+            if (RegularBuffIconsBarUIInterface.CurrentState != null & !ingameOptionsWindow & !playerInventory & !inFancyUI) {
+                RegularBuffIconsBarUIInterface.Update(gameTime);
             }
         }
 
@@ -1250,8 +1247,8 @@ namespace BetterGameUI {
                 DrawBreath();
                 DrawInterface_Resources_ClearBuffs();
                 
-                if (BuffIconsBarUIInterface.CurrentState != null & !ingameOptionsWindow & !playerInventory & !inFancyUI) {
-                    BuffIconsBarUIInterface.Draw(spriteBatch, LastUpdateUIGameTime);
+                if (RegularBuffIconsBarUIInterface.CurrentState != null & !ingameOptionsWindow & !playerInventory & !inFancyUI) {
+                    RegularBuffIconsBarUIInterface.Draw(spriteBatch, LastUpdateUIGameTime);
                 }
             }
 

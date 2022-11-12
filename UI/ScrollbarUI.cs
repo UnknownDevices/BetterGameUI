@@ -16,12 +16,13 @@ namespace BetterGameUI.UI {
             return false;
         }
     }
-    
-    public class ScrollbarUI : UIElement {
-        public ScrollerUI ScrollerUI { 
+
+    public class ScrollbarUI : UIState {
+        public ScrollerUI ScrollerUI {
             get => Elements[0] as ScrollerUI;
             set => Elements[0] = value;
         }
+
         public int CornerHeight { get; set; }
         public uint Scrolls { get; set; }
         public uint MaxScrolls { get; set; }
@@ -29,6 +30,10 @@ namespace BetterGameUI.UI {
         public bool IsMouseScrollAllowed { get; set; }
         public bool IsDraggingScrollerAllowed { get; set; }
         public float Alpha { get; set; }
+
+        public ScrollbarUI() {
+            OnUpdate += HandleUpdate;
+        }
 
         public override void Draw(SpriteBatch spriteBatch) {
             if (IsVisible) {
@@ -63,7 +68,7 @@ namespace BetterGameUI.UI {
                     color);
         }
 
-        public override void Update(GameTime gameTime) {
+        public void HandleUpdate(UIElement affectedElement) {
             var scrollerCalculatedMinHeight = ScrollerUI.MinHeight.GetValue(GetInnerDimensions().Height);
             var scrollerCalculatedMaxHeight = ScrollerUI.MaxHeight.GetValue(GetInnerDimensions().Height);
 
@@ -137,8 +142,6 @@ namespace BetterGameUI.UI {
 
             ScrollerUI.Top = StyleDimension.FromPixels((float)Math.Round(pxsPerScroll * Scrolls));
             ScrollerUI.Recalculate();
-
-            base.Update(gameTime);
         }
     }
 }

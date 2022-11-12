@@ -23,79 +23,18 @@ namespace BetterGameUI.UI {
         public const int IconH = 32;
         public const int IconTextH = 12;
         public const int IconToIconPad = 6;
-        public static int ScrollbarReservedWidth = 16;
 
+        public int ScrollbarReservedWidth;
+        public BuffIconsHorizontalOrder IconsHorizontalOrder;
         public ushort IconRowsCount;
         public ushort IconColsCount;
-        public BuffIconsHorizontalOrder IconsHorizontalOrder;
         public ScrollbarUI ScrollbarUI {
             get => Elements[0] as ScrollbarUI;
             set => Elements[0] = value;
         }
 
-        public static BuffIconsBarUI Default() {
-            var output = new BuffIconsBarUI {
-                IconRowsCount = (ushort)Mod.ClientConfig.IconRowsCount,
-                IconColsCount = (ushort)Mod.ClientConfig.IconColsCount,
-                Top = StyleDimension.FromPixels(Mod.ClientConfig.Y),
-                Left = StyleDimension.FromPixels(Mod.ClientConfig.X),
-                Width = StyleDimension.FromPixels(((IconW + IconToIconPad) *
-                    (ushort)Mod.ClientConfig.IconRowsCount) - IconToIconPad + 16),
-                Height = StyleDimension.FromPixels(((IconH + IconTextH + IconToIconPad) *
-                    (ushort)Mod.ClientConfig.IconColsCount) - IconToIconPad),
-                IconsHorizontalOrder = Mod.ClientConfig.OrderIconsFromRightToLeft ?
-                    BuffIconsHorizontalOrder.RightToLeft : BuffIconsHorizontalOrder.LeftToRight,
-            };
-
-            output.Append(new ScrollbarUI {
-                Top = StyleDimension.FromPixels(2f),
-                Left = StyleDimension.FromPixels(2f),
-                Width = StyleDimension.FromPixels(10f),
-                Height = StyleDimension.FromPixelsAndPercent(-16f, 1f),
-                CornerHeight = 4,
-                Alpha = 0.5f,
-            });
-
-            output.ScrollbarUI.Append(new ScrollerUI {
-                Top = StyleDimension.FromPixels(0f),
-                Left = StyleDimension.FromPixels(2f),
-                Width = StyleDimension.FromPixels(6f),
-                Height = StyleDimension.FromPixels(8f),
-                MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinScrollerHeight),
-                HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier,
-                HitboxHeightModifier = Mod.ClientConfig.ScrollerHitboxHeightModifier,
-                CornerHeight = 2,
-                Alpha = 0.5f,
-            });
-
-            output.Recalculate();
-            Mod.OnClientConfigChanged += output.HandleClientConfigChanged;
-
-            return output;
-        }
-
-        public override void Update(GameTime gameTime) {
-            if (Mod.ActiveBuffsIndexes.Count <= 0) {
-                ScrollbarUI.MaxScrolls = 0;
-            } else {
-                ScrollbarUI.MaxScrolls = (uint)Math.Max(
-                    Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)IconColsCount) - IconRowsCount, 0);
-            }
-
-            ScrollbarUI.IsVisible = Mod.ClientConfig.AlwaysShowScrollbar | 0 < ScrollbarUI.MaxScrolls;
-
-            ScrollbarUI.IsMouseScrollAllowed =
-                !Mod.ClientConfig.NeverAllowMouseScroll &
-                Player.IsMouseScrollAllowed &
-                (!Mod.ClientConfig.HoverUIToAllowMouseScroll | IsMouseHovering);
-            ScrollbarUI.IsDraggingScrollerAllowed = Mod.ClientConfig.AllowScrollerDragging &&
-                (!Mod.ClientConfig.LockWhenHotbarIsLocked | !player[myPlayer].hbLocked);
-
-            if (ScrollbarUI.IsMouseScrollAllowed & Mod.ClientConfig.SmartLockVanillaMouseScroll) {
-                PlayerInput.LockVanillaMouseScroll("BuffIconsBarUI");
-            }
-
-            base.Update(gameTime);
+        public BuffIconsBarUI() {
+            OnUpdate += HandleUpdate;
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
@@ -223,24 +162,14 @@ namespace BetterGameUI.UI {
 
             return drawBuffText;
         }
-
-        public void HandleClientConfigChanged() {
-            IconRowsCount = (ushort)Mod.ClientConfig.IconRowsCount;
-            IconColsCount = (ushort)Mod.ClientConfig.IconColsCount;
-            Top = StyleDimension.FromPixels(Mod.ClientConfig.Y);
-            Left = StyleDimension.FromPixels(Mod.ClientConfig.X);
-            Width = StyleDimension.FromPixels(((IconW + IconToIconPad) *
-                IconColsCount) - IconToIconPad + 16);
-            Height = StyleDimension.FromPixels(((IconH + IconTextH + IconToIconPad) *
-                IconRowsCount) - IconToIconPad);
-            IconsHorizontalOrder = Mod.ClientConfig.OrderIconsFromRightToLeft ? 
-                BuffIconsHorizontalOrder.RightToLeft : BuffIconsHorizontalOrder.LeftToRight;
-
-            // TODO: rows and cols
-            ScrollbarUI.ScrollerUI.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinScrollerHeight);
-            ScrollbarUI.ScrollerUI.HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier;
-            ScrollbarUI.ScrollerUI.HitboxHeightModifier = Mod.ClientConfig.ScrollerHitboxHeightModifier;
-            Recalculate();
+        public void HandleUpdate(UIElement affectedElement) {
+            if (Mod.ActiveBuffsIndexes.Count <= 0) {
+                ScrollbarUI.MaxScrolls = 0;
+            }
+            else {
+                ScrollbarUI.MaxScrolls = (uint)Math.Max(
+                    Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)IconColsCount) - IconRowsCount, 0);
+            }
         }
     }
 }
