@@ -6,14 +6,14 @@ using Microsoft.Xna.Framework.Graphics.PackedVector;
 
 namespace BetterGameUI.UI {
     public class ScrollerUI : UIState {
-        public int CornerHeight { get; set; }
-        public bool IsVisible { get; set; }
-        public bool IsMouseHoveringHitbox { get; set; }
-        public bool IsBeingDragged { get; set; }
-        public float DraggingPointY { get; set; }
-        public float HitboxWidthModifier { get; set; }
-        public float HitboxHeightModifier { get; set; }
-        public float Alpha { get; set; }
+        public int CornerHeight;
+        public bool IsVisible;
+        public bool IsMouseHoveringHitbox;
+        public bool IsBeingDragged;
+        public float DraggingPointY;
+        public float HitboxWidthModifier;
+        public float HitboxHeightModifier;
+        public float Alpha;
 
         public override void Draw(SpriteBatch spriteBatch) {
             if (IsVisible) {

@@ -1,12 +1,11 @@
-﻿using BetterGameUI.UI;
+﻿// STFU Microsoft
+#pragma warning disable CA2211
+using BetterGameUI.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using rail;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameInput;
@@ -23,12 +22,11 @@ using static BetterGameUI.MainReflection;
 
 namespace BetterGameUI {
     public class UISystem : ModSystem {
-        // TODO: remove this field if possible
+        public static UserInterface RegularBuffIconsBarUIInterface;
+        public static GameTime LastUpdateUIGameTime;
         public static RegularBuffIconsBarUI RegularBuffIconsBarUI {
             get => RegularBuffIconsBarUIInterface.CurrentState as RegularBuffIconsBarUI;
         }
-        public static UserInterface RegularBuffIconsBarUIInterface { get; set; }
-        public static GameTime LastUpdateUIGameTime { get; private set; }
 
         public static void DrawInventory() {
             Recipe.GetThroughDelayedFindRecipes();

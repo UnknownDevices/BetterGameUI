@@ -16,12 +16,12 @@ namespace BetterGameUI.UI {
             IconColsCount = (ushort)Mod.ClientConfig.IconColsCount;
             Top = StyleDimension.FromPixels(Mod.ClientConfig.Y);
             Left = StyleDimension.FromPixels(Mod.ClientConfig.X);
-            Width = StyleDimension.FromPixels(((IconW + IconToIconPad) *
+            Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconRowsCount) - IconToIconPad + ScrollbarReservedWidth);
-            Height = StyleDimension.FromPixels(((IconH + IconTextH + IconToIconPad) *
+            Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
                 IconColsCount) - IconToIconPad);
-            IconsHorizontalOrder = Mod.ClientConfig.OrderIconsFromRightToLeft ?
-                BuffIconsHorizontalOrder.RightToLeft : BuffIconsHorizontalOrder.LeftToRight;
+            IconsHorOrder = Mod.ClientConfig.OrderIconsFromRightToLeft ?
+                BuffIconsHorOrder.RightToLeft : BuffIconsHorOrder.LeftToRight;
 
             Append(new ScrollbarUI {
                 Top = StyleDimension.FromPixels(2f),
@@ -29,6 +29,7 @@ namespace BetterGameUI.UI {
                 Width = StyleDimension.FromPixels(10f),
                 Height = StyleDimension.FromPixelsAndPercent(-16f, 1f),
                 CornerHeight = 4,
+                IsVisible = true,
                 Alpha = 0.5f,
             });
 
@@ -41,6 +42,7 @@ namespace BetterGameUI.UI {
                 HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier,
                 HitboxHeightModifier = Mod.ClientConfig.ScrollerHitboxHeightModifier,
                 CornerHeight = 2,
+                IsVisible = true, // TODO: this should be set on OnActivate or something like that
                 Alpha = 0.5f,
             });
 
@@ -71,12 +73,12 @@ namespace BetterGameUI.UI {
             IconColsCount = (ushort)Mod.ClientConfig.IconColsCount;
             Top = StyleDimension.FromPixels(Mod.ClientConfig.Y);
             Left = StyleDimension.FromPixels(Mod.ClientConfig.X);
-            Width = StyleDimension.FromPixels(((IconW + IconToIconPad) *
+            Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
-            Height = StyleDimension.FromPixels(((IconH + IconTextH + IconToIconPad) *
+            Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
                 IconRowsCount) - IconToIconPad);
-            IconsHorizontalOrder = Mod.ClientConfig.OrderIconsFromRightToLeft ?
-                BuffIconsHorizontalOrder.RightToLeft : BuffIconsHorizontalOrder.LeftToRight;
+            IconsHorOrder = Mod.ClientConfig.OrderIconsFromRightToLeft ?
+                BuffIconsHorOrder.RightToLeft : BuffIconsHorOrder.LeftToRight;
 
             ScrollbarUI.ScrollerUI.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinScrollerHeight);
             ScrollbarUI.ScrollerUI.HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier;

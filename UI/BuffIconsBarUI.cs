@@ -13,19 +13,19 @@ using ReLogic.Content;
 using System.Linq.Expressions;
 
 namespace BetterGameUI.UI {
-    public enum BuffIconsHorizontalOrder {
+    public enum BuffIconsHorOrder {
         LeftToRight,
         RightToLeft,
     }
 
     public class BuffIconsBarUI : UIState {
-        public const int IconW = 32;
-        public const int IconH = 32;
-        public const int IconTextH = 12;
+        public const int IconWidth = 32;
+        public const int IconHeight = 32;
+        public const int IconTextHeight = 12;
         public const int IconToIconPad = 6;
 
         public int ScrollbarReservedWidth;
-        public BuffIconsHorizontalOrder IconsHorizontalOrder;
+        public BuffIconsHorOrder IconsHorOrder;
         public ushort IconRowsCount;
         public ushort IconColsCount;
         public ScrollbarUI ScrollbarUI {
@@ -37,59 +37,6 @@ namespace BetterGameUI.UI {
             OnUpdate += HandleUpdate;
         }
 
-        protected override void DrawSelf(SpriteBatch spriteBatch) {
-            var rec = GetDimensions().ToRectangle();
-            int mouseoveredIcon = -1;
-            int buffsBegin = (int)ScrollbarUI.Scrolls * IconColsCount;
-            int iconsEnd = Math.Min(Mod.ActiveBuffsIndexes.Count - buffsBegin, IconRowsCount * IconColsCount);
-            for (int iconsI = 0; iconsI < iconsEnd; ++iconsI) {
-                int x = 0;
-                switch (IconsHorizontalOrder) {
-                    case BuffIconsHorizontalOrder.LeftToRight:
-                        x = rec.Left + ScrollbarReservedWidth + 
-                            (IconW + IconToIconPad) * (iconsI % IconColsCount) ;
-                        break;
-                    case BuffIconsHorizontalOrder.RightToLeft: 
-                        x = rec.Left + ScrollbarReservedWidth + 
-                            (IconW + IconToIconPad) * (IconColsCount - 1 - (iconsI % IconColsCount));
-                        break;
-                }
-                int y = rec.Top + (IconH + IconTextH + IconToIconPad) * (iconsI / IconColsCount);
-
-                // TODO: scrolling needs to be inverted for this to work
-                //int y = 0;
-                //switch (IconsVerticalOrder) {
-                //    case BuffIconsVerticalOrder.TopToBottom:
-                //        y = rec.Top + (IconH + IconTextH + IconToIconPad) * (iconsI / IconColsCount);
-                //        break;
-                //    case BuffIconsVerticalOrder.BottomToTop:
-                //        y = rec.Top + (IconH + IconTextH + IconToIconPad) * (IconRowsCount - 1 - (iconsI / IconColsCount));
-                //        break;
-                //}
-
-                mouseoveredIcon = DrawBuffIcon(mouseoveredIcon, Mod.ActiveBuffsIndexes[iconsI + buffsBegin], x, y);
-            }
-
-            if (mouseoveredIcon >= 0) {
-                int buffTy = player[myPlayer].buffType[mouseoveredIcon];
-                if (buffTy > 0) {
-                    string buffName = Lang.GetBuffName(buffTy);
-                    string buffTooltip = GetBuffTooltip(player[myPlayer], buffTy);
-
-                    int buffRarity = 0;
-                    if (meleeBuff[buffTy]) {
-                        buffRarity = -10;
-                    }
-                    if (buffTy == 147) {
-                        bannerMouseOver = true;
-                    }
-
-                    BuffLoader.ModifyBuffTip(buffTy, ref buffTooltip, ref buffRarity);
-                    instance.MouseTextHackZoom(buffName, buffRarity, 0, buffTooltip);
-                }
-            }
-        }
-
         // TODO: reformat
         public static int DrawBuffIcon(int drawBuffText, int buffSlotOnPlayer, int x, int y) {
             int buffTy = player[myPlayer].buffType[buffSlotOnPlayer];
@@ -97,9 +44,9 @@ namespace BetterGameUI.UI {
                 return drawBuffText;
             }
 
-            var color = new Color(buffAlpha[buffSlotOnPlayer], buffAlpha[buffSlotOnPlayer], buffAlpha[buffSlotOnPlayer], 
+            var color = new Color(buffAlpha[buffSlotOnPlayer], buffAlpha[buffSlotOnPlayer], buffAlpha[buffSlotOnPlayer],
                 buffAlpha[buffSlotOnPlayer]);
-            
+
             Asset<Texture2D> buffAsset = TextureAssets.Buff[buffTy];
             Texture2D texture = buffAsset.Value;
             Vector2 drawPosition = new Vector2(x, y);
@@ -126,9 +73,8 @@ namespace BetterGameUI.UI {
                 spriteBatch.DrawString(FontAssets.ItemStack.Value, text, textPosition, color, 0f, default(Vector2), 0.8f, SpriteEffects.None, 0f);
             }
 
-            if ((!Mod.ClientConfig.LockWhenHotbarIsLocked | !player[myPlayer].hbLocked) && 
-                mouseRectangle.Contains(mouseX, mouseY)) 
-            {
+            if ((!Mod.ClientConfig.LockWhenHotbarIsLocked | !player[myPlayer].hbLocked) &&
+                mouseRectangle.Contains(mouseX, mouseY)) {
                 drawBuffText = buffSlotOnPlayer;
                 buffAlpha[buffSlotOnPlayer] += 0.1f;
 
@@ -162,6 +108,50 @@ namespace BetterGameUI.UI {
 
             return drawBuffText;
         }
+
+        // TODO: allow inverting icons vertical order
+        protected override void DrawSelf(SpriteBatch spriteBatch) {
+            var rec = GetDimensions().ToRectangle();
+            int mouseoveredIcon = -1;
+            int buffsBegin = (int)ScrollbarUI.Scrolls * IconColsCount;
+            int iconsEnd = Math.Min(Mod.ActiveBuffsIndexes.Count - buffsBegin, IconRowsCount * IconColsCount);
+            for (int iconsI = 0; iconsI < iconsEnd; ++iconsI) {
+                int x = 0;
+                switch (IconsHorOrder) {
+                    case BuffIconsHorOrder.LeftToRight:
+                        x = rec.Left + ScrollbarReservedWidth + 
+                            (IconWidth + IconToIconPad) * (iconsI % IconColsCount) ;
+                        break;
+                    case BuffIconsHorOrder.RightToLeft: 
+                        x = rec.Left + ScrollbarReservedWidth + 
+                            (IconWidth + IconToIconPad) * (IconColsCount - 1 - (iconsI % IconColsCount));
+                        break;
+                }
+                int y = rec.Top + (IconHeight + IconTextHeight + IconToIconPad) * (iconsI / IconColsCount);
+                 
+                mouseoveredIcon = DrawBuffIcon(mouseoveredIcon, Mod.ActiveBuffsIndexes[iconsI + buffsBegin], x, y);
+            }
+
+            if (mouseoveredIcon >= 0) {
+                int buffTy = player[myPlayer].buffType[mouseoveredIcon];
+                if (buffTy > 0) {
+                    string buffName = Lang.GetBuffName(buffTy);
+                    string buffTooltip = GetBuffTooltip(player[myPlayer], buffTy);
+
+                    int buffRarity = 0;
+                    if (meleeBuff[buffTy]) {
+                        buffRarity = -10;
+                    }
+                    if (buffTy == 147) {
+                        bannerMouseOver = true;
+                    }
+
+                    BuffLoader.ModifyBuffTip(buffTy, ref buffTooltip, ref buffRarity);
+                    instance.MouseTextHackZoom(buffName, buffRarity, 0, buffTooltip);
+                }
+            }
+        }
+
         public void HandleUpdate(UIElement affectedElement) {
             if (Mod.ActiveBuffsIndexes.Count <= 0) {
                 ScrollbarUI.MaxScrolls = 0;

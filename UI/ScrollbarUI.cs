@@ -18,18 +18,17 @@ namespace BetterGameUI.UI {
     }
 
     public class ScrollbarUI : UIState {
+        public int CornerHeight;
+        public uint Scrolls;
+        public uint MaxScrolls;
+        public bool IsVisible;
+        public bool IsMouseScrollAllowed;
+        public bool IsDraggingScrollerAllowed;
+        public float Alpha;
         public ScrollerUI ScrollerUI {
             get => Elements[0] as ScrollerUI;
             set => Elements[0] = value;
         }
-
-        public int CornerHeight { get; set; }
-        public uint Scrolls { get; set; }
-        public uint MaxScrolls { get; set; }
-        public bool IsVisible { get; set; }
-        public bool IsMouseScrollAllowed { get; set; }
-        public bool IsDraggingScrollerAllowed { get; set; }
-        public float Alpha { get; set; }
 
         public ScrollbarUI() {
             OnUpdate += HandleUpdate;
