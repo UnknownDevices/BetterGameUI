@@ -292,7 +292,10 @@ namespace BetterGameUI
                     }
                 }
 
-                DrawInventoryBuffIconsBar(ref num23, ref num24);
+                if (InventoryBuffIconsBarUIInterface.CurrentState != null) {
+                    InventoryBuffIconsBarUIInterface.Update(LastUpdateUIGameTime);
+                    InventoryBuffIconsBarUIInterface.Draw(spriteBatch, LastUpdateUIGameTime);
+                }
             }
             else if (EquipPage == 1) {
                 DrawNPCHousesInUI(instance);
@@ -1094,15 +1097,6 @@ namespace BetterGameUI
                 instance.MouseText(Language.GetTextValue("GameUI.SortInventory"), 0, 0);
         }
 
-        public static void DrawInventoryBuffIconsBar(ref int num23, ref int num24) {
-            if (InventoryBuffIconsBarUIInterface.CurrentState != null) {
-                InventoryBuffIconsBarUIInterface.Draw(spriteBatch, LastUpdateUIGameTime);
-            }
-
-            num24 += 247;
-            num23 += 8;
-        }
-
         public static bool DrawInterface_Inventory() {
             HackForGamepadInputHell(instance);
             if (playerInventory) {
@@ -1143,6 +1137,7 @@ namespace BetterGameUI
                 DrawInterface_Resources_ClearBuffs();
 
                 if (GameBuffIconsBarUIInterface.CurrentState != null & !ingameOptionsWindow & !playerInventory & !inFancyUI) {
+                    GameBuffIconsBarUIInterface.Update(LastUpdateUIGameTime);
                     GameBuffIconsBarUIInterface.Draw(spriteBatch, LastUpdateUIGameTime);
                 }
             }
@@ -1167,20 +1162,12 @@ namespace BetterGameUI
             GameBuffIconsBarUIInterface = null;
             InventoryBuffIconsBarUIInterface = null;
         }
-
+         
         public override void UpdateUI(GameTime gameTime) {
             // TODO: this should be called at a higher level
             BetterGameUI.Mod.UpdateActiveBuffsIndexes();
 
             LastUpdateUIGameTime = gameTime;
-            if (playerInventory) {
-                if (InventoryBuffIconsBarUIInterface.CurrentState != null & EquipPage == 2) {
-                    // TODO: join Update and Draw
-                    InventoryBuffIconsBarUIInterface.Update(gameTime);
-                }
-            } else if (GameBuffIconsBarUIInterface.CurrentState != null & !ingameOptionsWindow & !inFancyUI) {
-                GameBuffIconsBarUIInterface.Update(gameTime);
-            }
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {
