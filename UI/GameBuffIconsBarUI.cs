@@ -11,8 +11,8 @@ namespace BetterGameUI.UI
             ScrollbarReservedWidth = 16;
             IconRowsCount = (ushort)Mod.ClientConfig.GameBarIconRowsCount;
             IconColsCount = (ushort)Mod.ClientConfig.GameBarIconColsCount;
-            Top = StyleDimension.FromPixels(Mod.ClientConfig.GameBarY);
-            Left = StyleDimension.FromPixels(Mod.ClientConfig.GameBarX);
+            Top = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.GameBarYPxs, Mod.ClientConfig.GameBarYPercent);
+            Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.GameBarXPxs, Mod.ClientConfig.GameBarXPercent);
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconRowsCount) - IconToIconPad + ScrollbarReservedWidth);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
@@ -74,8 +74,8 @@ namespace BetterGameUI.UI
         public void HandleClientConfigChanged() {
             IconRowsCount = (ushort)Mod.ClientConfig.GameBarIconRowsCount;
             IconColsCount = (ushort)Mod.ClientConfig.GameBarIconColsCount;
-            Top = StyleDimension.FromPixels(Mod.ClientConfig.GameBarY);
-            Left = StyleDimension.FromPixels(Mod.ClientConfig.GameBarX);
+            Top = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.GameBarYPxs, Mod.ClientConfig.GameBarYPercent);
+            Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.GameBarXPxs, Mod.ClientConfig.GameBarXPercent);
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *

@@ -66,13 +66,23 @@ namespace BetterGameUI
 
         [DefaultValue(16)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("X")]
-        public int GameBarX { get; set; }
+        [Label("X pixels")]
+        public int GameBarXPxs { get; set; }
+
+        [DefaultValue(0f)]
+        [Range(float.MinValue, float.MaxValue)]
+        [Label("X percent")]
+        public int GameBarXPercent { get; set; }
 
         [DefaultValue(76)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("Y")]
-        public int GameBarY { get; set; }
+        [Label("Y pixels")]
+        public int GameBarYPxs { get; set; }
+
+        [DefaultValue(0f)]
+        [Range(float.MinValue, float.MaxValue)]
+        [Label("Y percent")]
+        public int GameBarYPercent { get; set; }
 
         [DefaultValue(2)]
         [Range(ushort.MinValue, ushort.MaxValue)]
@@ -102,17 +112,25 @@ namespace BetterGameUI
 
         [Header("Inventory's Buff Icons Bar Config")]
 
-        // TODO: ability to set pxs and percent
-
         [DefaultValue(-250)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("X")]
-        public int InventoryBarX { get; set; }
+        [Label("X pixels")]
+        public int InventoryBarXPxs { get; set; }
+
+        [DefaultValue(1f)]
+        [Range(float.MinValue, float.MaxValue)]
+        [Label("X percent")]
+        public int InventoryBarXPercent { get; set; }
 
         [DefaultValue(-60)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("Y")]
-        public int InventoryBarY { get; set; }
+        [Label("Y pixels")]
+        public int InventoryBarYPxs { get; set; }
+
+        [DefaultValue(1f)]
+        [Range(float.MinValue, float.MaxValue)]
+        [Label("Y percent")]
+        public int InventoryBarYPercent { get; set; }
 
         [DefaultValue(3)]
         [Range(ushort.MinValue, ushort.MaxValue)]

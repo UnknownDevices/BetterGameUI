@@ -11,8 +11,8 @@ namespace BetterGameUI.UI
             ScrollbarReservedWidth = 16;
             IconRowsCount = (ushort)Mod.ClientConfig.InventoryBarIconRowsCount;
             IconColsCount = (ushort)Mod.ClientConfig.InventoryBarIconColsCount;
-            Top = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.InventoryBarY, 1f);
-            Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.InventoryBarX, 1f);
+            Top = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.InventoryBarYPxs, Mod.ClientConfig.InventoryBarYPercent);
+            Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.InventoryBarXPxs, Mod.ClientConfig.InventoryBarXPercent);
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconRowsCount) - IconToIconPad + ScrollbarReservedWidth);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
@@ -75,8 +75,8 @@ namespace BetterGameUI.UI
         public void HandleClientConfigChanged() {
             IconRowsCount = (ushort)Mod.ClientConfig.InventoryBarIconRowsCount;
             IconColsCount = (ushort)Mod.ClientConfig.InventoryBarIconColsCount;
-            Top = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.InventoryBarY, 1f);
-            Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.InventoryBarX, 1f);
+            Top = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.InventoryBarYPxs, Mod.ClientConfig.InventoryBarYPercent);
+            Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.InventoryBarXPxs, Mod.ClientConfig.InventoryBarXPercent);
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
