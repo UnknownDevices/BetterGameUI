@@ -14,7 +14,8 @@ namespace BetterGameUI
         static SoundEngineReflection() {
             PlaySoundInfo = typeof(SoundEngine).
             GetMethod("PlaySound", 
-            BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.DeclaredOnly, new[] { typeof(int), typeof(int), typeof(int), typeof(int), typeof(float), typeof(float)});
+            BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.DeclaredOnly, 
+            new[] { typeof(int), typeof(int), typeof(int), typeof(int), typeof(float), typeof(float)});
         }
     }
 }
