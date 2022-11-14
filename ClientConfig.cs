@@ -22,7 +22,7 @@ namespace BetterGameUI
         // TODO: Icons vertical order config??
         // TODO: do localization
         // TODO: make custom config fields, have input field one clamp values outside given range
-        // TODO: Invert mouse scroll config
+        // TODO: Invert mouse scroll input config
         // TODO: have tooltips display the min and max value for the field, as well as the reasoning for these if not obvious
         [Header("Input Config")]
 
@@ -60,7 +60,6 @@ namespace BetterGameUI
         [Label("Lock game's icons bar when hotbar locks")]
         public bool LockGameIconsBarWhenHotbarLocks { get; set; }
 
-        // TODO: public ... SnapPoint;
 
         [Header("Game's Buff Icons Bar Config")]
 
@@ -110,6 +109,7 @@ namespace BetterGameUI
         [Label("Never hide scrollbar")]
         public bool GameBarNeverHideScrollbar { get; set; }
 
+
         [Header("Inventory's Buff Icons Bar Config")]
 
         [DefaultValue(-250)]
@@ -157,6 +157,7 @@ namespace BetterGameUI
         [DefaultValue(false)]
         [Label("Never hide scrollbar")]
         public bool InventoryBarNeverHideScrollbar { get; set; }
+
 
         [Header("Misc Config")]
 

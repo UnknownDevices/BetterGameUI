@@ -109,7 +109,6 @@ namespace BetterGameUI
 
                 int num14 = 0;
                 for (int k = 0; k < 4; k++) {
-                    int num15 = 255;
                     int num16 = num12 + k * 32 - num14;
                     int num17 = num13;
                     if (flag) {
@@ -118,7 +117,7 @@ namespace BetterGameUI
                     }
 
                     int num18 = k;
-                    num15 = 120;
+                    int num15 = 120;
                     if (k > 0 && mapStyle == k - 1)
                         num15 = 200;
 
