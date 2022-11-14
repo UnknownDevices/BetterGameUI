@@ -121,7 +121,7 @@ namespace BetterGameUI
         [Label("X percent")]
         public int InventoryBarXPercent { get; set; }
 
-        [DefaultValue(-244)]
+        [DefaultValue(-252)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("Y pixels")]
         public int InventoryBarYPxs { get; set; }
