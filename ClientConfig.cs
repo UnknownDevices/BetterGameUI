@@ -109,10 +109,9 @@ namespace BetterGameUI
         [Label("Never hide scrollbar")]
         public bool GameBarNeverHideScrollbar { get; set; }
 
-
         [Header("Inventory's Buff Icons Bar Config")]
 
-        [DefaultValue(-250)]
+        [DefaultValue(-288)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("X pixels")]
         public int InventoryBarXPxs { get; set; }
@@ -122,7 +121,7 @@ namespace BetterGameUI
         [Label("X percent")]
         public int InventoryBarXPercent { get; set; }
 
-        [DefaultValue(-60)]
+        [DefaultValue(-244)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("Y pixels")]
         public int InventoryBarYPxs { get; set; }
