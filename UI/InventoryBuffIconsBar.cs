@@ -48,24 +48,20 @@ namespace BetterGameUI.UI
             });
 
             Recalculate();
-            OnUpdate -= BuffIconsBarUI.HandleUpdate;
-            OnUpdate += HandleUpdate;
             Mod.OnClientConfigChanged += HandleClientConfigChanged;
         }
 
-        public new static void HandleUpdate(UIElement affectedElement) {
-            var UIElem = affectedElement as BuffIconsBarUI;
-
-            UIElem.ScrollbarUI.IsMouseScrollAllowed &=
+        public override void UpdateBeforeDraw() {
+            ScrollbarUI.IsMouseScrollAllowed &=
                 !Mod.ClientConfig.NeverAllowMouseScroll &
                 Player.IsMouseScrollAllowed &
-                (!Mod.ClientConfig.OnlyAllowMouseScrollWhenHoveringUI | UIElem.IsMouseHovering);
-            UIElem.ScrollbarUI.IsDraggingScrollerAllowed &= Mod.ClientConfig.AllowScrollerDragging;
-            UIElem.ScrollbarUI.IsVisible &= Mod.ClientConfig.GameBarNeverHideScrollbar | 0 < UIElem.ScrollbarUI.MaxScrolls;
+                (!Mod.ClientConfig.OnlyAllowMouseScrollWhenHoveringUI | IsMouseHovering);
+            ScrollbarUI.IsDraggingScrollerAllowed &= Mod.ClientConfig.AllowScrollerDragging;
+            ScrollbarUI.IsVisible &= Mod.ClientConfig.GameBarNeverHideScrollbar | 0 < ScrollbarUI.MaxScrolls;
 
-            BuffIconsBarUI.HandleUpdate(affectedElement);
+            base.UpdateBeforeDraw();
 
-            if (UIElem.ScrollbarUI.IsMouseScrollAllowed & Mod.ClientConfig.SmartLockVanillaMouseScroll) {
+            if (ScrollbarUI.IsMouseScrollAllowed & Mod.ClientConfig.SmartLockVanillaMouseScroll) {
                 PlayerInput.LockVanillaMouseScroll("BuffIconsBarUI");
             }
         }

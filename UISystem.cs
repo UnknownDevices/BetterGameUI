@@ -292,7 +292,6 @@ namespace BetterGameUI
                 }
 
                 if (InventoryBuffIconsBarUIInterface.CurrentState != null) {
-                    InventoryBuffIconsBarUIInterface.Update(LastUpdateUIGameTime);
                     InventoryBuffIconsBarUIInterface.Draw(spriteBatch, LastUpdateUIGameTime);
                 }
             }
@@ -1136,7 +1135,6 @@ namespace BetterGameUI
                 DrawInterface_Resources_ClearBuffs();
 
                 if (GameBuffIconsBarUIInterface.CurrentState != null & !ingameOptionsWindow & !playerInventory & !inFancyUI) {
-                    GameBuffIconsBarUIInterface.Update(LastUpdateUIGameTime);
                     GameBuffIconsBarUIInterface.Draw(spriteBatch, LastUpdateUIGameTime);
                 }
             }
@@ -1167,6 +1165,15 @@ namespace BetterGameUI
             BetterGameUI.Mod.UpdateActiveBuffsIndexes();
 
             LastUpdateUIGameTime = gameTime;
+            if (LastUpdateUIGameTime != null) {
+                if (GameBuffIconsBarUIInterface != null) {
+                    GameBuffIconsBarUIInterface.Update(LastUpdateUIGameTime);
+                }
+
+                if (InventoryBuffIconsBarUIInterface != null) {
+                    InventoryBuffIconsBarUIInterface.Update(LastUpdateUIGameTime);
+                }
+            }
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {
@@ -1177,7 +1184,7 @@ namespace BetterGameUI
                     InterfaceScaleType.UI);
             }
             else {
-                NewText("[Vanilla: Resource Bars] not found");
+                NewText("'Vanilla: Resource Bars' interface layer not found");
             }
 
             index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
@@ -1187,7 +1194,7 @@ namespace BetterGameUI
                     InterfaceScaleType.UI);
             }
             else {
-                NewText("[Vanilla: Inventory] not found");
+                NewText("'Vanilla: Inventory' interface layer not found");
             }
         }
     }

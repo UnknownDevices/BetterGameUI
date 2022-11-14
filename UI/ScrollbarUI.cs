@@ -21,12 +21,12 @@ namespace BetterGameUI.UI
 
     public class ScrollbarUI : UIState
     {
+        public bool IsVisible = true;
+        public bool IsMouseScrollAllowed = true;
+        public bool IsDraggingScrollerAllowed = true;
         public int CornerHeight;
         public uint Scrolls;
         public uint MaxScrolls;
-        public bool IsVisible;
-        public bool IsMouseScrollAllowed;
-        public bool IsDraggingScrollerAllowed;
         public float Alpha;
 
         public ScrollerUI ScrollerUI {
@@ -34,11 +34,9 @@ namespace BetterGameUI.UI
             set => Elements[0] = value;
         }
 
-        public ScrollbarUI() {
-            OnUpdate += HandleUpdate;
-        }
-
         public override void Draw(SpriteBatch spriteBatch) {
+            UpdateBeforeDraw();
+
             if (IsVisible) {
                 base.Draw(spriteBatch);
             }
@@ -75,7 +73,7 @@ namespace BetterGameUI.UI
                     color);
         }
 
-        public void HandleUpdate(UIElement affectedElement) {
+        public virtual void UpdateBeforeDraw() {
             var scrollerCalculatedMinHeight = ScrollerUI.MinHeight.GetValue(GetInnerDimensions().Height);
             var scrollerCalculatedMaxHeight = ScrollerUI.MaxHeight.GetValue(GetInnerDimensions().Height);
 

@@ -28,10 +28,10 @@ namespace BetterGameUI.UI
         // FIXME: Inventory's bar's icons are slightly further apart, 41 pxs in total iirc
         public const int IconToIconPad = 6;
 
-        public bool IsVisible;
-        public bool IsLocked;
-        public int ScrollbarReservedWidth;
+        public bool IsVisible = true;
+        public bool IsLocked = false;
         public BuffIconsHorOrder IconsHorOrder;
+        public int ScrollbarReservedWidth;
         public ushort IconRowsCount;
         public ushort IconColsCount;
 
@@ -40,24 +40,9 @@ namespace BetterGameUI.UI
             set => Elements[0] = value;
         }
 
-        public BuffIconsBarUI() {
-            OnUpdate += HandleUpdate;
-        }
-        
-        public static void HandleUpdate(UIElement affectedElement) {
-            var UIElem = affectedElement as BuffIconsBarUI;
-            if (Mod.ActiveBuffsIndexes.Count <= 0) {
-                UIElem.ScrollbarUI.MaxScrolls = 0;
-            }
-            else {
-                UIElem.ScrollbarUI.MaxScrolls = (uint)Math.Max(
-                    Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)UIElem.IconColsCount) - UIElem.IconRowsCount, 0);
-            }
-
-            UIElem.ScrollbarUI.IsDraggingScrollerAllowed &= !UIElem.IsLocked;
-        }
-
         public override void Draw(SpriteBatch spriteBatch) {
+            UpdateBeforeDraw();
+
             if (IsVisible) {
                 base.Draw(spriteBatch);
             }
@@ -110,7 +95,18 @@ namespace BetterGameUI.UI
             }
         }
 
-        // TODO: reformat
+        public virtual void UpdateBeforeDraw() {
+            if (Mod.ActiveBuffsIndexes.Count <= 0) {
+                ScrollbarUI.MaxScrolls = 0;
+            }
+            else {
+                ScrollbarUI.MaxScrolls = (uint)Math.Max(
+                    Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)IconColsCount) - IconRowsCount, 0);
+            }
+
+            ScrollbarUI.IsDraggingScrollerAllowed &= !IsLocked;
+        }
+
         public int DrawBuffIcon(int drawBuffText, int buffSlotOnPlayer, int x, int y) {
             int buffTy = player[myPlayer].buffType[buffSlotOnPlayer];
             if (buffTy == 0) {

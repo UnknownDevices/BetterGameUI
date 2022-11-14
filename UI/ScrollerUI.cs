@@ -7,10 +7,10 @@ namespace BetterGameUI.UI
 {
     public class ScrollerUI : UIState
     {
-        public int CornerHeight;
-        public bool IsVisible;
+        public bool IsVisible = true;
         public bool IsMouseHoveringHitbox;
         public bool IsBeingDragged;
+        public int CornerHeight;
         public float DraggingPointY;
         public float HitboxWidthModifier;
         public float HitboxHeightModifier;
