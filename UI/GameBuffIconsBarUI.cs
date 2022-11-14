@@ -8,28 +8,42 @@ namespace BetterGameUI.UI
     public class GameBuffIconsBarUI : BuffIconsBarUI
     {
         public GameBuffIconsBarUI() {
-            ScrollbarReservedWidth = 16;
+            ScrollbarReservedWidth = 14;
             IconRowsCount = (ushort)Mod.ClientConfig.GameBarIconRowsCount;
             IconColsCount = (ushort)Mod.ClientConfig.GameBarIconColsCount;
             Top = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.GameBarYPxs, Mod.ClientConfig.GameBarYPercent);
-            Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.GameBarXPxs, Mod.ClientConfig.GameBarXPercent);
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconRowsCount) - IconToIconPad + ScrollbarReservedWidth);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
                 IconColsCount) - IconToIconPad);
-            IconsHorOrder = Mod.ClientConfig.GameBarOrderIconsFromRightToLeft ?
-                BuffIconsHorOrder.RightToLeft : BuffIconsHorOrder.LeftToRight;
+            HitboxWidthModifier = Mod.ClientConfig.GameIconsBarHitboxWidthModifier;
+            HitboxHeightModifier = Mod.ClientConfig.GameIconsBarHitboxHeightModifier;
+            ScrollbarPosition = Mod.ClientConfig.GameScrollbarPosition;
+            IconsHorOrder = Mod.ClientConfig.GameIconsHorOrder;
 
+            // TODO: some of this should be done in BuffIconsBarUI
             Append(new ScrollbarUI
             {
                 Top = StyleDimension.FromPixels(2f),
-                Left = StyleDimension.FromPixels(2f),
                 Width = StyleDimension.FromPixels(10f),
                 Height = StyleDimension.FromPixelsAndPercent(-16f, 1f),
                 CornerHeight = 4,
                 IsVisible = true,
                 Alpha = 0.5f,
             });
+
+            switch (ScrollbarPosition) {
+                case ScrollbarPosition.LeftOfIcons:
+                    Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.GameBarXPxs - ScrollbarReservedWidth,
+                        Mod.ClientConfig.GameBarXPercent);
+                    ScrollbarUI.Left = StyleDimension.FromPixels(0f);
+                    break;
+                case ScrollbarPosition.RightOfIcons:
+                    Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.GameBarXPxs,
+                        Mod.ClientConfig.GameBarXPercent);
+                    ScrollbarUI.Left = StyleDimension.FromPixelsAndPercent(-ScrollbarReservedWidth + 4, 1f);
+                    break;
+            }
 
             ScrollbarUI.Append(new ScrollerUI
             {
@@ -52,14 +66,15 @@ namespace BetterGameUI.UI
 
         public override void UpdateBeforeDraw() {
             IsLocked |= Mod.ClientConfig.LockGameIconsBarWhenHotbarLocks & Main.player[Main.myPlayer].hbLocked;
-            ScrollbarUI.IsMouseScrollAllowed &=
-                !Mod.ClientConfig.NeverAllowMouseScroll &
-                Player.IsMouseScrollAllowed &
-                (!Mod.ClientConfig.OnlyAllowMouseScrollWhenHoveringUI | IsMouseHovering);
             ScrollbarUI.IsDraggingScrollerAllowed &= Mod.ClientConfig.AllowScrollerDragging;
             ScrollbarUI.IsVisible &= Mod.ClientConfig.GameBarNeverHideScrollbar | 0 < ScrollbarUI.MaxScrolls;
 
             base.UpdateBeforeDraw();
+
+            ScrollbarUI.IsMouseScrollAllowed &=
+                !Mod.ClientConfig.NeverAllowMouseScroll &
+                Player.IsMouseScrollAllowed &
+                (!Mod.ClientConfig.OnlyAllowMouseScrollWhenHoveringUI | IsMouseHoveringHitbox);
 
             if (ScrollbarUI.IsMouseScrollAllowed & Mod.ClientConfig.SmartLockVanillaMouseScroll) {
                 PlayerInput.LockVanillaMouseScroll("BuffIconsBarUI");
@@ -70,13 +85,27 @@ namespace BetterGameUI.UI
             IconRowsCount = (ushort)Mod.ClientConfig.GameBarIconRowsCount;
             IconColsCount = (ushort)Mod.ClientConfig.GameBarIconColsCount;
             Top = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.GameBarYPxs, Mod.ClientConfig.GameBarYPercent);
-            Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.GameBarXPxs, Mod.ClientConfig.GameBarXPercent);
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
                 IconRowsCount) - IconToIconPad);
-            IconsHorOrder = Mod.ClientConfig.GameBarOrderIconsFromRightToLeft ?
-                BuffIconsHorOrder.RightToLeft : BuffIconsHorOrder.LeftToRight;
+            HitboxWidthModifier = Mod.ClientConfig.GameIconsBarHitboxWidthModifier;
+            HitboxHeightModifier = Mod.ClientConfig.GameIconsBarHitboxHeightModifier;
+            ScrollbarPosition = Mod.ClientConfig.GameScrollbarPosition;
+            IconsHorOrder = Mod.ClientConfig.GameIconsHorOrder;
+
+            switch (ScrollbarPosition) {
+                case ScrollbarPosition.LeftOfIcons:
+                    Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.GameBarXPxs - ScrollbarReservedWidth,
+                        Mod.ClientConfig.GameBarXPercent);
+                    ScrollbarUI.Left = StyleDimension.FromPixels(0f);
+                    break;
+                case ScrollbarPosition.RightOfIcons:
+                    Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.GameBarXPxs,
+                        Mod.ClientConfig.GameBarXPercent);
+                    ScrollbarUI.Left = StyleDimension.FromPixelsAndPercent(-ScrollbarReservedWidth + 4, 1f);
+                    break;
+            }
 
             ScrollbarUI.ScrollerUI.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.GameBarMinScrollerHeight);
             ScrollbarUI.ScrollerUI.HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier;

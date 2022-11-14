@@ -13,6 +13,12 @@ using static Terraria.Main;
 
 namespace BetterGameUI.UI
 {
+    public enum ScrollbarPosition 
+    {
+        LeftOfIcons,
+        RightOfIcons,
+    }
+
     public enum BuffIconsHorOrder
     {
         LeftToRight,
@@ -24,13 +30,15 @@ namespace BetterGameUI.UI
         public const int IconWidth = 32;
         public const int IconHeight = 32;
         public const int IconTextHeight = 12;
-        // FIXME: am I crazy or is the game's bar not aligned to the center of the hotbar?
-        // FIXME: Inventory's bar's icons are slightly further apart, 41 pxs in total iirc
         public const int IconToIconPad = 6;
 
         public bool IsVisible = true;
         public bool IsLocked = false;
+        public bool IsMouseHoveringHitbox;
+        public ScrollbarPosition ScrollbarPosition;
         public BuffIconsHorOrder IconsHorOrder;
+        public int HitboxWidthModifier;
+        public int HitboxHeightModifier;
         public int ScrollbarReservedWidth;
         public ushort IconRowsCount;
         public ushort IconColsCount;
@@ -61,15 +69,17 @@ namespace BetterGameUI.UI
                 int x = 0;
                 switch (IconsHorOrder) {
                     case BuffIconsHorOrder.LeftToRight:
-                        x = rec.Left + ScrollbarReservedWidth +
-                            (IconWidth + IconToIconPad) * (iconsI % IconColsCount);
+                        x = rec.Left + (IconWidth + IconToIconPad) * (iconsI % IconColsCount);
                         break;
-
                     case BuffIconsHorOrder.RightToLeft:
-                        x = rec.Left + ScrollbarReservedWidth +
-                            (IconWidth + IconToIconPad) * (IconColsCount - 1 - (iconsI % IconColsCount));
+                        x = rec.Left + (IconWidth + IconToIconPad) * (IconColsCount - 1 - (iconsI % IconColsCount));
                         break;
                 }
+                
+                if (ScrollbarPosition == ScrollbarPosition.LeftOfIcons) {
+                    x += ScrollbarReservedWidth;
+                }
+
                 int y = rec.Top + (IconHeight + IconTextHeight + IconToIconPad) * (iconsI / IconColsCount);
 
                 mouseoveredIcon = DrawBuffIcon(mouseoveredIcon, Mod.ActiveBuffsIndexes[iconsI + buffsBegin], x, y);
@@ -96,6 +106,19 @@ namespace BetterGameUI.UI
         }
 
         public virtual void UpdateBeforeDraw() {
+            var hitbox = GetDimensions();
+            if (HitboxWidthModifier != 0) {
+                hitbox.X -= (float)HitboxWidthModifier / 2;
+                hitbox.Width += HitboxWidthModifier;
+            }
+            if (HitboxHeightModifier != 0) {
+                hitbox.Y -= (float)HitboxHeightModifier / 2;
+                hitbox.Height += HitboxHeightModifier;
+            }
+            float mouseX = PlayerInput.MouseInfo.X / Main.UIScale;
+            float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;
+            IsMouseHoveringHitbox = hitbox.Contains(mouseX, mouseY);
+
             if (Mod.ActiveBuffsIndexes.Count <= 0) {
                 ScrollbarUI.MaxScrolls = 0;
             }

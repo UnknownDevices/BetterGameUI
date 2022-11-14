@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BetterGameUI.UI;
+using System;
 using System.ComponentModel;
 using Terraria.ModLoader.Config;
 
@@ -29,6 +30,26 @@ namespace BetterGameUI
         [DefaultValue(KeybindMode.Hold)]
         [Label("Allow mouse scroll keybind mode")]
         public KeybindMode AllowMouseScrollKeybindMode { get; set; }
+
+        [DefaultValue(0)]
+        [Range(int.MinValue, int.MaxValue)]
+        [Label("Game's icons bar hitbox width modifier")]
+        public int GameIconsBarHitboxWidthModifier { get; set; }
+
+        [DefaultValue(0)]
+        [Range(int.MinValue, int.MaxValue)]
+        [Label("Game's icons bar hitbox height modifier")]
+        public int GameIconsBarHitboxHeightModifier { get; set; }
+
+        [DefaultValue(0)]
+        [Range(int.MinValue, int.MaxValue)]
+        [Label("Inventory's icons bar hitbox width modifier")]
+        public int InventoryIconsBarHitboxWidthModifier { get; set; }
+
+        [DefaultValue(0)]
+        [Range(int.MinValue, int.MaxValue)]
+        [Label("Inventory's icons bar hitbox height modifier")]
+        public int InventoryIconsBarHitboxHeightModifier { get; set; }
 
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
@@ -63,7 +84,15 @@ namespace BetterGameUI
 
         [Header("Game's Buff Icons Bar Config")]
 
-        [DefaultValue(16)]
+        [DefaultValue(ScrollbarPosition.LeftOfIcons)]
+        [Label("Scrollbar position")]
+        public ScrollbarPosition GameScrollbarPosition { get; set; }
+
+        [DefaultValue(BuffIconsHorOrder.LeftToRight)]
+        [Label("Icons horizontal order")]
+        public BuffIconsHorOrder GameIconsHorOrder { get; set; }
+
+        [DefaultValue(32)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("X pixels")]
         public int GameBarXPxs { get; set; }
@@ -102,16 +131,21 @@ namespace BetterGameUI
         public int GameBarMinScrollerHeight { get; set; }
 
         [DefaultValue(false)]
-        [Label("Order icons from right to left")]
-        public bool GameBarOrderIconsFromRightToLeft { get; set; }
-
-        [DefaultValue(false)]
         [Label("Never hide scrollbar")]
         public bool GameBarNeverHideScrollbar { get; set; }
 
+
         [Header("Inventory's Buff Icons Bar Config")]
 
-        [DefaultValue(-288)]
+        [DefaultValue(ScrollbarPosition.RightOfIcons)]
+        [Label("Scrollbar position")]
+        public ScrollbarPosition InventoryScrollbarPosition { get; set; }
+
+        [DefaultValue(BuffIconsHorOrder.RightToLeft)]
+        [Label("Icons horizontal order")]
+        public BuffIconsHorOrder InventoryIconsHorOrder { get; set; }
+
+        [DefaultValue(-272)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("X pixels")]
         public int InventoryBarXPxs { get; set; }
@@ -148,10 +182,6 @@ namespace BetterGameUI
         [Label("$Mods.BetterGameUI.Config.Label.MinScrollerHeight")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.MinScrollerHeight")]
         public int InventoryBarMinScrollerHeight { get; set; }
-
-        [DefaultValue(true)]
-        [Label("Order icons from right to left")]
-        public bool InventoryBarOrderIconsFromRightToLeft { get; set; }
 
         [DefaultValue(false)]
         [Label("Never hide scrollbar")]
