@@ -55,16 +55,15 @@ namespace BetterGameUI.UI
         public new static void HandleUpdate(UIElement affectedElement) {
             var UIElem = affectedElement as BuffIconsBarUI;
 
-            UIElem.ScrollbarUI.IsMouseScrollAllowed =
+            UIElem.IsLocked |= Mod.ClientConfig.LockGameIconsBarWhenHotbarLocks & Main.player[Main.myPlayer].hbLocked;
+            UIElem.ScrollbarUI.IsMouseScrollAllowed &=
                 !Mod.ClientConfig.NeverAllowMouseScroll &
                 Player.IsMouseScrollAllowed &
                 (!Mod.ClientConfig.OnlyAllowMouseScrollWhenHoveringUI | UIElem.IsMouseHovering);
-            UIElem.IsLocked = Mod.ClientConfig.LockGameIconsBarWhenHotbarLocks & Main.player[Main.myPlayer].hbLocked;
+            UIElem.ScrollbarUI.IsDraggingScrollerAllowed &= Mod.ClientConfig.AllowScrollerDragging;
+            UIElem.ScrollbarUI.IsVisible &= Mod.ClientConfig.GameBarNeverHideScrollbar | 0 < UIElem.ScrollbarUI.MaxScrolls;
 
             BuffIconsBarUI.HandleUpdate(affectedElement);
-
-            UIElem.ScrollbarUI.IsDraggingScrollerAllowed &= Mod.ClientConfig.AllowScrollerDragging;
-            UIElem.ScrollbarUI.IsVisible = Mod.ClientConfig.GameBarNeverHideScrollbar | 0 < UIElem.ScrollbarUI.MaxScrolls;
 
             if (UIElem.ScrollbarUI.IsMouseScrollAllowed & Mod.ClientConfig.SmartLockVanillaMouseScroll) {
                 PlayerInput.LockVanillaMouseScroll("BuffIconsBarUI");

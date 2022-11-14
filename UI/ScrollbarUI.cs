@@ -42,6 +42,10 @@ namespace BetterGameUI.UI
             if (IsVisible) {
                 base.Draw(spriteBatch);
             }
+
+            IsVisible = true;
+            IsMouseScrollAllowed = true;
+            IsDraggingScrollerAllowed = true;
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {

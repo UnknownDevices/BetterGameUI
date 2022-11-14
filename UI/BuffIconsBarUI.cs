@@ -28,6 +28,7 @@ namespace BetterGameUI.UI
         // FIXME: Inventory's bar's icons are slightly further apart, 41 pxs in total iirc
         public const int IconToIconPad = 6;
 
+        public bool IsVisible;
         public bool IsLocked;
         public int ScrollbarReservedWidth;
         public BuffIconsHorOrder IconsHorOrder;
@@ -53,7 +54,16 @@ namespace BetterGameUI.UI
                     Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)UIElem.IconColsCount) - UIElem.IconRowsCount, 0);
             }
 
-            UIElem.ScrollbarUI.IsDraggingScrollerAllowed = !UIElem.IsLocked;
+            UIElem.ScrollbarUI.IsDraggingScrollerAllowed &= !UIElem.IsLocked;
+        }
+
+        public override void Draw(SpriteBatch spriteBatch) {
+            if (IsVisible) {
+                base.Draw(spriteBatch);
+            }
+
+            IsVisible = true;
+            IsLocked = false;
         }
 
         // TODO: allow inverting icons vertical order
@@ -170,7 +180,5 @@ namespace BetterGameUI.UI
 
             return drawBuffText;
         }
-
-
     }
 }

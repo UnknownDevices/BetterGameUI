@@ -20,8 +20,10 @@ namespace BetterGameUI.UI
             if (IsVisible) {
                 base.Draw(spriteBatch);
             }
+
+            IsVisible = true;
         }
-        
+
         protected override void DrawSelf(SpriteBatch spriteBatch) {
             var texture = Assets.Scroller.Value;
             var rec = GetDimensions().ToRectangle();
