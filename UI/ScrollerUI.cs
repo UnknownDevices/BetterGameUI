@@ -30,7 +30,7 @@ namespace BetterGameUI.UI
 
             float alpha = Alpha;
             if (((Parent as ScrollbarUI).IsDraggingScrollerAllowed & IsMouseHoveringHitbox) | IsBeingDragged) {
-                // TODO: mod by % of current alpha??
+                // TODO: mod by percent of current alpha instead?
                 alpha = Math.Min(Alpha + 0.5f, 1f);
             }
 

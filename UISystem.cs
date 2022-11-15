@@ -29,10 +29,10 @@ namespace BetterGameUI
         public static UserInterface InventoryBuffIconsBarUIInterface;
         public static GameTime LastUpdateUIGameTime;
 
-        public static GameBuffIconsBarUI GameBuffIconsBarUI => 
+        public static GameBuffIconsBarUI GameBuffIconsBarUI =>
             GameBuffIconsBarUIInterface.CurrentState as GameBuffIconsBarUI;
 
-        public static InventoryBuffIconsBarUI InventoryBuffIconsBarUI => 
+        public static InventoryBuffIconsBarUI InventoryBuffIconsBarUI =>
             InventoryBuffIconsBarUIInterface.CurrentState as InventoryBuffIconsBarUI;
 
         public static void DrawInventory() {
@@ -603,7 +603,6 @@ namespace BetterGameUI
                                                                 //before we roll the prefix, we simply copy over the old mod data before doing so
                                 Item r = new Item();
                                 r.netDefaults(reforgeItem.netID);
-                                //TODO: Delet this. //CB: method only used here, probably a poor implementation
                                 r = r.CloneWithModdedDataFrom(reforgeItem);
                                 r.Prefix(-2);
                                 reforgeItem = r.Clone();
@@ -1159,7 +1158,7 @@ namespace BetterGameUI
             GameBuffIconsBarUIInterface = null;
             InventoryBuffIconsBarUIInterface = null;
         }
-         
+
         public override void UpdateUI(GameTime gameTime) {
             // TODO: this should be called at a higher level
             BetterGameUI.Mod.UpdateActiveBuffsIndexes();

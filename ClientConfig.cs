@@ -5,7 +5,6 @@ using Terraria.ModLoader.Config;
 
 namespace BetterGameUI
 {
-    // TODO: decide on color scheme
     [Label("$Mods.BetterGameUI.Config.Title.ClientConfig")]
     public class ClientConfig : ModConfig
     {
@@ -16,17 +15,16 @@ namespace BetterGameUI
         public override void OnChanged() => BetterGameUI.Mod.RaiseClientConfigChanged();
 
         // TODO: config to set bottom or right of an icon bar alternatively
+        // TODO: config to invert icons vertical order
         // TODO: draw entire equip pages relative to the bottom right of the screen?
-        // TODO: someway to reset individual fields to default
-        // TODO: Rename mod to BetterGameUI
-        // TODO: Icons horizontal order config??
-        // TODO: Icons vertical order config??
-        // TODO: do localization
-        // TODO: make custom config fields, have input field one clamp values outside given range
         // TODO: Invert mouse scroll input config
         // TODO: have tooltips display the min and max value for the field, as well as the reasoning for these if not obvious
-        [Header("Input Config")]
+        // TODO: have ReloadRequired fields mention they are so in their tooltips
+        // TODO: do localization
 
+        // TODO: look into making custom config fields?
+        // TODO: someway to reset individual fields to default
+        [Header("Input Config")]
         [DefaultValue(KeybindMode.Hold)]
         [Label("Allow mouse scroll keybind mode")]
         public KeybindMode AllowMouseScrollKeybindMode { get; set; }
@@ -60,7 +58,7 @@ namespace BetterGameUI
         [Range(int.MinValue, int.MaxValue)]
         [Label("Scroller hitbox height modifier")]
         public int ScrollerHitboxHeightModifier { get; set; }
-        
+
         [DefaultValue(true)]
         [Label("Allow scroller dragging")]
         public bool AllowScrollerDragging { get; set; }
@@ -81,9 +79,7 @@ namespace BetterGameUI
         [Label("Lock game's icons bar when hotbar locks")]
         public bool LockGameIconsBarWhenHotbarLocks { get; set; }
 
-
         [Header("Game's Buff Icons Bar Config")]
-
         [DefaultValue(ScrollbarPosition.LeftOfIcons)]
         [Label("Scrollbar position")]
         public ScrollbarPosition GameScrollbarPosition { get; set; }
@@ -134,9 +130,7 @@ namespace BetterGameUI
         [Label("Never hide scrollbar")]
         public bool GameBarNeverHideScrollbar { get; set; }
 
-
         [Header("Inventory's Buff Icons Bar Config")]
-
         [DefaultValue(ScrollbarPosition.RightOfIcons)]
         [Label("Scrollbar position")]
         public ScrollbarPosition InventoryScrollbarPosition { get; set; }
@@ -187,10 +181,7 @@ namespace BetterGameUI
         [Label("Never hide scrollbar")]
         public bool InventoryBarNeverHideScrollbar { get; set; }
 
-
         [Header("Misc Config")]
-
-        // TODO: have ReloadRequired fields mention they are so in their tooltips
         [ReloadRequired]
         [DefaultValue(0)]
         [Range(uint.MinValue, uint.MaxValue)]

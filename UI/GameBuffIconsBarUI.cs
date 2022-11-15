@@ -1,5 +1,4 @@
-﻿using System.Buffers.Text;
-using Terraria;
+﻿using Terraria;
 using Terraria.GameInput;
 using Terraria.UI;
 
@@ -21,7 +20,6 @@ namespace BetterGameUI.UI
             ScrollbarPosition = Mod.ClientConfig.GameScrollbarPosition;
             IconsHorOrder = Mod.ClientConfig.GameIconsHorOrder;
 
-            // TODO: some of this should be done in BuffIconsBarUI
             Append(new ScrollbarUI
             {
                 Top = StyleDimension.FromPixels(2f),
@@ -38,6 +36,7 @@ namespace BetterGameUI.UI
                         Mod.ClientConfig.GameBarXPercent);
                     ScrollbarUI.Left = StyleDimension.FromPixels(0f);
                     break;
+
                 case ScrollbarPosition.RightOfIcons:
                     Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.GameBarXPxs,
                         Mod.ClientConfig.GameBarXPercent);
@@ -55,8 +54,6 @@ namespace BetterGameUI.UI
                 HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier,
                 HitboxHeightModifier = Mod.ClientConfig.ScrollerHitboxHeightModifier,
                 CornerHeight = 2,
-                // TODO: this should be set on OnActivate or something like that
-                IsVisible = true,
                 Alpha = 0.5f,
             });
 
@@ -89,10 +86,10 @@ namespace BetterGameUI.UI
                 IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
                 IconRowsCount) - IconToIconPad);
-            HitboxWidthModifier = Mod.ClientConfig.GameIconsBarHitboxWidthModifier;
-            HitboxHeightModifier = Mod.ClientConfig.GameIconsBarHitboxHeightModifier;
             ScrollbarPosition = Mod.ClientConfig.GameScrollbarPosition;
             IconsHorOrder = Mod.ClientConfig.GameIconsHorOrder;
+            HitboxWidthModifier = Mod.ClientConfig.GameIconsBarHitboxWidthModifier;
+            HitboxHeightModifier = Mod.ClientConfig.GameIconsBarHitboxHeightModifier;
 
             switch (ScrollbarPosition) {
                 case ScrollbarPosition.LeftOfIcons:
@@ -100,6 +97,7 @@ namespace BetterGameUI.UI
                         Mod.ClientConfig.GameBarXPercent);
                     ScrollbarUI.Left = StyleDimension.FromPixels(0f);
                     break;
+
                 case ScrollbarPosition.RightOfIcons:
                     Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.GameBarXPxs,
                         Mod.ClientConfig.GameBarXPercent);

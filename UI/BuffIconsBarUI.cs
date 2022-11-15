@@ -13,7 +13,7 @@ using static Terraria.Main;
 
 namespace BetterGameUI.UI
 {
-    public enum ScrollbarPosition 
+    public enum ScrollbarPosition
     {
         LeftOfIcons,
         RightOfIcons,
@@ -71,11 +71,12 @@ namespace BetterGameUI.UI
                     case BuffIconsHorOrder.LeftToRight:
                         x = rec.Left + (IconWidth + IconToIconPad) * (iconsI % IconColsCount);
                         break;
+
                     case BuffIconsHorOrder.RightToLeft:
                         x = rec.Left + (IconWidth + IconToIconPad) * (IconColsCount - 1 - (iconsI % IconColsCount));
                         break;
                 }
-                
+
                 if (ScrollbarPosition == ScrollbarPosition.LeftOfIcons) {
                     x += ScrollbarReservedWidth;
                 }

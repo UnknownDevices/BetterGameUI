@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.GameInput;
+﻿using Terraria.GameInput;
 using Terraria.UI;
 
 namespace BetterGameUI.UI
@@ -21,14 +19,13 @@ namespace BetterGameUI.UI
             ScrollbarPosition = Mod.ClientConfig.InventoryScrollbarPosition;
             IconsHorOrder = Mod.ClientConfig.InventoryIconsHorOrder;
 
-            // TODO: some of this should be done in BuffIconsBarUI
+            // TODO: some of this should be done in ScrollbarUI
             Append(new ScrollbarUI
             {
                 Top = StyleDimension.FromPixels(2f),
                 Width = StyleDimension.FromPixels(10f),
                 Height = StyleDimension.FromPixelsAndPercent(-16f, 1f),
                 CornerHeight = 4,
-                IsVisible = true,
                 Alpha = 0.5f,
             });
 
@@ -38,6 +35,7 @@ namespace BetterGameUI.UI
                         Mod.ClientConfig.InventoryBarXPercent);
                     ScrollbarUI.Left = StyleDimension.FromPixels(0f);
                     break;
+
                 case ScrollbarPosition.RightOfIcons:
                     Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.InventoryBarXPxs,
                         Mod.ClientConfig.InventoryBarXPercent);
@@ -55,8 +53,6 @@ namespace BetterGameUI.UI
                 HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier,
                 HitboxHeightModifier = Mod.ClientConfig.ScrollerHitboxHeightModifier,
                 CornerHeight = 2,
-                // TODO: this should be set on OnActivate or something like that
-                IsVisible = true,
                 Alpha = 0.5f,
             });
 
@@ -80,7 +76,6 @@ namespace BetterGameUI.UI
             }
         }
 
-        // TODO: add configs to toggle automatic calculation of X, Y, IconColsCount and IconsRowsCount
         public void HandleClientConfigChanged() {
             IconRowsCount = (ushort)Mod.ClientConfig.InventoryBarIconRowsCount;
             IconColsCount = (ushort)Mod.ClientConfig.InventoryBarIconColsCount;
@@ -96,10 +91,11 @@ namespace BetterGameUI.UI
 
             switch (ScrollbarPosition) {
                 case ScrollbarPosition.LeftOfIcons:
-                    Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.InventoryBarXPxs - ScrollbarReservedWidth, 
+                    Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.InventoryBarXPxs - ScrollbarReservedWidth,
                         Mod.ClientConfig.InventoryBarXPercent);
                     ScrollbarUI.Left = StyleDimension.FromPixels(0f);
                     break;
+
                 case ScrollbarPosition.RightOfIcons:
                     Left = StyleDimension.FromPixelsAndPercent(Mod.ClientConfig.InventoryBarXPxs,
                         Mod.ClientConfig.InventoryBarXPercent);

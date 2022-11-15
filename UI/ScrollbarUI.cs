@@ -7,18 +7,6 @@ using Terraria.UI;
 
 namespace BetterGameUI.UI
 {
-    // TODO: refactor and generalize to TModLoaderExtensions or something
-    public static class CalculatedStyleExtensions
-    {
-        public static bool Contains(this CalculatedStyle self, float x, float y) {
-            if (self.X <= x && x < self.X + self.Width && self.Y <= y) {
-                return y < self.Y + self.Height;
-            }
-
-            return false;
-        }
-    }
-
     public class ScrollbarUI : UIState
     {
         public bool IsVisible = true;

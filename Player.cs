@@ -25,9 +25,8 @@ namespace BetterGameUI
                         break;
                 }
 
+            // TODO: shouldn't work if dragging scroller
             if (KeybindSystem.ScrollUp.JustPressed) {
-                // TODO: shouldn't scroll if dragging??
-                // FIXME: wut
                 UISystem.GameBuffIconsBarUI.ScrollbarUI.Scrolls++;
             }
 
