@@ -88,6 +88,10 @@ namespace BetterGameUI
         [Label("Icons horizontal order")]
         public BuffIconsHorOrder GameIconsHorOrder { get; set; }
 
+        [DefaultValue(false)]
+        [Label("Never hide scrollbar")]
+        public bool GameNeverHideScrollbar { get; set; }
+
         [DefaultValue(32)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("X pixels")]

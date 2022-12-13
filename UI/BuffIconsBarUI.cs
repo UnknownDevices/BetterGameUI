@@ -107,6 +107,8 @@ namespace BetterGameUI.UI
         }
 
         public virtual void UpdateBeforeDraw() {
+            // calculate my own mouse x and y given the UIScale and don't round them down (like main.mouseX and main.mouseY are).
+
             var hitbox = GetDimensions();
             if (HitboxWidthModifier != 0) {
                 hitbox.X -= (float)HitboxWidthModifier / 2;

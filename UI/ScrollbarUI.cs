@@ -61,6 +61,7 @@ namespace BetterGameUI.UI
                     color);
         }
 
+        // TODO: have scroller snap to mouse position when scrollbar is left clicked and scroller dragging is allowed
         public virtual void UpdateBeforeDraw() {
             var scrollerCalculatedMinHeight = ScrollerUI.MinHeight.GetValue(GetInnerDimensions().Height);
             var scrollerCalculatedMaxHeight = ScrollerUI.MaxHeight.GetValue(GetInnerDimensions().Height);

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -15,6 +16,7 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.UI;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using Terraria.UI.Gamepad;
@@ -32,8 +34,11 @@ namespace BetterGameUI
         public static GameBuffIconsBarUI GameBuffIconsBarUI =>
             GameBuffIconsBarUIInterface.CurrentState as GameBuffIconsBarUI;
 
+        public static UIState InventoryBuffIconsBarParentUI =>
+            InventoryBuffIconsBarUIInterface.CurrentState;
+
         public static InventoryBuffIconsBarUI InventoryBuffIconsBarUI =>
-            InventoryBuffIconsBarUIInterface.CurrentState as InventoryBuffIconsBarUI;
+            InventoryBuffIconsBarUIInterface.CurrentState.Children.First() as InventoryBuffIconsBarUI;
 
         public static void DrawInventory() {
             Recipe.GetThroughDelayedFindRecipes();
@@ -171,7 +176,7 @@ namespace BetterGameUI
             new Microsoft.Xna.Framework.Color((byte)((float)(int)mouseTextColor * armorAlpha), (byte)((float)(int)mouseTextColor * armorAlpha), (byte)((float)(int)mouseTextColor * armorAlpha), (byte)((float)(int)mouseTextColor * armorAlpha));
             armorHide = false;
             int num19 = 8 + player[myPlayer].GetAmountOfExtraAccessorySlotsToShow();
-            int num20 = 174 + (int)mH.GetValue(null);
+            int num20 = 174 + (int)mapHeight.GetValue(null);
             int num21 = 950;
             cannotDrawAccessoriesHorizontally.SetValue(null, false);
             if (screenHeight < num21 && num19 >= 10) {
@@ -202,7 +207,7 @@ namespace BetterGameUI
                 Microsoft.Xna.Framework.Rectangle r = new Microsoft.Xna.Framework.Rectangle(0, 0, (int)((float)TextureAssets.InventoryBack.Width() * inventoryScale), (int)((float)TextureAssets.InventoryBack.Height() * inventoryScale));
                 Item[] inv = player[myPlayer].miscEquips;
                 int num23 = screenWidth - 92;
-                int num24 = (int)mH.GetValue(null) + 174;
+                int num24 = (int)mapHeight.GetValue(null) + 174;
                 for (int l = 0; l < 2; l++) {
                     switch (l) {
                         case 0:
@@ -291,7 +296,16 @@ namespace BetterGameUI
                     }
                 }
 
+                // TODO: take postition offsets in config instead of absolute positions
+                // TODO: check if the breath being drawn below the player when the inventory is open is something that's always been a thing or something that I'm causing
                 if (InventoryBuffIconsBarUIInterface.CurrentState != null) {
+                    // TODO: make mapHeight automatically call GetValue(null) on itself
+                    var mapHeight = (int)MainReflection.mapHeight.GetValue(null);
+                    if (InventoryBuffIconsBarParentUI.Height.Pixels != mapHeight) {
+                        InventoryBuffIconsBarParentUI.Height = StyleDimension.FromPixels(mapHeight);
+                        InventoryBuffIconsBarUIInterface.Recalculate();
+                    }
+
                     InventoryBuffIconsBarUIInterface.Draw(spriteBatch, LastUpdateUIGameTime);
                 }
             }
@@ -1147,8 +1161,11 @@ namespace BetterGameUI
                 GameBuffIconsBarUIInterface.SetState(new GameBuffIconsBarUI());
                 GameBuffIconsBarUI.Activate();
 
+                var inventoryBuffIconsBarParentUI = new UIState();
+                inventoryBuffIconsBarParentUI.Append(new InventoryBuffIconsBarUI());
+                inventoryBuffIconsBarParentUI.Width = StyleDimension.FromPercent(1f);
                 InventoryBuffIconsBarUIInterface = new();
-                InventoryBuffIconsBarUIInterface.SetState(new InventoryBuffIconsBarUI());
+                InventoryBuffIconsBarUIInterface.SetState(inventoryBuffIconsBarParentUI);
                 InventoryBuffIconsBarUI.Activate();
             }
         }

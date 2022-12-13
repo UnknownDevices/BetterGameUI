@@ -19,7 +19,7 @@ namespace BetterGameUI
         public static readonly GetBuilderAccsCountToShowDelegate GetBuilderAccsCountToShow;
         public static readonly Action<Main, int, int, bool> DrawHotbarLockIcon;
         public static readonly FieldInfo achievementAdvisorInfo;
-        public static readonly FieldInfo mH;
+        public static readonly FieldInfo mapHeight;
         public static readonly FieldInfo cannotDrawAccessoriesHorizontally;
         public static readonly Func<int, int> DrawPageIcons;
         public static readonly Action<Main> DrawNPCHousesInUI;
@@ -57,7 +57,7 @@ namespace BetterGameUI
                 CreateDelegate(typeof(Action<Main, int, int, bool>)) as Action<Main, int, int, bool>;
             achievementAdvisorInfo = typeof(Main).
                 GetField("_achievementAdvisor", BindingFlags.NonPublic | BindingFlags.Instance);
-            mH = typeof(Main).
+            mapHeight = typeof(Main).
                 GetField("mH", BindingFlags.NonPublic | BindingFlags.Static);
             cannotDrawAccessoriesHorizontally = typeof(Main).
                 GetField("_cannotDrawAccessoriesHorizontally", BindingFlags.NonPublic | BindingFlags.Static);
