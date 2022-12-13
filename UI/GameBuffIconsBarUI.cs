@@ -41,21 +41,21 @@ namespace BetterGameUI.UI
         public override void UpdateBeforeDraw() {
             IsLocked |= Mod.ClientConfig.GameHotbarLockingAlsoLocksThis & Main.player[Main.myPlayer].hbLocked;
             ScrollbarUI.IsDraggingScrollerAllowed &= Mod.ClientConfig.AllowScrollerDragging;
-            ScrollbarUI.IsVisible &= !Mod.ClientConfig.GameBarSmartHideScrollbar | 0 < ScrollbarUI.MaxScrolls;
+            ScrollbarUI.IsVisible &= !Mod.ClientConfig.GameSmartHideScrollbar | 0 < ScrollbarUI.MaxScrolls;
 
             base.UpdateBeforeDraw();
 
             ScrollbarUI.IsMouseScrollAllowed &= Player.IsMouseScrollAllowed |
-                (!Mod.ClientConfig.MouseInputFocusesMouseHoveredUI & IsMouseHoveringHitbox);
+                (Mod.ClientConfig.MouseInputFocusesMouseHoveredUI & IsMouseHoveringHitbox);
 
             if (ScrollbarUI.IsMouseScrollAllowed) {
-                PlayerInput.LockVanillaMouseScroll("BuffIconsBarUI");
+                PlayerInput.LockVanillaMouseScroll("GameBuffIconsBarUI");
             }
         }
 
         public void UpdateClientConfigDependencies() {
-            IconRowsCount = (ushort)Mod.ClientConfig.GameBarIconRowsCount;
-            IconColsCount = (ushort)Mod.ClientConfig.GameBarIconColsCount;
+            IconRowsCount = (ushort)Mod.ClientConfig.GameIconRowsCount;
+            IconColsCount = (ushort)Mod.ClientConfig.GameIconColsCount;
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
@@ -73,7 +73,7 @@ namespace BetterGameUI.UI
                     break;
             }
 
-            ScrollbarUI.ScrollerUI.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.GameBarMinScrollerHeight);
+            ScrollbarUI.ScrollerUI.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinimalScrollerHeight);
             ScrollbarUI.ScrollerUI.HitboxModifier = Mod.ClientConfig.ScrollerHitboxModifier;
         }
 

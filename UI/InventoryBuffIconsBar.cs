@@ -38,22 +38,21 @@ namespace BetterGameUI.UI
         // TODO: scrollbar shouldn't be accounted within this object dimensions
         public override void UpdateBeforeDraw() {
             ScrollbarUI.IsDraggingScrollerAllowed &= Mod.ClientConfig.AllowScrollerDragging;
-            ScrollbarUI.IsVisible &= !Mod.ClientConfig.InventoryBarSmartHideScrollbar | 0 < ScrollbarUI.MaxScrolls;
+            ScrollbarUI.IsVisible &= !Mod.ClientConfig.InventorySmartHideScrollbar | 0 < ScrollbarUI.MaxScrolls;
 
             base.UpdateBeforeDraw();
 
             ScrollbarUI.IsMouseScrollAllowed &= Player.IsMouseScrollAllowed |
-                (!Mod.ClientConfig.MouseInputFocusesMouseHoveredUI & IsMouseHoveringHitbox);
+                (Mod.ClientConfig.MouseInputFocusesMouseHoveredUI & IsMouseHoveringHitbox);
 
             if (ScrollbarUI.IsMouseScrollAllowed) {
-                PlayerInput.LockVanillaMouseScroll("BuffIconsBarUI");
+                PlayerInput.LockVanillaMouseScroll("InventoryBuffIconsBarUI");
             }
         }
 
         public void UpdateClientConfigDependencies() {
-            // TODO: implement offsets
-            IconRowsCount = (ushort)Mod.ClientConfig.InventoryBarIconRowsCount;
-            IconColsCount = (ushort)Mod.ClientConfig.InventoryBarIconColsCount;
+            IconRowsCount = (ushort)Mod.ClientConfig.InventoryIconRowsCount;
+            IconColsCount = (ushort)Mod.ClientConfig.InventoryIconColsCount;
             Left = StyleDimension.FromPixelsAndPercent(-84 - 38 * (IconColsCount - 1), 1f);
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
@@ -74,7 +73,7 @@ namespace BetterGameUI.UI
                     break;
             }
 
-            ScrollbarUI.ScrollerUI.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.InventoryBarMinScrollerHeight);
+            ScrollbarUI.ScrollerUI.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinimalScrollerHeight);
             ScrollbarUI.ScrollerUI.HitboxModifier = Mod.ClientConfig.ScrollerHitboxModifier;
         }
 

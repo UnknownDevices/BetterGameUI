@@ -15,10 +15,7 @@ namespace BetterGameUI
         public override void OnChanged() => BetterGameUI.Mod.RaiseClientConfigChanged();
 
         // TODO: consider config profiles
-        // TODO: config to set bottom or right of an icon bar alternatively
-        // TODO: config to invert icons vertical order
-        // TODO: draw entire equip pages relative to the bottom right of the screen?
-        // TODO: Invert mouse scroll input config
+        // TODO: do invert mouse scroll config
         // TODO: have tooltips display the min and max value for the field, as well as the reasoning for these if not obvious
         // TODO: have ReloadRequired fields mention they are so in their tooltips
         // TODO: do localization
@@ -27,96 +24,86 @@ namespace BetterGameUI
         // TODO: someway to reset individual fields to default
         
         // ------------- Input Config ------------- //
-
-        // TODO: use single value for both width and height
+        
+        [Header("Input Config")]
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("Buff icons bar hitbox modifier")]
+        [Label("Buff Icons Bar Hitbox Modifier")]
         public int BuffIconsBarHitboxModifier { get; set; }
 
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("Scroller hitbox modifier")]
+        [Label("Scroller Hitbox Modifier")]
         public int ScrollerHitboxModifier { get; set; }
 
+        [DefaultValue(12)]
+        [Range(int.MinValue, int.MaxValue)]
+        [Label("$Mods.BetterGameUI.Config.Label.MinimalScrollerHeight")]
+        public int MinimalScrollerHeight { get; set; }
+
         [DefaultValue(true)]
-        [Label("Allow scroller dragging")]
+        [Label("Allow Scroller Dragging")]
         public bool AllowScrollerDragging { get; set; }
 
         [DefaultValue(true)]
-        [Label("Mouse scroll focuses mouse hovered UI")]
-        [Tooltip("If no UI which listens for mouse scroll is mouse hovered, the input will then be received by either\nthe hotbar if the menu is not up or by the crafting recipes bar if it is")]
+        [Label("Mouse Scroll Focuses Mouse Hovered UI")]
         public bool MouseInputFocusesMouseHoveredUI { get; set; }
 
         // ------------- Game's Buff Icons' Bar Config ------------- //
 
+        // TODO: do position offsets
+        // TODO: come up with a better naming scheme to distinguish Game's and Inventory's configs
         [Header("Game's Buff Icons' Bar Config")]
         [DefaultValue(ScrollbarPosition.LeftOfIcons)]
-        [Label("Scrollbar relative position")]
+        [Label("Scrollbar Relative Position")]
         public ScrollbarPosition GameScrollbarRelPosition { get; set; }
 
         [DefaultValue(BuffIconsHorOrder.LeftToRight)]
-        [Label("Icons horizontal order")]
+        [Label("Icons Horizontal Order")]
         public BuffIconsHorOrder GameIconsHorOrder { get; set; }
 
         [DefaultValue(2)]
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconRowsCount")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconRowsCount")]
-        public int GameBarIconRowsCount { get; set; }
+        public int GameIconRowsCount { get; set; }
 
         [DefaultValue(11)]
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconColsCount")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconColsCount")]
-        public int GameBarIconColsCount { get; set; }
-
-        [DefaultValue(12)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.MinScrollerHeight")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.MinScrollerHeight")]
-        public int GameBarMinScrollerHeight { get; set; }
+        public int GameIconColsCount { get; set; }
 
         [DefaultValue(true)]
-        [Label("Smart hide scrollbar")]
-        public bool GameBarSmartHideScrollbar { get; set; }
+        [Label("Smart Hide Scrollbar")]
+        public bool GameSmartHideScrollbar { get; set; }
 
         [DefaultValue(true)]
-        [Label("Hotbar locking also locks this")]
+        [Label("Hotbar Locking Also Locks This")]
         public bool GameHotbarLockingAlsoLocksThis { get; set; }
 
         // ------------- Inventory's Buff Icons' Bar Config ------------- //
 
         [Header("Inventory's Buff Icons' Bar Config")]
         [DefaultValue(ScrollbarPosition.RightOfIcons)]
-        [Label("Scrollbar relative position")]
+        [Label("Scrollbar Relative Position")]
         public ScrollbarPosition InventoryScrollbarRelPosition { get; set; }
 
         [DefaultValue(BuffIconsHorOrder.RightToLeft)]
-        [Label("Icons horizontal order")]
+        [Label("Icons Horizontal Order")]
         public BuffIconsHorOrder InventoryIconsHorOrder { get; set; }
 
         [DefaultValue(4)]
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconRowsCount")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconRowsCount")]
-        public int InventoryBarIconRowsCount { get; set; }
+        public int InventoryIconRowsCount { get; set; }
 
         [DefaultValue(6)]
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconColsCount")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconColsCount")]
-        public int InventoryBarIconColsCount { get; set; }
-
-        [DefaultValue(12)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.MinScrollerHeight")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.MinScrollerHeight")]
-        public int InventoryBarMinScrollerHeight { get; set; }
+        public int InventoryIconColsCount { get; set; }
 
         [DefaultValue(true)]
-        [Label("Smart hide scrollbar")]
-        public bool InventoryBarSmartHideScrollbar { get; set; }
+        [Label("Smart Hide Scrollbar")]
+        public bool InventorySmartHideScrollbar { get; set; }
 
         // ------------- Misc Config ------------- //
         
@@ -125,7 +112,6 @@ namespace BetterGameUI
         [DefaultValue(0)]
         [Range(uint.MinValue, uint.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.ExtraPlayerBuffSlots")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.ExtraPlayerBuffSlots")]
         public int ExtraPlayerBuffSlots { get; set; }
     }
 }

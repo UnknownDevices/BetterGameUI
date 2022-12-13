@@ -2,19 +2,14 @@ Mods: {
 	BetterGameUI: {
 		Config: { 
 			Title: {
-				ClientConfig: "Client Config"
 			}
 			Label: {
-				ExtraPlayerBuffSlots: "Extra player buff slots"
-				IconRowsCount: "Icon rows count"
-				IconColsCount: "Icon columns count"
-				MinScrollerHeight: "Min scroller height"
+				ExtraPlayerBuffSlots: "Extra Player Buff Slots"
+				IconRowsCount: "Icon Rows Count"
+				IconColsCount: "Icon Columns Count"
+				MinimalScrollerHeight: "Minimal Scroller Height"
 			}
 			Tooltip: {
-				ExtraPlayerBuffSlots: "Extra buff slots to grant player"
-				IconRowsCount: "Icon rows count"
-				IconColsCount: "Icon columns count"
-				MinScrollerHeight: "Minimal height the scroller can be"
 			}
 		}
 	}
