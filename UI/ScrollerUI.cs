@@ -11,9 +11,8 @@ namespace BetterGameUI.UI
         public bool IsMouseHoveringHitbox;
         public bool IsBeingDragged;
         public int CornerHeight;
+        public int HitboxModifier;
         public float DraggingPointY;
-        public float HitboxWidthModifier;
-        public float HitboxHeightModifier;
         public float Alpha;
 
         public override void Draw(SpriteBatch spriteBatch) {

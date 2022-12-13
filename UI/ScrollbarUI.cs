@@ -67,13 +67,11 @@ namespace BetterGameUI.UI
             var scrollerCalculatedMaxHeight = ScrollerUI.MaxHeight.GetValue(GetInnerDimensions().Height);
 
             var scrollerHitbox = ScrollerUI.GetDimensions();
-            if (ScrollerUI.HitboxWidthModifier != 0) {
-                scrollerHitbox.X -= (float)ScrollerUI.HitboxWidthModifier / 2;
-                scrollerHitbox.Width += ScrollerUI.HitboxWidthModifier;
-            }
-            if (ScrollerUI.HitboxHeightModifier != 0) {
-                scrollerHitbox.Y -= (float)ScrollerUI.HitboxHeightModifier / 2;
-                scrollerHitbox.Height += ScrollerUI.HitboxHeightModifier;
+            if (ScrollerUI.HitboxModifier != 0) {
+                scrollerHitbox.X -= (float)ScrollerUI.HitboxModifier / 2;
+                scrollerHitbox.Y -= (float)ScrollerUI.HitboxModifier / 2;
+                scrollerHitbox.Width += ScrollerUI.HitboxModifier;
+                scrollerHitbox.Height += ScrollerUI.HitboxModifier;
             }
 
             float mouseX = PlayerInput.MouseInfo.X / Main.UIScale;

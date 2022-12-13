@@ -28,55 +28,29 @@ namespace BetterGameUI
         
         // ------------- Input Config ------------- //
 
-        [Header("Input Config")]
-        [DefaultValue(KeybindMode.Hold)]
-        [Label("Allow mouse scroll keybind mode")]
-        public KeybindMode AllowMouseScrollKeybindMode { get; set; }
-
         // TODO: use single value for both width and height
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("Buff icons bar hitbox width modifier")]
-        public int BuffIconsBarHitboxWidthModifier { get; set; }
+        [Label("Buff icons bar hitbox modifier")]
+        public int BuffIconsBarHitboxModifier { get; set; }
 
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("Buff icons bar hitbox height modifier")]
-        public int BuffIconsBarHitboxHeightModifier { get; set; }
-
-        [DefaultValue(0)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("Scroller hitbox width modifier")]
-        public int ScrollerHitboxWidthModifier { get; set; }
-
-        [DefaultValue(0)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("Scroller hitbox height modifier")]
-        public int ScrollerHitboxHeightModifier { get; set; }
+        [Label("Scroller hitbox modifier")]
+        public int ScrollerHitboxModifier { get; set; }
 
         [DefaultValue(true)]
         [Label("Allow scroller dragging")]
         public bool AllowScrollerDragging { get; set; }
 
-        // TODO: have this specify it only affects new UIs
         [DefaultValue(true)]
-        [Label("Allow mouse scroll input")]
-        public bool AllowMouseScrollInput { get; set; }
+        [Label("Mouse scroll focuses mouse hovered UI")]
+        [Tooltip("If no UI which listens for mouse scroll is mouse hovered, the input will then be received by either\nthe hotbar if the menu is not up or by the crafting recipes bar if it is")]
+        public bool MouseInputFocusesMouseHoveredUI { get; set; }
 
-        // NOTE: this could be assumed to be true if MouseHoveredUIReceivesMouseScrollInput is true and be assumed to be false otherwise
-        [DefaultValue(true)]
-        [Label("Mouse scroll input is exclusive")]
-        [Tooltip("This makes it so only one UI at a time can receive mouse scroll input")]
-        public bool MouseScrollInputIsExclusive { get; set; }
-        
-        [DefaultValue(true)]
-        [Label("Mouse hovered UI receives mouse scroll input")]
-        [Tooltip("If no UI which listens for mouse scroll input is mouse hovered, the input will then be received by\neither the hotbar if the menu is not up or by the crafting recipes bar if it is")]
-        public bool MouseHoveredUIReceivesMouseScrollInput { get; set; }
+        // ------------- Game's Buff Icons' Bar Config ------------- //
 
-        // ------------- Game's Buff Icons Bar Config ------------- //
-
-        [Header("Game's Buff Icons Bar Config")]
+        [Header("Game's Buff Icons' Bar Config")]
         [DefaultValue(ScrollbarPosition.LeftOfIcons)]
         [Label("Scrollbar relative position")]
         public ScrollbarPosition GameScrollbarRelPosition { get; set; }
@@ -111,9 +85,9 @@ namespace BetterGameUI
         [Label("Hotbar locking also locks this")]
         public bool GameHotbarLockingAlsoLocksThis { get; set; }
 
-        // ------------- Inventory's Buff Icons Bar Config ------------- //
+        // ------------- Inventory's Buff Icons' Bar Config ------------- //
 
-        [Header("Inventory's Buff Icons Bar Config")]
+        [Header("Inventory's Buff Icons' Bar Config")]
         [DefaultValue(ScrollbarPosition.RightOfIcons)]
         [Label("Scrollbar relative position")]
         public ScrollbarPosition InventoryScrollbarRelPosition { get; set; }

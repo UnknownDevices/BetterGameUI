@@ -37,8 +37,7 @@ namespace BetterGameUI.UI
         public bool IsMouseHoveringHitbox;
         public ScrollbarPosition ScrollbarPosition;
         public BuffIconsHorOrder IconsHorOrder;
-        public int HitboxWidthModifier;
-        public int HitboxHeightModifier;
+        public int HitboxModifier;
         public int ScrollbarReservedWidth;
         public ushort IconRowsCount;
         public ushort IconColsCount;
@@ -110,14 +109,13 @@ namespace BetterGameUI.UI
             // calculate my own mouse x and y given the UIScale and don't round them down (like main.mouseX and main.mouseY are).
 
             var hitbox = GetDimensions();
-            if (HitboxWidthModifier != 0) {
-                hitbox.X -= (float)HitboxWidthModifier / 2;
-                hitbox.Width += HitboxWidthModifier;
+            if (HitboxModifier != 0) {
+                hitbox.X -= (float)HitboxModifier / 2;
+                hitbox.Y -= (float)HitboxModifier / 2;
+                hitbox.Width += HitboxModifier;
+                hitbox.Height += HitboxModifier;
             }
-            if (HitboxHeightModifier != 0) {
-                hitbox.Y -= (float)HitboxHeightModifier / 2;
-                hitbox.Height += HitboxHeightModifier;
-            }
+
             float mouseX = PlayerInput.MouseInfo.X / Main.UIScale;
             float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;
             IsMouseHoveringHitbox = hitbox.Contains(mouseX, mouseY);

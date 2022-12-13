@@ -45,12 +45,10 @@ namespace BetterGameUI.UI
 
             base.UpdateBeforeDraw();
 
-            ScrollbarUI.IsMouseScrollAllowed &=
-                Mod.ClientConfig.AllowMouseScrollInput &
-                Player.IsMouseScrollAllowed &
-                (!Mod.ClientConfig.MouseHoveredUIReceivesMouseScrollInput | IsMouseHoveringHitbox);
+            ScrollbarUI.IsMouseScrollAllowed &= Player.IsMouseScrollAllowed |
+                (!Mod.ClientConfig.MouseInputFocusesMouseHoveredUI & IsMouseHoveringHitbox);
 
-            if (ScrollbarUI.IsMouseScrollAllowed & Mod.ClientConfig.MouseScrollInputIsExclusive) {
+            if (ScrollbarUI.IsMouseScrollAllowed) {
                 PlayerInput.LockVanillaMouseScroll("BuffIconsBarUI");
             }
         }
@@ -64,8 +62,7 @@ namespace BetterGameUI.UI
                 IconRowsCount) - IconToIconPad);
             ScrollbarPosition = Mod.ClientConfig.GameScrollbarRelPosition;
             IconsHorOrder = Mod.ClientConfig.GameIconsHorOrder;
-            HitboxWidthModifier = Mod.ClientConfig.BuffIconsBarHitboxWidthModifier;
-            HitboxHeightModifier = Mod.ClientConfig.BuffIconsBarHitboxHeightModifier;
+            HitboxModifier = Mod.ClientConfig.BuffIconsBarHitboxModifier;
 
             switch (ScrollbarPosition) {
                 case ScrollbarPosition.LeftOfIcons:
@@ -77,8 +74,7 @@ namespace BetterGameUI.UI
             }
 
             ScrollbarUI.ScrollerUI.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.GameBarMinScrollerHeight);
-            ScrollbarUI.ScrollerUI.HitboxWidthModifier = Mod.ClientConfig.ScrollerHitboxWidthModifier;
-            ScrollbarUI.ScrollerUI.HitboxHeightModifier = Mod.ClientConfig.ScrollerHitboxHeightModifier;
+            ScrollbarUI.ScrollerUI.HitboxModifier = Mod.ClientConfig.ScrollerHitboxModifier;
         }
 
         public void HandleClientConfigChanged() {
