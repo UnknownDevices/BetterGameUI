@@ -11,6 +11,7 @@ namespace BetterGameUI
         public override void Load() {
             ScrollUp = KeybindLoader.RegisterKeybind(Mod, "Scroll Up", "Up");
             ScrollDown = KeybindLoader.RegisterKeybind(Mod, "Scroll Down", "Down");
+            // TODO: consider removing this keybind and its client config
             AllowMouseScroll = KeybindLoader.RegisterKeybind(Mod, "Allow Mouse Scroll", "LeftAlt");
             // TODO: lock scrollbar keybind
             // TODO: queue mouse scroll input if an item is in use

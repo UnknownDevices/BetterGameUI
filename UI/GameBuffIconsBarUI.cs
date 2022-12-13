@@ -39,18 +39,18 @@ namespace BetterGameUI.UI
         }
 
         public override void UpdateBeforeDraw() {
-            IsLocked |= Mod.ClientConfig.LockGameIconsBarWhenHotbarLocks & Main.player[Main.myPlayer].hbLocked;
+            IsLocked |= Mod.ClientConfig.GameHotbarLockingAlsoLocksThis & Main.player[Main.myPlayer].hbLocked;
             ScrollbarUI.IsDraggingScrollerAllowed &= Mod.ClientConfig.AllowScrollerDragging;
             ScrollbarUI.IsVisible &= !Mod.ClientConfig.GameBarSmartHideScrollbar | 0 < ScrollbarUI.MaxScrolls;
 
             base.UpdateBeforeDraw();
 
             ScrollbarUI.IsMouseScrollAllowed &=
-                !Mod.ClientConfig.NeverAllowMouseScroll &
+                Mod.ClientConfig.AllowMouseScrollInput &
                 Player.IsMouseScrollAllowed &
-                (!Mod.ClientConfig.OnlyAllowMouseScrollWhenHoveringUI | IsMouseHoveringHitbox);
+                (!Mod.ClientConfig.MouseHoveredUIReceivesMouseScrollInput | IsMouseHoveringHitbox);
 
-            if (ScrollbarUI.IsMouseScrollAllowed & Mod.ClientConfig.SmartLockVanillaMouseScroll) {
+            if (ScrollbarUI.IsMouseScrollAllowed & Mod.ClientConfig.MouseScrollInputIsExclusive) {
                 PlayerInput.LockVanillaMouseScroll("BuffIconsBarUI");
             }
         }
@@ -64,8 +64,8 @@ namespace BetterGameUI.UI
                 IconRowsCount) - IconToIconPad);
             ScrollbarPosition = Mod.ClientConfig.GameScrollbarRelPosition;
             IconsHorOrder = Mod.ClientConfig.GameIconsHorOrder;
-            HitboxWidthModifier = Mod.ClientConfig.GameIconsBarHitboxWidthModifier;
-            HitboxHeightModifier = Mod.ClientConfig.GameIconsBarHitboxHeightModifier;
+            HitboxWidthModifier = Mod.ClientConfig.BuffIconsBarHitboxWidthModifier;
+            HitboxHeightModifier = Mod.ClientConfig.BuffIconsBarHitboxHeightModifier;
 
             switch (ScrollbarPosition) {
                 case ScrollbarPosition.LeftOfIcons:
