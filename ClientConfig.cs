@@ -33,6 +33,7 @@ namespace BetterGameUI
         [Label("Allow mouse scroll keybind mode")]
         public KeybindMode AllowMouseScrollKeybindMode { get; set; }
 
+        // TODO: refactor hitbox modifiers
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("Game's icons bar hitbox width modifier")]
@@ -94,11 +95,6 @@ namespace BetterGameUI
         [Label("Icons horizontal order")]
         public BuffIconsHorOrder GameIconsHorOrder { get; set; }
 
-        // TODO: consider renaming to HideScrollbarWhenOnlyOnePage and inverting def value
-        [DefaultValue(false)]
-        [Label("Never hide scrollbar")]
-        public bool GameNeverHideScrollbar { get; set; }
-
         [DefaultValue(2)]
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconRowsCount")]
@@ -117,9 +113,9 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.MinScrollerHeight")]
         public int GameBarMinScrollerHeight { get; set; }
 
-        [DefaultValue(false)]
-        [Label("Never hide scrollbar")]
-        public bool GameBarNeverHideScrollbar { get; set; }
+        [DefaultValue(true)]
+        [Label("Smart hide scrollbar")]
+        public bool GameBarSmartHideScrollbar { get; set; }
 
         // ------------- Inventory's Buff Icons Bar Config ------------- //
 
@@ -150,9 +146,9 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.MinScrollerHeight")]
         public int InventoryBarMinScrollerHeight { get; set; }
 
-        [DefaultValue(false)]
-        [Label("Never hide scrollbar")]
-        public bool InventoryBarNeverHideScrollbar { get; set; }
+        [DefaultValue(true)]
+        [Label("Smart hide scrollbar")]
+        public bool InventoryBarSmartHideScrollbar { get; set; }
 
         // ------------- Misc Config ------------- //
         

@@ -38,7 +38,7 @@ namespace BetterGameUI.UI
         // TODO: scrollbar shouldn't be accounted within this object dimensions
         public override void UpdateBeforeDraw() {
             ScrollbarUI.IsDraggingScrollerAllowed &= Mod.ClientConfig.AllowScrollerDragging;
-            ScrollbarUI.IsVisible &= Mod.ClientConfig.GameBarNeverHideScrollbar | 0 < ScrollbarUI.MaxScrolls;
+            ScrollbarUI.IsVisible &= !Mod.ClientConfig.InventoryBarSmartHideScrollbar | 0 < ScrollbarUI.MaxScrolls;
 
             base.UpdateBeforeDraw();
 
