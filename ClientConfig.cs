@@ -14,6 +14,7 @@ namespace BetterGameUI
 
         public override void OnChanged() => BetterGameUI.Mod.RaiseClientConfigChanged();
 
+        // TODO: consider config profiles
         // TODO: config to set bottom or right of an icon bar alternatively
         // TODO: config to invert icons vertical order
         // TODO: draw entire equip pages relative to the bottom right of the screen?
@@ -24,6 +25,9 @@ namespace BetterGameUI
 
         // TODO: look into making custom config fields?
         // TODO: someway to reset individual fields to default
+        
+        // ------------- Input Config ------------- //
+
         [Header("Input Config")]
         [DefaultValue(KeybindMode.Hold)]
         [Label("Allow mouse scroll keybind mode")]
@@ -79,38 +83,21 @@ namespace BetterGameUI
         [Label("Lock game's icons bar when hotbar locks")]
         public bool LockGameIconsBarWhenHotbarLocks { get; set; }
 
+        // ------------- Game's Buff Icons Bar Config ------------- //
+
         [Header("Game's Buff Icons Bar Config")]
         [DefaultValue(ScrollbarPosition.LeftOfIcons)]
-        [Label("Scrollbar position")]
-        public ScrollbarPosition GameScrollbarPosition { get; set; }
+        [Label("Scrollbar relative position")]
+        public ScrollbarPosition GameScrollbarRelPosition { get; set; }
 
         [DefaultValue(BuffIconsHorOrder.LeftToRight)]
         [Label("Icons horizontal order")]
         public BuffIconsHorOrder GameIconsHorOrder { get; set; }
 
+        // TODO: consider renaming to HideScrollbarWhenOnlyOnePage and inverting def value
         [DefaultValue(false)]
         [Label("Never hide scrollbar")]
         public bool GameNeverHideScrollbar { get; set; }
-
-        [DefaultValue(32)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("X pixels")]
-        public int GameBarXPxs { get; set; }
-
-        [DefaultValue(0f)]
-        [Range(float.MinValue, float.MaxValue)]
-        [Label("X percent")]
-        public int GameBarXPercent { get; set; }
-
-        [DefaultValue(76)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("Y pixels")]
-        public int GameBarYPxs { get; set; }
-
-        [DefaultValue(0f)]
-        [Range(float.MinValue, float.MaxValue)]
-        [Label("Y percent")]
-        public int GameBarYPercent { get; set; }
 
         [DefaultValue(2)]
         [Range(ushort.MinValue, ushort.MaxValue)]
@@ -134,34 +121,16 @@ namespace BetterGameUI
         [Label("Never hide scrollbar")]
         public bool GameBarNeverHideScrollbar { get; set; }
 
+        // ------------- Inventory's Buff Icons Bar Config ------------- //
+
         [Header("Inventory's Buff Icons Bar Config")]
         [DefaultValue(ScrollbarPosition.RightOfIcons)]
-        [Label("Scrollbar position")]
-        public ScrollbarPosition InventoryScrollbarPosition { get; set; }
+        [Label("Scrollbar relative position")]
+        public ScrollbarPosition InventoryScrollbarRelPosition { get; set; }
 
         [DefaultValue(BuffIconsHorOrder.RightToLeft)]
         [Label("Icons horizontal order")]
         public BuffIconsHorOrder InventoryIconsHorOrder { get; set; }
-
-        [DefaultValue(-272)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("X pixels")]
-        public int InventoryBarXPxs { get; set; }
-
-        [DefaultValue(1f)]
-        [Range(float.MinValue, float.MaxValue)]
-        [Label("X percent")]
-        public int InventoryBarXPercent { get; set; }
-
-        [DefaultValue(-252)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("Y pixels")]
-        public int InventoryBarYPxs { get; set; }
-
-        [DefaultValue(1f)]
-        [Range(float.MinValue, float.MaxValue)]
-        [Label("Y percent")]
-        public int InventoryBarYPercent { get; set; }
 
         [DefaultValue(3)]
         [Range(ushort.MinValue, ushort.MaxValue)]
@@ -185,6 +154,8 @@ namespace BetterGameUI
         [Label("Never hide scrollbar")]
         public bool InventoryBarNeverHideScrollbar { get; set; }
 
+        // ------------- Misc Config ------------- //
+        
         [Header("Misc Config")]
         [ReloadRequired]
         [DefaultValue(0)]

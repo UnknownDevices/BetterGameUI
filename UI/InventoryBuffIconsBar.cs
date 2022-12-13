@@ -64,7 +64,7 @@ namespace BetterGameUI.UI
                 IconRowsCount) - IconToIconPad);
             HitboxWidthModifier = Mod.ClientConfig.InventoryIconsBarHitboxWidthModifier;
             HitboxHeightModifier = Mod.ClientConfig.InventoryIconsBarHitboxHeightModifier;
-            ScrollbarPosition = Mod.ClientConfig.InventoryScrollbarPosition;
+            ScrollbarPosition = Mod.ClientConfig.InventoryScrollbarRelPosition;
             IconsHorOrder = Mod.ClientConfig.InventoryIconsHorOrder;
 
             switch (ScrollbarPosition) {
