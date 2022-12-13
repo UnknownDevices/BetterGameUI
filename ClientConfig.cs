@@ -49,6 +49,10 @@ namespace BetterGameUI
         [Label("Mouse Scroll Focuses Mouse Hovered UI")]
         public bool MouseInputFocusesMouseHoveredUI { get; set; }
 
+        [DefaultValue(true)]
+        [Label("Smart Hide Scrollbar")]
+        public bool SmartHideScrollbar { get; set; }
+
         // ------------- Game's Buff Icons' Bar Config ------------- //
 
         // TODO: do position offsets
@@ -71,10 +75,6 @@ namespace BetterGameUI
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconColsCount")]
         public int GameIconColsCount { get; set; }
-
-        [DefaultValue(true)]
-        [Label("Smart Hide Scrollbar")]
-        public bool GameSmartHideScrollbar { get; set; }
 
         [DefaultValue(true)]
         [Label("Hotbar Locking Also Locks This")]
@@ -100,10 +100,6 @@ namespace BetterGameUI
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconColsCount")]
         public int InventoryIconColsCount { get; set; }
-
-        [DefaultValue(true)]
-        [Label("Smart Hide Scrollbar")]
-        public bool InventorySmartHideScrollbar { get; set; }
 
         // ------------- Misc Config ------------- //
         
