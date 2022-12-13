@@ -1,23 +1,26 @@
-﻿using Terraria.GameInput;
+﻿using Terraria;
+using Terraria.GameInput;
 using Terraria.ModLoader;
 
 namespace BetterGameUI
 {
     public class Player : ModPlayer
     {
-        // TODO: reconsider name
-        public static bool IsMouseScrollAllowed { get; set; }
+        public static bool MouseScrollIsFocusingBuffIconsBar;
+        public static int ExtraMouseScrollForBuffIconsBarScrollbar;
 
         public override void ProcessTriggers(TriggersSet triggersSet) {
-            IsMouseScrollAllowed = KeybindSystem.AllowMouseScroll.Current;
+            ExtraMouseScrollForBuffIconsBarScrollbar = 0;
+            MouseScrollIsFocusingBuffIconsBar = KeybindSystem.HoldForMouseScrollToFocusBuffIconsBar.Current;
 
-            // TODO: shouldn't work if dragging scroller
-            if (KeybindSystem.ScrollUp.JustPressed) {
-                UISystem.GameBuffIconsBarUI.ScrollbarUI.Scrolls++;
+            // NOTE: when the inventory is up, vanilla Terraria doesn't listen to MouseX1 or MouseX2
+            // TODO: consider renaming MouseScroll to ScrollWheel everywhere
+            // TODO: should also scroll if holding key? if so, after what delay after pressing, maybe make that a config
+            if (PlayerInput.Triggers.JustPressed.MouseXButton1) {
+                ExtraMouseScrollForBuffIconsBarScrollbar++;
             }
-
-            if (KeybindSystem.ScrollDown.JustPressed) {
-                UISystem.GameBuffIconsBarUI.ScrollbarUI.Scrolls--;
+            if (PlayerInput.Triggers.JustPressed.MouseXButton2) {
+                ExtraMouseScrollForBuffIconsBarScrollbar--;
             }
         }
     }

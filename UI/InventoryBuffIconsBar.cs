@@ -38,16 +38,18 @@ namespace BetterGameUI.UI
         // TODO: scrollbar shouldn't be accounted within this object dimensions
         public override void UpdateBeforeDraw() {
             ScrollbarUI.IsDraggingScrollerAllowed &= Mod.ClientConfig.AllowScrollerDragging;
-            ScrollbarUI.IsVisible &= !Mod.ClientConfig.InventorySmartHideScrollbar | 0 < ScrollbarUI.MaxScrolls;
+            ScrollbarUI.IsVisible &= !Mod.ClientConfig.SmartHideScrollbar | 0 < ScrollbarUI.ScrollableDist;
 
             base.UpdateBeforeDraw();
 
-            ScrollbarUI.IsMouseScrollAllowed &= Player.IsMouseScrollAllowed |
+            ScrollbarUI.IsMouseScrollFocusingThis &= Player.MouseScrollIsFocusingBuffIconsBar |
                 (Mod.ClientConfig.MouseInputFocusesMouseHoveredUI & IsMouseHoveringHitbox);
 
-            if (ScrollbarUI.IsMouseScrollAllowed) {
+            if (ScrollbarUI.IsMouseScrollFocusingThis) {
                 PlayerInput.LockVanillaMouseScroll("InventoryBuffIconsBarUI");
             }
+
+            ScrollbarUI.ExtraMouseScroll += Player.ExtraMouseScrollForBuffIconsBarScrollbar;
         }
 
         public void UpdateClientConfigDependencies() {

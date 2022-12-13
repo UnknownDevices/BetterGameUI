@@ -41,16 +41,18 @@ namespace BetterGameUI.UI
         public override void UpdateBeforeDraw() {
             IsLocked |= Mod.ClientConfig.GameHotbarLockingAlsoLocksThis & Main.player[Main.myPlayer].hbLocked;
             ScrollbarUI.IsDraggingScrollerAllowed &= Mod.ClientConfig.AllowScrollerDragging;
-            ScrollbarUI.IsVisible &= !Mod.ClientConfig.GameSmartHideScrollbar | 0 < ScrollbarUI.MaxScrolls;
+            ScrollbarUI.IsVisible &= !Mod.ClientConfig.SmartHideScrollbar | 0 < ScrollbarUI.ScrollableDist;
 
             base.UpdateBeforeDraw();
 
-            ScrollbarUI.IsMouseScrollAllowed &= Player.IsMouseScrollAllowed |
+            ScrollbarUI.IsMouseScrollFocusingThis &= Player.MouseScrollIsFocusingBuffIconsBar |
                 (Mod.ClientConfig.MouseInputFocusesMouseHoveredUI & IsMouseHoveringHitbox);
 
-            if (ScrollbarUI.IsMouseScrollAllowed) {
+            if (ScrollbarUI.IsMouseScrollFocusingThis) {
                 PlayerInput.LockVanillaMouseScroll("GameBuffIconsBarUI");
             }
+
+            ScrollbarUI.ExtraMouseScroll += Player.ExtraMouseScrollForBuffIconsBarScrollbar;
         }
 
         public void UpdateClientConfigDependencies() {

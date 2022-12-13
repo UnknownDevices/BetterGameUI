@@ -10,13 +10,13 @@ namespace BetterGameUI.UI
     public class ScrollbarUI : UIState
     {
         public bool IsVisible = true;
-        public bool IsMouseScrollAllowed = true;
+        public bool IsMouseScrollFocusingThis = true;
         public bool IsDraggingScrollerAllowed = true;
+        public int ExtraMouseScroll;
         public int CornerHeight;
-        public uint Scrolls;
-        public uint MaxScrolls;
+        public uint ScrolledDist;
+        public uint ScrollableDist;
         public float Alpha;
-
         public ScrollerUI ScrollerUI {
             get => Elements[0] as ScrollerUI;
             set => Elements[0] = value;
@@ -29,8 +29,9 @@ namespace BetterGameUI.UI
                 base.Draw(spriteBatch);
             }
 
+            ExtraMouseScroll = 0;
             IsVisible = true;
-            IsMouseScrollAllowed = true;
+            IsMouseScrollFocusingThis = true;
             IsDraggingScrollerAllowed = true;
         }
 
@@ -78,7 +79,7 @@ namespace BetterGameUI.UI
             float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;
             ScrollerUI.IsMouseHoveringHitbox = scrollerHitbox.Contains(mouseX, mouseY);
 
-            long scrollsBeforeClamp = Scrolls;
+            long scrolledDistBeforeClamp = ScrolledDist;
 
             if (IsDraggingScrollerAllowed & IsVisible) {
                 if (ScrollerUI.IsBeingDragged) {
@@ -86,16 +87,16 @@ namespace BetterGameUI.UI
                         float draggedDistanceInPxs = mouseY - ScrollerUI.GetDimensions().Y - ScrollerUI.DraggingPointY;
 
                         if (draggedDistanceInPxs != 0) {
-                            if (Scrolls <= 0 & draggedDistanceInPxs < 0) {
+                            if (ScrolledDist <= 0 & draggedDistanceInPxs < 0) {
                                 ScrollerUI.DraggingPointY = Math.Max(mouseY - ScrollerUI.GetDimensions().Y, 0);
                             }
-                            else if (MaxScrolls <= Scrolls & 0 < draggedDistanceInPxs) {
+                            else if (ScrollableDist <= ScrolledDist & 0 < draggedDistanceInPxs) {
                                 ScrollerUI.DraggingPointY = Math.Min(mouseY - ScrollerUI.GetDimensions().Y,
                                     ScrollerUI.GetDimensions().Height);
                             }
 
-                            scrollsBeforeClamp += (long)Math.Round(
-                                draggedDistanceInPxs / (GetInnerDimensions().Height / (MaxScrolls + 1)));
+                            scrolledDistBeforeClamp += (long)Math.Round(
+                                draggedDistanceInPxs / (GetInnerDimensions().Height / (ScrollableDist + 1)));
                         }
                     }
                     else {
@@ -116,23 +117,23 @@ namespace BetterGameUI.UI
                 ScrollerUI.IsBeingDragged = false;
             }
 
-            if (IsMouseScrollAllowed & (!IsDraggingScrollerAllowed | !ScrollerUI.IsBeingDragged)) {
-                scrollsBeforeClamp += -(PlayerInput.ScrollWheelDeltaForUI / 120);
+            if (IsMouseScrollFocusingThis & (!IsDraggingScrollerAllowed | !ScrollerUI.IsBeingDragged)) {
+                scrolledDistBeforeClamp += ExtraMouseScroll + -(PlayerInput.ScrollWheelDeltaForUI / 120);
             }
 
-            Scrolls = (uint)Math.Clamp(scrollsBeforeClamp, 0, MaxScrolls);
+            ScrolledDist = (uint)Math.Clamp(scrolledDistBeforeClamp, 0, ScrollableDist);
 
             ScrollerUI.Height = (GetInnerDimensions().Height == 0) ?
                 StyleDimension.FromPixels(0f) :
                 ScrollerUI.Height = StyleDimension.FromPixels((float)Math.Clamp(
-                    Math.Ceiling(GetInnerDimensions().Height / (MaxScrolls + 1)),
+                    Math.Ceiling(GetInnerDimensions().Height / (ScrollableDist + 1)),
                     scrollerCalculatedMinHeight, scrollerCalculatedMaxHeight));
 
             float pxsPerScroll = (GetInnerDimensions().Height - ScrollerUI.Height.Pixels == 0) ?
                 0 :
-                (GetInnerDimensions().Height - ScrollerUI.Height.Pixels) / MaxScrolls;
+                (GetInnerDimensions().Height - ScrollerUI.Height.Pixels) / ScrollableDist;
 
-            ScrollerUI.Top = StyleDimension.FromPixels((float)Math.Round(pxsPerScroll * Scrolls));
+            ScrollerUI.Top = StyleDimension.FromPixels((float)Math.Round(pxsPerScroll * ScrolledDist));
             ScrollerUI.Recalculate();
         }
     }

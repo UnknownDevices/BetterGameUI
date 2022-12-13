@@ -58,11 +58,10 @@ namespace BetterGameUI.UI
             IsLocked = false;
         }
 
-        // TODO: allow inverting icons vertical order
         protected override void DrawSelf(SpriteBatch spriteBatch) {
             var rec = GetDimensions().ToRectangle();
             int mouseoveredIcon = -1;
-            int buffsBegin = (int)ScrollbarUI.Scrolls * IconColsCount;
+            int buffsBegin = (int)ScrollbarUI.ScrolledDist * IconColsCount;
             int iconsEnd = Math.Min(Mod.ActiveBuffsIndexes.Count - buffsBegin, IconRowsCount * IconColsCount);
             for (int iconsI = 0; iconsI < iconsEnd; ++iconsI) {
                 int x = 0;
@@ -107,7 +106,6 @@ namespace BetterGameUI.UI
 
         public virtual void UpdateBeforeDraw() {
             // calculate my own mouse x and y given the UIScale and don't round them down (like main.mouseX and main.mouseY are).
-
             var hitbox = GetDimensions();
             if (HitboxModifier != 0) {
                 hitbox.X -= (float)HitboxModifier / 2;
@@ -116,15 +114,15 @@ namespace BetterGameUI.UI
                 hitbox.Height += HitboxModifier;
             }
 
-            float mouseX = PlayerInput.MouseInfo.X / Main.UIScale;
-            float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;
+            float mouseX = PlayerInput.MouseInfo.X / UIScale;
+            float mouseY = PlayerInput.MouseInfo.Y / UIScale;
             IsMouseHoveringHitbox = hitbox.Contains(mouseX, mouseY);
 
             if (Mod.ActiveBuffsIndexes.Count <= 0) {
-                ScrollbarUI.MaxScrolls = 0;
+                ScrollbarUI.ScrollableDist = 0;
             }
             else {
-                ScrollbarUI.MaxScrolls = (uint)Math.Max(
+                ScrollbarUI.ScrollableDist = (uint)Math.Max(
                     Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)IconColsCount) - IconRowsCount, 0);
             }
 
