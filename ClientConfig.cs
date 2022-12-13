@@ -67,7 +67,7 @@ namespace BetterGameUI
         [Label("Allow scroller dragging")]
         public bool AllowScrollerDragging { get; set; }
 
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         [Label("Only allow mouse scroll when hovering UI")]
         public bool OnlyAllowMouseScrollWhenHoveringUI { get; set; }
 
@@ -132,7 +132,7 @@ namespace BetterGameUI
         [Label("Icons horizontal order")]
         public BuffIconsHorOrder InventoryIconsHorOrder { get; set; }
 
-        [DefaultValue(3)]
+        [DefaultValue(4)]
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconRowsCount")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconRowsCount")]
