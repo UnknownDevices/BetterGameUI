@@ -18,14 +18,15 @@ namespace BetterGameUI.UI
             }
         }
 
-        // TODO: move to UIBuffsBar what be moved
+        // TODO: move to UIBuffsBar what can be moved
         public override void UpdateClientConfigDependencies() {
             IconRowsCount = (ushort)Mod.ClientConfig.InventoryUpIconRowsCount;
             IconColsCount = (ushort)Mod.ClientConfig.InventoryUpIconColsCount;
-            Left = StyleDimension.FromPixelsAndPercent(-84 - 38 * (IconColsCount - 1), 1f);
+            Left = StyleDimension.FromPixelsAndPercent(
+                -84 - 38 * (IconColsCount - 1) + Mod.ClientConfig.InventoryUpXOffset, 1f);
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
-            Top = StyleDimension.FromPixelsAndPercent(421, 1f);
+            Top = StyleDimension.FromPixelsAndPercent(421 + Mod.ClientConfig.InventoryUpYOffset, 1f);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
                 IconRowsCount) - IconToIconPad);
             HitboxModifier = Mod.ClientConfig.BuffsBarHitboxModifier;

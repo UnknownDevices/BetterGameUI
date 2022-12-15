@@ -7,12 +7,6 @@ namespace BetterGameUI.UI
     // TODO: reformat
     public class UIInventoryDownBuffsBar : UIBuffsBar 
     {
-        // TODO: consider decoupling 'Mod.ClienConfig'
-        public UIInventoryDownBuffsBar() {
-            Left = StyleDimension.FromPixels(32 - ScrollbarReservedWidth);
-            Top = StyleDimension.FromPixels(76);
-        }
-         
         public override void UpdateBeforeDraw() {
             UIScrollbar.IsVisible &= !Mod.ClientConfig.SmartHideScrollbar | 0 < UIScrollbar.MaxScrollNotches;
 
@@ -31,8 +25,10 @@ namespace BetterGameUI.UI
         public override void UpdateClientConfigDependencies() {
             IconRowsCount = (ushort)Mod.ClientConfig.InventoryDownIconRowsCount;
             IconColsCount = (ushort)Mod.ClientConfig.InventoryDownIconColsCount;
+            Left = StyleDimension.FromPixels(32 - ScrollbarReservedWidth + Mod.ClientConfig.InventoryDownXOffset);
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
+            Top = StyleDimension.FromPixels(76 + Mod.ClientConfig.InventoryDownYOffset);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
                 IconRowsCount) - IconToIconPad);
             ScrollbarPosition = Mod.ClientConfig.InventoryDownScrollbarRelPos;
