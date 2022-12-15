@@ -5,7 +5,7 @@ using Terraria.ModLoader.Config;
 
 namespace BetterGameUI
 {
-    [Label("Client Config")]
+    [Label("$Mods.BetterGameUI.Config.Title.ClientConfig")]
     public class ClientConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
@@ -16,19 +16,19 @@ namespace BetterGameUI
 
         // TODO: have tooltips display the min and max value for the field, as well as the reasoning for these if not obvious
         // TODO: have ReloadRequired fields mention they are so in their tooltips
-        // TODO: do localization
+        // TODO: do localization for spanish
 
         // ------------- Input Config ------------- //
-        
-        [Header("Input Config")]
+
+        [Header("$Mods.BetterGameUI.Config.Header.InputConfig")]
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("Buffs' Bar's Hitbox Modifier")]
-        public int BuffIconsBarHitboxModifier { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.BuffsBarHitboxModifier")]
+        public int BuffsBarHitboxModifier { get; set; }
 
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("Scroller's Hitbox Modifier")]
+        [Label("$Mods.BetterGameUI.Config.Label.ScrollerHitboxModifier")]
         public int ScrollerHitboxModifier { get; set; }
 
         [DefaultValue(12)]
@@ -38,40 +38,40 @@ namespace BetterGameUI
 
         // TODO: consider if this should also affect vanilla mouse scroll
         [DefaultValue(false)]
-        [Label("Invert Mouse Scroll For Scrollbar")]
+        [Label("$Mods.BetterGameUI.Config.Label.InvertMouseScrollForScrollbar")]
         public bool InvertMouseScrollForScrollbar { get; set; }
 
         [DefaultValue(true)]
-        [Label("Allow Scroller Dragging")]
+        [Label("$Mods.BetterGameUI.Config.Label.AllowScrollerDragging")]
         public bool AllowScrollerDragging { get; set; }
 
         [DefaultValue(true)]
-        [Label("Mouse Scroll Focuses Mouse Hovered UI")]
-        public bool MouseInputFocusesMouseHoveredUI { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.MouseScrollFocusesMouseHoveredUI")]
+        public bool MouseScrollFocusesMouseHoveredUI { get; set; }
 
         [DefaultValue(true)]
-        [Label("Smart Hide Scrollbar")]
+        [Label("$Mods.BetterGameUI.Config.Label.SmartHideScrollbar")]
         public bool SmartHideScrollbar { get; set; }
 
         // ------------- Inventory Down Buffs' Bar Config ------------- //
 
-        [Header("Inventory Down Buffs' Bar Config")]
+        [Header("$Mods.BetterGameUI.Config.Header.InventoryDownBuffsBarConfig")]
         [DefaultValue(ScrollbarPosition.LeftOfIcons)]
-        [Label("Scrollbar Relative Position")]
-        public ScrollbarPosition InventoryDownScrollbarRelPosition { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.ScrollbarRelPos")]
+        public ScrollbarPosition InventoryDownScrollbarRelPos { get; set; }
 
         [DefaultValue(BuffIconsHorOrder.LeftToRight)]
-        [Label("Icons Horizontal Order")]
+        [Label("$Mods.BetterGameUI.Config.Label.IconsHorOrder")]
         public BuffIconsHorOrder InventoryDownIconsHorOrder { get; set; }
 
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("X Offset")]
+        [Label("$Mods.BetterGameUI.Config.Label.XOffset")]
         public int InventoryDownXOffset { get; set; }
 
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("Y Offset")]
+        [Label("$Mods.BetterGameUI.Config.Label.YOffset")]
         public int InventoryDownYOffset { get; set; }
 
         [DefaultValue(2)]
@@ -85,28 +85,28 @@ namespace BetterGameUI
         public int InventoryDownIconColsCount { get; set; }
 
         [DefaultValue(true)]
-        [Label("Hotbar Locking Also Locks This")]
+        [Label("$Mods.BetterGameUI.Config.Label.HotbarLockingAlsoLocksThis")]
         public bool InventoryDownHotbarLockingAlsoLocksThis { get; set; }
 
         // ------------- Inventory Up Buffs' Bar Config ------------- //
 
-        [Header("Inventory Up Buffs' Bar Config")]
+        [Header("$Mods.BetterGameUI.Config.Header.InventoryUpBuffsBarConfig")]
         [DefaultValue(ScrollbarPosition.RightOfIcons)]
-        [Label("Scrollbar Relative Position")]
+        [Label("$Mods.BetterGameUI.Config.Label.ScrollbarRelPos")]
         public ScrollbarPosition InventoryUpScrollbarRelPosition { get; set; }
 
         [DefaultValue(BuffIconsHorOrder.RightToLeft)]
-        [Label("Icons Horizontal Order")]
+        [Label("$Mods.BetterGameUI.Config.Label.IconsHorOrder")]
         public BuffIconsHorOrder InventoryUpIconsHorOrder { get; set; }
 
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("X Offset")]
+        [Label("$Mods.BetterGameUI.Config.Label.XOffset")]
         public int InventoryUpXOffset { get; set; }
 
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("Y Offset")]
+        [Label("$Mods.BetterGameUI.Config.Label.YOffset")]
         public int InventoryUpYOffset { get; set; }
 
         [DefaultValue(4)]
@@ -121,7 +121,7 @@ namespace BetterGameUI
 
         // ------------- Misc Config ------------- //
         
-        [Header("Misc Config")]
+        [Header("$Mods.BetterGameUI.Config.Header.MiscConfig")]
         [ReloadRequired]
         [DefaultValue(0)]
         [Range(uint.MinValue, uint.MaxValue)]

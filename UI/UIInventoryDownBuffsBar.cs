@@ -35,9 +35,9 @@ namespace BetterGameUI.UI
                 IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
                 IconRowsCount) - IconToIconPad);
-            ScrollbarPosition = Mod.ClientConfig.InventoryDownScrollbarRelPosition;
+            ScrollbarPosition = Mod.ClientConfig.InventoryDownScrollbarRelPos;
             IconsHorOrder = Mod.ClientConfig.InventoryDownIconsHorOrder;
-            HitboxModifier = Mod.ClientConfig.BuffIconsBarHitboxModifier;
+            HitboxModifier = Mod.ClientConfig.BuffsBarHitboxModifier;
 
             switch (ScrollbarPosition) {
                 case ScrollbarPosition.LeftOfIcons:

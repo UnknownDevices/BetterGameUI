@@ -28,7 +28,7 @@ namespace BetterGameUI.UI
             Top = StyleDimension.FromPixelsAndPercent(421, 1f);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
                 IconRowsCount) - IconToIconPad);
-            HitboxModifier = Mod.ClientConfig.BuffIconsBarHitboxModifier;
+            HitboxModifier = Mod.ClientConfig.BuffsBarHitboxModifier;
             ScrollbarPosition = Mod.ClientConfig.InventoryUpScrollbarRelPosition;
             IconsHorOrder = Mod.ClientConfig.InventoryUpIconsHorOrder;
 

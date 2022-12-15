@@ -2,12 +2,30 @@ Mods: {
 	BetterGameUI: {
 		Config: { 
 			Title: {
+				ClientConfig: "Client Config"
+			}
+			Header: {
+				InputConfig: "Input Config"
+				InventoryDownBuffsBarConfig: "Inventory Down Buffs' Bar Config"
+				InventoryUpBuffsBarConfig: "Inventory Up Buffs' Bar Config"
+				MiscConfig: "Misc. Config"
 			}
 			Label: {
-				ExtraPlayerBuffSlots: "Extra Player Buff Slots"
-				IconRowsCount: "Icon Rows Count"
-				IconColsCount: "Icon Columns Count"
-				MinimalScrollerHeight: "Minimal Scroller Height"
+				BuffsBarHitboxModifier: "Buffs' Bar's Hitbox Modifier"
+				ScrollerHitboxModifier: "Scroller's Hitbox Modifier"
+				MinimalScrollerHeight: "Minimal Scroller's Height"
+				InvertMouseScrollForScrollbar: "Invert Mouse Scroll For Scrollbar"
+				AllowScrollerDragging: "Allow Scroller Dragging"
+				MouseScrollFocusesMouseHoveredUI: "Mouse Scroll Focuses Mouse Hovered UI"
+				SmartHideScrollbar: "Smart Hide Scrollbar"
+				ScrollbarRelPos: "Scrollbar's Relative Position"
+				IconsHorOrder: "Icons' Horizontal Order"
+				XOffset: "X Offset"
+				YOffset: "Y Offset"
+				IconRowsCount: "Icon Rows' Count"
+				IconColsCount: "Icon Columns' Count"
+				HotbarLockingAlsoLocksThis: "Hotbar Locking Also Locks This"
+				ExtraPlayerBuffSlots: "Extra Player's Buff Slots"
 			}
 			Tooltip: {
 			}
