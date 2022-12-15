@@ -6,7 +6,6 @@ namespace BetterGameUI.UI
 {
     public class UIInventoryUpBuffsBar : UIBuffsBar
     {
-        // TODO: scrollbar shouldn't be accounted within this object dimensions
         public override void UpdateBeforeDraw() {
             UIScrollbar.IsVisible &= !Mod.ClientConfig.SmartHideScrollbar | 0 < UIScrollbar.MaxScrollNotches;
 
@@ -37,7 +36,6 @@ namespace BetterGameUI.UI
                 case ScrollbarPosition.LeftOfIcons:
                     UIScrollbar.Left = StyleDimension.FromPixels(0f);
                     break;
-
                 case ScrollbarPosition.RightOfIcons:
                     UIScrollbar.Left = StyleDimension.FromPixelsAndPercent(-ScrollbarReservedWidth + 4, 1f);
                     break;

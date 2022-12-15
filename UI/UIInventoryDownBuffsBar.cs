@@ -4,7 +4,6 @@ using Terraria.UI;
 
 namespace BetterGameUI.UI
 {
-    // TODO: reformat
     public class UIInventoryDownBuffsBar : UIBuffsBar 
     {
         public override void UpdateBeforeDraw() {

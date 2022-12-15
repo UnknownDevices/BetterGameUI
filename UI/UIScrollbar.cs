@@ -10,7 +10,6 @@ namespace BetterGameUI.UI
     public class UIScrollbar : UIState
     {
         public bool IsVisible = true;
-        // TODO: make into functions override functionality with inheritance
         public bool IsMouseHoveringScrollerHitbox = false;
         public bool IsScrollerBeingDragged = false;
         public int ScrollerHitboxModifier;
@@ -24,18 +23,6 @@ namespace BetterGameUI.UI
         public UIScroller UIScroller {
             get => Elements[0] as UIScroller;
             set => Elements[0] = value;
-        }
-
-        public virtual bool IsMouseScrollFocusingThis() {
-            return true;
-        }
-
-        public virtual bool IsDraggingScrollerAllowed() {
-            return IsVisible;
-        }
-
-        public virtual int MouseScroll() {
-            return -(PlayerInput.ScrollWheelDeltaForUI / 120);
         }
 
         public override void Draw(SpriteBatch spriteBatch) {
@@ -73,6 +60,18 @@ namespace BetterGameUI.UI
                     0, texture.Height - CornerHeight,
                     rec.Width, CornerHeight),
                     color);
+        }
+
+        public virtual bool IsMouseScrollFocusingThis() {
+            return true;
+        }
+
+        public virtual bool IsDraggingScrollerAllowed() {
+            return IsVisible;
+        }
+
+        public virtual int MouseScroll() {
+            return -(PlayerInput.ScrollWheelDeltaForUI / 120);
         }
 
         // TODO: have scroller snap to mouse position when scrollbar is left clicked and scroller dragging is allowed
