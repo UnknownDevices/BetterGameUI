@@ -11,7 +11,7 @@ namespace BetterGameUI.UI
         public int CornerHeight;
         public float Alpha;
 
-        public UIScrollbar ScrollbarUI => Parent as UIScrollbar;
+        public UIScrollbar UIScrollbar => Parent as UIScrollbar;
 
         public override void Draw(SpriteBatch spriteBatch) {
             if (IsVisible) {
@@ -26,8 +26,8 @@ namespace BetterGameUI.UI
             var rec = GetDimensions().ToRectangle();
 
             float alpha = Alpha;
-            if ((ScrollbarUI.IsDraggingScrollerAllowed() & ScrollbarUI.IsMouseHoveringScrollerHitbox) | 
-                ScrollbarUI.IsScrollerBeingDragged) 
+            if ((UIScrollbar.IsDraggingScrollerAllowed() & UIScrollbar.IsMouseHoveringScrollerHitbox) | 
+                UIScrollbar.IsScrollerBeingDragged) 
             {
                 // TODO: mod by percent of current alpha instead?
                 alpha = Math.Min(Alpha + 0.5f, 1f);

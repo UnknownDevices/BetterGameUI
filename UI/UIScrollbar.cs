@@ -21,7 +21,7 @@ namespace BetterGameUI.UI
         public float ScrollerDraggingPointY;
         public float Alpha;
 
-        public UIScroller ScrollerUI {
+        public UIScroller UIScroller {
             get => Elements[0] as UIScroller;
             set => Elements[0] = value;
         }
@@ -77,10 +77,10 @@ namespace BetterGameUI.UI
 
         // TODO: have scroller snap to mouse position when scrollbar is left clicked and scroller dragging is allowed
         public virtual void UpdateBeforeDraw() {
-            var scrollerCalculatedMinHeight = ScrollerUI.MinHeight.GetValue(GetInnerDimensions().Height);
-            var scrollerCalculatedMaxHeight = ScrollerUI.MaxHeight.GetValue(GetInnerDimensions().Height);
+            var scrollerCalculatedMinHeight = UIScroller.MinHeight.GetValue(GetInnerDimensions().Height);
+            var scrollerCalculatedMaxHeight = UIScroller.MaxHeight.GetValue(GetInnerDimensions().Height);
 
-            var scrollerHitbox = ScrollerUI.GetDimensions();
+            var scrollerHitbox = UIScroller.GetDimensions();
             if (ScrollerHitboxModifier != 0) {
                 scrollerHitbox.X -= (float)ScrollerHitboxModifier / 2;
                 scrollerHitbox.Y -= (float)ScrollerHitboxModifier / 2;
@@ -98,19 +98,19 @@ namespace BetterGameUI.UI
             if (IsDraggingScrollerAllowed()) {
                 if (IsScrollerBeingDragged) {
                     if (PlayerInput.Triggers.Current.MouseLeft) {
-                        float draggedDistanceInPxs = mouseY - ScrollerUI.GetDimensions().Y - ScrollerDraggingPointY;
+                        float draggedDistInPxs = mouseY - UIScroller.GetDimensions().Y - ScrollerDraggingPointY;
 
-                        if (draggedDistanceInPxs != 0) {
-                            if (ScrolledNotches <= 0 & draggedDistanceInPxs < 0) {
-                                ScrollerDraggingPointY = Math.Max(mouseY - ScrollerUI.GetDimensions().Y, 0);
+                        if (draggedDistInPxs != 0) {
+                            if (ScrolledNotches <= 0 & draggedDistInPxs < 0) {
+                                ScrollerDraggingPointY = Math.Max(mouseY - UIScroller.GetDimensions().Y, 0);
                             }
-                            else if (MaxScrollNotches <= ScrolledNotches & 0 < draggedDistanceInPxs) {
-                                ScrollerDraggingPointY = Math.Min(mouseY - ScrollerUI.GetDimensions().Y,
-                                    ScrollerUI.GetDimensions().Height);
+                            else if (MaxScrollNotches <= ScrolledNotches & 0 < draggedDistInPxs) {
+                                ScrollerDraggingPointY = Math.Min(mouseY - UIScroller.GetDimensions().Y,
+                                    UIScroller.GetDimensions().Height);
                             }
 
                             scrolledNotchesBeforeClamp += (long)Math.Round(
-                                draggedDistanceInPxs / (GetInnerDimensions().Height / (MaxScrollNotches + 1)));
+                                draggedDistInPxs / (GetInnerDimensions().Height / (MaxScrollNotches + 1)));
                         }
                     }
                     else {
@@ -119,8 +119,8 @@ namespace BetterGameUI.UI
                 }
                 else if (PlayerInput.Triggers.JustPressed.MouseLeft & IsMouseHoveringScrollerHitbox) {
                     IsScrollerBeingDragged = true;
-                    ScrollerDraggingPointY = (float)Math.Clamp(mouseY - ScrollerUI.GetDimensions().Y, 0,
-                        ScrollerUI.GetDimensions().Height);
+                    ScrollerDraggingPointY = (float)Math.Clamp(mouseY - UIScroller.GetDimensions().Y, 0,
+                        UIScroller.GetDimensions().Height);
                 }
 
                 if (IsScrollerBeingDragged | IsMouseHoveringScrollerHitbox) {
@@ -138,18 +138,18 @@ namespace BetterGameUI.UI
 
             ScrolledNotches = (uint)Math.Clamp(scrolledNotchesBeforeClamp, 0, MaxScrollNotches);
 
-            ScrollerUI.Height = (GetInnerDimensions().Height == 0) ?
+            UIScroller.Height = (GetInnerDimensions().Height == 0) ?
                 StyleDimension.FromPixels(0f) :
-                ScrollerUI.Height = StyleDimension.FromPixels((float)Math.Clamp(
+                    UIScroller.Height = StyleDimension.FromPixels((float)Math.Clamp(
                     Math.Ceiling(GetInnerDimensions().Height / (MaxScrollNotches + 1)),
                     scrollerCalculatedMinHeight, scrollerCalculatedMaxHeight));
 
-            float pxsPerScroll = (GetInnerDimensions().Height - ScrollerUI.Height.Pixels == 0) ?
+            float pxsPerNotch = (GetInnerDimensions().Height - UIScroller.Height.Pixels == 0) ?
                 0 :
-                (GetInnerDimensions().Height - ScrollerUI.Height.Pixels) / MaxScrollNotches;
+                (GetInnerDimensions().Height - UIScroller.Height.Pixels) / MaxScrollNotches;
 
-            ScrollerUI.Top = StyleDimension.FromPixels((float)Math.Round(pxsPerScroll * ScrolledNotches));
-            ScrollerUI.Recalculate();
+            UIScroller.Top = StyleDimension.FromPixels((float)Math.Round(pxsPerNotch * ScrolledNotches));
+            UIScroller.Recalculate();
         }
     }
 }
