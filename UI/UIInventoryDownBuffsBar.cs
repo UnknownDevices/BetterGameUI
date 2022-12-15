@@ -12,7 +12,7 @@ namespace BetterGameUI.UI
             Left = StyleDimension.FromPixels(32 - ScrollbarReservedWidth);
             Top = StyleDimension.FromPixels(76);
         }
-
+         
         public override void UpdateBeforeDraw() {
             UIScrollbar.IsVisible &= !Mod.ClientConfig.SmartHideScrollbar | 0 < UIScrollbar.MaxScrollNotches;
 
@@ -21,8 +21,6 @@ namespace BetterGameUI.UI
             if (UIScrollbar.IsMouseScrollFocusingThis()) {
                 PlayerInput.LockVanillaMouseScroll("GameBuffIconsBarUI");
             }
-
-            UIScrollbar.ExtraMouseScroll += Player.ExtraMouseScrollForUI;
         }
 
         public override bool IsLocked() {

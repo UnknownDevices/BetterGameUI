@@ -14,13 +14,17 @@ namespace BetterGameUI.UI
         public bool IsMouseHoveringScrollerHitbox = false;
         public bool IsScrollerBeingDragged = false;
         public int ScrollerHitboxModifier;
-        public int ExtraMouseScroll;
         public int CornerHeight;
         public uint ScrolledNotches;
         public uint MaxScrollNotches;
         // TODO: consider using float.NaN to represent scroller not being dragged
         public float ScrollerDraggingPointY;
         public float Alpha;
+
+        public UIScroller ScrollerUI {
+            get => Elements[0] as UIScroller;
+            set => Elements[0] = value;
+        }
 
         public virtual bool IsMouseScrollFocusingThis() {
             return true;
@@ -30,9 +34,8 @@ namespace BetterGameUI.UI
             return IsVisible;
         }
 
-        public UIScroller ScrollerUI {
-            get => Elements[0] as UIScroller;
-            set => Elements[0] = value;
+        public virtual int MouseScroll() {
+            return -(PlayerInput.ScrollWheelDeltaForUI / 120);
         }
 
         public override void Draw(SpriteBatch spriteBatch) {
@@ -42,7 +45,6 @@ namespace BetterGameUI.UI
                 base.Draw(spriteBatch);
             }
 
-            ExtraMouseScroll = 0;
             IsVisible = true;
         }
 
@@ -131,7 +133,7 @@ namespace BetterGameUI.UI
 
             // TODO: consider if !IsScrollerBeingDragged is necessary
             if (IsMouseScrollFocusingThis() & (!IsDraggingScrollerAllowed() | !IsScrollerBeingDragged)) {
-                scrolledNotchesBeforeClamp += ExtraMouseScroll + -(PlayerInput.ScrollWheelDeltaForUI / 120);
+                scrolledNotchesBeforeClamp += MouseScroll();
             }
 
             ScrolledNotches = (uint)Math.Clamp(scrolledNotchesBeforeClamp, 0, MaxScrollNotches);

@@ -15,7 +15,6 @@ namespace BetterGameUI
         public override void OnChanged() => BetterGameUI.Mod.RaiseClientConfigChanged();
 
         // TODO: consider config profiles
-        // TODO: do invert mouse scroll config
         // TODO: have tooltips display the min and max value for the field, as well as the reasoning for these if not obvious
         // TODO: have ReloadRequired fields mention they are so in their tooltips
         // TODO: do localization
@@ -40,6 +39,11 @@ namespace BetterGameUI
         [Range(int.MinValue, int.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.MinimalScrollerHeight")]
         public int MinimalScrollerHeight { get; set; }
+
+        // TODO: consider if this should also affect vanilla mouse scroll
+        [DefaultValue(false)]
+        [Label("Invert Mouse Scroll For Scrollbar")]
+        public bool InvertMouseScrollForScrollbar { get; set; }
 
         [DefaultValue(true)]
         [Label("Allow Scroller Dragging")]

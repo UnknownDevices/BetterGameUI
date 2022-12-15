@@ -16,8 +16,6 @@ namespace BetterGameUI.UI
             if (UIScrollbar.IsMouseScrollFocusingThis()) {
                 PlayerInput.LockVanillaMouseScroll("InventoryBuffIconsBarUI");
             }
-
-            UIScrollbar.ExtraMouseScroll += Player.ExtraMouseScrollForUI;
         }
 
         // TODO: move to UIBuffsBar what be moved

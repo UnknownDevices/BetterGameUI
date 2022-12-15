@@ -211,7 +211,7 @@ namespace BetterGameUI.UI
                     flag = (mouseLeft && mouseLeftRelease && playerInventory);
                     if (playerInventory)
                         player[myPlayer].mouseInterface = true;
-                }
+                } 
                 else {
                     player[myPlayer].mouseInterface = true;
                 }
