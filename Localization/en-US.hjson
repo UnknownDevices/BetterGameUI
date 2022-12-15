@@ -11,8 +11,8 @@ Mods: {
 				MiscConfig: "Misc. Config"
 			}
 			Label: {
-				BuffsBarHitboxModifier: "Buffs' Bar's Hitbox Modifier"
-				ScrollerHitboxModifier: "Scroller's Hitbox Modifier"
+				BuffsBarHitboxMod: "Buffs' Bar's Hitbox Modifier"
+				ScrollerHitboxMod: "Scroller's Hitbox Modifier"
 				MinimalScrollerHeight: "Minimal Scroller's Height"
 				InvertMouseScrollForScrollbar: "Invert Mouse Scroll For Scrollbar"
 				AllowScrollerDragging: "Allow Scroller Dragging"

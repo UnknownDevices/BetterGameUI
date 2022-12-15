@@ -23,13 +23,13 @@ namespace BetterGameUI
         [Header("$Mods.BetterGameUI.Config.Header.InputConfig")]
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.BuffsBarHitboxModifier")]
-        public int BuffsBarHitboxModifier { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.BuffsBarHitboxMod")]
+        public int BuffsBarHitboxMod { get; set; }
 
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.ScrollerHitboxModifier")]
-        public int ScrollerHitboxModifier { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.ScrollerHitboxMod")]
+        public int ScrollerHitboxMod { get; set; }
 
         [DefaultValue(12)]
         [Range(int.MinValue, int.MaxValue)]

@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.GameInput;
 using Terraria.UI;
 
@@ -6,10 +7,8 @@ namespace BetterGameUI.UI
 {
     public sealed class UIInventoryDownBuffsBar : UIBuffsBar 
     {
-        public override void UpdateBeforeDraw() {
-            UIScrollbar.IsActive &= !Mod.ClientConfig.SmartHideScrollbar | 0 < UIScrollbar.MaxScrollNotches;
-
-            base.UpdateBeforeDraw();
+        public override void PreDraw() {
+            base.PreDraw();
 
             if (UIScrollbar.IsMouseScrollFocusingThis()) {
                 PlayerInput.LockVanillaMouseScroll("GameBuffIconsBarUI");
@@ -32,7 +31,6 @@ namespace BetterGameUI.UI
                 IconRowsCount) - IconToIconPad);
             ScrollbarPosition = Mod.ClientConfig.InventoryDownScrollbarRelPos;
             IconsHorOrder = Mod.ClientConfig.InventoryDownIconsHorOrder;
-            HitboxModifier = Mod.ClientConfig.BuffsBarHitboxModifier;
 
             switch (ScrollbarPosition) {
                 case ScrollbarPosition.LeftOfIcons:
@@ -44,7 +42,7 @@ namespace BetterGameUI.UI
             }
 
             UIScrollbar.UIScroller.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinimalScrollerHeight);
-            UIScrollbar.ScrollerHitboxModifier = Mod.ClientConfig.ScrollerHitboxModifier;
+            UIScrollbar.ScrollerHitboxModifier = Mod.ClientConfig.ScrollerHitboxMod;
         }
 
         public override void HandleClientConfigChanged() {

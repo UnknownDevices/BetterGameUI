@@ -26,7 +26,7 @@ namespace BetterGameUI.UI
             var rec = GetDimensions().ToRectangle();
 
             float alpha = Alpha;
-            if ((UIScrollbar.IsDraggingScrollerAllowed() & UIScrollbar.IsMouseHoveringScrollerHitbox) | 
+            if ((UIScrollbar.IsDraggingScrollerAllowed()/* & UIScrollbar.IsMouseHoveringScrollerHitbox*/) | 
                 UIScrollbar.IsScrollerBeingDragged) 
             {
                 // TODO: mod by percent of current alpha instead?

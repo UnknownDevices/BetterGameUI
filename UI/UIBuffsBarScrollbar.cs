@@ -1,4 +1,5 @@
-﻿using Terraria.GameInput;
+﻿using Terraria;
+using Terraria.GameInput;
 using Terraria.UI;
 
 namespace BetterGameUI.UI
@@ -27,7 +28,7 @@ namespace BetterGameUI.UI
 
         public override bool IsMouseScrollFocusingThis() {
             return Player.MouseScrollIsFocusingBuffIconsBar | 
-                (Mod.ClientConfig.MouseScrollFocusesMouseHoveredUI & UIBuffsBar.IsMouseHoveringHitbox) && 
+                (Mod.ClientConfig.MouseScrollFocusesMouseHoveredUI & UIBuffsBar.IsMouseHoveringHitbox()) && 
                 base.IsMouseScrollFocusingThis();
         }
 
@@ -49,6 +50,13 @@ namespace BetterGameUI.UI
 
             output += base.MouseScroll();
             return Mod.ClientConfig.InvertMouseScrollForScrollbar ? -output : output;
+        }
+
+        public override bool IsMouseHoveringScrollerHitbox() {
+            float mouseX = PlayerInput.MouseInfo.X / Main.UIScale;
+            float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;
+            return UIScroller.GetDimensions().GrowFromCenter(Mod.ClientConfig.ScrollerHitboxMod).
+                Contains(mouseX, mouseY);
         }
     }
 }

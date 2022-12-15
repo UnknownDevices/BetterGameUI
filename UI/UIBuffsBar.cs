@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using rail;
 using ReLogic.Content;
 using ReLogic.Graphics;
 using System;
@@ -9,7 +8,6 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameInput;
 using Terraria.ModLoader;
-using Terraria.Net.Sockets;
 using Terraria.UI;
 using static Terraria.Main;
 
@@ -35,11 +33,9 @@ namespace BetterGameUI.UI
         public const int IconToIconPad = 6;
         public const int ScrollbarReservedWidth = 14;
 
-        public bool IsActive = true;
-        public bool IsMouseHoveringHitbox;
         public ScrollbarPosition ScrollbarPosition;
         public BuffIconsHorOrder IconsHorOrder;
-        public int HitboxModifier;
+        public bool IsActive = true;
         public ushort IconRowsCount;
         public ushort IconColsCount;
 
@@ -53,19 +49,18 @@ namespace BetterGameUI.UI
 
             Append(new UIBuffsBarScrollbar());
             UpdateClientConfigDependencies();
+
             Recalculate();
         }
 
         public override void Draw(SpriteBatch spriteBatch) {
-            // TODO: consider using OnPreDraw
             if (IsActive) {
-                UpdateBeforeDraw();
+                PreDraw();
                 base.Draw(spriteBatch);
             }
             
             IsActive = true;
         }
-
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
             var rec = GetDimensions().ToRectangle();
@@ -123,20 +118,14 @@ namespace BetterGameUI.UI
         public virtual void HandleClientConfigChanged() {
         }
 
-        public virtual void UpdateBeforeDraw() {
-            // calculate my own mouse x and y given the UIScale and don't round them down (like main.mouseX and main.mouseY are).
-            var hitbox = GetDimensions();
-            if (HitboxModifier != 0) {
-                hitbox.X -= (float)HitboxModifier / 2;
-                hitbox.Y -= (float)HitboxModifier / 2;
-                hitbox.Width += HitboxModifier;
-                hitbox.Height += HitboxModifier;
-            }
+        public virtual bool IsMouseHoveringHitbox() {
+            float mouseX = PlayerInput.MouseInfo.X / Main.UIScale;
+            float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;
+            return GetDimensions().GrowFromCenter(Mod.ClientConfig.BuffsBarHitboxMod).
+                Contains(mouseX, mouseY);
+        }
 
-            float mouseX = PlayerInput.MouseInfo.X / UIScale;
-            float mouseY = PlayerInput.MouseInfo.Y / UIScale;
-            IsMouseHoveringHitbox = hitbox.Contains(mouseX, mouseY);
-
+        public virtual void PreDraw() {
             if (Mod.ActiveBuffsIndexes.Count <= 0) {
                 UIScrollbar.MaxScrollNotches = 0;
             }
@@ -144,6 +133,8 @@ namespace BetterGameUI.UI
                 UIScrollbar.MaxScrollNotches = (uint)Math.Max(
                     Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)IconColsCount) - IconRowsCount, 0);
             }
+
+            UIScrollbar.IsActive &= !Mod.ClientConfig.SmartHideScrollbar | 0 < UIScrollbar.MaxScrollNotches;
         }
 
         public int DrawBuffIcon(int drawBuffText, int buffSlotOnPlayer, int x, int y) {

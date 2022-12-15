@@ -1153,6 +1153,9 @@ namespace BetterGameUI
             return true;
         }
 
+        public static void Foo(GameTime _) {
+        }
+
         public override void Load() {
             if (!dedServ) {
                 UserInterfaceInventoryDownBuffsBar = new();
@@ -1175,11 +1178,12 @@ namespace BetterGameUI
         }
 
         public override void UpdateUI(GameTime gameTime) {
-            // TODO: this should be called at a higher level
-            BetterGameUI.Mod.UpdateActiveBuffsIndexes();
-
             LastUpdateUIGameTime = gameTime;
+
             if (LastUpdateUIGameTime != null) {
+                // TODO: this should be called at a higher level
+                BetterGameUI.Mod.UpdateActiveBuffsIndexes();
+
                 if (UserInterfaceInventoryDownBuffsBar != null) {
                     UserInterfaceInventoryDownBuffsBar.Update(LastUpdateUIGameTime);
                 }

@@ -10,7 +10,6 @@ namespace BetterGameUI.UI
     public class UIScrollbar : UIState
     {
         public bool IsActive = true;
-        public bool IsMouseHoveringScrollerHitbox = false;
         public bool IsScrollerBeingDragged = false;
         public int ScrollerHitboxModifier;
         public int CornerHeight;
@@ -27,7 +26,7 @@ namespace BetterGameUI.UI
 
         public override void Draw(SpriteBatch spriteBatch) {
             if (IsActive) {
-                UpdateBeforeDraw();
+                PreDraw();
                 base.Draw(spriteBatch);
             }
 
@@ -73,27 +72,22 @@ namespace BetterGameUI.UI
             return -(PlayerInput.ScrollWheelDeltaForUI / 120);
         }
 
-        // TODO: have scroller snap to mouse position when scrollbar is left clicked and scroller dragging is allowed
-        public virtual void UpdateBeforeDraw() {
-            var scrollerCalculatedMinHeight = UIScroller.MinHeight.GetValue(GetInnerDimensions().Height);
-            var scrollerCalculatedMaxHeight = UIScroller.MaxHeight.GetValue(GetInnerDimensions().Height);
-
-            var scrollerHitbox = UIScroller.GetDimensions();
-            if (ScrollerHitboxModifier != 0) {
-                scrollerHitbox.X -= (float)ScrollerHitboxModifier / 2;
-                scrollerHitbox.Y -= (float)ScrollerHitboxModifier / 2;
-                scrollerHitbox.Width += ScrollerHitboxModifier;
-                scrollerHitbox.Height += ScrollerHitboxModifier;
-            }
-
-            // TODO: consider if the unrounded values are truly necessary
+        public virtual bool IsMouseHoveringScrollerHitbox() {
             float mouseX = PlayerInput.MouseInfo.X / Main.UIScale;
             float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;
-            IsMouseHoveringScrollerHitbox = scrollerHitbox.Contains(mouseX, mouseY);
+            return UIScroller.GetDimensions().Contains(mouseX, mouseY);
+        }
 
+        // TODO: have scroller snap to mouse position when scrollbar is left clicked and scroller dragging is allowed
+        public virtual void PreDraw() {
+            var scrollerCalculatedMinHeight = UIScroller.MinHeight.GetValue(GetInnerDimensions().Height);
+            var scrollerCalculatedMaxHeight = UIScroller.MaxHeight.GetValue(GetInnerDimensions().Height);
             long scrolledNotchesBeforeClamp = ScrolledNotches;
+            bool isMouseHoveringScrollerHitbox = IsMouseHoveringScrollerHitbox();
 
             if (IsDraggingScrollerAllowed()) {
+                float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;
+
                 if (IsScrollerBeingDragged) {
                     if (PlayerInput.Triggers.Current.MouseLeft) {
                         float draggedDistInPxs = mouseY - UIScroller.GetDimensions().Y - ScrollerDraggingPointY;
@@ -115,13 +109,13 @@ namespace BetterGameUI.UI
                         IsScrollerBeingDragged = false;
                     }
                 }
-                else if (PlayerInput.Triggers.JustPressed.MouseLeft & IsMouseHoveringScrollerHitbox) {
+                else if (PlayerInput.Triggers.JustPressed.MouseLeft & isMouseHoveringScrollerHitbox) {
                     IsScrollerBeingDragged = true;
                     ScrollerDraggingPointY = (float)Math.Clamp(mouseY - UIScroller.GetDimensions().Y, 0,
                         UIScroller.GetDimensions().Height);
                 }
 
-                if (IsScrollerBeingDragged | IsMouseHoveringScrollerHitbox) {
+                if (IsScrollerBeingDragged | isMouseHoveringScrollerHitbox) {
                     Main.player[Main.myPlayer].mouseInterface = true;
                 }
             }
