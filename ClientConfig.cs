@@ -5,7 +5,7 @@ using Terraria.ModLoader.Config;
 
 namespace BetterGameUI
 {
-    [Label("$Mods.BetterGameUI.Config.Title.ClientConfig")]
+    [Label("Client Config")]
     public class ClientConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;

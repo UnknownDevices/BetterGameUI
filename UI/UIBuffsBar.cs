@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using rail;
 using ReLogic.Content;
 using ReLogic.Graphics;
 using System;
@@ -8,6 +9,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameInput;
 using Terraria.ModLoader;
+using Terraria.Net.Sockets;
 using Terraria.UI;
 using static Terraria.Main;
 
@@ -25,7 +27,7 @@ namespace BetterGameUI.UI
         RightToLeft,
     }
 
-    public class BuffIconsBarUI : UIState
+    public class UIBuffsBar : UIState
     {
         public const int IconWidth = 32;
         public const int IconHeight = 32;
@@ -33,7 +35,6 @@ namespace BetterGameUI.UI
         public const int IconToIconPad = 6;
 
         public bool IsVisible = true;
-        public bool IsLocked = false;
         public bool IsMouseHoveringHitbox;
         public ScrollbarPosition ScrollbarPosition;
         public BuffIconsHorOrder IconsHorOrder;
@@ -42,9 +43,48 @@ namespace BetterGameUI.UI
         public ushort IconRowsCount;
         public ushort IconColsCount;
 
-        public ScrollbarUI ScrollbarUI {
-            get => Elements[0] as ScrollbarUI;
+        public UIBuffsBarScrollbar UIScrollbar {
+            get => Elements[0] as UIBuffsBarScrollbar;
             set => Elements[0] = value;
+        }
+
+        public UIBuffsBar() {
+            ScrollbarReservedWidth = 14;
+
+            // TODO: some of this should be done in ScrollbarUI
+            Append(new UIBuffsBarScrollbar
+            {
+                Top = StyleDimension.FromPixels(2f),
+                Width = StyleDimension.FromPixels(10f),
+                Height = StyleDimension.FromPixelsAndPercent(-16f, 1f),
+                CornerHeight = 4,
+                Alpha = 0.5f,
+            });
+
+            UIScrollbar.Append(new UIScroller
+            {
+                Top = StyleDimension.FromPixels(0f),
+                Left = StyleDimension.FromPixels(2f),
+                Width = StyleDimension.FromPixels(6f),
+                Height = StyleDimension.FromPixels(8f),
+                CornerHeight = 2,
+                Alpha = 0.5f,
+            });
+
+            Mod.OnClientConfigChanged += HandleClientConfigChanged;
+
+            UpdateClientConfigDependencies();
+            Recalculate();
+        }
+
+        public virtual bool IsLocked() {
+            return false;
+        }
+
+        public virtual void UpdateClientConfigDependencies() {
+        }
+
+        public virtual void HandleClientConfigChanged() {
         }
 
         public override void Draw(SpriteBatch spriteBatch) {
@@ -55,13 +95,13 @@ namespace BetterGameUI.UI
             }
 
             IsVisible = true;
-            IsLocked = false;
         }
+
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
             var rec = GetDimensions().ToRectangle();
             int mouseoveredIcon = -1;
-            int buffsBegin = (int)ScrollbarUI.ScrolledDist * IconColsCount;
+            int buffsBegin = (int)UIScrollbar.ScrolledNotches * IconColsCount;
             int iconsEnd = Math.Min(Mod.ActiveBuffsIndexes.Count - buffsBegin, IconRowsCount * IconColsCount);
             for (int iconsI = 0; iconsI < iconsEnd; ++iconsI) {
                 int x = 0;
@@ -119,14 +159,12 @@ namespace BetterGameUI.UI
             IsMouseHoveringHitbox = hitbox.Contains(mouseX, mouseY);
 
             if (Mod.ActiveBuffsIndexes.Count <= 0) {
-                ScrollbarUI.ScrollableDist = 0;
+                UIScrollbar.MaxScrollNotches = 0;
             }
             else {
-                ScrollbarUI.ScrollableDist = (uint)Math.Max(
+                UIScrollbar.MaxScrollNotches = (uint)Math.Max(
                     Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)IconColsCount) - IconRowsCount, 0);
             }
-
-            ScrollbarUI.IsDraggingScrollerAllowed &= !IsLocked;
         }
 
         public int DrawBuffIcon(int drawBuffText, int buffSlotOnPlayer, int x, int y) {
@@ -164,7 +202,7 @@ namespace BetterGameUI.UI
                 spriteBatch.DrawString(FontAssets.ItemStack.Value, text, textPosition, color, 0f, default(Vector2), 0.8f, SpriteEffects.None, 0f);
             }
 
-            if (!IsLocked && mouseRectangle.Contains(mouseX, mouseY)) {
+            if (!IsLocked() && mouseRectangle.Contains(mouseX, mouseY)) {
                 drawBuffText = buffSlotOnPlayer;
                 buffAlpha[buffSlotOnPlayer] += 0.1f;
 

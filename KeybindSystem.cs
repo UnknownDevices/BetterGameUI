@@ -9,7 +9,7 @@ namespace BetterGameUI
         public override void Load() {
             HoldForMouseScrollToFocusBuffIconsBar = KeybindLoader.RegisterKeybind(Mod, "Hold For Mouse Scroll To Focus Buff Icons' Bar", "LeftAlt");
             // TODO: lock scrollbar keybind
-            // TODO: queue mouse scroll input if an item is in use
+            // TODO: queue mouse scroll input for hotbar if an item is in use
         }
 
         public override void Unload() {

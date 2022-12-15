@@ -16,7 +16,6 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.UI;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using Terraria.UI.Gamepad;
@@ -27,18 +26,18 @@ namespace BetterGameUI
 {
     public class UISystem : ModSystem
     {
-        public static UserInterface GameBuffIconsBarUIInterface;
-        public static UserInterface InventoryBuffIconsBarUIInterface;
+        public static UserInterface UserInterfaceInventoryDownBuffsBar;
+        public static UserInterface UserInterfaceInventoryUpBuffsBarParent;
         public static GameTime LastUpdateUIGameTime;
 
-        public static GameBuffIconsBarUI GameBuffIconsBarUI =>
-            GameBuffIconsBarUIInterface.CurrentState as GameBuffIconsBarUI;
+        public static UIInventoryDownBuffsBar UIInventoryDownBuffsBar =>
+            UserInterfaceInventoryDownBuffsBar.CurrentState as UIInventoryDownBuffsBar;
 
-        public static UIState InventoryBuffIconsBarParentUI =>
-            InventoryBuffIconsBarUIInterface.CurrentState;
+        public static UIState UIInventoryUpBuffsBarParent =>
+            UserInterfaceInventoryUpBuffsBarParent.CurrentState;
 
-        public static InventoryBuffIconsBarUI InventoryBuffIconsBarUI =>
-            InventoryBuffIconsBarUIInterface.CurrentState.Children.First() as InventoryBuffIconsBarUI;
+        public static UIInventoryUpBuffsBar UIInventoryUpBuffsBar =>
+            UserInterfaceInventoryUpBuffsBarParent.CurrentState.Children.First() as UIInventoryUpBuffsBar;
 
         public static void DrawInventory() {
             Recipe.GetThroughDelayedFindRecipes();
@@ -296,17 +295,16 @@ namespace BetterGameUI
                     }
                 }
 
-                // TODO: take postition offsets in config instead of absolute positions
                 // TODO: check if the breath being drawn below the player when the inventory is open is something that's always been a thing or something that I'm causing
-                if (InventoryBuffIconsBarUIInterface.CurrentState != null) {
+                if (UserInterfaceInventoryUpBuffsBarParent.CurrentState != null) {
                     // TODO: make mapHeight automatically call GetValue(null) on itself
                     var mapHeight = (int)MainReflection.mapHeight.GetValue(null);
-                    if (InventoryBuffIconsBarParentUI.Height.Pixels != mapHeight) {
-                        InventoryBuffIconsBarParentUI.Height = StyleDimension.FromPixels(mapHeight);
-                        InventoryBuffIconsBarUIInterface.Recalculate();
+                    if (UIInventoryUpBuffsBarParent.Height.Pixels != mapHeight) {
+                        UIInventoryUpBuffsBarParent.Height = StyleDimension.FromPixels(mapHeight);
+                        UserInterfaceInventoryUpBuffsBarParent.Recalculate();
                     }
 
-                    InventoryBuffIconsBarUIInterface.Draw(spriteBatch, LastUpdateUIGameTime);
+                    UserInterfaceInventoryUpBuffsBarParent.Draw(spriteBatch, LastUpdateUIGameTime);
                 }
             }
             else if (EquipPage == 1) {
@@ -1147,8 +1145,8 @@ namespace BetterGameUI
                 DrawInterface_Resources_Breath();
                 DrawInterface_Resources_ClearBuffs();
 
-                if (GameBuffIconsBarUIInterface.CurrentState != null & !ingameOptionsWindow & !playerInventory & !inFancyUI) {
-                    GameBuffIconsBarUIInterface.Draw(spriteBatch, LastUpdateUIGameTime);
+                if (UserInterfaceInventoryDownBuffsBar.CurrentState != null & !ingameOptionsWindow & !playerInventory & !inFancyUI) {
+                    UserInterfaceInventoryDownBuffsBar.Draw(spriteBatch, LastUpdateUIGameTime);
                 }
             }
 
@@ -1157,23 +1155,23 @@ namespace BetterGameUI
 
         public override void Load() {
             if (!dedServ) {
-                GameBuffIconsBarUIInterface = new();
-                GameBuffIconsBarUIInterface.SetState(new GameBuffIconsBarUI());
-                GameBuffIconsBarUI.Activate();
+                UserInterfaceInventoryDownBuffsBar = new();
+                UserInterfaceInventoryDownBuffsBar.SetState(new UIInventoryDownBuffsBar());
+                UIInventoryDownBuffsBar.Activate();
 
                 var inventoryBuffIconsBarParentUI = new UIState();
-                inventoryBuffIconsBarParentUI.Append(new InventoryBuffIconsBarUI());
+                inventoryBuffIconsBarParentUI.Append(new UIInventoryUpBuffsBar());
                 inventoryBuffIconsBarParentUI.Width = StyleDimension.FromPercent(1f);
-                InventoryBuffIconsBarUIInterface = new();
-                InventoryBuffIconsBarUIInterface.SetState(inventoryBuffIconsBarParentUI);
-                InventoryBuffIconsBarUI.Activate();
+                UserInterfaceInventoryUpBuffsBarParent = new();
+                UserInterfaceInventoryUpBuffsBarParent.SetState(inventoryBuffIconsBarParentUI);
+                UIInventoryUpBuffsBar.Activate();
             }
         }
 
         public override void Unload() {
             LastUpdateUIGameTime = null;
-            GameBuffIconsBarUIInterface = null;
-            InventoryBuffIconsBarUIInterface = null;
+            UserInterfaceInventoryDownBuffsBar = null;
+            UserInterfaceInventoryUpBuffsBarParent = null;
         }
 
         public override void UpdateUI(GameTime gameTime) {
@@ -1182,12 +1180,12 @@ namespace BetterGameUI
 
             LastUpdateUIGameTime = gameTime;
             if (LastUpdateUIGameTime != null) {
-                if (GameBuffIconsBarUIInterface != null) {
-                    GameBuffIconsBarUIInterface.Update(LastUpdateUIGameTime);
+                if (UserInterfaceInventoryDownBuffsBar != null) {
+                    UserInterfaceInventoryDownBuffsBar.Update(LastUpdateUIGameTime);
                 }
 
-                if (InventoryBuffIconsBarUIInterface != null) {
-                    InventoryBuffIconsBarUIInterface.Update(LastUpdateUIGameTime);
+                if (UserInterfaceInventoryUpBuffsBarParent != null) {
+                    UserInterfaceInventoryUpBuffsBarParent.Update(LastUpdateUIGameTime);
                 }
             }
         }

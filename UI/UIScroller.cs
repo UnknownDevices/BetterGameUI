@@ -5,15 +5,13 @@ using Terraria.UI;
 
 namespace BetterGameUI.UI
 {
-    public class ScrollerUI : UIState
+    public class UIScroller : UIState
     {
         public bool IsVisible = true;
-        public bool IsMouseHoveringHitbox;
-        public bool IsBeingDragged;
         public int CornerHeight;
-        public int HitboxModifier;
-        public float DraggingPointY;
         public float Alpha;
+
+        public UIScrollbar ScrollbarUI => Parent as UIScrollbar;
 
         public override void Draw(SpriteBatch spriteBatch) {
             if (IsVisible) {
@@ -28,7 +26,9 @@ namespace BetterGameUI.UI
             var rec = GetDimensions().ToRectangle();
 
             float alpha = Alpha;
-            if (((Parent as ScrollbarUI).IsDraggingScrollerAllowed & IsMouseHoveringHitbox) | IsBeingDragged) {
+            if ((ScrollbarUI.IsDraggingScrollerAllowed() & ScrollbarUI.IsMouseHoveringScrollerHitbox) | 
+                ScrollbarUI.IsScrollerBeingDragged) 
+            {
                 // TODO: mod by percent of current alpha instead?
                 alpha = Math.Min(Alpha + 0.5f, 1f);
             }
