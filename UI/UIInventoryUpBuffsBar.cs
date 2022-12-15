@@ -20,8 +20,8 @@ namespace BetterGameUI.UI
 
         // TODO: move to UIBuffsBar what be moved
         public override void UpdateClientConfigDependencies() {
-            IconRowsCount = (ushort)Mod.ClientConfig.InventoryIconRowsCount;
-            IconColsCount = (ushort)Mod.ClientConfig.InventoryIconColsCount;
+            IconRowsCount = (ushort)Mod.ClientConfig.InventoryUpIconRowsCount;
+            IconColsCount = (ushort)Mod.ClientConfig.InventoryUpIconColsCount;
             Left = StyleDimension.FromPixelsAndPercent(-84 - 38 * (IconColsCount - 1), 1f);
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
@@ -29,8 +29,8 @@ namespace BetterGameUI.UI
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
                 IconRowsCount) - IconToIconPad);
             HitboxModifier = Mod.ClientConfig.BuffIconsBarHitboxModifier;
-            ScrollbarPosition = Mod.ClientConfig.InventoryScrollbarRelPosition;
-            IconsHorOrder = Mod.ClientConfig.InventoryIconsHorOrder;
+            ScrollbarPosition = Mod.ClientConfig.InventoryUpScrollbarRelPosition;
+            IconsHorOrder = Mod.ClientConfig.InventoryUpIconsHorOrder;
 
             switch (ScrollbarPosition) {
                 case ScrollbarPosition.LeftOfIcons:

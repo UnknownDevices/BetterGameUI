@@ -14,25 +14,21 @@ namespace BetterGameUI
 
         public override void OnChanged() => BetterGameUI.Mod.RaiseClientConfigChanged();
 
-        // TODO: consider config profiles
         // TODO: have tooltips display the min and max value for the field, as well as the reasoning for these if not obvious
         // TODO: have ReloadRequired fields mention they are so in their tooltips
         // TODO: do localization
 
-        // TODO: look into making custom config fields?
-        // TODO: someway to reset individual fields to default
-        
         // ------------- Input Config ------------- //
         
         [Header("Input Config")]
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("Buff Icons Bar Hitbox Modifier")]
+        [Label("Buffs' Bar's Hitbox Modifier")]
         public int BuffIconsBarHitboxModifier { get; set; }
 
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("Scroller Hitbox Modifier")]
+        [Label("Scroller's Hitbox Modifier")]
         public int ScrollerHitboxModifier { get; set; }
 
         [DefaultValue(12)]
@@ -57,53 +53,71 @@ namespace BetterGameUI
         [Label("Smart Hide Scrollbar")]
         public bool SmartHideScrollbar { get; set; }
 
-        // ------------- Game's Buff Icons' Bar Config ------------- //
+        // ------------- Inventory Down Buffs' Bar Config ------------- //
 
-        // TODO: do position offsets
-        // TODO: come up with a better naming scheme to distinguish Game's and Inventory's configs
-        [Header("Game's Buff Icons' Bar Config")]
+        [Header("Inventory Down Buffs' Bar Config")]
         [DefaultValue(ScrollbarPosition.LeftOfIcons)]
         [Label("Scrollbar Relative Position")]
-        public ScrollbarPosition GameScrollbarRelPosition { get; set; }
+        public ScrollbarPosition InventoryDownScrollbarRelPosition { get; set; }
 
         [DefaultValue(BuffIconsHorOrder.LeftToRight)]
         [Label("Icons Horizontal Order")]
-        public BuffIconsHorOrder GameIconsHorOrder { get; set; }
+        public BuffIconsHorOrder InventoryDownIconsHorOrder { get; set; }
+
+        [DefaultValue(0)]
+        [Range(int.MinValue, int.MaxValue)]
+        [Label("X Offset")]
+        public int InventoryDownXOffset { get; set; }
+
+        [DefaultValue(0)]
+        [Range(int.MinValue, int.MaxValue)]
+        [Label("Y Offset")]
+        public int InventoryDownYOffset { get; set; }
 
         [DefaultValue(2)]
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconRowsCount")]
-        public int GameIconRowsCount { get; set; }
+        public int InventoryDownIconRowsCount { get; set; }
 
         [DefaultValue(11)]
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconColsCount")]
-        public int GameIconColsCount { get; set; }
+        public int InventoryDownIconColsCount { get; set; }
 
         [DefaultValue(true)]
         [Label("Hotbar Locking Also Locks This")]
-        public bool GameHotbarLockingAlsoLocksThis { get; set; }
+        public bool InventoryDownHotbarLockingAlsoLocksThis { get; set; }
 
-        // ------------- Inventory's Buff Icons' Bar Config ------------- //
+        // ------------- Inventory Up Buffs' Bar Config ------------- //
 
-        [Header("Inventory's Buff Icons' Bar Config")]
+        [Header("Inventory Up Buffs' Bar Config")]
         [DefaultValue(ScrollbarPosition.RightOfIcons)]
         [Label("Scrollbar Relative Position")]
-        public ScrollbarPosition InventoryScrollbarRelPosition { get; set; }
+        public ScrollbarPosition InventoryUpScrollbarRelPosition { get; set; }
 
         [DefaultValue(BuffIconsHorOrder.RightToLeft)]
         [Label("Icons Horizontal Order")]
-        public BuffIconsHorOrder InventoryIconsHorOrder { get; set; }
+        public BuffIconsHorOrder InventoryUpIconsHorOrder { get; set; }
+
+        [DefaultValue(0)]
+        [Range(int.MinValue, int.MaxValue)]
+        [Label("X Offset")]
+        public int InventoryUpXOffset { get; set; }
+
+        [DefaultValue(0)]
+        [Range(int.MinValue, int.MaxValue)]
+        [Label("Y Offset")]
+        public int InventoryUpYOffset { get; set; }
 
         [DefaultValue(4)]
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconRowsCount")]
-        public int InventoryIconRowsCount { get; set; }
+        public int InventoryUpIconRowsCount { get; set; }
 
         [DefaultValue(6)]
         [Range(ushort.MinValue, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconColsCount")]
-        public int InventoryIconColsCount { get; set; }
+        public int InventoryUpIconColsCount { get; set; }
 
         // ------------- Misc Config ------------- //
         

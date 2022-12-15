@@ -24,19 +24,19 @@ namespace BetterGameUI.UI
         }
 
         public override bool IsLocked() {
-            return Mod.ClientConfig.GameHotbarLockingAlsoLocksThis & Main.player[Main.myPlayer].hbLocked ||
+            return Mod.ClientConfig.InventoryDownHotbarLockingAlsoLocksThis & Main.player[Main.myPlayer].hbLocked ||
                 base.IsLocked();
         }
 
         public override void UpdateClientConfigDependencies() {
-            IconRowsCount = (ushort)Mod.ClientConfig.GameIconRowsCount;
-            IconColsCount = (ushort)Mod.ClientConfig.GameIconColsCount;
+            IconRowsCount = (ushort)Mod.ClientConfig.InventoryDownIconRowsCount;
+            IconColsCount = (ushort)Mod.ClientConfig.InventoryDownIconColsCount;
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
                 IconRowsCount) - IconToIconPad);
-            ScrollbarPosition = Mod.ClientConfig.GameScrollbarRelPosition;
-            IconsHorOrder = Mod.ClientConfig.GameIconsHorOrder;
+            ScrollbarPosition = Mod.ClientConfig.InventoryDownScrollbarRelPosition;
+            IconsHorOrder = Mod.ClientConfig.InventoryDownIconsHorOrder;
             HitboxModifier = Mod.ClientConfig.BuffIconsBarHitboxModifier;
 
             switch (ScrollbarPosition) {
