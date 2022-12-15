@@ -1,10 +1,29 @@
 ﻿using Terraria.GameInput;
+using Terraria.UI;
 
 namespace BetterGameUI.UI
 {
-    public class UIBuffsBarScrollbar : UIScrollbar
+    public sealed class UIBuffsBarScrollbar : UIScrollbar
     {
-        public UIBuffsBar UIBuffsBar => Parent as UIBuffsBar; 
+        public UIBuffsBar UIBuffsBar => Parent as UIBuffsBar;
+
+        public UIBuffsBarScrollbar() {
+            Top = StyleDimension.FromPixels(2f);
+            Width = StyleDimension.FromPixels(10f);
+            Height = StyleDimension.FromPixelsAndPercent(-16f, 1f);
+            CornerHeight = 4;
+            Alpha = 0.5f;
+
+            Append(new UIScroller
+            {
+                Top = StyleDimension.FromPixels(0f),
+                Left = StyleDimension.FromPixels(2f),
+                Width = StyleDimension.FromPixels(6f),
+                Height = StyleDimension.FromPixels(8f),
+                CornerHeight = 2,
+                Alpha = 0.5f,
+            });
+        }
 
         public override bool IsMouseScrollFocusingThis() {
             return Player.MouseScrollIsFocusingBuffIconsBar | 
@@ -20,8 +39,6 @@ namespace BetterGameUI.UI
         public override int MouseScroll() {
             int output = 0;
 
-            // NOTE: when the inventory is up, vanilla Terraria doesn't listen to MouseX1 or MouseX2
-            // TODO: consider renaming MouseScroll to ScrollWheel everywhere
             // TODO: should also scroll if holding key? if so, after what delay after pressing, maybe make that a config
             if (PlayerInput.Triggers.JustPressed.MouseXButton1) {
                 output += 1;

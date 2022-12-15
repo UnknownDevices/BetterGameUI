@@ -33,13 +33,13 @@ namespace BetterGameUI.UI
         public const int IconHeight = 32;
         public const int IconTextHeight = 12;
         public const int IconToIconPad = 6;
+        public const int ScrollbarReservedWidth = 14;
 
-        public bool IsVisible = true;
+        public bool IsActive = true;
         public bool IsMouseHoveringHitbox;
         public ScrollbarPosition ScrollbarPosition;
         public BuffIconsHorOrder IconsHorOrder;
         public int HitboxModifier;
-        public int ScrollbarReservedWidth;
         public ushort IconRowsCount;
         public ushort IconColsCount;
 
@@ -49,52 +49,21 @@ namespace BetterGameUI.UI
         }
 
         public UIBuffsBar() {
-            ScrollbarReservedWidth = 14;
-
-            // TODO: some of this should be done in ScrollbarUI
-            Append(new UIBuffsBarScrollbar
-            {
-                Top = StyleDimension.FromPixels(2f),
-                Width = StyleDimension.FromPixels(10f),
-                Height = StyleDimension.FromPixelsAndPercent(-16f, 1f),
-                CornerHeight = 4,
-                Alpha = 0.5f,
-            });
-
-            UIScrollbar.Append(new UIScroller
-            {
-                Top = StyleDimension.FromPixels(0f),
-                Left = StyleDimension.FromPixels(2f),
-                Width = StyleDimension.FromPixels(6f),
-                Height = StyleDimension.FromPixels(8f),
-                CornerHeight = 2,
-                Alpha = 0.5f,
-            });
-
             Mod.OnClientConfigChanged += HandleClientConfigChanged;
 
+            Append(new UIBuffsBarScrollbar());
             UpdateClientConfigDependencies();
             Recalculate();
         }
 
-        public virtual bool IsLocked() {
-            return false;
-        }
-
-        public virtual void UpdateClientConfigDependencies() {
-        }
-
-        public virtual void HandleClientConfigChanged() {
-        }
-
         public override void Draw(SpriteBatch spriteBatch) {
-            UpdateBeforeDraw();
-
-            if (IsVisible) {
+            // TODO: consider using OnPreDraw
+            if (IsActive) {
+                UpdateBeforeDraw();
                 base.Draw(spriteBatch);
             }
-
-            IsVisible = true;
+            
+            IsActive = true;
         }
 
 
@@ -142,6 +111,16 @@ namespace BetterGameUI.UI
                     instance.MouseTextHackZoom(buffName, buffRarity, 0, buffTooltip);
                 }
             }
+        }
+
+        public virtual bool IsLocked() {
+            return false;
+        }
+
+        public virtual void UpdateClientConfigDependencies() {
+        }
+
+        public virtual void HandleClientConfigChanged() {
         }
 
         public virtual void UpdateBeforeDraw() {

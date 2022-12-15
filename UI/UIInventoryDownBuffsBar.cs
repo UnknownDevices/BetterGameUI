@@ -4,10 +4,10 @@ using Terraria.UI;
 
 namespace BetterGameUI.UI
 {
-    public class UIInventoryDownBuffsBar : UIBuffsBar 
+    public sealed class UIInventoryDownBuffsBar : UIBuffsBar 
     {
         public override void UpdateBeforeDraw() {
-            UIScrollbar.IsVisible &= !Mod.ClientConfig.SmartHideScrollbar | 0 < UIScrollbar.MaxScrollNotches;
+            UIScrollbar.IsActive &= !Mod.ClientConfig.SmartHideScrollbar | 0 < UIScrollbar.MaxScrollNotches;
 
             base.UpdateBeforeDraw();
 

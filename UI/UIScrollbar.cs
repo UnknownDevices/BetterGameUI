@@ -9,7 +9,7 @@ namespace BetterGameUI.UI
 {
     public class UIScrollbar : UIState
     {
-        public bool IsVisible = true;
+        public bool IsActive = true;
         public bool IsMouseHoveringScrollerHitbox = false;
         public bool IsScrollerBeingDragged = false;
         public int ScrollerHitboxModifier;
@@ -26,13 +26,12 @@ namespace BetterGameUI.UI
         }
 
         public override void Draw(SpriteBatch spriteBatch) {
-            UpdateBeforeDraw();
-
-            if (IsVisible) {
+            if (IsActive) {
+                UpdateBeforeDraw();
                 base.Draw(spriteBatch);
             }
 
-            IsVisible = true;
+            IsActive = true;
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
@@ -67,7 +66,7 @@ namespace BetterGameUI.UI
         }
 
         public virtual bool IsDraggingScrollerAllowed() {
-            return IsVisible;
+            return true;
         }
 
         public virtual int MouseScroll() {

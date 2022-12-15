@@ -7,18 +7,18 @@ namespace BetterGameUI.UI
 {
     public class UIScroller : UIState
     {
-        public bool IsVisible = true;
+        public bool IsActive = true;
         public int CornerHeight;
         public float Alpha;
 
         public UIScrollbar UIScrollbar => Parent as UIScrollbar;
 
         public override void Draw(SpriteBatch spriteBatch) {
-            if (IsVisible) {
+            if (IsActive) {
                 base.Draw(spriteBatch);
             }
 
-            IsVisible = true;
+            IsActive = true;
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
