@@ -7,15 +7,6 @@ namespace BetterGameUI.UI
 {
     public sealed class UIInventoryUpBuffsBar : UIBuffsBar
     {
-        public override void PreDraw() {
-            base.PreDraw();
-
-            // TODO: consider doing this in UIScrollbar
-            if (UIScrollbar.IsMouseScrollFocusingThis()) {
-                PlayerInput.LockVanillaMouseScroll("InventoryBuffIconsBarUI");
-            }
-        }
-
         // TODO: move to UIBuffsBar what can be moved
         public override void UpdateClientConfigDependencies() {
             IconRowsCount = (ushort)Mod.ClientConfig.InventoryUpIconRowsCount;

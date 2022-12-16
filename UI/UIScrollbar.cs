@@ -26,7 +26,6 @@ namespace BetterGameUI.UI
 
         public override void Draw(SpriteBatch spriteBatch) {
             if (IsActive) {
-                PreDraw();
                 base.Draw(spriteBatch);
             }
 
@@ -60,6 +59,80 @@ namespace BetterGameUI.UI
                     color);
         }
 
+        // TODO: have scroller snap to mouse position when scrollbar is left clicked and scroller dragging is allowed
+        public override void Update(GameTime gameTime) {
+            if (IsActive) {
+                var scrollerCalculatedMinHeight = UIScroller.MinHeight.GetValue(GetInnerDimensions().Height);
+                var scrollerCalculatedMaxHeight = UIScroller.MaxHeight.GetValue(GetInnerDimensions().Height);
+                long scrolledNotchesBeforeClamp = ScrolledNotches;
+                bool isMouseHoveringScrollerHitbox = IsMouseHoveringScrollerHitbox();
+
+                if (IsDraggingScrollerAllowed()) {
+                    float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;
+
+                    if (IsScrollerBeingDragged) {
+                        if (PlayerInput.Triggers.Current.MouseLeft) {
+                            float draggedDistInPxs = mouseY - UIScroller.GetDimensions().Y - ScrollerDraggingPointY;
+
+                            if (draggedDistInPxs != 0) {
+                                if (ScrolledNotches <= 0 & draggedDistInPxs < 0) {
+                                    ScrollerDraggingPointY = Math.Max(mouseY - UIScroller.GetDimensions().Y, 0);
+                                }
+                                else if (MaxScrollNotches <= ScrolledNotches & 0 < draggedDistInPxs) {
+                                    ScrollerDraggingPointY = Math.Min(mouseY - UIScroller.GetDimensions().Y,
+                                        UIScroller.GetDimensions().Height);
+                                }
+
+                                scrolledNotchesBeforeClamp += (long)Math.Round(
+                                    draggedDistInPxs / (GetInnerDimensions().Height / (MaxScrollNotches + 1)));
+                            }
+                        }
+                        else {
+                            IsScrollerBeingDragged = false;
+                        }
+                    }
+                    else if (PlayerInput.Triggers.JustPressed.MouseLeft & isMouseHoveringScrollerHitbox) {
+                        IsScrollerBeingDragged = true;
+                        ScrollerDraggingPointY = (float)Math.Clamp(mouseY - UIScroller.GetDimensions().Y, 0,
+                            UIScroller.GetDimensions().Height);
+                    }
+
+                    if (IsScrollerBeingDragged | isMouseHoveringScrollerHitbox) {
+                        Main.player[Main.myPlayer].mouseInterface = true;
+                    }
+                }
+                else {
+                    IsScrollerBeingDragged = false;
+                }
+
+                // TODO: consider if !IsScrollerBeingDragged is necessary
+                if (IsMouseScrollFocusingThis() & (!IsDraggingScrollerAllowed() | !IsScrollerBeingDragged)) {
+                    scrolledNotchesBeforeClamp += MouseScroll();
+                }
+
+                UIScroller.Height = (GetInnerDimensions().Height == 0) ?
+                    StyleDimension.FromPixels(0f) :
+                        UIScroller.Height = StyleDimension.FromPixels((float)Math.Clamp(
+                        Math.Ceiling(GetInnerDimensions().Height / (MaxScrollNotches + 1)),
+                        scrollerCalculatedMinHeight, scrollerCalculatedMaxHeight));
+
+                float pxsPerNotch = (GetInnerDimensions().Height - UIScroller.Height.Pixels == 0) ?
+                    0 :
+                    (GetInnerDimensions().Height - UIScroller.Height.Pixels) / MaxScrollNotches;
+
+
+                ScrolledNotches = (uint)Math.Clamp(scrolledNotchesBeforeClamp, 0, MaxScrollNotches);
+
+                UIScroller.Top = StyleDimension.FromPixels((float)Math.Round(pxsPerNotch * ScrolledNotches));
+                UIScroller.Recalculate();
+            }
+            else {
+                ScrolledNotches = Math.Clamp(ScrolledNotches, 0, MaxScrollNotches);
+            }
+
+            base.Update(gameTime);
+        }
+
         public virtual bool IsMouseScrollFocusingThis() {
             return true;
         }
@@ -78,70 +151,5 @@ namespace BetterGameUI.UI
             return UIScroller.GetDimensions().Contains(mouseX, mouseY);
         }
 
-        // TODO: have scroller snap to mouse position when scrollbar is left clicked and scroller dragging is allowed
-        public virtual void PreDraw() {
-            var scrollerCalculatedMinHeight = UIScroller.MinHeight.GetValue(GetInnerDimensions().Height);
-            var scrollerCalculatedMaxHeight = UIScroller.MaxHeight.GetValue(GetInnerDimensions().Height);
-            long scrolledNotchesBeforeClamp = ScrolledNotches;
-            bool isMouseHoveringScrollerHitbox = IsMouseHoveringScrollerHitbox();
-
-            if (IsDraggingScrollerAllowed()) {
-                float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;
-
-                if (IsScrollerBeingDragged) {
-                    if (PlayerInput.Triggers.Current.MouseLeft) {
-                        float draggedDistInPxs = mouseY - UIScroller.GetDimensions().Y - ScrollerDraggingPointY;
-
-                        if (draggedDistInPxs != 0) {
-                            if (ScrolledNotches <= 0 & draggedDistInPxs < 0) {
-                                ScrollerDraggingPointY = Math.Max(mouseY - UIScroller.GetDimensions().Y, 0);
-                            }
-                            else if (MaxScrollNotches <= ScrolledNotches & 0 < draggedDistInPxs) {
-                                ScrollerDraggingPointY = Math.Min(mouseY - UIScroller.GetDimensions().Y,
-                                    UIScroller.GetDimensions().Height);
-                            }
-
-                            scrolledNotchesBeforeClamp += (long)Math.Round(
-                                draggedDistInPxs / (GetInnerDimensions().Height / (MaxScrollNotches + 1)));
-                        }
-                    }
-                    else {
-                        IsScrollerBeingDragged = false;
-                    }
-                }
-                else if (PlayerInput.Triggers.JustPressed.MouseLeft & isMouseHoveringScrollerHitbox) {
-                    IsScrollerBeingDragged = true;
-                    ScrollerDraggingPointY = (float)Math.Clamp(mouseY - UIScroller.GetDimensions().Y, 0,
-                        UIScroller.GetDimensions().Height);
-                }
-
-                if (IsScrollerBeingDragged | isMouseHoveringScrollerHitbox) {
-                    Main.player[Main.myPlayer].mouseInterface = true;
-                }
-            }
-            else {
-                IsScrollerBeingDragged = false;
-            }
-
-            // TODO: consider if !IsScrollerBeingDragged is necessary
-            if (IsMouseScrollFocusingThis() & (!IsDraggingScrollerAllowed() | !IsScrollerBeingDragged)) {
-                scrolledNotchesBeforeClamp += MouseScroll();
-            }
-
-            ScrolledNotches = (uint)Math.Clamp(scrolledNotchesBeforeClamp, 0, MaxScrollNotches);
-
-            UIScroller.Height = (GetInnerDimensions().Height == 0) ?
-                StyleDimension.FromPixels(0f) :
-                    UIScroller.Height = StyleDimension.FromPixels((float)Math.Clamp(
-                    Math.Ceiling(GetInnerDimensions().Height / (MaxScrollNotches + 1)),
-                    scrollerCalculatedMinHeight, scrollerCalculatedMaxHeight));
-
-            float pxsPerNotch = (GetInnerDimensions().Height - UIScroller.Height.Pixels == 0) ?
-                0 :
-                (GetInnerDimensions().Height - UIScroller.Height.Pixels) / MaxScrollNotches;
-
-            UIScroller.Top = StyleDimension.FromPixels((float)Math.Round(pxsPerNotch * ScrolledNotches));
-            UIScroller.Recalculate();
-        }
     }
 }

@@ -7,14 +7,6 @@ namespace BetterGameUI.UI
 {
     public sealed class UIInventoryDownBuffsBar : UIBuffsBar 
     {
-        public override void PreDraw() {
-            base.PreDraw();
-
-            if (UIScrollbar.IsMouseScrollFocusingThis()) {
-                PlayerInput.LockVanillaMouseScroll("GameBuffIconsBarUI");
-            }
-        }
-
         public override bool IsLocked() {
             return Mod.ClientConfig.InventoryDownHotbarLockingAlsoLocksThis & Main.player[Main.myPlayer].hbLocked ||
                 base.IsLocked();

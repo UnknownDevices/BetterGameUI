@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using System;
+using Terraria;
 using Terraria.GameInput;
 using Terraria.UI;
 
@@ -57,6 +59,27 @@ namespace BetterGameUI.UI
             float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;
             return UIScroller.GetDimensions().GrowFromCenter(Mod.ClientConfig.ScrollerHitboxMod).
                 Contains(mouseX, mouseY);
+        }
+
+        public override void Update(GameTime gameTime) {
+            if (Mod.ActiveBuffsIndexes.Count <= 0) {
+                MaxScrollNotches = 0;
+            }
+            else {
+                MaxScrollNotches = (uint)Math.Max(
+                    Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count /
+                    (double)UIBuffsBar.IconColsCount) - UIBuffsBar.IconRowsCount, 0);
+            }
+
+            IsActive &= !Mod.ClientConfig.SmartHideScrollbar | 0 < MaxScrollNotches;
+
+            if (IsActive) {
+                if (IsMouseScrollFocusingThis()) {
+                    PlayerInput.LockVanillaMouseScroll("UIInventoryUpBuffsBar");
+                }
+            }
+
+            base.Update(gameTime);
         }
     }
 }

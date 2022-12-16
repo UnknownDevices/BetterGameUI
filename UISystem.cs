@@ -298,10 +298,15 @@ namespace BetterGameUI
                 // TODO: check if the breath being drawn below the player when the inventory is open is something that's always been a thing or something that I'm causing
                 if (UserInterfaceInventoryUpBuffsBarParent.CurrentState != null) {
                     // TODO: make mapHeight automatically call GetValue(null) on itself
+                    // TODO: do this in UIElement.Update
                     var mapHeight = (int)MainReflection.mapHeight.GetValue(null);
                     if (UIInventoryUpBuffsBarParent.Height.Pixels != mapHeight) {
                         UIInventoryUpBuffsBarParent.Height = StyleDimension.FromPixels(mapHeight);
                         UserInterfaceInventoryUpBuffsBarParent.Recalculate();
+                    }
+
+                    if (LastUpdateUIGameTime != null) {
+                        UserInterfaceInventoryUpBuffsBarParent.Update(LastUpdateUIGameTime);
                     }
 
                     UserInterfaceInventoryUpBuffsBarParent.Draw(spriteBatch, LastUpdateUIGameTime);
@@ -1145,7 +1150,12 @@ namespace BetterGameUI
                 DrawInterface_Resources_Breath();
                 DrawInterface_Resources_ClearBuffs();
 
-                if (UserInterfaceInventoryDownBuffsBar.CurrentState != null & !ingameOptionsWindow & !playerInventory & !inFancyUI) {
+                if (UserInterfaceInventoryDownBuffsBar.CurrentState != null & !ingameOptionsWindow & 
+                    !playerInventory & !inFancyUI) 
+                {
+                    if (LastUpdateUIGameTime != null) {
+                        UserInterfaceInventoryDownBuffsBar.Update(LastUpdateUIGameTime);
+                    }
                     UserInterfaceInventoryDownBuffsBar.Draw(spriteBatch, LastUpdateUIGameTime);
                 }
             }
@@ -1180,18 +1190,8 @@ namespace BetterGameUI
         public override void UpdateUI(GameTime gameTime) {
             LastUpdateUIGameTime = gameTime;
 
-            if (LastUpdateUIGameTime != null) {
-                // TODO: this should be called at a higher level
-                BetterGameUI.Mod.UpdateActiveBuffsIndexes();
-
-                if (UserInterfaceInventoryDownBuffsBar != null) {
-                    UserInterfaceInventoryDownBuffsBar.Update(LastUpdateUIGameTime);
-                }
-
-                if (UserInterfaceInventoryUpBuffsBarParent != null) {
-                    UserInterfaceInventoryUpBuffsBarParent.Update(LastUpdateUIGameTime);
-                }
-            }
+            // TODO: this should be called at a higher level
+            BetterGameUI.Mod.UpdateActiveBuffsIndexes();
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {

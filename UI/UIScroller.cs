@@ -7,27 +7,19 @@ namespace BetterGameUI.UI
 {
     public class UIScroller : UIState
     {
-        public bool IsActive = true;
+        // TODO: do IsActive
         public int CornerHeight;
         public float Alpha;
-
+        
         public UIScrollbar UIScrollbar => Parent as UIScrollbar;
-
-        public override void Draw(SpriteBatch spriteBatch) {
-            if (IsActive) {
-                base.Draw(spriteBatch);
-            }
-
-            IsActive = true;
-        }
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
             var texture = Assets.Scroller.Value;
             var rec = GetDimensions().ToRectangle();
 
             float alpha = Alpha;
-            if ((UIScrollbar.IsDraggingScrollerAllowed()/* & UIScrollbar.IsMouseHoveringScrollerHitbox*/) | 
-                UIScrollbar.IsScrollerBeingDragged) 
+            if ((UIScrollbar.IsDraggingScrollerAllowed() & UIScrollbar.IsMouseHoveringScrollerHitbox()) | 
+                UIScrollbar.IsScrollerBeingDragged)
             {
                 // TODO: mod by percent of current alpha instead?
                 alpha = Math.Min(Alpha + 0.5f, 1f);

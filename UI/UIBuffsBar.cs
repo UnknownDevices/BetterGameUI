@@ -55,10 +55,9 @@ namespace BetterGameUI.UI
 
         public override void Draw(SpriteBatch spriteBatch) {
             if (IsActive) {
-                PreDraw();
                 base.Draw(spriteBatch);
             }
-            
+
             IsActive = true;
         }
 
@@ -123,18 +122,6 @@ namespace BetterGameUI.UI
             float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;
             return GetDimensions().GrowFromCenter(Mod.ClientConfig.BuffsBarHitboxMod).
                 Contains(mouseX, mouseY);
-        }
-
-        public virtual void PreDraw() {
-            if (Mod.ActiveBuffsIndexes.Count <= 0) {
-                UIScrollbar.MaxScrollNotches = 0;
-            }
-            else {
-                UIScrollbar.MaxScrollNotches = (uint)Math.Max(
-                    Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)IconColsCount) - IconRowsCount, 0);
-            }
-
-            UIScrollbar.IsActive &= !Mod.ClientConfig.SmartHideScrollbar | 0 < UIScrollbar.MaxScrollNotches;
         }
 
         public int DrawBuffIcon(int drawBuffText, int buffSlotOnPlayer, int x, int y) {
