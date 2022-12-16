@@ -7,16 +7,16 @@ using Terraria.UI;
 
 namespace BetterGameUI.UI
 {
-    // TODO: consider if more tightly coupling this and UIScroller would be practical, what about this and UIBuffsBar?
     public class UIScrollbar : UIBasic
     {
+        // TODO: consider moving some of these fields to UIScroller
         public bool IsScrollerBeingDragged = false;
-        public int ScrollerHitboxModifier;
         public int CornerHeight;
         public uint ScrolledNotches;
         public uint MaxScrollNotches;
         // TODO: consider using float.NaN to represent scroller not being dragged
         public float ScrollerDraggingPointY;
+        // TODO: consider moving to UIBasic
         public float Alpha;
 
         public UIScroller UIScroller {
@@ -25,6 +25,10 @@ namespace BetterGameUI.UI
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
+            if (!IsEnabled) {
+                return;
+            }
+
             var texture = Assets.Scrollbar.Value;
             var rec = GetDimensions().ToRectangle();
             var color = new Color(Alpha, Alpha, Alpha, Alpha);
@@ -54,8 +58,8 @@ namespace BetterGameUI.UI
         // TODO: have scroller snap to mouse position when scrollbar is left clicked and scroller dragging is allowed
         public override void Update(GameTime gameTime) {
             if (IsEnabled) {
-
                 long scrolledNotchesBeforeClamp = ScrolledNotches;
+
                 if (IsDraggingScrollerAllowed()) {
                     bool isMouseHoveringScrollerHitbox = IsMouseHoveringScrollerHitbox();
                     float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;

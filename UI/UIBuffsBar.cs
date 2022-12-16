@@ -13,18 +13,6 @@ using static Terraria.Main;
 
 namespace BetterGameUI.UI
 {
-    public enum ScrollbarPosition
-    {
-        LeftOfIcons,
-        RightOfIcons,
-    }
-
-    public enum BuffIconsHorOrder
-    {
-        LeftToRight,
-        RightToLeft,
-    }
-
     public class UIBuffsBar : UIBasic
     {
         public const int IconWidth = 32;
@@ -33,7 +21,7 @@ namespace BetterGameUI.UI
         public const int IconToIconPad = 6;
         public const int ScrollbarReservedWidth = 14;
 
-        public ScrollbarPosition ScrollbarPosition;
+        public ScrollbarRelPos ScrollbarPosition;
         public BuffIconsHorOrder IconsHorOrder;
         public ushort IconRowsCount;
         public ushort IconColsCount;
@@ -53,6 +41,10 @@ namespace BetterGameUI.UI
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
+            if (!IsEnabled) {
+                return;
+            }
+
             var rec = GetDimensions().ToRectangle();
             int mouseoveredIcon = -1;
             int buffsBegin = (int)UIScrollbar.ScrolledNotches * IconColsCount;
@@ -69,7 +61,7 @@ namespace BetterGameUI.UI
                         break;
                 }
 
-                if (ScrollbarPosition == ScrollbarPosition.LeftOfIcons) {
+                if (ScrollbarPosition == ScrollbarRelPos.LeftOfIcons) {
                     x += ScrollbarReservedWidth;
                 }
 
@@ -109,16 +101,15 @@ namespace BetterGameUI.UI
                 IconRowsCount) - IconToIconPad);
 
             switch (ScrollbarPosition) {
-                case ScrollbarPosition.LeftOfIcons:
-                    UIScrollbar.Left = StyleDimension.FromPixels(0f);
+                case ScrollbarRelPos.LeftOfIcons:
+                    UIScrollbar.Left = StyleDimension.Empty;
                     break;
-                case ScrollbarPosition.RightOfIcons:
+                case ScrollbarRelPos.RightOfIcons:
                     UIScrollbar.Left = StyleDimension.FromPixelsAndPercent(-ScrollbarReservedWidth + 4, 1f);
                     break;
             }
 
             UIScrollbar.UIScroller.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinimalScrollerHeight);
-            UIScrollbar.ScrollerHitboxModifier = Mod.ClientConfig.ScrollerHitboxMod;
         }
 
         public virtual void HandleClientConfigChanged() {

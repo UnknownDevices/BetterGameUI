@@ -14,22 +14,21 @@ namespace BetterGameUI.UI
         public bool IsEnabled { get; set; } = true;
 
         public override void Update(GameTime gameTime) {
-            // Disable all UIBasic children of this if disabled
-            foreach (UIElement element in Elements) {
-                if (element is UIBasic) {
-                    (element as UIBasic).IsEnabled &= IsEnabled;
+            // if disabled, disable all UIBasic children of self as well
+            if (!IsEnabled) {
+                foreach (UIElement element in Elements) {
+                    if (element is UIBasic) {
+                        (element as UIBasic).IsEnabled = false;
+                    }
                 }
             }
 
-            // Update is still called, even if disabled
             base.Update(gameTime);
         }
-        public override void Draw(SpriteBatch spriteBatch) {
-            // If disabled, do not call call draw on this nor on any children
-            if (IsEnabled) {
-                base.Draw(spriteBatch);
-            }
 
+        public override void Draw(SpriteBatch spriteBatch) {
+            base.DrawChildren(spriteBatch);
+            
             IsEnabled = true;
         }
     }

@@ -7,7 +7,6 @@ namespace BetterGameUI.UI
 {
     public sealed class UIInventoryUpBuffsBar : UIBuffsBar
     {
-        // TODO: move to UIBuffsBar what can be moved
         public override void UpdateClientConfigDependencies() {
             IconRowsCount = (ushort)Mod.ClientConfig.InventoryUpIconRowsCount;
             IconColsCount = (ushort)Mod.ClientConfig.InventoryUpIconColsCount;

@@ -1,6 +1,6 @@
-﻿using BetterGameUI.UI;
-using System;
+﻿using System;
 using System.ComponentModel;
+using BetterGameUI.UI;
 using Terraria.ModLoader.Config;
 
 namespace BetterGameUI
@@ -14,6 +14,7 @@ namespace BetterGameUI
 
         public override void OnChanged() => BetterGameUI.Mod.RaiseClientConfigChanged();
 
+        // TODO: buff's bar alpha config
         // TODO: have tooltips display the min and max value for the field, as well as the reasoning for these if not obvious
         // TODO: have ReloadRequired fields mention they are so in their tooltips
         // TODO: do localization for spanish
@@ -56,9 +57,9 @@ namespace BetterGameUI
         // ------------- Inventory Down Buffs' Bar Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.InventoryDownBuffsBarConfig")]
-        [DefaultValue(ScrollbarPosition.LeftOfIcons)]
+        [DefaultValue(ScrollbarRelPos.LeftOfIcons)]
         [Label("$Mods.BetterGameUI.Config.Label.ScrollbarRelPos")]
-        public ScrollbarPosition InventoryDownScrollbarRelPos { get; set; }
+        public ScrollbarRelPos InventoryDownScrollbarRelPos { get; set; }
 
         [DefaultValue(BuffIconsHorOrder.LeftToRight)]
         [Label("$Mods.BetterGameUI.Config.Label.IconsHorOrder")]
@@ -91,9 +92,9 @@ namespace BetterGameUI
         // ------------- Inventory Up Buffs' Bar Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.InventoryUpBuffsBarConfig")]
-        [DefaultValue(ScrollbarPosition.RightOfIcons)]
+        [DefaultValue(ScrollbarRelPos.RightOfIcons)]
         [Label("$Mods.BetterGameUI.Config.Label.ScrollbarRelPos")]
-        public ScrollbarPosition InventoryUpScrollbarRelPosition { get; set; }
+        public ScrollbarRelPos InventoryUpScrollbarRelPosition { get; set; }
 
         [DefaultValue(BuffIconsHorOrder.RightToLeft)]
         [Label("$Mods.BetterGameUI.Config.Label.IconsHorOrder")]

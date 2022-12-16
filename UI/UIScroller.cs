@@ -13,6 +13,10 @@ namespace BetterGameUI.UI
         public UIScrollbar UIScrollbar => Parent as UIScrollbar;
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
+            if (!IsEnabled) {
+                return;
+            }
+
             var texture = Assets.Scroller.Value;
             var rec = GetDimensions().ToRectangle();
 

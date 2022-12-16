@@ -17,6 +17,7 @@ namespace BetterGameUI.UI
             CornerHeight = 4;
             Alpha = 0.5f;
 
+            // TODO: do this in UIScroller
             Append(new UIScroller
             {
                 Top = StyleDimension.FromPixels(0f),

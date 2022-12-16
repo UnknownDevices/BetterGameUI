@@ -27,17 +27,14 @@ namespace BetterGameUI
     public class UISystem : ModSystem
     {
         public static UserInterface UserInterfaceInventoryDownBuffsBar;
-        public static UserInterface UserInterfaceInventoryUpBuffsBarParent;
+        public static UserInterface UserInterfaceMap;
         public static GameTime LastUpdateUIGameTime;
 
         public static UIInventoryDownBuffsBar UIInventoryDownBuffsBar =>
             UserInterfaceInventoryDownBuffsBar.CurrentState as UIInventoryDownBuffsBar;
-
-        public static UIState UIInventoryUpBuffsBarParent =>
-            UserInterfaceInventoryUpBuffsBarParent.CurrentState;
-
+        public static UIBasic UIMap => UserInterfaceMap.CurrentState as UIBasic;
         public static UIInventoryUpBuffsBar UIInventoryUpBuffsBar =>
-            UserInterfaceInventoryUpBuffsBarParent.CurrentState.Children.First() as UIInventoryUpBuffsBar;
+            UserInterfaceMap.CurrentState.Children.First() as UIInventoryUpBuffsBar;
 
         public static void DrawInventory() {
             Recipe.GetThroughDelayedFindRecipes();
@@ -296,20 +293,20 @@ namespace BetterGameUI
                 }
 
                 // TODO: check if the breath being drawn below the player when the inventory is open is something that's always been a thing or something that I'm causing
-                if (UserInterfaceInventoryUpBuffsBarParent.CurrentState != null) {
+                if (UserInterfaceMap.CurrentState != null) {
                     // TODO: make mapHeight automatically call GetValue(null) on itself
-                    // TODO: do this in UIElement.Update
+                    // TODO: do this in UIMap.Update
                     var mapHeight = (int)MainReflection.mapHeight.GetValue(null);
-                    if (UIInventoryUpBuffsBarParent.Height.Pixels != mapHeight) {
-                        UIInventoryUpBuffsBarParent.Height = StyleDimension.FromPixels(mapHeight);
-                        UserInterfaceInventoryUpBuffsBarParent.Recalculate();
+                    if (UIMap.Height.Pixels != mapHeight) {
+                        UIMap.Height = StyleDimension.FromPixels(mapHeight);
+                        UserInterfaceMap.Recalculate();
                     }
 
                     if (LastUpdateUIGameTime != null) {
-                        UserInterfaceInventoryUpBuffsBarParent.Update(LastUpdateUIGameTime);
+                        UserInterfaceMap.Update(LastUpdateUIGameTime);
                     }
 
-                    UserInterfaceInventoryUpBuffsBarParent.Draw(spriteBatch, LastUpdateUIGameTime);
+                    UserInterfaceMap.Draw(spriteBatch, LastUpdateUIGameTime);
                 }
             }
             else if (EquipPage == 1) {
@@ -1163,20 +1160,19 @@ namespace BetterGameUI
             return true;
         }
 
-        public static void Foo(GameTime _) {
-        }
-
+        // TODO: UIMap class
+        // TODO: consider a custom UIElement class to work with UIBasic
         public override void Load() {
             if (!dedServ) {
                 UserInterfaceInventoryDownBuffsBar = new();
                 UserInterfaceInventoryDownBuffsBar.SetState(new UIInventoryDownBuffsBar());
                 UIInventoryDownBuffsBar.Activate();
 
-                var inventoryBuffIconsBarParentUI = new UIState();
+                var inventoryBuffIconsBarParentUI = new UIBasic();
                 inventoryBuffIconsBarParentUI.Append(new UIInventoryUpBuffsBar());
                 inventoryBuffIconsBarParentUI.Width = StyleDimension.FromPercent(1f);
-                UserInterfaceInventoryUpBuffsBarParent = new();
-                UserInterfaceInventoryUpBuffsBarParent.SetState(inventoryBuffIconsBarParentUI);
+                UserInterfaceMap = new();
+                UserInterfaceMap.SetState(inventoryBuffIconsBarParentUI);
                 UIInventoryUpBuffsBar.Activate();
             }
         }
@@ -1184,7 +1180,7 @@ namespace BetterGameUI
         public override void Unload() {
             LastUpdateUIGameTime = null;
             UserInterfaceInventoryDownBuffsBar = null;
-            UserInterfaceInventoryUpBuffsBarParent = null;
+            UserInterfaceMap = null;
         }
 
         public override void UpdateUI(GameTime gameTime) {
