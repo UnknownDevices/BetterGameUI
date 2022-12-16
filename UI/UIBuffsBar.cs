@@ -25,7 +25,7 @@ namespace BetterGameUI.UI
         RightToLeft,
     }
 
-    public class UIBuffsBar : UIState
+    public class UIBuffsBar : UIBasic
     {
         public const int IconWidth = 32;
         public const int IconHeight = 32;
@@ -35,7 +35,6 @@ namespace BetterGameUI.UI
 
         public ScrollbarPosition ScrollbarPosition;
         public BuffIconsHorOrder IconsHorOrder;
-        public bool IsActive = true;
         public ushort IconRowsCount;
         public ushort IconColsCount;
 
@@ -51,14 +50,6 @@ namespace BetterGameUI.UI
             UpdateClientConfigDependencies();
 
             Recalculate();
-        }
-
-        public override void Draw(SpriteBatch spriteBatch) {
-            if (IsActive) {
-                base.Draw(spriteBatch);
-            }
-
-            IsActive = true;
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
@@ -112,9 +103,27 @@ namespace BetterGameUI.UI
         }
 
         public virtual void UpdateClientConfigDependencies() {
+            Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
+                IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
+            Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
+                IconRowsCount) - IconToIconPad);
+
+            switch (ScrollbarPosition) {
+                case ScrollbarPosition.LeftOfIcons:
+                    UIScrollbar.Left = StyleDimension.FromPixels(0f);
+                    break;
+                case ScrollbarPosition.RightOfIcons:
+                    UIScrollbar.Left = StyleDimension.FromPixelsAndPercent(-ScrollbarReservedWidth + 4, 1f);
+                    break;
+            }
+
+            UIScrollbar.UIScroller.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinimalScrollerHeight);
+            UIScrollbar.ScrollerHitboxModifier = Mod.ClientConfig.ScrollerHitboxMod;
         }
 
         public virtual void HandleClientConfigChanged() {
+            UpdateClientConfigDependencies();
+            Recalculate();
         }
 
         public virtual bool IsMouseHoveringHitbox() {

@@ -13,30 +13,11 @@ namespace BetterGameUI.UI
             IconColsCount = (ushort)Mod.ClientConfig.InventoryUpIconColsCount;
             Left = StyleDimension.FromPixelsAndPercent(
                 -84 - 38 * (IconColsCount - 1) + Mod.ClientConfig.InventoryUpXOffset, 1f);
-            Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
-                IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
             Top = StyleDimension.FromPixelsAndPercent(421 + Mod.ClientConfig.InventoryUpYOffset, 1f);
-            Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
-                IconRowsCount) - IconToIconPad);
             ScrollbarPosition = Mod.ClientConfig.InventoryUpScrollbarRelPosition;
             IconsHorOrder = Mod.ClientConfig.InventoryUpIconsHorOrder;
 
-            switch (ScrollbarPosition) {
-                case ScrollbarPosition.LeftOfIcons:
-                    UIScrollbar.Left = StyleDimension.FromPixels(0f);
-                    break;
-                case ScrollbarPosition.RightOfIcons:
-                    UIScrollbar.Left = StyleDimension.FromPixelsAndPercent(-ScrollbarReservedWidth + 4, 1f);
-                    break;
-            }
-
-            UIScrollbar.UIScroller.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinimalScrollerHeight);
-            UIScrollbar.ScrollerHitboxModifier = Mod.ClientConfig.ScrollerHitboxMod;
-        }
-
-        public override void HandleClientConfigChanged() {
-            UpdateClientConfigDependencies();
-            Recalculate();
+            base.UpdateClientConfigDependencies();
         }
     }
 }

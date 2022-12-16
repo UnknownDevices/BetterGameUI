@@ -36,11 +36,6 @@ namespace BetterGameUI
         [Label("$Mods.BetterGameUI.Config.Label.MinimalScrollerHeight")]
         public int MinimalScrollerHeight { get; set; }
 
-        // TODO: consider if this should also affect vanilla mouse scroll
-        [DefaultValue(false)]
-        [Label("$Mods.BetterGameUI.Config.Label.InvertMouseScrollForScrollbar")]
-        public bool InvertMouseScrollForScrollbar { get; set; }
-
         [DefaultValue(true)]
         [Label("$Mods.BetterGameUI.Config.Label.AllowScrollerDragging")]
         public bool AllowScrollerDragging { get; set; }
@@ -48,6 +43,11 @@ namespace BetterGameUI
         [DefaultValue(true)]
         [Label("$Mods.BetterGameUI.Config.Label.MouseScrollFocusesMouseHoveredUI")]
         public bool MouseScrollFocusesMouseHoveredUI { get; set; }
+
+        // TODO: consider if this should also affect vanilla mouse scroll
+        [DefaultValue(false)]
+        [Label("$Mods.BetterGameUI.Config.Label.InvertMouseScrollForScrollbar")]
+        public bool InvertMouseScrollForScrollbar { get; set; }
 
         [DefaultValue(true)]
         [Label("$Mods.BetterGameUI.Config.Label.SmartHideScrollbar")]
@@ -75,12 +75,12 @@ namespace BetterGameUI
         public int InventoryDownYOffset { get; set; }
 
         [DefaultValue(2)]
-        [Range(ushort.MinValue, ushort.MaxValue)]
+        [Range((ushort)1, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconRowsCount")]
         public int InventoryDownIconRowsCount { get; set; }
 
         [DefaultValue(11)]
-        [Range(ushort.MinValue, ushort.MaxValue)]
+        [Range((ushort)1, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconColsCount")]
         public int InventoryDownIconColsCount { get; set; }
 
@@ -110,12 +110,12 @@ namespace BetterGameUI
         public int InventoryUpYOffset { get; set; }
 
         [DefaultValue(4)]
-        [Range(ushort.MinValue, ushort.MaxValue)]
+        [Range((ushort)1, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconRowsCount")]
         public int InventoryUpIconRowsCount { get; set; }
 
         [DefaultValue(6)]
-        [Range(ushort.MinValue, ushort.MaxValue)]
+        [Range((ushort)1, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconColsCount")]
         public int InventoryUpIconColsCount { get; set; }
 

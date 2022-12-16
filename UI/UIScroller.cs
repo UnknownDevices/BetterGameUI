@@ -5,21 +5,12 @@ using Terraria.UI;
 
 namespace BetterGameUI.UI
 {
-    public class UIScroller : UIState
+    public class UIScroller : UIBasic
     {
-        public bool IsActive = true;
         public int CornerHeight;
         public float Alpha;
         
         public UIScrollbar UIScrollbar => Parent as UIScrollbar;
-
-        public override void Draw(SpriteBatch spriteBatch) {
-            if (IsActive) {
-                base.Draw(spriteBatch);
-            }
-
-            IsActive = true;
-        }
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
             var texture = Assets.Scroller.Value;

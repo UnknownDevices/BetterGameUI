@@ -8,9 +8,8 @@ using Terraria.UI;
 namespace BetterGameUI.UI
 {
     // TODO: consider if more tightly coupling this and UIScroller would be practical, what about this and UIBuffsBar?
-    public class UIScrollbar : UIState
+    public class UIScrollbar : UIBasic
     {
-        public bool IsActive = true;
         public bool IsScrollerBeingDragged = false;
         public int ScrollerHitboxModifier;
         public int CornerHeight;
@@ -23,14 +22,6 @@ namespace BetterGameUI.UI
         public UIScroller UIScroller {
             get => Elements[0] as UIScroller;
             set => Elements[0] = value;
-        }
-
-        public override void Draw(SpriteBatch spriteBatch) {
-            if (IsActive) {
-                base.Draw(spriteBatch);
-            }
-
-            IsActive = true;
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
@@ -62,13 +53,11 @@ namespace BetterGameUI.UI
 
         // TODO: have scroller snap to mouse position when scrollbar is left clicked and scroller dragging is allowed
         public override void Update(GameTime gameTime) {
-            if (IsActive) {
-                var scrollerCalculatedMinHeight = UIScroller.MinHeight.GetValue(GetInnerDimensions().Height);
-                var scrollerCalculatedMaxHeight = UIScroller.MaxHeight.GetValue(GetInnerDimensions().Height);
-                long scrolledNotchesBeforeClamp = ScrolledNotches;
-                bool isMouseHoveringScrollerHitbox = IsMouseHoveringScrollerHitbox();
+            if (IsEnabled) {
 
+                long scrolledNotchesBeforeClamp = ScrolledNotches;
                 if (IsDraggingScrollerAllowed()) {
+                    bool isMouseHoveringScrollerHitbox = IsMouseHoveringScrollerHitbox();
                     float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;
 
                     if (IsScrollerBeingDragged) {
@@ -111,16 +100,16 @@ namespace BetterGameUI.UI
                     scrolledNotchesBeforeClamp += MouseScroll();
                 }
 
-                UIScroller.Height = (GetInnerDimensions().Height == 0) ?
-                    StyleDimension.FromPixels(0f) :
-                        UIScroller.Height = StyleDimension.FromPixels((float)Math.Clamp(
+                var scrollerCalculatedMinHeight = UIScroller.MinHeight.GetValue(GetInnerDimensions().Height);
+                var scrollerCalculatedMaxHeight = UIScroller.MaxHeight.GetValue(GetInnerDimensions().Height);
+                UIScroller.Height = (GetInnerDimensions().Height <= 0) ? StyleDimension.FromPixels(0f) :
+                    StyleDimension.FromPixels((float)Math.Clamp(
                         Math.Ceiling(GetInnerDimensions().Height / (MaxScrollNotches + 1)),
                         scrollerCalculatedMinHeight, scrollerCalculatedMaxHeight));
 
-                float pxsPerNotch = (GetInnerDimensions().Height - UIScroller.Height.Pixels == 0) ?
-                    0 :
-                    (GetInnerDimensions().Height - UIScroller.Height.Pixels) / MaxScrollNotches;
-
+                var scrollerMovementRange = GetInnerDimensions().Height - UIScroller.Height.Pixels;
+                float pxsPerNotch = (scrollerMovementRange <= 0 | MaxScrollNotches <= 0) ? 0 : 
+                    scrollerMovementRange / MaxScrollNotches;
 
                 ScrolledNotches = (uint)Math.Clamp(scrolledNotchesBeforeClamp, 0, MaxScrollNotches);
 

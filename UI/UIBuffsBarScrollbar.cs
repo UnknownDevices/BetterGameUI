@@ -61,20 +61,16 @@ namespace BetterGameUI.UI
         }
 
         public override void Update(GameTime gameTime) {
-            if (Mod.ActiveBuffsIndexes.Count <= 0) {
-                MaxScrollNotches = 0;
-            }
-            else {
+            MaxScrollNotches = (Mod.ActiveBuffsIndexes.Count <= 0) ? 0 : 
                 MaxScrollNotches = (uint)Math.Max(
-                    Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count /
-                    (double)UIBuffsBar.IconColsCount) - UIBuffsBar.IconRowsCount, 0);
-            }
+                    Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)UIBuffsBar.IconColsCount) - 
+                    UIBuffsBar.IconRowsCount, 0);
 
-            IsActive &= !Mod.ClientConfig.SmartHideScrollbar | 0 < MaxScrollNotches;
+            IsEnabled &= !Mod.ClientConfig.SmartHideScrollbar | 0 < MaxScrollNotches;
 
-            if (IsActive) {
+            if (IsEnabled) {
                 if (IsMouseScrollFocusingThis()) {
-                    PlayerInput.LockVanillaMouseScroll("UIInventoryUpBuffsBar");
+                    PlayerInput.LockVanillaMouseScroll("UIBuffsBarScrollbar");
                 }
             }
 
