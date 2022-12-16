@@ -7,6 +7,7 @@ using Terraria.UI;
 
 namespace BetterGameUI.UI
 {
+    // TODO: consider if more tightly coupling this and UIScroller would be practical, what about this and UIBuffsBar?
     public class UIScrollbar : UIState
     {
         public bool IsActive = true;
@@ -145,6 +146,7 @@ namespace BetterGameUI.UI
             return -(PlayerInput.ScrollWheelDeltaForUI / 120);
         }
 
+        // TODO: consider moving to UIScroller
         public virtual bool IsMouseHoveringScrollerHitbox() {
             float mouseX = PlayerInput.MouseInfo.X / Main.UIScale;
             float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;

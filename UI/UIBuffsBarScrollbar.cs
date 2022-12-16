@@ -42,7 +42,6 @@ namespace BetterGameUI.UI
         public override int MouseScroll() {
             int output = 0;
 
-            // TODO: should also scroll if holding key? if so, after what delay after pressing, maybe make that a config
             if (PlayerInput.Triggers.JustPressed.MouseXButton1) {
                 output += 1;
             }
