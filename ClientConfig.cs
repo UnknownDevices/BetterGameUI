@@ -16,7 +16,7 @@ namespace BetterGameUI
 
         // TODO: buff's bar alpha config
         // TODO: have tooltips display the min and max value for the field, as well as the reasoning for these if not obvious
-        // TODO: have ReloadRequired fields mention they are so in their tooltips
+        // TODO: have ReloadRequired fields mention they ar e so in their tooltips
         // TODO: do localization for spanish
 
         // ------------- Input Config ------------- //
@@ -32,11 +32,6 @@ namespace BetterGameUI
         [Label("$Mods.BetterGameUI.Config.Label.ScrollerHitboxMod")]
         public int ScrollerHitboxMod { get; set; }
 
-        [DefaultValue(12)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.MinimalScrollerHeight")]
-        public int MinimalScrollerHeight { get; set; }
-
         [DefaultValue(true)]
         [Label("$Mods.BetterGameUI.Config.Label.AllowScrollerDragging")]
         public bool AllowScrollerDragging { get; set; }
@@ -50,11 +45,19 @@ namespace BetterGameUI
         [Label("$Mods.BetterGameUI.Config.Label.InvertMouseScrollForScrollbar")]
         public bool InvertMouseScrollForScrollbar { get; set; }
 
+        // ------------- General UI Config ------------- //
+
+        [Header("$Mods.BetterGameUI.Config.Header.GeneralUIConfig")]
+        [DefaultValue(12)]
+        [Range(int.MinValue, int.MaxValue)]
+        [Label("$Mods.BetterGameUI.Config.Label.MinimalScrollerHeight")]
+        public int MinimalScrollerHeight { get; set; }
+
         [DefaultValue(true)]
         [Label("$Mods.BetterGameUI.Config.Label.SmartHideScrollbar")]
         public bool SmartHideScrollbar { get; set; }
 
-        // ------------- Inventory Down Buffs' Bar Config ------------- //
+        // ------------- Inventory Down Buffs' Bar UI Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.InventoryDownBuffsBarConfig")]
         [DefaultValue(ScrollbarRelPos.LeftOfIcons)]
@@ -89,7 +92,7 @@ namespace BetterGameUI
         [Label("$Mods.BetterGameUI.Config.Label.HotbarLockingAlsoLocksThis")]
         public bool InventoryDownHotbarLockingAlsoLocksThis { get; set; }
 
-        // ------------- Inventory Up Buffs' Bar Config ------------- //
+        // ------------- Inventory Up Buffs' Bar UI Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.InventoryUpBuffsBarConfig")]
         [DefaultValue(ScrollbarRelPos.RightOfIcons)]
@@ -120,8 +123,8 @@ namespace BetterGameUI
         [Label("$Mods.BetterGameUI.Config.Label.IconColsCount")]
         public int InventoryUpIconColsCount { get; set; }
 
-        // ------------- Misc Config ------------- //
-        
+        // ------------- Misc. Config ------------- //
+
         [Header("$Mods.BetterGameUI.Config.Header.MiscConfig")]
         [ReloadRequired]
         [DefaultValue(0)]

@@ -6,8 +6,9 @@ Mods: {
 			}
 			Header: {
 				InputConfig: "Input Config"
-				InventoryDownBuffsBarConfig: "Inventory Down Buffs' Bar Config"
-				InventoryUpBuffsBarConfig: "Inventory Up Buffs' Bar Config"
+				GeneralUIConfig: "General UI Config"
+				InventoryDownBuffsBarConfig: "Inventory Down Buffs' Bar UI Config"
+				InventoryUpBuffsBarConfig: "Inventory Up Buffs' Bar UI Config"
 				MiscConfig: "Misc. Config"
 			}
 			Label: {
