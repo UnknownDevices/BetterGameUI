@@ -27,7 +27,7 @@ namespace BetterGameUI.UI
         }
 
         public override void Draw(SpriteBatch spriteBatch) {
-            base.DrawChildren(spriteBatch);
+            base.Draw(spriteBatch);
             
             IsEnabled = true;
         }
