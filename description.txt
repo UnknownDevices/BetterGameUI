@@ -1,1 +1,1 @@
-This is a mod :)
+QoL mod which for the time being just adds scrollbars to both buffs' bar UIs in the game.
