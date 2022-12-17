@@ -1,5 +1,4 @@
 # BetterGameUI
-TModLoader mod
 QoL mod for TModLoader which for the time being just adds scrollbars to both buffs' bar UIs in the game.
 
 I'm already working on tooltips for all configs, which are badly needed.
