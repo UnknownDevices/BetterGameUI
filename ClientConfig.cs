@@ -113,7 +113,7 @@ namespace BetterGameUI
         [Label("$Mods.BetterGameUI.Config.Label.YOffset")]
         public int InventoryUpYOffset { get; set; }
 
-        [DefaultValue(4)]
+        [DefaultValue(3)]
         [Range((ushort)1, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconRowsCount")]
         public int InventoryUpIconRowsCount { get; set; }
