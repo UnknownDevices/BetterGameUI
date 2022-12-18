@@ -8,6 +8,9 @@ Original image used for the icon of this mod can be found on @BirdSteely's accou
 Any bug report or suggestion is greatly appreciated.
 
 Changelog:
+v0.2.2.1: 
+- fix typos.
+
 v0.2.2.0
 - update description
 - add lock hotbar keybind
@@ -31,6 +34,9 @@ Imagen original usada para el icono de este mod puede ser encontrada en la cuent
 Cualquier reporte de bug o sugerencia es apreciada.
 
 Registro de cambios:
+v0.2.2.1: 
+- arregla errores gramáticos.
+
 v0.2.2.0
 - actualiza descripción.
 - añade asignación de tecla para bloquear barra de acceso rápido.
