@@ -1,1 +1,5 @@
 QoL mod which for the time being just adds scrollbars to both buffs' bar UIs in the game.
+
+The source code for this mod can be found on my GitHub profile: https://github.com/UnknownDevices
+
+Any bug report is greatly appreciated.
