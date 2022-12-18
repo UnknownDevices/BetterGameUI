@@ -19,10 +19,10 @@ v0.2.1.0
 - reword description.
 
 
----------------- Español ----------------
+------------------ Español ------------------
 
 Mod de Calidad de Vida que actualmente unicamente ánade barras de desplazamiento a ambas barras de bufos en el juego.
-Mod de deberías ser compatible con cualquier otro mod que no reemplace vanilla UI también.
+Mod debería ser compatible con cualquier otro mod que no reemplace vanilla UI también.
 Asegurate de tomar un vistazo a todas las asignaciones de teclas y configuraciones disponibles.
 
 El código fuente de este mod puede ser encontrado en mi perfil de GitHub: UnknownDevices.
@@ -36,6 +36,7 @@ v0.2.2.0
 - añade asignación de tecla para bloquear barra de acceso rápido.
 - reescribe algunas descripciones de asignaciones de tecla (esto ha reseteado tu asignaciones de tecla para este mod).
 
+v0.2.1.0
 - añade traducciones al español.
 - reescribe los consejos y nombres de algunas configuraciones en ingles.
 - reescribe descripción.
