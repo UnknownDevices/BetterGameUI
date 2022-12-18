@@ -1198,7 +1198,7 @@ namespace BetterGameUI
                     InterfaceScaleType.UI);
             }
             else {
-                NewText("'Vanilla: Resource Bars' interface layer not found");
+                //NewText("'Vanilla: Resource Bars' interface layer not found");
             }
 
             index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
@@ -1208,7 +1208,7 @@ namespace BetterGameUI
                     InterfaceScaleType.UI);
             }
             else {
-                NewText("'Vanilla: Inventory' interface layer not found");
+                //NewText("'Vanilla: Inventory' interface layer not found");
             }
         }
     }
