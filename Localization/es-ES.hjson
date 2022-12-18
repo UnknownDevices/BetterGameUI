@@ -1,6 +1,6 @@
 ﻿Mods: {
 	BetterGameUI: {
-		Config: { 
+		Config: {
 			Title: {
 				ClientConfig: "Configuración Del Cliente"
 			}

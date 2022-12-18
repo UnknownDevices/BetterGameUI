@@ -4,16 +4,18 @@ namespace BetterGameUI
 {
     public class KeybindSystem : ModSystem
     {
-        public static ModKeybind HoldForMouseScrollToFocusBuffIconsBar { get; set; }
+        public static ModKeybind MouseScrollToFocusBuffIconsBar { get; set; }
+        public static ModKeybind LockHotbar { get; set; }
 
         public override void Load() {
-            HoldForMouseScrollToFocusBuffIconsBar = KeybindLoader.RegisterKeybind(Mod, "Hold For Mouse Scroll To Focus Buff Icons' Bar", "LeftAlt");
-            // TODO: lock scrollbar keybind
+            MouseScrollToFocusBuffIconsBar = KeybindLoader.RegisterKeybind(Mod, "Mouse Scroll Focuses Buff Icons' Bar", "LeftAlt");
+            LockHotbar = KeybindLoader.RegisterKeybind(Mod, "Lock Hotbar", "N");
             // TODO: queue mouse scroll input for hotbar if an item is in use
         }
 
         public override void Unload() {
-            HoldForMouseScrollToFocusBuffIconsBar = null;
+            MouseScrollToFocusBuffIconsBar = null;
+            LockHotbar = null;
         }
     }
 }

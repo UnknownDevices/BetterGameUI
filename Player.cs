@@ -9,7 +9,9 @@ namespace BetterGameUI
         public static bool MouseScrollIsFocusingBuffIconsBar;
 
         public override void ProcessTriggers(TriggersSet triggersSet) {
-            MouseScrollIsFocusingBuffIconsBar = KeybindSystem.HoldForMouseScrollToFocusBuffIconsBar.Current;
+            Main.player[Main.myPlayer].hbLocked ^= KeybindSystem.LockHotbar.JustPressed;
+
+            MouseScrollIsFocusingBuffIconsBar = KeybindSystem.MouseScrollToFocusBuffIconsBar.Current;
         }
     }
 }
