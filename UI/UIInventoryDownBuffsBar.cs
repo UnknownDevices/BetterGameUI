@@ -13,10 +13,10 @@ namespace BetterGameUI.UI
         }
 
         public override void UpdateClientConfigDependencies() {
-            IconRowsCount = (ushort)Mod.ClientConfig.InventoryDownIconRowsCount;
-            IconColsCount = (ushort)Mod.ClientConfig.InventoryDownIconColsCount;
-            Left = StyleDimension.FromPixels(32 - ScrollbarReservedWidth + Mod.ClientConfig.InventoryDownXOffset);
-            Top = StyleDimension.FromPixels(76 + Mod.ClientConfig.InventoryDownYOffset);
+            IconRowsCount = (ushort)Mod.ClientConfig.InventoryDownIconRows;
+            IconColsCount = (ushort)Mod.ClientConfig.InventoryDownIconCols;
+            Left = StyleDimension.FromPixels(32 - ScrollbarReservedWidth + Mod.ClientConfig.InventoryDownXPosMod);
+            Top = StyleDimension.FromPixels(76 + Mod.ClientConfig.InventoryDownYPosMod);
             ScrollbarPosition = Mod.ClientConfig.InventoryDownScrollbarRelPos;
             IconsHorOrder = Mod.ClientConfig.InventoryDownIconsHorOrder;
 

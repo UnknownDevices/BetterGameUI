@@ -11,7 +11,7 @@ namespace BetterGameUI
 
         public static List<int> ActiveBuffsIndexes { get; set; }
         public static ClientConfig ClientConfig { get; set; }
-        public override uint ExtraPlayerBuffSlots { get => (uint)ClientConfig.ExtraPlayerBuffSlots; }
+        public override uint ExtraPlayerBuffSlots { get => (uint)ClientConfig.AdditionalPlayerBuffSlots; }
 
         internal static void RaiseClientConfigChanged() => OnClientConfigChanged?.Invoke();
 

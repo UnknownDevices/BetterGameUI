@@ -1,0 +1,50 @@
+﻿Mods: {
+	BetterGameUI: {
+		Config: { 
+			Title: {
+				ClientConfig: "Configuración Del Cliente"
+			}
+			Header: {
+				InputConfig: "Configuración De Controles"
+				GeneralUIConfig: "Configuración General De UI"
+				InventoryDownBuffsBarConfig: "Configuración De La Barra De Bufos UI Con Inventario Abajo"
+				InventoryUpBuffsBarConfig: "Configuración De La Barra De Bufos UI Con Inventario Arriba"
+				MiscConfig: "Configuración Miscelánea"
+			}
+			Label: {
+				BuffsBarHitboxMod: "Modificador Del Hitbox De La Barra De Buffos"
+				ScrollerHitboxMod: "Modificador Del Hitbox Del Desplazador"
+				AllowScrollerDragging: "Permite Arrastrar Desplazador"
+				MouseScrollFocusesMouseHoveredUI: "Desplazamiento De La Rueda Enfoca UI Debajo Del Cursor"
+				InvertMouseScrollForScrollbar: "Invierte Desplazamiento De La Rueda Para La Barra De Desplazamiento"
+				MinScrollerHeight: "Mínima Altura Del Desplazador"
+				SmartHideScrollbar: "Esconde La Barra De Desplazamiento Inteligentemente" 
+				ScrollbarRelPos: "Posición Relativa De La Barra De Desplazamiento"
+				IconsHorOrder: "Orden Horizontal De Los Iconos"
+				XPosMod: "Modificador De Posición X"
+				YPosMod: "Modificador De Posición Y"
+				IconRows: "Filas De Iconos"
+				IconCols: "Columnas De Iconos"
+				HotbarLockingAlsoLocksThis: "El Bloqueo De La Barra De Acceso Rápido También Bloquea Esto"
+				AdditionalPlayerBuffSlots: "Espacios De Bufo Adicionales Para El Jugador"
+			}
+			Tooltip: {
+				BuffsBarHitboxMod: "Medido en pixels. Modifica el tamaño del hitbox usado por la barra de bufos para interactuar con el cursor.\nPor defecto, el tamaño del hitbox es el mismo que el de la UI."
+				ScrollerHitboxMod: "Medido en pixels. Modifica el tamaño del hitbox usado por el desplazador para interactuar con el cursor.\nPor defecto, el tamaño del hitbox es el mismo que el de la UI."
+				AllowScrollerDragging: "Si esta activado, clicar en un desplazador permitirá arrastrarlo hasta que este clic sea soltado."
+				MouseScrollFocusesMouseHoveredUI: "Si esta activado, el desplazamiento de la rueda sera recibido por cualquier UI que se encuentre debajo del cursor.\nUIs no reactivas al desplazamiento de la rueda no son contadas para este propósito.\nSi no UI valida se encuentra debajo del cursor, el desplazamiento de la rueda sera entonces recibido por una UI predeterminada."
+				InvertMouseScrollForScrollbar: "Si esta activado, el desplazamiento de la rueda recibido por una barra de desplazamiento sera invertido."
+				MinScrollerHeight: "Medido en pixels. Determina la mínima altura un desplazador puede tener.\nEsta configuración puede prevenir un desplazador de llegar a ser tan corto que se vuelve complicado clicarlo.\nValor tiene que ser mayor o igual a 6."
+				SmartHideScrollbar: "Si esta activado, las barras de desplazamiento serán ocultados cuando sean redundantes, como cuando solo haya una pagina de contenido."
+				ScrollbarRelPos: "Determina donde la barra de desplazamiento de esta UI sera posicionada relativa ha esta UI.\n"
+				IconsHorOrder: "Determina el orden horizontal en el que iconos de bufo de esta UI son alineados."
+				XPosMod: "Medido en pixels. Modifica la posición en la axis X de esta UI."
+				YPosMod: "Medido en pixels. Modifica la posición en la axis Y de esta UI."
+				IconRows: "Determina la cantidad de filas de iconos de bufos de esta UI.\nValor tiene que ser mayor o igual a 1."
+				IconCols: "Determina la cantidad de columnas de iconos de bufos de esta UI.\nValor tiene que ser mayor o igual a 1."
+				HotbarLockingAlsoLocksThis: "Si esta activado, bloquear la barra de acceso rápido también bloqueara esto.\nPuedes bloquear la barra de acceso rápido clicando el pequeño icono de cerrojo en la esquina superior-izquierda de la pantalla mientras el inventario esta arriba.\nUIs bloqueadas no interactúan con el cursor."
+				AdditionalPlayerBuffSlots: "Determina la cantidad de espacios de bufo adicionales con que proveer al jugador.\nPor defecto, el jugado cuenta con 22 espacios de bufo.\nValor tiene que ser mayor o igual a 0.\nRequiere recargar el mod para guardar cambios."
+			}
+		}
+	}
+}

@@ -78,27 +78,27 @@ namespace BetterGameUI
 
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.XOffset")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.XOffset")]
-        public int InventoryDownXOffset { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.XPosMod")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.XPosMod")]
+        public int InventoryDownXPosMod { get; set; }
 
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.YOffset")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.YOffset")]
-        public int InventoryDownYOffset { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.YPosMod")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.YPosMod")]
+        public int InventoryDownYPosMod { get; set; }
 
         [DefaultValue(2)]
         [Range((ushort)1, ushort.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.IconRowsCount")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconRowsCount")]
-        public int InventoryDownIconRowsCount { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.IconRows")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconRows")]
+        public int InventoryDownIconRows{ get; set; }
 
         [DefaultValue(11)]
         [Range((ushort)1, ushort.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.IconColsCount")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconColsCount")]
-        public int InventoryDownIconColsCount { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.IconCols")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconCols")]
+        public int InventoryDownIconCols { get; set; }
 
         [DefaultValue(true)]
         [Label("$Mods.BetterGameUI.Config.Label.HotbarLockingAlsoLocksThis")]
@@ -121,36 +121,38 @@ namespace BetterGameUI
         // TODO: rename to XPosMod
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.XOffset")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.XOffset")]
-        public int InventoryUpXOffset { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.XPosMod")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.XPosMod")]
+        public int InventoryUpXPosMod { get; set; }
 
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.YOffset")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.YOffset")]
-        public int InventoryUpYOffset { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.YPosMod")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.YPosMod")]
+        public int InventoryUpYPosMod { get; set; }
 
         [DefaultValue(3)]
         [Range((ushort)1, ushort.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.IconRowsCount")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconRowsCount")]
-        public int InventoryUpIconRowsCount { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.IconRows")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconRows")]
+        public int InventoryUpIconRows { get; set; }
 
         [DefaultValue(6)]
         [Range((ushort)1, ushort.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.IconColsCount")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconColsCount")]
-        public int InventoryUpIconColsCount { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.IconCols")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconCols")]
+        public int InventoryUpIconCols { get; set; }
 
         // ------------- Misc. Config ------------- //
+
+        // TODO: disable in-game warnings
 
         [Header("$Mods.BetterGameUI.Config.Header.MiscConfig")]
         [ReloadRequired]
         [DefaultValue(0)]
         [Range(uint.MinValue, uint.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.ExtraPlayerBuffSlots")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.ExtraPlayerBuffSlots")]
-        public int ExtraPlayerBuffSlots { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.AdditionalPlayerBuffSlots")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.AdditionalPlayerBuffSlots")]
+        public int AdditionalPlayerBuffSlots { get; set; }
     }
 }
