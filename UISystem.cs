@@ -1194,7 +1194,7 @@ namespace BetterGameUI
             int index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
             if (index != -1) {
                 layers[index] = new LegacyGameInterfaceLayer(
-                    "BetterGameUI: Resource Bars", DrawInterface_ResourceBars,
+                    "Vanilla: Resource Bars", DrawInterface_ResourceBars,
                     InterfaceScaleType.UI);
             }
             else {
@@ -1204,7 +1204,7 @@ namespace BetterGameUI
             index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
             if (index != -1) {
                 layers[index] = new LegacyGameInterfaceLayer(
-                    "BetterGameUI: Inventory", DrawInterface_Inventory,
+                    "Vanilla: Inventory", DrawInterface_Inventory,
                     InterfaceScaleType.UI);
             }
             else {

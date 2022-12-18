@@ -26,6 +26,7 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.BuffsBarHitboxMod")]
         public int BuffsBarHitboxMod { get; set; }
 
+        // TODO: replace mouse hovered to cursor hovered
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.ScrollerHitboxMod")]
@@ -53,8 +54,9 @@ namespace BetterGameUI
         [Header("$Mods.BetterGameUI.Config.Header.GeneralUIConfig")]
         [DefaultValue(12)]
         [Range((int)6, int.MaxValue)]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.MinimalScrollerHeight")]
-        public int MinimalScrollerHeight { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.MinScrollerHeight")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.MinScrollerHeight")]
+        public int MinScrollerHeight { get; set; }
 
         [DefaultValue(true)]
         [Label("$Mods.BetterGameUI.Config.Label.SmartHideScrollbar")]
@@ -116,6 +118,7 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconsHorOrder")]
         public BuffIconsHorOrder InventoryUpIconsHorOrder { get; set; }
 
+        // TODO: rename to XPosMod
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.XOffset")]

@@ -109,7 +109,7 @@ namespace BetterGameUI.UI
                     break;
             }
 
-            UIScrollbar.UIScroller.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinimalScrollerHeight);
+            UIScrollbar.UIScroller.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinScrollerHeight);
         }
 
         public virtual void HandleClientConfigChanged() {
