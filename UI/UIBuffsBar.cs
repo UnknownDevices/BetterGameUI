@@ -125,6 +125,7 @@ namespace BetterGameUI.UI
         }
 
         public int DrawBuffIcon(int drawBuffText, int buffSlotOnPlayer, int x, int y) {
+            // TODO: this should not interrupt mouse if IgnoreMouseInterface is set to true, same with scroller
             int buffTy = player[myPlayer].buffType[buffSlotOnPlayer];
             if (buffTy == 0) {
                 return drawBuffText;

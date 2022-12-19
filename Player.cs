@@ -6,12 +6,12 @@ namespace BetterGameUI
 {
     public class Player : ModPlayer
     {
-        public static bool MouseScrollIsFocusingBuffIconsBar;
+        public static bool MouseScrollIsFocusingBuffsBar;
 
         public override void ProcessTriggers(TriggersSet triggersSet) {
             Main.player[Main.myPlayer].hbLocked ^= KeybindSystem.LockHotbar.JustPressed;
 
-            MouseScrollIsFocusingBuffIconsBar = KeybindSystem.MouseScrollToFocusBuffIconsBar.Current;
+            MouseScrollIsFocusingBuffsBar = KeybindSystem.MouseScrollToFocusBuffsBar.Current;
         }
     }
 }

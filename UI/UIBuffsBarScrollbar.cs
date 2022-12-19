@@ -30,7 +30,7 @@ namespace BetterGameUI.UI
         }
 
         public override bool IsMouseScrollFocusingThis() {
-            return Player.MouseScrollIsFocusingBuffIconsBar | 
+            return Player.MouseScrollIsFocusingBuffsBar | 
                 (Mod.ClientConfig.MouseScrollFocusesMouseHoveredUI & UIBuffsBar.IsMouseHoveringHitbox()) && 
                 base.IsMouseScrollFocusingThis();
         }

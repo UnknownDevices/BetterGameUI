@@ -92,6 +92,7 @@ namespace BetterGameUI.UI
                     }
 
                     if (IsScrollerBeingDragged | isMouseHoveringScrollerHitbox) {
+                        // tells the game the UI is consuming the mouse input
                         Main.player[Main.myPlayer].mouseInterface = true;
                     }
                 }
