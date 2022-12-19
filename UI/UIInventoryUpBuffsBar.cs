@@ -15,6 +15,9 @@ namespace BetterGameUI.UI
             Top = StyleDimension.FromPixelsAndPercent(421 + Mod.ClientConfig.InventoryUpYPosMod, 1f);
             ScrollbarPosition = Mod.ClientConfig.InventoryUpScrollbarRelPosition;
             IconsHorOrder = Mod.ClientConfig.InventoryUpIconsHorOrder;
+            Alpha = Mod.ClientConfig.InventoryUpAlpha;
+            UIScrollbar.Alpha = Mod.ClientConfig.InventoryUpAlpha;
+            UIScrollbar.UIScroller.Alpha = Mod.ClientConfig.InventoryUpAlpha;
 
             base.UpdateClientConfigDependencies();
         }

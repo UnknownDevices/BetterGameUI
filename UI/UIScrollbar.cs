@@ -17,7 +17,6 @@ namespace BetterGameUI.UI
         // TODO: consider using float.NaN to represent scroller not being dragged
         public float ScrollerDraggingPointY;
         // TODO: consider moving to UIBasic
-        public float Alpha;
 
         public UIScroller UIScroller {
             get => Elements[0] as UIScroller;

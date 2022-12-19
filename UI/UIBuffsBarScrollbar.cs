@@ -15,9 +15,8 @@ namespace BetterGameUI.UI
             Width = StyleDimension.FromPixels(10f);
             Height = StyleDimension.FromPixelsAndPercent(-16f, 1f);
             CornerHeight = 4;
-            Alpha = 0.5f;
 
-            // TODO: do this in UIScroller
+            // TODO: do this in a custom UIScroller class
             Append(new UIScroller
             {
                 Top = StyleDimension.FromPixels(0f),
@@ -25,7 +24,6 @@ namespace BetterGameUI.UI
                 Width = StyleDimension.FromPixels(6f),
                 Height = StyleDimension.FromPixels(8f),
                 CornerHeight = 2,
-                Alpha = 0.5f,
             });
         }
 

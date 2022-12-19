@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.UI;
@@ -12,6 +13,7 @@ namespace BetterGameUI.UI
     public class UIBasic : UIState
     {
         public bool IsEnabled { get; set; } = true;
+        public float Alpha { get; set; } = 1f;
 
         public override void Update(GameTime gameTime) {
             // if disabled, disable all UIBasic children of self as well

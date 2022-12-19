@@ -80,6 +80,13 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconsHorOrder")]
         public BuffIconsHorOrder InventoryDownIconsHorOrder { get; set; }
 
+        [DefaultValue(0.4f)]
+        [Range(0f, 1f)]
+        [Increment(0.01f)]
+        [Label("$Mods.BetterGameUI.Config.Label.Alpha")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Alpha")]
+        public float InventoryDownAlpha { get; set; }
+
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.XPosMod")]
@@ -104,6 +111,7 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconCols")]
         public int InventoryDownIconCols { get; set; }
 
+
         [DefaultValue(true)]
         [Label("$Mods.BetterGameUI.Config.Label.HotbarLockingAlsoLocksThis")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.HotbarLockingAlsoLocksThis")]
@@ -121,6 +129,13 @@ namespace BetterGameUI
         [Label("$Mods.BetterGameUI.Config.Label.IconsHorOrder")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconsHorOrder")]
         public BuffIconsHorOrder InventoryUpIconsHorOrder { get; set; }
+
+        [DefaultValue(0.65f)]
+        [Range(0f, 1f)]
+        [Increment(0.01f)]
+        [Label("$Mods.BetterGameUI.Config.Label.Alpha")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Alpha")]
+        public float InventoryUpAlpha { get; set; }
 
         // TODO: rename to XPosMod
         [DefaultValue(0)]

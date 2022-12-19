@@ -131,8 +131,6 @@ namespace BetterGameUI.UI
                 return drawBuffText;
             }
 
-            var color = new Color(buffAlpha[buffSlotOnPlayer], buffAlpha[buffSlotOnPlayer], buffAlpha[buffSlotOnPlayer],
-                buffAlpha[buffSlotOnPlayer]);
 
             Asset<Texture2D> buffAsset = TextureAssets.Buff[buffTy];
             Texture2D texture = buffAsset.Value;
@@ -142,6 +140,41 @@ namespace BetterGameUI.UI
             Vector2 textPosition = new Vector2(x, y + height);
             Rectangle sourceRectangle = new Rectangle(0, 0, width, height);
             Rectangle mouseRectangle = new Rectangle(x, y, width, height);
+
+            if (!IsLocked() && mouseRectangle.Contains(mouseX, mouseY)) {
+                drawBuffText = buffSlotOnPlayer;
+                buffAlpha[buffSlotOnPlayer] += 0.1f;
+
+                bool flag = mouseRight && mouseRightRelease;
+                if (PlayerInput.UsingGamepad) {
+                    flag = (mouseLeft && mouseLeftRelease && playerInventory);
+                    if (playerInventory)
+                        player[myPlayer].mouseInterface = true;
+                }
+                else {
+                    player[myPlayer].mouseInterface = true;
+                }
+
+                if (flag)
+                    flag &= BuffLoader.RightClick(buffTy, buffSlotOnPlayer);
+
+                if (flag)
+                    TryRemovingBuff(buffSlotOnPlayer, buffTy);
+            }
+            else {
+                buffAlpha[buffSlotOnPlayer] -= 0.05f;
+            }
+
+            // TODO: do scroller's brightning up progressive like this
+            if (buffAlpha[buffSlotOnPlayer] > 1f) {
+                buffAlpha[buffSlotOnPlayer] = 1f;
+            }
+            else if (buffAlpha[buffSlotOnPlayer] < Alpha) {
+                buffAlpha[buffSlotOnPlayer] = Alpha;
+            }
+
+            var color = new Color(buffAlpha[buffSlotOnPlayer], buffAlpha[buffSlotOnPlayer], buffAlpha[buffSlotOnPlayer],
+                buffAlpha[buffSlotOnPlayer]);
             Color drawColor = color;
 
             BuffDrawParams drawParams = new BuffDrawParams(texture, drawPosition, textPosition, sourceRectangle, mouseRectangle, drawColor);
@@ -159,35 +192,6 @@ namespace BetterGameUI.UI
                 string text = Lang.LocalizedDuration(new TimeSpan(0, 0, buffTimeValue / 60), abbreviated: true, showAllAvailableUnits: false);
                 spriteBatch.DrawString(FontAssets.ItemStack.Value, text, textPosition, color, 0f, default(Vector2), 0.8f, SpriteEffects.None, 0f);
             }
-
-            if (!IsLocked() && mouseRectangle.Contains(mouseX, mouseY)) {
-                drawBuffText = buffSlotOnPlayer;
-                buffAlpha[buffSlotOnPlayer] += 0.1f;
-
-                bool flag = mouseRight && mouseRightRelease;
-                if (PlayerInput.UsingGamepad) {
-                    flag = (mouseLeft && mouseLeftRelease && playerInventory);
-                    if (playerInventory)
-                        player[myPlayer].mouseInterface = true;
-                } 
-                else {
-                    player[myPlayer].mouseInterface = true;
-                }
-
-                if (flag)
-                    flag &= BuffLoader.RightClick(buffTy, buffSlotOnPlayer);
-
-                if (flag)
-                    TryRemovingBuff(buffSlotOnPlayer, buffTy);
-            }
-            else {
-                buffAlpha[buffSlotOnPlayer] -= 0.05f;
-            }
-
-            if (buffAlpha[buffSlotOnPlayer] > 1f)
-                buffAlpha[buffSlotOnPlayer] = 1f;
-            else if (buffAlpha[buffSlotOnPlayer] < 0.4)
-                buffAlpha[buffSlotOnPlayer] = 0.4f;
 
             if (PlayerInput.UsingGamepad && !playerInventory)
                 drawBuffText = -1;

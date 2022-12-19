@@ -8,8 +8,8 @@ namespace BetterGameUI.UI
     public class UIScroller : UIBasic
     {
         public int CornerHeight;
-        public float Alpha;
-        
+        public float DynamicAlpha = 1f;
+
         public UIScrollbar UIScrollbar => Parent as UIScrollbar;
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
@@ -17,19 +17,25 @@ namespace BetterGameUI.UI
                 return;
             }
 
-            var texture = Assets.Scroller.Value;
-            var rec = GetDimensions().ToRectangle();
-
-            float alpha = Alpha;
             if ((UIScrollbar.IsDraggingScrollerAllowed() & UIScrollbar.IsMouseHoveringScrollerHitbox()) | 
                 UIScrollbar.IsScrollerBeingDragged)
             {
-                // TODO: consider doing mod by percent of default alpha instead
-                alpha = Math.Min(Alpha + 0.5f, 1f);
+                DynamicAlpha += 0.1f;
+            } else {
+                DynamicAlpha -= 0.05f;
+            }
+
+            if (DynamicAlpha > 1f) {
+                DynamicAlpha = 1f;
+            }
+            else if (DynamicAlpha < Alpha) {
+                DynamicAlpha = Alpha;
             }
 
             // TODO: extract method
-            var color = new Color(alpha, alpha, alpha, alpha);
+            var texture = Assets.Scroller.Value;
+            var rec = GetDimensions().ToRectangle();
+            var color = new Color(DynamicAlpha, DynamicAlpha, DynamicAlpha, DynamicAlpha);
 
             spriteBatch.Draw(texture,
                 new Rectangle(rec.X, rec.Y, rec.Width, CornerHeight),
