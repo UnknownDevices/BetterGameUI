@@ -10,9 +10,16 @@ My Discord profile: UnknownDevices#5926 (feel free to DM).
 Image used in the icon of this mod can be found on @BirdSteely's account on Twitter.
 
 Latest changelog:
+V0.3.1.2
+- add sound effect to lock hotbar keybind.
+- tweak icons.
+
+V0.3.1.1
+- fix bug which sometimes caused wrong item to be selected in the hotbar while using an item.
+
 v0.3.1.0
-- add config to set alpha of buff's bars
-- do scroller lightning up gradually when cursor hovered
+- add config to set alpha of buff's bars.
+- do scroller lightning up gradually when cursor hovered.
 
 v0.3.0.0
 - add config to allow interacting with the hotbar while using an item.
@@ -23,11 +30,6 @@ v0.2.3.0:
 
 v0.2.2.1: 
 - fix typos.
-
-v0.2.2.0
-- update description
-- add lock hotbar keybind
-- reword some keybind descriptions (this has reset your keybinds for this mod).
 
 
 ------------------------------------------
@@ -45,6 +47,13 @@ Mi perfil de Discord: UnknownDevices#5926 (siéntete libre de mandar mensaje pri
 Imagen usada en el icono de este mod puede ser encontrada en la cuenta de @BirdSteely en Twitter.
 
 Mas reciente registro de cambios:
+v0.3.1.2
+- añade efecto de sonido a la asignación de tecla para bloquear la barra de acceso rápido.
+- modifica ligeramente los iconos.
+
+V0.3.1.1
+- soluciona bug que ocasionalmente causaba que el ítem incorrecto fuera seleccionado en la barra de acceso rápido mientras se usaba un item.
+
 v0.3.1.0
 - añade configuración para cambiar el alfa de las barras de bufos.
 - ilumina el desplazador de manera gradual cuando este se encuentre debajo del cursor.
@@ -58,9 +67,3 @@ v0.2.3.0:
 
 v0.2.2.1: 
 - arregla errores gramáticos.
-
-v0.2.2.0
-- actualiza descripción.
-- añade asignación de tecla para bloquear barra de acceso rápido.
-- reescribe algunas descripciones de asignaciones de tecla (esto ha reseteado tu asignaciones de tecla para este mod).
-
