@@ -1,5 +1,5 @@
-Mainly QoL mod which changes for the better some vanilla UIs, remarkably, it adds scrollbars to both buffs' bar and allows interacting with the hotbar while using an item.
-Make sure to look into all of the keybinds and configs available.
+Mainly QoL mod which changes for the better some vanilla UIs, remarkably, it adds scrollbars to both buffs' bars and allows interacting with the hotbar while using an item.
+Most features of this mod are toggable and tweakable so make sure to look into all of the keybinds and configs available.
 
 This mod should be compatible with any mod which doesn't replace vanilla UIs as well.
 This mod doesn't work whith gamepads.
@@ -10,6 +10,10 @@ My Discord profile: UnknownDevices#5926 (feel free to DM).
 Image used in the icon of this mod can be found on @BirdSteely's account on Twitter.
 
 Latest changelog:
+v0.3.1.0
+- add config to set alpha of buff's bars
+- do scroller lightning up gradually when cursor hovered
+
 v0.3.0.0
 - add config to allow interacting with the hotbar while using an item.
 
@@ -25,17 +29,12 @@ v0.2.2.0
 - add lock hotbar keybind
 - reword some keybind descriptions (this has reset your keybinds for this mod).
 
-v0.2.1.0
-- add spanish translations.
-- reword some configuration's tooltips and labels.
-- reword description.
-
 
 ------------------------------------------
 
 
 Mod principalmente de Calidad de Vida que realiza cambios para mejor a varias UIs vanilla, notablemente, añade barras de desplazamiento a ambas barras de bufo y permite interactuar con la barra de acceso rápido mientras se usa un ítem.
-Asegurate de tomar un vistazo a todas las asignaciones de teclas y configuraciones disponibles.
+La mayoría de las características de este mod son deshabilitables y modificables así que asegurate de tomar un vistazo a todas las asignaciones de teclas y configuraciones disponibles.
 
 Este mod debería ser compatible con cualquier otro mod que no reemplace UIs vanilla también.
 Este mod no funciona con mandos.
@@ -46,6 +45,10 @@ Mi perfil de Discord: UnknownDevices#5926 (siéntete libre de mandar mensaje pri
 Imagen usada en el icono de este mod puede ser encontrada en la cuenta de @BirdSteely en Twitter.
 
 Mas reciente registro de cambios:
+v0.3.1.0
+- añade configuración para cambiar el alfa de las barras de bufos.
+- ilumina el desplazador de manera gradual cuando este se encuentre debajo del cursor.
+
 v0.3.0.0
 - añade configuración para permitir interactuar con la barra de acceso rápido mientras se usa in ítem.
 
@@ -61,7 +64,3 @@ v0.2.2.0
 - añade asignación de tecla para bloquear barra de acceso rápido.
 - reescribe algunas descripciones de asignaciones de tecla (esto ha reseteado tu asignaciones de tecla para este mod).
 
-v0.2.1.0
-- añade traducciones al español.
-- reescribe los consejos y nombres de algunas configuraciones en ingles.
-- reescribe descripción.
