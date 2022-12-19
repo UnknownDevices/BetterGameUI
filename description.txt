@@ -1,13 +1,19 @@
 QoL mod which for the time being just adds scrollbars to both buffs' bar UIs in the game.
-Mod Should be compatible with any mod which doesn't replace vanilla UI as well.
+This mod should be compatible with any mod which doesn't replace vanilla UI as well.
+This mod doesn't work whith gamepads.
 Make sure to look into all of the keybinds and configs available.
 
-The source code for this mod can be found on my GitHub profile: UnknownDevices.
-Original image used for the icon of this mod can be found on @BirdSteely's account on Twitter.
+My GitHub profile: UnknownDevices (where you can find this mod's source code).
+My Discord profile: UnknownDevices#5926 (feel free to DM).
+Image used in the icon of this mod can be found on @BirdSteely's account on Twitter.
 
 Any bug report or suggestion is greatly appreciated.
 
-Changelog:
+Latest changelog:
+v0.2.3.0:
+- update Steam workshop's icon
+- update description.
+
 v0.2.2.1: 
 - fix typos.
 
@@ -22,18 +28,23 @@ v0.2.1.0
 - reword description.
 
 
------------------- Español ------------------
+---------------- Español ----------------
 
 Mod de Calidad de Vida que actualmente unicamente ánade barras de desplazamiento a ambas barras de bufos en el juego.
-Mod debería ser compatible con cualquier otro mod que no reemplace vanilla UI también.
+Mod de deberías ser compatible con cualquier otro mod que no reemplace vanilla UI también.
 Asegurate de tomar un vistazo a todas las asignaciones de teclas y configuraciones disponibles.
 
-El código fuente de este mod puede ser encontrado en mi perfil de GitHub: UnknownDevices.
-Imagen original usada para el icono de este mod puede ser encontrada en la cuenta de @BirdSteely en Twitter.
+Mi perfil de GitHub: UnknownDevices (donde puedes encontrar el codigo fuente de este mod).
+Mi perfil de Discord: UnknownDevices#5926 (sientete libre de mandar mensaje privado).
+Imagen usada en el icono de este mod puede ser encontrada en la cuenta de @BirdSteely en Twitter.
 
 Cualquier reporte de bug o sugerencia es apreciada.
 
-Registro de cambios:
+Mas reciente registro de cambios:
+v0.2.3.0:
+- actualiza icono de la tienda de Steam
+- actualiza descripción.
+
 v0.2.2.1: 
 - arregla errores gramáticos.
 
@@ -42,7 +53,6 @@ v0.2.2.0
 - añade asignación de tecla para bloquear barra de acceso rápido.
 - reescribe algunas descripciones de asignaciones de tecla (esto ha reseteado tu asignaciones de tecla para este mod).
 
-v0.2.1.0
 - añade traducciones al español.
 - reescribe los consejos y nombres de algunas configuraciones en ingles.
 - reescribe descripción.
