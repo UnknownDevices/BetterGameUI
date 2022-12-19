@@ -100,7 +100,7 @@ namespace BetterGameUI.UI
                 }
 
                 // TODO: consider if !IsScrollerBeingDragged is necessary
-                if (IsMouseScrollFocusingThis() & (!IsDraggingScrollerAllowed() | !IsScrollerBeingDragged)) {
+                if (IsMouseScrollFocusingThis() && (!IsDraggingScrollerAllowed() | !IsScrollerBeingDragged)) {
                     scrolledNotchesBeforeClamp += MouseScroll();
                 }
 

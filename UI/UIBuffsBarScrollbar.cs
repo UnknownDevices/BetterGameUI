@@ -61,8 +61,7 @@ namespace BetterGameUI.UI
 
         public override void Update(GameTime gameTime) {
             MaxScrollNotches = (Mod.ActiveBuffsIndexes.Count <= 0) ? 0 : 
-                MaxScrollNotches = (uint)Math.Max(
-                    Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)UIBuffsBar.IconColsCount) - 
+                (uint)Math.Max(Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)UIBuffsBar.IconColsCount) - 
                     UIBuffsBar.IconRowsCount, 0);
 
             IsEnabled &= !Mod.ClientConfig.SmartHideScrollbar | 0 < MaxScrollNotches;

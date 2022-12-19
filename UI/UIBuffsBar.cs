@@ -13,6 +13,7 @@ using static Terraria.Main;
 
 namespace BetterGameUI.UI
 {
+    // TODO: join both buff's bars into one class
     public class UIBuffsBar : UIBasic
     {
         public const int IconWidth = 32;
@@ -23,6 +24,7 @@ namespace BetterGameUI.UI
 
         public ScrollbarRelPos ScrollbarPosition;
         public BuffIconsHorOrder IconsHorOrder;
+        public int HoveredIcon;
         public ushort IconRowsCount;
         public ushort IconColsCount;
 
@@ -41,7 +43,7 @@ namespace BetterGameUI.UI
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
-            if (!IsEnabled) {
+            if (true) {
                 return;
             }
 
@@ -131,7 +133,6 @@ namespace BetterGameUI.UI
                 return drawBuffText;
             }
 
-
             Asset<Texture2D> buffAsset = TextureAssets.Buff[buffTy];
             Texture2D texture = buffAsset.Value;
             Vector2 drawPosition = new Vector2(x, y);
@@ -165,7 +166,6 @@ namespace BetterGameUI.UI
                 buffAlpha[buffSlotOnPlayer] -= 0.05f;
             }
 
-            // TODO: do scroller's brightning up progressive like this
             if (buffAlpha[buffSlotOnPlayer] > 1f) {
                 buffAlpha[buffSlotOnPlayer] = 1f;
             }

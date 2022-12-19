@@ -12,6 +12,11 @@ namespace BetterGameUI.UI
                 base.IsLocked();
         }
 
+        public override void Update(GameTime gameTime) {
+            IsEnabled &= !Main.ingameOptionsWindow & !Main.playerInventory & !Main.inFancyUI;
+            base.Update(gameTime);
+        }
+
         public override void UpdateClientConfigDependencies() {
             IconRowsCount = (ushort)Mod.ClientConfig.InventoryDownIconRows;
             IconColsCount = (ushort)Mod.ClientConfig.InventoryDownIconCols;

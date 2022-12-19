@@ -7,6 +7,11 @@ namespace BetterGameUI.UI
 {
     public sealed class UIInventoryUpBuffsBar : UIBuffsBar
     {
+        public override void Update(GameTime gameTime) {
+            IsEnabled &= Main.playerInventory & Main.EquipPage == 2;
+            base.Update(gameTime);
+        }
+
         public override void UpdateClientConfigDependencies() {
             IconRowsCount = (ushort)Mod.ClientConfig.InventoryUpIconRows;
             IconColsCount = (ushort)Mod.ClientConfig.InventoryUpIconCols;

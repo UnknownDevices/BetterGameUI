@@ -14,9 +14,6 @@ namespace BetterGameUI
 
         public override void OnChanged() => BetterGameUI.Mod.RaiseClientConfigChanged();
 
-        // TODO: buff's bar alpha config
-        // TODO: do spanish translations
-
         // ------------- Input Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.InputConfig")]
@@ -26,7 +23,6 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.BuffsBarHitboxMod")]
         public int BuffsBarHitboxMod { get; set; }
 
-        // TODO: replace mouse hovered to cursor hovered
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.ScrollerHitboxMod")]

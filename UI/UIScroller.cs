@@ -8,20 +8,16 @@ namespace BetterGameUI.UI
     public class UIScroller : UIBasic
     {
         public int CornerHeight;
-        public float DynamicAlpha = 1f;
+        public float DynamicAlpha = 0f;
 
         public UIScrollbar UIScrollbar => Parent as UIScrollbar;
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
-            if (!IsEnabled) {
-                return;
-            }
-
-            if ((UIScrollbar.IsDraggingScrollerAllowed() & UIScrollbar.IsMouseHoveringScrollerHitbox()) | 
-                UIScrollbar.IsScrollerBeingDragged)
-            {
+            if ((UIScrollbar.IsDraggingScrollerAllowed() & UIScrollbar.IsMouseHoveringScrollerHitbox()) |
+                UIScrollbar.IsScrollerBeingDragged) {
                 DynamicAlpha += 0.1f;
-            } else {
+            }
+            else {
                 DynamicAlpha -= 0.05f;
             }
 
@@ -32,31 +28,32 @@ namespace BetterGameUI.UI
                 DynamicAlpha = Alpha;
             }
 
-            // TODO: extract method
-            var texture = Assets.Scroller.Value;
-            var rec = GetDimensions().ToRectangle();
-            var color = new Color(DynamicAlpha, DynamicAlpha, DynamicAlpha, DynamicAlpha);
+            if (IsEnabled) {
+                var texture = Assets.Scroller.Value;
+                var rec = GetDimensions().ToRectangle();
+                var color = new Color(DynamicAlpha, DynamicAlpha, DynamicAlpha, DynamicAlpha);
 
-            spriteBatch.Draw(texture,
-                new Rectangle(rec.X, rec.Y, rec.Width, CornerHeight),
-                new Rectangle(0, 0, rec.Width, CornerHeight),
-                    color);
-            spriteBatch.Draw(texture,
-                new Rectangle(
-                    rec.X, rec.Y + CornerHeight,
-                    rec.Width, rec.Height - CornerHeight * 2),
-                new Rectangle(
-                    0, CornerHeight,
-                    rec.Width, texture.Height - CornerHeight * 2),
-                    color);
-            spriteBatch.Draw(texture,
+                spriteBatch.Draw(texture,
+                    new Rectangle(rec.X, rec.Y, rec.Width, CornerHeight),
+                    new Rectangle(0, 0, rec.Width, CornerHeight),
+                        color);
+                spriteBatch.Draw(texture,
                     new Rectangle(
-                    rec.X, rec.Y + rec.Height - CornerHeight,
-                    rec.Width, CornerHeight),
-                new Rectangle(
-                    0, texture.Height - CornerHeight,
-                    rec.Width, CornerHeight),
-                    color);
+                        rec.X, rec.Y + CornerHeight,
+                        rec.Width, rec.Height - CornerHeight * 2),
+                    new Rectangle(
+                        0, CornerHeight,
+                        rec.Width, texture.Height - CornerHeight * 2),
+                        color);
+                spriteBatch.Draw(texture,
+                        new Rectangle(
+                        rec.X, rec.Y + rec.Height - CornerHeight,
+                        rec.Width, CornerHeight),
+                    new Rectangle(
+                        0, texture.Height - CornerHeight,
+                        rec.Width, CornerHeight),
+                        color);
+            }
         }
     }
 }
