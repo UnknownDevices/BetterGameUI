@@ -1,4 +1,4 @@
-Mainly QoL mod which changes for the better some vanilla UIs, remarkably, it adds scrollbars to both buffs' bars and allows interacting with the hotbar while using an item.
+Mainly QoL mod which changes in big and small ways some vanilla UIs, remarkably, it adds scrollbars to both buffs' bars and allows interacting with the hotbar while using an item.
 Most features of this mod are toggable and tweakable so make sure to look into all of the keybinds and configs available.
 
 This mod should be compatible with any mod which doesn't replace vanilla UIs as well.
