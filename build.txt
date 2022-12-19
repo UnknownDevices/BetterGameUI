@@ -1,4 +1,4 @@
 displayName = Better Game UI
 author = UnknownDevices
-version = 0.2.3.0
-side = Client
+version = 0.3.0.0
+side = Both
