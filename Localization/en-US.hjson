@@ -17,7 +17,7 @@ Mods: {
 				AllowScrollerDragging: "Allow Scroller Dragging"
 				MouseScrollFocusesMouseHoveredUI: "Mouse Scroll Focuses Mouse Hovered UI"
 				InvertMouseScrollForScrollbar: "Invert Mouse Scroll For Scrollbar"
-				AllowInteractingWithHotbarWhileUsingAnItem: "Allow Interacting With Hotbar While Using Item"
+				AllowInteractingWithHotbarWhileUsingAnItem: "Allow Interacting With Hotbar While Using An Item"
 				MinScrollerHeight: "Minimal Scroller's Height"
 				SmartHideScrollbar: "Smart Hide Scrollbar"
 				ScrollbarRelPos: "Scrollbar's Relative Position"
