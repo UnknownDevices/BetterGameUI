@@ -292,22 +292,7 @@ namespace BetterGameUI
                     }
                 }
 
-                // TODO: check if the breath being drawn below the player when the inventory is open is something that's always been a thing or something that I'm causing
-                if (UserInterfaceMap.CurrentState != null) {
-                    // TODO: make mapHeight automatically call GetValue(null) on itself
-                    // TODO: do this in UIMap.Update
-                    var mapHeight = (int)MainReflection.mapHeight.GetValue(null);
-                    if (UIMap.Height.Pixels != mapHeight) {
-                        UIMap.Height = StyleDimension.FromPixels(mapHeight);
-                        UserInterfaceMap.Recalculate();
-                    }
-
-                    if (LastUpdateUIGameTime != null) {
-                        UserInterfaceMap.Update(LastUpdateUIGameTime);
-                    }
-
-                    UserInterfaceMap.Draw(spriteBatch, LastUpdateUIGameTime);
-                }
+                DrawInventoryUpBuffsBar();
             }
             else if (EquipPage == 1) {
                 DrawNPCHousesInUI(instance);
@@ -1108,23 +1093,229 @@ namespace BetterGameUI
                 instance.MouseText(Language.GetTextValue("GameUI.SortInventory"), 0, 0);
         }
 
+        public static void DrawInventoryUpBuffsBar() {
+            // TODO: check if the breath being drawn below the player when the inventory is open is something that's always been a thing or something that I'm causing
+            if (UserInterfaceMap.CurrentState != null) {
+                // TODO: make mapHeight automatically call GetValue(null) on itself
+                // TODO: do this in UIMap.Update
+                var mapHeight = (int)MainReflection.mapHeight.GetValue(null);
+                if (UIMap.Height.Pixels != mapHeight) {
+                    UIMap.Height = StyleDimension.FromPixels(mapHeight);
+                    UserInterfaceMap.Recalculate();
+                }
+
+                if (LastUpdateUIGameTime != null) {
+                    UserInterfaceMap.Update(LastUpdateUIGameTime);
+                }
+
+                UserInterfaceMap.Draw(spriteBatch, LastUpdateUIGameTime);
+            }
+        }
+
+        public static int DisplayedSelectedItem = 0;
+        public static bool DrawInterface_HandleHotbar() {
+            //FIXME: what if selectedItem is switched by something else while this condition is false?
+            if (player[myPlayer].itemAnimation == 0 && player[myPlayer].ItemTimeIsZero && player[myPlayer].reuseDelay == 0) {
+                DisplayedSelectedItem = player[myPlayer].selectedItem;
+            }
+            else if (BetterGameUI.Mod.ClientConfig.AllowInteractingWithHotbarWhileUsingAnItem) {
+                if (player[myPlayer].ItemAnimationJustStarted) {
+                    DisplayedSelectedItem = player[myPlayer].selectedItem;
+                }
+
+                if (!Main.drawingPlayerChat && DisplayedSelectedItem != 58 && !Main.editSign && !Main.editChest) {
+                    if (PlayerInput.Triggers.Current.Hotbar1) {
+                        DisplayedSelectedItem = 0;
+                    }
+                    if (PlayerInput.Triggers.Current.Hotbar2) {
+                        DisplayedSelectedItem = 1;
+                    }
+                    if (PlayerInput.Triggers.Current.Hotbar3) {
+                        DisplayedSelectedItem = 2;
+                    }
+                    if (PlayerInput.Triggers.Current.Hotbar4) {
+                        DisplayedSelectedItem = 3;
+                    }
+                    if (PlayerInput.Triggers.Current.Hotbar5) {
+                        DisplayedSelectedItem = 4;
+                    }
+                    if (PlayerInput.Triggers.Current.Hotbar6) {
+                        DisplayedSelectedItem = 5;
+                    }
+                    if (PlayerInput.Triggers.Current.Hotbar7) {
+                        DisplayedSelectedItem = 6;
+                    }
+                    if (PlayerInput.Triggers.Current.Hotbar8) {
+                        DisplayedSelectedItem = 7;
+
+                    }
+                    if (PlayerInput.Triggers.Current.Hotbar9) {
+                        DisplayedSelectedItem = 8;
+
+                    }
+                    if (PlayerInput.Triggers.Current.Hotbar10) {
+                        DisplayedSelectedItem = 9;
+                    }
+                };
+
+                int offset = 0;
+                // these correrpond to mouse 4 and mouse 5 respectively
+                int num9 = PlayerInput.Triggers.Current.HotbarPlus.ToInt() - PlayerInput.Triggers.Current.HotbarMinus.ToInt();
+                if (PlayerInput.CurrentProfile.HotbarAllowsRadial && num9 != 0 && PlayerInput.Triggers.Current.HotbarHoldTime > PlayerInput.CurrentProfile.HotbarRadialHoldTimeRequired && PlayerInput.CurrentProfile.HotbarRadialHoldTimeRequired != -1) {
+                    PlayerInput.MiscSettingsTEMP.HotbarRadialShouldBeUsed = true;
+                    PlayerInput.Triggers.Current.HotbarScrollCD = 2;
+                }
+
+                if (PlayerInput.CurrentProfile.HotbarRadialHoldTimeRequired != -1) {
+                    num9 = PlayerInput.Triggers.JustReleased.HotbarPlus.ToInt() - PlayerInput.Triggers.JustReleased.HotbarMinus.ToInt();
+                    if (PlayerInput.Triggers.Current.HotbarScrollCD == 1 && num9 != 0)
+                        num9 = 0;
+                }
+
+                if (PlayerInput.Triggers.Current.HotbarScrollCD == 0 && num9 != 0) {
+                    offset += num9;
+                    PlayerInput.Triggers.Current.HotbarScrollCD = 8;
+                }
+
+                if (!inFancyUI && !Main.ingameOptionsWindow)
+                    offset += PlayerInput.ScrollWheelDelta / -120;
+
+                if (DisplayedSelectedItem <= 9) {
+                    while (offset + DisplayedSelectedItem > 9) {
+                        offset -= 10;
+                    }
+
+                    while (offset + DisplayedSelectedItem < 0) {
+                        offset += 10;
+                    }
+
+                    DisplayedSelectedItem += offset;
+                    if (offset != 0) {
+                        SoundEngineReflection.PlaySound(12);
+                        int num10 = DisplayedSelectedItem - offset;
+                        player[myPlayer].DpadRadial.ChangeSelection(-1);
+                        player[myPlayer].CircularRadial.ChangeSelection(-1);
+                        DisplayedSelectedItem = num10 + offset;
+                        player[myPlayer].nonTorch = -1;
+                    }
+
+                    if (player[myPlayer].changeItem >= 0) {
+                        if (DisplayedSelectedItem != player[myPlayer].changeItem) {
+                            SoundEngineReflection.PlaySound(12);
+                        }
+
+                        DisplayedSelectedItem = player[myPlayer].changeItem;
+                        player[myPlayer].changeItem = -1;
+                    }
+
+                    if (player[myPlayer].itemAnimation == 0 && DisplayedSelectedItem != 58) {
+                        while (DisplayedSelectedItem > 9) {
+                            DisplayedSelectedItem -= 10;
+                        }
+
+                        while (DisplayedSelectedItem < 0) {
+                            DisplayedSelectedItem += 10;
+                        }
+                    }
+                }
+
+                if (player[myPlayer].itemAnimation == 1) {
+                    if (player[myPlayer].selectedItem != DisplayedSelectedItem) {
+                        player[myPlayer].selectedItem = DisplayedSelectedItem;
+                        player[myPlayer].reuseDelay = 0;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        // NOTE: has the map always been drawn while the menu is up?
+        public static bool DrawInterface_Hotbar() {
+            if (playerInventory || player[myPlayer].ghost) {
+                return true;
+            }
+
+            // set to 'items' in case the next conditional turns out false
+            string text = Lang.inter[37].Value;
+            // if selected item has a name AND that name is not empty
+            if (player[myPlayer].inventory[DisplayedSelectedItem].Name != null && player[myPlayer].inventory[DisplayedSelectedItem].Name != "") {
+                // get name of selected item
+                text = player[myPlayer].inventory[DisplayedSelectedItem].AffixName();
+            }
+
+            // draw selected item name
+            Vector2 vector = FontAssets.MouseText.Value.MeasureString(text) / 2f;
+            spriteBatch.DrawString(FontAssets.MouseText.Value, text, new Vector2(236f - vector.X, 0f), new Microsoft.Xna.Framework.Color(mouseTextColor, mouseTextColor, mouseTextColor, mouseTextColor), 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
+
+            // iterate over each item in the hotbar and draw it
+            int num = 20;
+            for (int i = 0; i < 10; i++) {
+                // TODO: make all of these values configurable
+                // if the item to draw is the selected one, progresively scale it up.
+                if (i == DisplayedSelectedItem) {
+                    if (hotbarScale[i] < 1f)
+                        hotbarScale[i] += 0.05f;
+                }
+                // else progresively scale it down
+                else if ((double)hotbarScale[i] > 0.75) {
+                    hotbarScale[i] -= 0.05f;
+                }
+
+                // TODO: an animation where the left most and right most items dont move would be nicer
+                // TODO: clamp hotbarScale[i]
+
+                float itrHotbarScale = hotbarScale[i];
+                int num3 = (int)(20f + 22f * (1f - itrHotbarScale));
+                // a = 230 if item is selected, a = 185 otherwise
+                int a = (int)(75f + 150f * itrHotbarScale);
+                Microsoft.Xna.Framework.Color lightColor = new Microsoft.Xna.Framework.Color(255, 255, 255, a);
+                // if the hotbar is not locked AND the player input doesn't say to ignore the mouse interface AND the mouse is hovering this hotbar slot
+                if (!player[myPlayer].hbLocked && !PlayerInput.IgnoreMouseInterface && mouseX >= num && (float)mouseX <= (float)num + (float)TextureAssets.InventoryBack.Width() * hotbarScale[i] && mouseY >= num3 && (float)mouseY <= (float)num3 + (float)TextureAssets.InventoryBack.Height() * hotbarScale[i] && !player[myPlayer].channel) {
+                    player[myPlayer].mouseInterface = true;
+                    player[myPlayer].cursorItemIconEnabled = false;
+                    // NOTE: clicking on item is reflected one frame late
+                    if (mouseLeft && !blockMouse) {
+                        player[myPlayer].changeItem = i;
+                    }
+
+                    // TODO: add comas to stacks of very big numbers
+                    hoverItemName = player[myPlayer].inventory[i].AffixName();
+                    if (player[myPlayer].inventory[i].stack > 1)
+                        hoverItemName = hoverItemName + " (" + player[myPlayer].inventory[i].stack + ")";
+
+                    rare = player[myPlayer].inventory[i].rare;
+                }
+
+                float prevInventoryScale = inventoryScale;
+                inventoryScale = itrHotbarScale;
+                ItemSlot.Draw(spriteBatch, player[myPlayer].inventory, 13, i, new Vector2(num, num3), lightColor);
+                inventoryScale = prevInventoryScale;
+                num += (int)((float)TextureAssets.InventoryBack.Width() * hotbarScale[i]) + 4;
+            }
+
+            // if the selected item doesn't fit in the scrollbar (such as those selected by the smart cursor)
+            if (DisplayedSelectedItem >= 10 && (DisplayedSelectedItem != 58 || mouseItem.type > 0)) {
+                // a2 will always equal a non-transitioning selected item alpha
+                int a2 = (int)(75f + 150f * 1f);
+                Microsoft.Xna.Framework.Color lightColor2 = new Microsoft.Xna.Framework.Color(255, 255, 255, a2);
+                float prevInventoryScale = inventoryScale;
+                inventoryScale = 1f;
+                ItemSlot.Draw(spriteBatch, player[myPlayer].inventory, 13, DisplayedSelectedItem, new Vector2(num, 20f), lightColor2);
+                inventoryScale = prevInventoryScale;
+            }
+
+            return true;
+        }
+
         public static bool DrawInterface_Inventory() {
             HackForGamepadInputHell(instance);
             if (playerInventory) {
-                if (player[myPlayer].chest != -1)
+                if (player[myPlayer].chest != -1) {
                     CreativeMenu.CloseMenu();
+                }
 
-                if (ignoreErrors) {
-                    try {
-                        UISystem.DrawInventory();
-                    }
-                    catch (Exception e) {
-                        TimeLogger.DrawException(e);
-                    }
-                }
-                else {
-                    UISystem.DrawInventory();
-                }
+                UISystem.DrawInventory();
             }
             else {
                 CreativeMenu.CloseMenu();
@@ -1185,20 +1376,19 @@ namespace BetterGameUI
 
         public override void UpdateUI(GameTime gameTime) {
             LastUpdateUIGameTime = gameTime;
-
-            // TODO: this should be called at a higher level
             BetterGameUI.Mod.UpdateActiveBuffsIndexes();
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {
+            layers.Insert(0, new LegacyGameInterfaceLayer(
+                    "BetterGameUI: Handle Hotbar", DrawInterface_HandleHotbar,
+                    InterfaceScaleType.None));
+
             int index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
             if (index != -1) {
                 layers[index] = new LegacyGameInterfaceLayer(
                     "Vanilla: Resource Bars", DrawInterface_ResourceBars,
                     InterfaceScaleType.UI);
-            }
-            else {
-                //NewText("'Vanilla: Resource Bars' interface layer not found");
             }
 
             index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
@@ -1207,8 +1397,12 @@ namespace BetterGameUI
                     "Vanilla: Inventory", DrawInterface_Inventory,
                     InterfaceScaleType.UI);
             }
-            else {
-                //NewText("'Vanilla: Inventory' interface layer not found");
+
+            index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Hotbar"));
+            if (index != -1) {
+                layers[index] = new LegacyGameInterfaceLayer(
+                    "Vanilla: Hotbar", DrawInterface_Hotbar,
+                    InterfaceScaleType.UI);
             }
         }
     }

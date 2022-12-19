@@ -42,12 +42,16 @@ namespace BetterGameUI
         [Label("$Mods.BetterGameUI.Config.Label.MouseScrollFocusesMouseHoveredUI")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.MouseScrollFocusesMouseHoveredUI")]
         public bool MouseScrollFocusesMouseHoveredUI { get; set; }
-
-        // TODO: consider if this should also affect vanilla mouse scroll
+        
         [DefaultValue(false)]
         [Label("$Mods.BetterGameUI.Config.Label.InvertMouseScrollForScrollbar")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertMouseScrollForScrollbar")]
         public bool InvertMouseScrollForScrollbar { get; set; }
+
+        [DefaultValue(true)]
+        [Label("$Mods.BetterGameUI.Config.Label.AllowInteractingWithHotbarWhileUsingAnItem")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.AllowInteractingWithHotbarWhileUsingAnItem")]
+        public bool AllowInteractingWithHotbarWhileUsingAnItem { get; set; }
 
         // ------------- General UI Config ------------- //
 
