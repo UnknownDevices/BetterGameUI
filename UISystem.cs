@@ -1113,6 +1113,7 @@ namespace BetterGameUI
         }
 
         public static int DisplayedSelectedItem = 0;
+        public static int ItemSelectedOnAnimationStart = 0;
         public static bool DrawInterface_HandleHotbar() {
             //FIXME: what if selectedItem is switched by something else while this condition is false?
             if (player[myPlayer].itemAnimation == 0 && player[myPlayer].ItemTimeIsZero && player[myPlayer].reuseDelay == 0) {
@@ -1121,6 +1122,9 @@ namespace BetterGameUI
             else if (BetterGameUI.Mod.ClientConfig.AllowInteractingWithHotbarWhileUsingAnItem) {
                 if (player[myPlayer].ItemAnimationJustStarted) {
                     DisplayedSelectedItem = player[myPlayer].selectedItem;
+                    ItemSelectedOnAnimationStart = player[myPlayer].selectedItem;
+                } else if (player[myPlayer].selectedItem != ItemSelectedOnAnimationStart) {
+                    DisplayedSelectedItem = ItemSelectedOnAnimationStart;
                 }
 
                 if (!Main.drawingPlayerChat && DisplayedSelectedItem != 58 && !Main.editSign && !Main.editChest) {
