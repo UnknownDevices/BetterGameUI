@@ -54,6 +54,7 @@ namespace BetterGameUI.UI
                     color);
         }
 
+        // TODO: move to Draw
         // TODO: have scroller snap to mouse position when scrollbar is left clicked and scroller dragging is allowed
         public override void Update(GameTime gameTime) {
             if (IsEnabled) {

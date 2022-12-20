@@ -43,11 +43,11 @@ namespace BetterGameUI.UI
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
-            if (true) {
+            if (!IsEnabled) {
                 return;
             }
 
-            var rec = GetDimensions().ToRectangle();
+            Rectangle rec = GetDimensions().ToRectangle();
             int mouseoveredIcon = -1;
             int buffsBegin = (int)UIScrollbar.ScrolledNotches * IconColsCount;
             int iconsEnd = Math.Min(Mod.ActiveBuffsIndexes.Count - buffsBegin, IconRowsCount * IconColsCount);
@@ -57,12 +57,10 @@ namespace BetterGameUI.UI
                     case BuffIconsHorOrder.LeftToRight:
                         x = rec.Left + (IconWidth + IconToIconPad) * (iconsI % IconColsCount);
                         break;
-
                     case BuffIconsHorOrder.RightToLeft:
                         x = rec.Left + (IconWidth + IconToIconPad) * (IconColsCount - 1 - (iconsI % IconColsCount));
                         break;
                 }
-
                 if (ScrollbarPosition == ScrollbarRelPos.LeftOfIcons) {
                     x += ScrollbarReservedWidth;
                 }

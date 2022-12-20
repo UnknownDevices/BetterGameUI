@@ -9,6 +9,8 @@ namespace BetterGameUI
     {
         public static event Action OnClientConfigChanged;
 
+        // FIXME: text of baner buff icon has trouble displaying full text if the icon is too low on the screen
+        // TODO: only the count of this will be needed
         public static List<int> ActiveBuffsIndexes { get; set; }
         public static ClientConfig ClientConfig { get; set; }
         public override uint ExtraPlayerBuffSlots { get => (uint)ClientConfig.AdditionalPlayerBuffSlots; }

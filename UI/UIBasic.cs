@@ -12,7 +12,7 @@ namespace BetterGameUI.UI
 {
     public class UIBasic : UIState
     {
-        public bool IsEnabled { get; set; } = true;
+        public bool IsEnabled { get; private set; } = true;
         public float Alpha { get; set; } = 1f;
 
         public override void Update(GameTime gameTime) {
@@ -26,6 +26,10 @@ namespace BetterGameUI.UI
             }
 
             base.Update(gameTime);
+        }
+
+        public void MaybeDisable(bool condition) {
+            IsEnabled &= !condition;
         }
 
         public override void Draw(SpriteBatch spriteBatch) {

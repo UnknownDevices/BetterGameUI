@@ -13,7 +13,7 @@ namespace BetterGameUI.UI
         }
 
         public override void Update(GameTime gameTime) {
-            IsEnabled &= !Main.ingameOptionsWindow & !Main.playerInventory & !Main.inFancyUI;
+            MaybeDisable(Main.ingameOptionsWindow | Main.playerInventory | Main.inFancyUI);
             base.Update(gameTime);
         }
 

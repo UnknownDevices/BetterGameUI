@@ -133,7 +133,6 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Alpha")]
         public float InventoryUpAlpha { get; set; }
 
-        // TODO: rename to XPosMod
         [DefaultValue(0)]
         [Range(int.MinValue, int.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.XPosMod")]
@@ -159,8 +158,6 @@ namespace BetterGameUI
         public int InventoryUpIconCols { get; set; }
 
         // ------------- Misc. Config ------------- //
-
-        // TODO: disable in-game warnings
 
         [Header("$Mods.BetterGameUI.Config.Header.MiscConfig")]
         [ReloadRequired]

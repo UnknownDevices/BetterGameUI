@@ -2,10 +2,8 @@
 #pragma warning disable CA2211
 
 using BetterGameUI.UI;
-using Microsoft.CodeAnalysis.Operations;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using ReLogic.Content;
 using ReLogic.Graphics;
 using System;
@@ -1095,10 +1093,17 @@ namespace BetterGameUI
                 instance.MouseText(Language.GetTextValue("GameUI.SortInventory"), 0, 0);
         }
 
+
+        public static bool DrawInterface_Logic_0() {
+            BetterGameUI.Mod.UpdateActiveBuffsIndexes();
+
+            HandleHotbar();
+            return true;
+        }
+
         public static int DisplayedSelectedItem = 0;
         public static int ItemSelectedOnAnimationStart = 0;
-        public static bool DrawInterface_HandleHotbar() {
-            //FIXME: what if selectedItem is switched by something else while this condition is false?
+        public static void HandleHotbar() {
             if (player[myPlayer].itemAnimation == 0 && player[myPlayer].ItemTimeIsZero && player[myPlayer].reuseDelay == 0) {
                 ItemSelectedOnAnimationStart = DisplayedSelectedItem = player[myPlayer].selectedItem;
             }
@@ -1213,8 +1218,6 @@ namespace BetterGameUI
                     }
                 }
             }
-
-            return true;
         }
 
         // NOTE: has the map always been drawn while the menu is up?
@@ -1312,191 +1315,30 @@ namespace BetterGameUI
             }
 
             // TODO: check if the breath being drawn below the player when the inventory is open is something that's always been a thing or something that I'm causing
-            if (UserInterfaceMap.CurrentState != null) {
-                // TODO: make mapHeight automatically call GetValue(null) on itself
-                // TODO: do this in UIMap.Update
-                var mapHeight = (int)MainReflection.mapHeight.GetValue(null);
-                if (UIMap.Height.Pixels != mapHeight) {
-                    UIMap.Height = StyleDimension.FromPixels(mapHeight);
-                    UserInterfaceMap.Recalculate();
-                }
-
-                if (LastUpdateUIGameTime != null) {
-                    UserInterfaceMap.Update(LastUpdateUIGameTime);
-                }
-
-                UserInterfaceMap.Draw(spriteBatch, LastUpdateUIGameTime);
+            // TODO: make mapHeight automatically call GetValue(null) on itself
+            // TODO: do this in UIMap.Update
+            var mapHeight = (int)MainReflection.mapHeight.GetValue(null);
+            if (UIMap.Height.Pixels != mapHeight) {
+                UIMap.Height = StyleDimension.FromPixels(mapHeight);
+                UserInterfaceMap.Recalculate();
             }
+
+            UserInterfaceMap.Draw(spriteBatch, LastUpdateUIGameTime);
             
             return true;
         }
 
         public static bool DrawInterface_ResourceBars() {
-            if (LastUpdateUIGameTime != null) {
-                ResourceSetsManager.Draw();
-                // TODO: doesn't GameInterfaceLayer.Draw() already call spriteBatch.Begin? does it use the same params?
-                spriteBatch.End();
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None,
-                   RasterizerState.CullCounterClockwise, null, UIScaleMatrix);
+            ResourceSetsManager.Draw();
+            // TODO: doesn't GameInterfaceLayer.Draw() already call spriteBatch.Begin? does it use the same params?
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None,
+                RasterizerState.CullCounterClockwise, null, UIScaleMatrix);
 
-                DrawInterface_Resources_Breath();
-                DrawInterface_Resources_ClearBuffs();
-
-                if (UserInterfaceInventoryDownBuffsBar.CurrentState != null)
-                {
-                    UserInterfaceInventoryDownBuffsBar.Update(LastUpdateUIGameTime);
-                    UserInterfaceInventoryDownBuffsBar.Draw(spriteBatch, LastUpdateUIGameTime);
-                }
-            }
-
-            return true;
-        }
-
-        public static int DrawBuffIcon(UIBuffsBar buffsBar, int drawBuffText, int buffSlotOnPlayer, int x, int y) {
-            // TODO: this should not interrupt mouse if IgnoreMouseInterface is set to true, same with scroller
-            int buffTy = player[myPlayer].buffType[buffSlotOnPlayer];
-            if (buffTy == 0) {
-                return drawBuffText;
-            }
-
-            Asset<Texture2D> buffAsset = TextureAssets.Buff[buffTy];
-            Texture2D texture = buffAsset.Value;
-            Vector2 drawPosition = new Vector2(x, y);
-            int width = buffAsset.Width();
-            int height = buffAsset.Height();
-            Vector2 textPosition = new Vector2(x, y + height);
-            Rectangle sourceRectangle = new Rectangle(0, 0, width, height);
-            Rectangle mouseRectangle = new Rectangle(x, y, width, height);
-
-            if (!buffsBar.IsLocked() && mouseRectangle.Contains(mouseX, mouseY)) {
-                drawBuffText = buffSlotOnPlayer;
-                buffAlpha[buffSlotOnPlayer] += 0.1f;
-
-                bool flag = mouseRight && mouseRightRelease;
-                if (PlayerInput.UsingGamepad) {
-                    flag = (mouseLeft && mouseLeftRelease && playerInventory);
-                    if (playerInventory)
-                        player[myPlayer].mouseInterface = true;
-                }
-                else {
-                    player[myPlayer].mouseInterface = true;
-                }
-
-                if (flag)
-                    flag &= BuffLoader.RightClick(buffTy, buffSlotOnPlayer);
-
-                if (flag)
-                    TryRemovingBuff(buffSlotOnPlayer, buffTy);
-            }
-            else {
-                buffAlpha[buffSlotOnPlayer] -= 0.05f;
-            }
-
-            if (buffAlpha[buffSlotOnPlayer] > 1f) {
-                buffAlpha[buffSlotOnPlayer] = 1f;
-            }
-            else if (buffAlpha[buffSlotOnPlayer] < buffsBar.Alpha) {
-                buffAlpha[buffSlotOnPlayer] = buffsBar.Alpha;
-            }
-
-            var color = new Color(buffAlpha[buffSlotOnPlayer], buffAlpha[buffSlotOnPlayer], buffAlpha[buffSlotOnPlayer],
-                buffAlpha[buffSlotOnPlayer]);
-            Color drawColor = color;
-
-            BuffDrawParams drawParams = new BuffDrawParams(texture, drawPosition, textPosition, sourceRectangle, mouseRectangle, drawColor);
-
-            bool skipped = !BuffLoader.PreDraw(spriteBatch, buffTy, buffSlotOnPlayer, ref drawParams);
-
-            (texture, drawPosition, textPosition, sourceRectangle, mouseRectangle, drawColor) = drawParams;
-
-            if (!skipped)
-                spriteBatch.Draw(texture, drawPosition, sourceRectangle, drawColor, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
-
-            BuffLoader.PostDraw(spriteBatch, buffTy, buffSlotOnPlayer, drawParams);
-
-            if (TryGetBuffTime(buffSlotOnPlayer, out int buffTimeValue) && buffTimeValue > 2) {
-                string text = Lang.LocalizedDuration(new TimeSpan(0, 0, buffTimeValue / 60), abbreviated: true, showAllAvailableUnits: false);
-                spriteBatch.DrawString(FontAssets.ItemStack.Value, text, textPosition, color, 0f, default(Vector2), 0.8f, SpriteEffects.None, 0f);
-            }
-
-            if (PlayerInput.UsingGamepad && !playerInventory)
-                drawBuffText = -1;
-
-            return drawBuffText;
-        }
-
-        public static bool DrawBuffsBars() {
-            UIBuffsBar buffsBar = !Main.ingameOptionsWindow & !Main.playerInventory & !Main.inFancyUI ?
-                UIInventoryDownBuffsBar :
-                Main.playerInventory & Main.EquipPage == 2 ?
-                UIInventoryUpBuffsBar : 
-                null;
-
-            bool isEnabled = buffsBar != null;
-
-            Rectangle rec  = isEnabled ? buffsBar.GetDimensions().ToRectangle() : Rectangle.Empty;
-            int iconsBegin = isEnabled ? (int)buffsBar.UIScrollbar.ScrolledNotches * buffsBar.IconColsCount : 0;
-            int iconsEnd   = isEnabled ? Math.Min(BetterGameUI.Mod.ActiveBuffsIndexes.Count -  
-                iconsBegin, buffsBar.IconRowsCount * buffsBar.IconColsCount) : 0;
-            int mouseoveredIcon = -1;
-
-            for (int i = 0; i < Terraria.Player.MaxBuffs; ++i) {
-                if (player[myPlayer].buffType[i] <= 0) {
-                    continue;
-                }
-
-                // TODO: simplify 'iconsEnd + iconsBegin'
-                if (isEnabled & iconsBegin <= i & i < iconsEnd + iconsBegin) {
-                    int iconsI = i - iconsBegin;
-                    int x = 0;
-                    switch (buffsBar.IconsHorOrder) {
-                        case BuffIconsHorOrder.LeftToRight:
-                            x = rec.Left + (UIBuffsBar.IconWidth + UIBuffsBar.IconToIconPad) * 
-                                (iconsI % buffsBar.IconColsCount);
-                            break;
-                        case BuffIconsHorOrder.RightToLeft:
-                            x = rec.Left + (UIBuffsBar.IconWidth + UIBuffsBar.IconToIconPad) * 
-                                (buffsBar.IconColsCount - 1 - (iconsI % buffsBar.IconColsCount));
-                            break;
-                    }
-
-                    if (buffsBar.ScrollbarPosition == ScrollbarRelPos.LeftOfIcons) {
-                        x += UIBuffsBar.ScrollbarReservedWidth;
-                    }
-
-                    int y = rec.Top + (UIBuffsBar.IconHeight + UIBuffsBar.IconTextHeight + UIBuffsBar.IconToIconPad) * 
-                        (iconsI / buffsBar.IconColsCount);
-
-                    mouseoveredIcon = DrawBuffIcon(buffsBar, mouseoveredIcon, 
-                        BetterGameUI.Mod.ActiveBuffsIndexes[i], x, y);
-                } else {
-                    if (buffAlpha[i] > 1f) {
-                        buffAlpha[i] = 1f;
-                    }
-                    else if (buffAlpha[i] < 0f) {
-                        buffAlpha[i] = 0f;
-                    }
-                }
-            }
-
-            if (mouseoveredIcon >= 0) {
-                int buffTy = player[myPlayer].buffType[mouseoveredIcon];
-                if (buffTy > 0) {
-                    string buffName = Lang.GetBuffName(buffTy);
-                    string buffTooltip = GetBuffTooltip(player[myPlayer], buffTy);
-
-                    int buffRarity = 0;
-                    if (meleeBuff[buffTy]) {
-                        buffRarity = -10;
-                    }
-                    if (buffTy == 147) {
-                        bannerMouseOver = true;
-                    }
-
-                    BuffLoader.ModifyBuffTip(buffTy, ref buffTooltip, ref buffRarity);
-                    instance.MouseTextHackZoom(buffName, buffRarity, 0, buffTooltip);
-                }
-            }
+            DrawInterface_Resources_Breath();
+            DrawInterface_Resources_ClearBuffs();
+            
+            UserInterfaceInventoryDownBuffsBar.Draw(spriteBatch, LastUpdateUIGameTime);
             return true;
         }
 
@@ -1525,17 +1367,16 @@ namespace BetterGameUI
 
         public override void UpdateUI(GameTime gameTime) {
             LastUpdateUIGameTime = gameTime;
+            if (LastUpdateUIGameTime != null) {
+                UserInterfaceInventoryDownBuffsBar.Update(LastUpdateUIGameTime);
+                UserInterfaceMap.Update(LastUpdateUIGameTime);
+            }
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {
-            BetterGameUI.Mod.UpdateActiveBuffsIndexes();
             layers.Insert(0, new LegacyGameInterfaceLayer(
-                    "BetterGameUI: Handle Hotbar", DrawInterface_HandleHotbar,
+                    "BetterGameUI: Logic 0", DrawInterface_Logic_0,
                     InterfaceScaleType.None));
-
-            layers.Insert(0, new LegacyGameInterfaceLayer(
-                    "BetterGameUI: Draw Buffs Bars", DrawBuffsBars,
-                    InterfaceScaleType.UI));
 
             int index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
             if (index != -1) {

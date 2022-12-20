@@ -8,7 +8,7 @@ namespace BetterGameUI.UI
     public sealed class UIInventoryUpBuffsBar : UIBuffsBar
     {
         public override void Update(GameTime gameTime) {
-            IsEnabled &= Main.playerInventory & Main.EquipPage == 2;
+            MaybeDisable(!Main.playerInventory | Main.EquipPage != 2);
             base.Update(gameTime);
         }
 

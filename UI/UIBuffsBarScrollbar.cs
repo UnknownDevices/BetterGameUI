@@ -64,7 +64,7 @@ namespace BetterGameUI.UI
                 (uint)Math.Max(Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)UIBuffsBar.IconColsCount) - 
                     UIBuffsBar.IconRowsCount, 0);
 
-            IsEnabled &= !Mod.ClientConfig.SmartHideScrollbar | 0 < MaxScrollNotches;
+            MaybeDisable(Mod.ClientConfig.SmartHideScrollbar & MaxScrollNotches <= 0);
 
             if (IsEnabled) {
                 if (IsMouseScrollFocusingThis()) {
