@@ -72,7 +72,7 @@ namespace BetterGameUI.UI
 
             base.Draw(spriteBatch);
 
-            if (IsEnabled & IsMouseScrollFocusingThis() | float.IsNaN(ScrollerDraggingPointY)) {
+            if (IsEnabled & IsMouseScrollFocusingThis() | !float.IsNaN(ScrollerDraggingPointY)) {
                 PlayerInput.LockVanillaMouseScroll("UIBuffsBarScrollbar");
             }
         }
