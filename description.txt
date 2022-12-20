@@ -11,7 +11,7 @@ Image used in the icon of this mod can be found on @BirdSteely's account on Twit
 
 Latest changelog:
 v0.3.2.0
-- move 'Extra Player Buff Slots' config to server config page (this has reset the config's value)
+- move 'Extra Player Buff Slots' config to server config page (this has reset its value)
 - add config to allow scroller snapping to cursor when the scrollbar is clicked
 - remove scroller's hitbox modifier config
 - reword some config labels and tooltips
@@ -50,8 +50,10 @@ Imagen usada en el icono de este mod puede ser encontrada en la cuenta de @BirdS
 
 Reciente registro de cambios:
 v0.3.2.0
-- add config to allow scroller snapping to cursor when the scrollbar is clicked
-- remove scroller's hitbox modifier config
+- mueve la configuración de 'Espacios De Bufo Extra Para El Jugador' a la pagina de configuración del servidor (esto ha reseteado su valor)
+- añade configuración para permitir que el desplazador se dirija al cursor cuando su barra de desplazamiento es clicada
+- remueve configuración de 'Modificador Del Hitbox Del Desplazador'
+- reescribe las etiquetas y tooltips de algunas configuraciones
 
 v0.3.1.3
 - Arregla las alfa de los bufos no siendo decrementanda naturalmente si ninguna barra de bufos are dibujada ese froame (estor era el comportamiento vanilla)

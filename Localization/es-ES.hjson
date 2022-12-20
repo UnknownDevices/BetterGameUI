@@ -3,7 +3,7 @@
 		Config: {
 			Title: {
 				ClientConfig: "Configuración Del Cliente"
-				ServerConfig: "Configuración Del Server"
+				ServerConfig: "Configuración Del Servidor"
 			}
 			Header: {
 				InputConfig: "Configuración De Controles"
