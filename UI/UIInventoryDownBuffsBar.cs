@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.UI;
@@ -12,11 +13,11 @@ namespace BetterGameUI.UI
                 base.IsLocked();
         }
 
-        public override void Update(GameTime gameTime) {
+        public override void Draw(SpriteBatch spriteBatch) {
             MaybeDisable(Main.ingameOptionsWindow | Main.playerInventory | Main.inFancyUI);
-            base.Update(gameTime);
+            base.Draw(spriteBatch);
         }
-
+        
         public override void UpdateClientConfigDependencies() {
             IconRowsCount = (ushort)Mod.ClientConfig.InventoryDownIconRows;
             IconColsCount = (ushort)Mod.ClientConfig.InventoryDownIconCols;

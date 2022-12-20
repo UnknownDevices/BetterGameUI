@@ -15,8 +15,11 @@ namespace BetterGameUI.UI
         public bool IsEnabled { get; private set; } = true;
         public float Alpha { get; set; } = 1f;
 
-        public override void Update(GameTime gameTime) {
-            // if disabled, disable all UIBasic children of self as well
+        public void MaybeDisable(bool condition) {
+            IsEnabled &= !condition;
+        }
+
+        public override void Draw(SpriteBatch spriteBatch) {
             if (!IsEnabled) {
                 foreach (UIElement element in Elements) {
                     if (element is UIBasic) {
@@ -25,16 +28,7 @@ namespace BetterGameUI.UI
                 }
             }
 
-            base.Update(gameTime);
-        }
-
-        public void MaybeDisable(bool condition) {
-            IsEnabled &= !condition;
-        }
-
-        public override void Draw(SpriteBatch spriteBatch) {
             base.Draw(spriteBatch);
-            
             IsEnabled = true;
         }
     }

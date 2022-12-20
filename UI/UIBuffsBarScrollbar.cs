@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.GameInput;
@@ -59,7 +60,7 @@ namespace BetterGameUI.UI
                 Contains(mouseX, mouseY);
         }
 
-        public override void Update(GameTime gameTime) {
+        public override void Draw(SpriteBatch spriteBatch) {
             MaxScrollNotches = (Mod.ActiveBuffsIndexes.Count <= 0) ? 0 : 
                 (uint)Math.Max(Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)UIBuffsBar.IconColsCount) - 
                     UIBuffsBar.IconRowsCount, 0);
@@ -72,7 +73,7 @@ namespace BetterGameUI.UI
                 }
             }
 
-            base.Update(gameTime);
+            base.Draw(spriteBatch);
         }
     }
 }

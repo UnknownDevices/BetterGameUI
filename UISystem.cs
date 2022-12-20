@@ -1096,7 +1096,14 @@ namespace BetterGameUI
 
         public static bool DrawInterface_Logic_0() {
             BetterGameUI.Mod.UpdateActiveBuffsIndexes();
-
+            for (int i = 0; i < Terraria.Player.MaxBuffs; ++i) {
+                if (player[myPlayer].buffType[i] > 0) {
+                    buffAlpha[i] -= 0.05f;
+                    if (buffAlpha[i] < 0f) {
+                        buffAlpha[i] = 0f;
+                    }
+                }
+            }
             HandleHotbar();
             return true;
         }
@@ -1241,7 +1248,7 @@ namespace BetterGameUI
             // iterate over each item in the hotbar and draw it
             int num = 20;
             for (int i = 0; i < 10; i++) {
-                // TODO: make all of these values configurable
+                // TODO: consider making some of these values configurable
                 // if the item to draw is the selected one, progresively scale it up.
                 if (i == DisplayedSelectedItem) {
                     if (hotbarScale[i] < 1f)
@@ -1269,7 +1276,7 @@ namespace BetterGameUI
                         player[myPlayer].changeItem = i;
                     }
 
-                    // TODO: add comas to stacks of very big numbers
+                    // TODO: consider adding comas to stacks of very big numbers
                     hoverItemName = player[myPlayer].inventory[i].AffixName();
                     if (player[myPlayer].inventory[i].stack > 1)
                         hoverItemName = hoverItemName + " (" + player[myPlayer].inventory[i].stack + ")";
@@ -1343,7 +1350,6 @@ namespace BetterGameUI
         }
 
         // TODO: UIMap class
-        // TODO: consider a custom UIElement class to work with UIBasic
         public override void Load() {
             if (!dedServ) {
                 UserInterfaceInventoryDownBuffsBar = new();

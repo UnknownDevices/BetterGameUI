@@ -13,7 +13,6 @@ using static Terraria.Main;
 
 namespace BetterGameUI.UI
 {
-    // TODO: join both buff's bars into one class
     public class UIBuffsBar : UIBasic
     {
         public const int IconWidth = 32;
@@ -42,6 +41,7 @@ namespace BetterGameUI.UI
             Recalculate();
         }
 
+        // NOTE: the lightning up of icons in one buffs bar reflects on the other.
         protected override void DrawSelf(SpriteBatch spriteBatch) {
             if (!IsEnabled) {
                 return;
@@ -142,7 +142,8 @@ namespace BetterGameUI.UI
 
             if (!IsLocked() && mouseRectangle.Contains(mouseX, mouseY)) {
                 drawBuffText = buffSlotOnPlayer;
-                buffAlpha[buffSlotOnPlayer] += 0.1f;
+                // NOTE: this value is increased by 0.05f to compensate from UISystem.DrawInterface_Logic_0 substraction 0.05f from every buff every frame
+                buffAlpha[buffSlotOnPlayer] += 0.15f;
 
                 bool flag = mouseRight && mouseRightRelease;
                 if (PlayerInput.UsingGamepad) {
@@ -159,9 +160,6 @@ namespace BetterGameUI.UI
 
                 if (flag)
                     TryRemovingBuff(buffSlotOnPlayer, buffTy);
-            }
-            else {
-                buffAlpha[buffSlotOnPlayer] -= 0.05f;
             }
 
             if (buffAlpha[buffSlotOnPlayer] > 1f) {

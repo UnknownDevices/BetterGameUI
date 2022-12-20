@@ -16,7 +16,6 @@ namespace BetterGameUI.UI
         public uint MaxScrollNotches;
         // TODO: consider using float.NaN to represent scroller not being dragged
         public float ScrollerDraggingPointY;
-        // TODO: consider moving to UIBasic
 
         public UIScroller UIScroller {
             get => Elements[0] as UIScroller;
@@ -54,9 +53,8 @@ namespace BetterGameUI.UI
                     color);
         }
 
-        // TODO: move to Draw
         // TODO: have scroller snap to mouse position when scrollbar is left clicked and scroller dragging is allowed
-        public override void Update(GameTime gameTime) {
+        public override void Draw(SpriteBatch spriteBatch) {
             if (IsEnabled) {
                 long scrolledNotchesBeforeClamp = ScrolledNotches;
 
@@ -100,7 +98,6 @@ namespace BetterGameUI.UI
                     IsScrollerBeingDragged = false;
                 }
 
-                // TODO: consider if !IsScrollerBeingDragged is necessary
                 if (IsMouseScrollFocusingThis() && (!IsDraggingScrollerAllowed() | !IsScrollerBeingDragged)) {
                     scrolledNotchesBeforeClamp += MouseScroll();
                 }
@@ -125,7 +122,7 @@ namespace BetterGameUI.UI
                 ScrolledNotches = Math.Clamp(ScrolledNotches, 0, MaxScrollNotches);
             }
 
-            base.Update(gameTime);
+            base.Draw(spriteBatch);
         }
 
         public virtual bool IsMouseScrollFocusingThis() {

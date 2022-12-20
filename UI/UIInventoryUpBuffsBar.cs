@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.UI;
@@ -7,9 +8,9 @@ namespace BetterGameUI.UI
 {
     public sealed class UIInventoryUpBuffsBar : UIBuffsBar
     {
-        public override void Update(GameTime gameTime) {
+        public override void Draw(SpriteBatch spriteBatch) {
             MaybeDisable(!Main.playerInventory | Main.EquipPage != 2);
-            base.Update(gameTime);
+            base.Draw(spriteBatch);
         }
 
         public override void UpdateClientConfigDependencies() {
