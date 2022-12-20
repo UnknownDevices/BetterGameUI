@@ -23,16 +23,17 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.BuffsBarHitboxMod")]
         public int BuffsBarHitboxMod { get; set; }
 
-        [DefaultValue(0)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.ScrollerHitboxMod")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.ScrollerHitboxMod")]
-        public int ScrollerHitboxMod { get; set; }
+        // TODO: consider scrollbar's hitbox modifier
 
         [DefaultValue(true)]
         [Label("$Mods.BetterGameUI.Config.Label.AllowScrollerDragging")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.AllowScrollerDragging")]
         public bool AllowScrollerDragging { get; set; }
+
+        [DefaultValue(true)]
+        [Label("$Mods.BetterGameUI.Config.Label.AllowScrollerSnappingToCursor")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.AllowScrollerSnappingToCursor")]
+        public bool AllowScrollerSnappingToCursor { get; set; }
 
         [DefaultValue(true)]
         [Label("$Mods.BetterGameUI.Config.Label.MouseScrollFocusesMouseHoveredUI")]
@@ -156,15 +157,5 @@ namespace BetterGameUI
         [Label("$Mods.BetterGameUI.Config.Label.IconCols")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconCols")]
         public int InventoryUpIconCols { get; set; }
-
-        // ------------- Misc. Config ------------- //
-
-        [Header("$Mods.BetterGameUI.Config.Header.MiscConfig")]
-        [ReloadRequired]
-        [DefaultValue(0)]
-        [Range(uint.MinValue, uint.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.AdditionalPlayerBuffSlots")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.AdditionalPlayerBuffSlots")]
-        public int AdditionalPlayerBuffSlots { get; set; }
     }
 }

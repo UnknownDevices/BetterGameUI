@@ -48,9 +48,9 @@ namespace BetterGameUI.UI
             }
 
             Rectangle rec = GetDimensions().ToRectangle();
-            int mouseoveredIcon = -1;
-            int buffsBegin = (int)UIScrollbar.ScrolledNotches * IconColsCount;
-            int iconsEnd = Math.Min(Mod.ActiveBuffsIndexes.Count - buffsBegin, IconRowsCount * IconColsCount);
+            int hoveredIcon = -1;
+            int iconsBegin = (int)UIScrollbar.ScrolledNotches * IconColsCount;
+            int iconsEnd = Math.Min(Mod.ActiveBuffsIndexes.Count - iconsBegin, IconRowsCount * IconColsCount);
             for (int iconsI = 0; iconsI < iconsEnd; ++iconsI) {
                 int x = 0;
                 switch (IconsHorOrder) {
@@ -67,11 +67,11 @@ namespace BetterGameUI.UI
 
                 int y = rec.Top + (IconHeight + IconTextHeight + IconToIconPad) * (iconsI / IconColsCount);
 
-                mouseoveredIcon = DrawBuffIcon(mouseoveredIcon, Mod.ActiveBuffsIndexes[iconsI + buffsBegin], x, y);
+                hoveredIcon = DrawBuffIcon(hoveredIcon, Mod.ActiveBuffsIndexes[iconsI + iconsBegin], x, y);
             }
 
-            if (mouseoveredIcon >= 0) {
-                int buffTy = player[myPlayer].buffType[mouseoveredIcon];
+            if (hoveredIcon >= 0) {
+                int buffTy = player[myPlayer].buffType[hoveredIcon];
                 if (buffTy > 0) {
                     string buffName = Lang.GetBuffName(buffTy);
                     string buffTooltip = GetBuffTooltip(player[myPlayer], buffTy);
@@ -124,11 +124,10 @@ namespace BetterGameUI.UI
                 Contains(mouseX, mouseY);
         }
 
-        public int DrawBuffIcon(int drawBuffText, int buffSlotOnPlayer, int x, int y) {
-            // TODO: this should not interrupt mouse if IgnoreMouseInterface is set to true, same with scroller
+        public int DrawBuffIcon(int hoveredIcon, int buffSlotOnPlayer, int x, int y) {
             int buffTy = player[myPlayer].buffType[buffSlotOnPlayer];
-            if (buffTy == 0) {
-                return drawBuffText;
+            if (buffTy <= 0) {
+                return hoveredIcon;
             }
 
             Asset<Texture2D> buffAsset = TextureAssets.Buff[buffTy];
@@ -141,7 +140,7 @@ namespace BetterGameUI.UI
             Rectangle mouseRectangle = new Rectangle(x, y, width, height);
 
             if (!IsLocked() && mouseRectangle.Contains(mouseX, mouseY)) {
-                drawBuffText = buffSlotOnPlayer;
+                hoveredIcon = buffSlotOnPlayer;
                 // NOTE: this value is increased by 0.05f to compensate from UISystem.DrawInterface_Logic_0 substraction 0.05f from every buff every frame
                 buffAlpha[buffSlotOnPlayer] += 0.15f;
 
@@ -190,9 +189,9 @@ namespace BetterGameUI.UI
             }
 
             if (PlayerInput.UsingGamepad && !playerInventory)
-                drawBuffText = -1;
+                hoveredIcon = -1;
 
-            return drawBuffText;
+            return hoveredIcon;
         }
     }
 }

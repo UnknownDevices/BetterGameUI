@@ -29,16 +29,18 @@ namespace BetterGameUI.UI
         }
 
         public override bool IsMouseScrollFocusingThis() {
-            return Player.MouseScrollIsFocusingBuffsBar | 
-                (Mod.ClientConfig.MouseScrollFocusesMouseHoveredUI & UIBuffsBar.IsMouseHoveringHitbox()) && 
-                base.IsMouseScrollFocusingThis();
+            return Player.MouseScrollIsFocusingBuffsBar |
+                (Mod.ClientConfig.MouseScrollFocusesMouseHoveredUI & UIBuffsBar.IsMouseHoveringHitbox());
         }
 
         public override bool IsDraggingScrollerAllowed() {
-            return Mod.ClientConfig.AllowScrollerDragging & !UIBuffsBar.IsLocked() && 
-                base.IsDraggingScrollerAllowed();
+            return Mod.ClientConfig.AllowScrollerDragging & !UIBuffsBar.IsLocked();
         }
 
+        public override bool AllowScrollerSnappingToCursor() {
+            return Mod.ClientConfig.AllowScrollerSnappingToCursor;
+        }
+        
         public override int MouseScroll() {
             int output = 0;
 
@@ -53,11 +55,12 @@ namespace BetterGameUI.UI
             return Mod.ClientConfig.InvertMouseScrollForScrollbar ? -output : output;
         }
 
-        public override bool IsMouseHoveringScrollerHitbox() {
-            float mouseX = PlayerInput.MouseInfo.X / Main.UIScale;
-            float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;
-            return UIScroller.GetDimensions().GrowFromCenter(Mod.ClientConfig.ScrollerHitboxMod).
-                Contains(mouseX, mouseY);
+        public override bool IsScrollerHitboxHovered() {
+            return !UIBuffsBar.IsLocked() && base.IsScrollerHitboxHovered();
+        }
+
+        public override bool IsHovered() {
+            return !UIBuffsBar.IsLocked() && IsMouseHovering;
         }
 
         public override void Draw(SpriteBatch spriteBatch) {
@@ -67,13 +70,11 @@ namespace BetterGameUI.UI
 
             MaybeDisable(Mod.ClientConfig.SmartHideScrollbar & MaxScrollNotches <= 0);
 
-            if (IsEnabled) {
-                if (IsMouseScrollFocusingThis()) {
-                    PlayerInput.LockVanillaMouseScroll("UIBuffsBarScrollbar");
-                }
-            }
-
             base.Draw(spriteBatch);
+
+            if (IsEnabled & IsMouseScrollFocusingThis() | float.IsNaN(ScrollerDraggingPointY)) {
+                PlayerInput.LockVanillaMouseScroll("UIBuffsBarScrollbar");
+            }
         }
     }
 }

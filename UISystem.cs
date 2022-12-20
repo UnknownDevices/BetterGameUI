@@ -1095,15 +1095,18 @@ namespace BetterGameUI
 
 
         public static bool DrawInterface_Logic_0() {
-            BetterGameUI.Mod.UpdateActiveBuffsIndexes();
+           BetterGameUI.Mod.ActiveBuffsIndexes = new List<int>(Terraria.Player.MaxBuffs);
             for (int i = 0; i < Terraria.Player.MaxBuffs; ++i) {
                 if (player[myPlayer].buffType[i] > 0) {
+                    BetterGameUI.Mod.ActiveBuffsIndexes.Add(i);
+
                     buffAlpha[i] -= 0.05f;
                     if (buffAlpha[i] < 0f) {
                         buffAlpha[i] = 0f;
                     }
                 }
             }
+
             HandleHotbar();
             return true;
         }

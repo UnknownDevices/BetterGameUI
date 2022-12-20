@@ -13,8 +13,9 @@ namespace BetterGameUI.UI
         public UIScrollbar UIScrollbar => Parent as UIScrollbar;
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
-            if ((UIScrollbar.IsDraggingScrollerAllowed() & UIScrollbar.IsMouseHoveringScrollerHitbox()) |
-                UIScrollbar.IsScrollerBeingDragged) {
+            if ((UIScrollbar.IsDraggingScrollerAllowed() & UIScrollbar.IsScrollerHitboxHovered()) |
+                !float.IsNaN(UIScrollbar.ScrollerDraggingPointY)) 
+            {
                 DynamicAlpha += 0.1f;
             }
             else {

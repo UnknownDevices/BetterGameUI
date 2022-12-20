@@ -7,24 +7,18 @@ namespace BetterGameUI
 {
     public class Mod : Terraria.ModLoader.Mod
     {
+        // TODO: OnServerConfigChanged is not needed at the time but do consider it
         public static event Action OnClientConfigChanged;
 
+        // FIXME: hotbar is drawn for one frame when opening bestiary or emotes window
         // FIXME: text of baner buff icon has trouble displaying full text if the icon is too low on the screen
-        // TODO: only the count of this will be needed
+        // updated every frame by DrawInterface_Logic_0
         public static List<int> ActiveBuffsIndexes { get; set; }
         public static ClientConfig ClientConfig { get; set; }
-        public override uint ExtraPlayerBuffSlots { get => (uint)ClientConfig.AdditionalPlayerBuffSlots; }
+        public static ServerConfig ServerConfig { get; set; }
+        public override uint ExtraPlayerBuffSlots { get => (uint)ServerConfig.ExtraPlayerBuffSlots; }
 
         internal static void RaiseClientConfigChanged() => OnClientConfigChanged?.Invoke();
-
-        public static void UpdateActiveBuffsIndexes() {
-            ActiveBuffsIndexes = new List<int>(Terraria.Player.MaxBuffs);
-            for (int i = 0; i < Terraria.Player.MaxBuffs; ++i) {
-                if (Main.player[Main.myPlayer].buffType[i] > 0) {
-                    ActiveBuffsIndexes.Add(i);
-                }
-            }
-        }
 
         public override void Load() {
             if (Main.netMode != NetmodeID.Server) {
