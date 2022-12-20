@@ -34,7 +34,7 @@ Mods: {
 			Tooltip: {
 				BuffsBarHitboxMod: "Measured in pixels. Modifies the size of the hitbox a buffs' bar uses to interact with the cursor.\nBy default, the hitbox is the same size as the UI."
 				AllowScrollerDragging: "if enabled, clicking on a scroller will allow dragging it until said click is released."
-				AllowScrollerSnappingToCursor: "if enabled, clicking on a scrollbar will cause its scroller to snap to your cursor position."
+				AllowScrollerSnappingToCursor: "if enabled, clicking on a scrollbar will cause its scroller to snap to your cursor's position."
 				MouseScrollFocusesMouseHoveredUI: "If enabled, mouse scroll will be received by whichever UI is hovered by the cursor.\nUIs not reactive to mouse scroll are not counted for this purpose.\nIf no valid UI is hovered by the cursor, the mouse scroll will then be received by a predetermined UI."
 				InvertMouseScrollForScrollbar: "If enabled, mouse scroll received by a scrollbar will be inverted."
 				AllowInteractingWithHotbarWhileUsingAnItem: "If enabled, using an item will not prevent you from interacting with the hotbar.\nWhichever item is pointed to by the hotbar will be selected as soon as the current item animation ends.\nRemarkably, this can allow you to switch between items without needing to let go of the left mouse."
