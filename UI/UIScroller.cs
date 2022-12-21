@@ -12,6 +12,7 @@ namespace BetterGameUI.UI
 
         public UIScrollbar UIScrollbar => Parent as UIScrollbar;
 
+        // TODO: should this light up when scrolling?
         protected override void DrawSelf(SpriteBatch spriteBatch) {
             if ((UIScrollbar.IsDraggingScrollerAllowed() & UIScrollbar.IsScrollerHitboxHovered()) |
                 !float.IsNaN(UIScrollbar.ScrollerDraggingPointY)) 

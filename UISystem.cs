@@ -38,6 +38,402 @@ namespace BetterGameUI
         public static UIInventoryUpBuffsBar UIInventoryUpBuffsBar =>
             UserInterfaceMap.CurrentState.Children.First() as UIInventoryUpBuffsBar;
 
+        public static void DrawItemSlot(SpriteBatch spriteBatch, Item[] inv, int context, int slot, Vector2 position, Color lightColor = default(Color)) {
+            Terraria.Player player = Main.player[Main.myPlayer];
+            Item item = inv[slot];
+            float inventoryScale = Main.inventoryScale;
+            Color color = Color.White;
+            if (lightColor != Color.Transparent)
+                color = lightColor;
+
+            bool flag = false;
+            int num = 0;
+            int gamepadPointForSlot = ItemSlotReflection.GetGamepadPointForSlot(inv, context, slot);
+            if (PlayerInput.UsingGamepadUI) {
+                flag = (UILinkPointNavigator.CurrentPoint == gamepadPointForSlot);
+                if (PlayerInput.SettingsForUI.PreventHighlightsForGamepad)
+                    flag = false;
+
+                if (context == 0) {
+                    num = player.DpadRadial.GetDrawMode(slot);
+                    if (num > 0 && !PlayerInput.CurrentProfile.UsingDpadHotbar())
+                        num = 0;
+                }
+            }
+
+            Texture2D value = TextureAssets.InventoryBack.Value;
+            Color color2 = Main.inventoryBack;
+            bool flag2 = false;
+            bool highlightThingsForMouse = PlayerInput.SettingsForUI.HighlightThingsForMouse;
+            if (item.type > 0 && item.stack > 0 && item.favorited && context != 13 && context != 21 && context != 22 && context != 14) {
+                value = TextureAssets.InventoryBack10.Value;
+                if (context == 0/* && slot < 10*/ && player.selectedItem == slot) {
+                    color2 = Color.White;
+                    value = TextureAssets.InventoryBack17.Value;
+                }
+            }
+            else if (item.type > 0 && item.stack > 0 && ItemSlot.Options.HighlightNewItems && item.newAndShiny && context != 13 && context != 21 && context != 14 && context != 22) {
+                value = TextureAssets.InventoryBack15.Value;
+                float num2 = (float)(int)Main.mouseTextColor / 255f;
+                num2 = num2 * 0.2f + 0.8f;
+                color2 = color2.MultiplyRGBA(new Color(num2, num2, num2));
+            }
+            else if (!highlightThingsForMouse && item.type > 0 && item.stack > 0 && num != 0 && context != 13 && context != 21 && context != 22) {
+                value = TextureAssets.InventoryBack15.Value;
+                float num3 = (float)(int)Main.mouseTextColor / 255f;
+                num3 = num3 * 0.2f + 0.8f;
+                color2 = ((num != 1) ? color2.MultiplyRGBA(new Color(num3 / 2f, num3, num3 / 2f)) : color2.MultiplyRGBA(new Color(num3, num3 / 2f, num3 / 2f)));
+            }
+            else if (context == 0) {
+                if (slot < 10) {
+                    value = TextureAssets.InventoryBack9.Value;
+                }
+
+                if (player.selectedItem == slot && highlightThingsForMouse) {
+                    value = TextureAssets.InventoryBack14.Value;
+                    color2 = Color.White;
+                }
+            }
+            else {
+                switch (context) {
+                    case 28:
+                        value = TextureAssets.InventoryBack7.Value;
+                        color2 = Color.White;
+                        break;
+                    case 8:
+                    case 10:
+                    case 16:
+                    case 17:
+                    case 18:
+                    case 19:
+                    case 20:
+                        value = TextureAssets.InventoryBack3.Value;
+                        break;
+                    case 9:
+                    case 11:
+                    case 23:
+                    case 24:
+                    case 26:
+                        value = TextureAssets.InventoryBack8.Value;
+                        break;
+                    case 12:
+                    case 25:
+                    case 27:
+                        value = TextureAssets.InventoryBack12.Value;
+                        break;
+                    // These are added by TML.
+                    case -10:
+                    case -11:
+                    case -12:
+                        value = AccessorySlotLoaderReflection.GetBackgroundTexture(LoaderManager.Get<AccessorySlotLoader>(), slot, context);
+                        break;
+                    case 3:
+                        value = TextureAssets.InventoryBack5.Value;
+                        break;
+                    case 4:
+                        value = TextureAssets.InventoryBack2.Value;
+                        break;
+                    case 5:
+                    case 7:
+                        value = TextureAssets.InventoryBack4.Value;
+                        break;
+                    case 6:
+                        value = TextureAssets.InventoryBack7.Value;
+                        break;
+                    case 13: {
+                            byte b = 200;
+                            if (slot == Main.player[Main.myPlayer].selectedItem) {
+                                value = TextureAssets.InventoryBack14.Value;
+                                b = byte.MaxValue;
+                            }
+
+                            color2 = new Color(b, b, b, b);
+                            break;
+                        }
+                    case 14:
+                    case 21:
+                        flag2 = true;
+                        break;
+                    case 15:
+                        value = TextureAssets.InventoryBack6.Value;
+                        break;
+                    case 29:
+                        color2 = new Color(53, 69, 127, 255);
+                        value = TextureAssets.InventoryBack18.Value;
+                        break;
+                    case 30:
+                        flag2 = !flag;
+                        break;
+                    case 22:
+                        value = TextureAssets.InventoryBack4.Value;
+                        if (ItemSlot.DrawGoldBGForCraftingMaterial) {
+                            ItemSlot.DrawGoldBGForCraftingMaterial = false;
+                            value = TextureAssets.InventoryBack14.Value;
+                            float num4 = (float)(int)color2.A / 255f;
+                            num4 = ((!(num4 < 0.7f)) ? 1f : Utils.GetLerpValue(0f, 0.7f, num4, clamped: true));
+                            color2 = Color.White * num4;
+                        }
+                        break;
+                }
+            }
+
+            if ((context == 0 || context == 2) & ItemSlotReflection.GetInventoryGlowTime()[slot] > 0 && !inv[slot].favorited && !inv[slot].IsAir) {
+                float scale = Main.invAlpha / 255f;
+                Color value2 = new Color(63, 65, 151, 255) * scale;
+                Color value3 = Main.hslToRgb(ItemSlotReflection.GetInventoryGlowHue()[slot], 1f, 0.5f) * scale;
+                float num5 = (float)ItemSlotReflection.GetInventoryGlowTime()[slot] / 300f;
+                num5 *= num5;
+                color2 = Color.Lerp(value2, value3, num5 / 2f);
+                value = TextureAssets.InventoryBack13.Value;
+            }
+
+            if ((context == 4 || context == 3) && ItemSlotReflection.GetInventoryGlowTimeChest()[slot] > 0 && !inv[slot].favorited && !inv[slot].IsAir) {
+                float scale2 = Main.invAlpha / 255f;
+                Color value4 = new Color(130, 62, 102, 255) * scale2;
+                if (context == 3)
+                    value4 = new Color(104, 52, 52, 255) * scale2;
+
+                Color value5 = Main.hslToRgb(ItemSlotReflection.GetInventoryGlowHueChest()[slot], 1f, 0.5f) * scale2;
+                float num6 = (float)ItemSlotReflection.GetInventoryGlowTimeChest()[slot] / 300f;
+                num6 *= num6;
+                color2 = Color.Lerp(value4, value5, num6 / 2f);
+                value = TextureAssets.InventoryBack13.Value;
+            }
+
+            if (flag) {
+                value = TextureAssets.InventoryBack14.Value;
+                color2 = Color.White;
+            }
+
+            if (context == 28 && Main.MouseScreen.Between(position, position + value.Size() * inventoryScale) && !player.mouseInterface) {
+                value = TextureAssets.InventoryBack14.Value;
+                color2 = Color.White;
+            }
+
+            if (!flag2)
+                spriteBatch.Draw(value, position, null, color2, 0f, default(Vector2), inventoryScale, SpriteEffects.None, 0f);
+
+            int num7 = -1;
+            switch (context) {
+                case 8:
+                case 23:
+                    if (slot == 0)
+                        num7 = 0;
+                    if (slot == 1)
+                        num7 = 6;
+                    if (slot == 2)
+                        num7 = 12;
+                    break;
+                case 26:
+                    num7 = 0;
+                    break;
+                case 9:
+                    if (slot == 10)
+                        num7 = 3;
+                    if (slot == 11)
+                        num7 = 9;
+                    if (slot == 12)
+                        num7 = 15;
+                    break;
+                case 10:
+                case 24:
+                    num7 = 11;
+                    break;
+                case 11:
+                    num7 = 2;
+                    break;
+                case 12:
+                case 25:
+                case 27:
+                    num7 = 1;
+                    break;
+                // Added by TML: [[
+                case -10:
+                    num7 = 11;
+                    break;
+                case -11:
+                    num7 = 2;
+                    break;
+                case -12:
+                    num7 = 1;
+                    break;
+                // ]]
+                case 16:
+                    num7 = 4;
+                    break;
+                case 17:
+                    num7 = 13;
+                    break;
+                case 19:
+                    num7 = 10;
+                    break;
+                case 18:
+                    num7 = 7;
+                    break;
+                case 20:
+                    num7 = 17;
+                    break;
+            }
+
+            if ((item.type <= 0 || item.stack <= 0) && num7 != -1) {
+                Texture2D value6 = TextureAssets.Extra[54].Value;
+                Rectangle rectangle = value6.Frame(3, 6, num7 % 3, num7 / 3);
+                rectangle.Width -= 2;
+                rectangle.Height -= 2;
+
+                // Modded Accessory Slots
+                if (context == -10 || context == -11 || context == -12) {
+                    AccessorySlotLoaderReflection.DrawSlotTexture(LoaderManager.Get<AccessorySlotLoader>(), value6, position + value.Size() / 2f * inventoryScale, rectangle, Color.White * 0.35f, 0f, rectangle.Size() / 2f, inventoryScale, SpriteEffects.None, 0f, slot, context);
+
+                    goto SkipVanillaDraw;
+                }
+
+                spriteBatch.Draw(value6, position + value.Size() / 2f * inventoryScale, rectangle, Color.White * 0.35f, 0f, rectangle.Size() / 2f, inventoryScale, SpriteEffects.None, 0f);
+
+            SkipVanillaDraw:;
+            }
+
+            Vector2 vector = value.Size() * inventoryScale;
+            if (item.type > 0 && item.stack > 0) {
+                Main.instance.LoadItem(item.type);
+                Texture2D value7 = TextureAssets.Item[item.type].Value;
+                Rectangle rectangle2 = (Main.itemAnimations[item.type] == null) ? value7.Frame() : Main.itemAnimations[item.type].GetFrame(value7);
+                Color currentColor = color;
+                float scale3 = 1f;
+                ItemSlot.GetItemLight(ref currentColor, ref scale3, item);
+                float num8 = 1f;
+                if (rectangle2.Width > 32 || rectangle2.Height > 32)
+                    num8 = ((rectangle2.Width <= rectangle2.Height) ? (32f / (float)rectangle2.Height) : (32f / (float)rectangle2.Width));
+
+                num8 *= inventoryScale;
+                Vector2 position2 = position + vector / 2f - rectangle2.Size() * num8 / 2f;
+                Vector2 origin = rectangle2.Size() * (scale3 / 2f - 0.5f);
+
+                if (!ItemLoader.PreDrawInInventory(item, spriteBatch, position2, rectangle2, item.GetAlpha(currentColor), item.GetColor(color), origin, num8 * scale3))
+                    goto SkipVanillaItemDraw;
+
+                spriteBatch.Draw(value7, position2, rectangle2, item.GetAlpha(currentColor), 0f, origin, num8 * scale3, SpriteEffects.None, 0f);
+                if (item.color != Color.Transparent) {
+                    Color newColor = color;
+                    if (context == 13)
+                        newColor.A = byte.MaxValue;
+
+                    // Extra context.
+
+                    spriteBatch.Draw(value7, position2, rectangle2, item.GetColor(newColor), 0f, origin, num8 * scale3, SpriteEffects.None, 0f);
+                }
+
+            SkipVanillaItemDraw:
+                ItemLoader.PostDrawInInventory(item, spriteBatch, position2, rectangle2, item.GetAlpha(currentColor), item.GetColor(color), origin, num8 * scale3);
+
+                if (ItemID.Sets.TrapSigned[item.type])
+                    spriteBatch.Draw(TextureAssets.Wire.Value, position + new Vector2(40f, 40f) * inventoryScale, new Rectangle(4, 58, 8, 8), color, 0f, new Vector2(4f), 1f, SpriteEffects.None, 0f);
+
+                if (item.stack > 1)
+                    ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.ItemStack.Value, item.stack.ToString(), position + new Vector2(10f, 26f) * inventoryScale, color, 0f, Vector2.Zero, new Vector2(inventoryScale), -1f, inventoryScale);
+
+                int num9 = -1;
+                if (context == 13) {
+                    if (item.DD2Summon) {
+                        for (int i = 0; i < 58; i++) {
+                            if (inv[i].type == 3822)
+                                num9 += inv[i].stack;
+                        }
+
+                        if (num9 >= 0)
+                            num9++;
+                    }
+
+                    if (item.useAmmo > 0) {
+                        int useAmmo = item.useAmmo;
+                        num9 = 0;
+                        for (int j = 0; j < 58; j++) {
+                            if (inv[j].stack > 0 && ItemLoader.CanChooseAmmo(item, inv[j], player))
+                                num9 += inv[j].stack;
+                        }
+                    }
+
+                    if (item.fishingPole > 0) {
+                        num9 = 0;
+                        for (int k = 0; k < 58; k++) {
+                            if (inv[k].bait > 0)
+                                num9 += inv[k].stack;
+                        }
+                    }
+
+                    if (item.tileWand > 0) {
+                        int tileWand = item.tileWand;
+                        num9 = 0;
+                        for (int l = 0; l < 58; l++) {
+                            if (inv[l].type == tileWand)
+                                num9 += inv[l].stack;
+                        }
+                    }
+
+                    if (item.type == 509 || item.type == 851 || item.type == 850 || item.type == 3612 || item.type == 3625 || item.type == 3611) {
+                        num9 = 0;
+                        for (int m = 0; m < 58; m++) {
+                            if (inv[m].type == 530)
+                                num9 += inv[m].stack;
+                        }
+                    }
+                }
+
+                if (num9 != -1)
+                    ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.ItemStack.Value, num9.ToString(), position + new Vector2(8f, 30f) * inventoryScale, color, 0f, Vector2.Zero, new Vector2(inventoryScale * 0.8f), -1f, inventoryScale);
+
+                if (context == 13) {
+                    string text = (slot + 1).ToString() ?? "";
+                    if (text == "10")
+                        text = "0";
+
+                    ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.ItemStack.Value, text, position + new Vector2(8f, 4f) * inventoryScale, color, 0f, Vector2.Zero, new Vector2(inventoryScale), -1f, inventoryScale);
+                }
+
+                if (context == 13 && item.potion) {
+                    Vector2 position3 = position + value.Size() * inventoryScale / 2f - TextureAssets.Cd.Value.Size() * inventoryScale / 2f;
+                    Color color3 = item.GetAlpha(color) * ((float)player.potionDelay / (float)player.potionDelayTime);
+                    spriteBatch.Draw(TextureAssets.Cd.Value, position3, null, color3, 0f, default(Vector2), num8, SpriteEffects.None, 0f);
+
+                    // Extra context.
+                }
+
+                if ((context == 10 || context == 18) && ((item.expertOnly && !Main.expertMode) || (item.masterOnly && !Main.masterMode))) {
+                    Vector2 position4 = position + value.Size() * inventoryScale / 2f - TextureAssets.Cd.Value.Size() * inventoryScale / 2f;
+                    Color white = Color.White;
+                    spriteBatch.Draw(TextureAssets.Cd.Value, position4, null, white, 0f, default(Vector2), num8, SpriteEffects.None, 0f);
+                }
+
+                // Extra context.
+            }
+            else if (context == 6) {
+                Texture2D value8 = TextureAssets.Trash.Value;
+                Vector2 position5 = position + value.Size() * inventoryScale / 2f - value8.Size() * inventoryScale / 2f;
+                spriteBatch.Draw(value8, position5, null, new Color(100, 100, 100, 100), 0f, default(Vector2), inventoryScale, SpriteEffects.None, 0f);
+            }
+
+            if (context == 0 && slot < 10) {
+                float num10 = inventoryScale;
+                string text2 = (slot + 1).ToString() ?? "";
+                if (text2 == "10")
+                    text2 = "0";
+
+                Color baseColor = Main.inventoryBack;
+                int num11 = 0;
+                if (Main.player[Main.myPlayer].selectedItem == slot) {
+                    baseColor = Color.White;
+                    baseColor.A = 200;
+                    num11 -= 2;
+                    num10 *= 1.4f;
+                }
+
+                ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.ItemStack.Value, text2, position + new Vector2(6f, 4 + num11) * inventoryScale, baseColor, 0f, Vector2.Zero, new Vector2(inventoryScale), -1f, inventoryScale);
+            }
+
+            if (gamepadPointForSlot != -1)
+                UILinkPointNavigator.SetPosition(gamepadPointForSlot, position + vector * 0.75f);
+        }
+
         public static void DrawInventory() {
             Recipe.GetThroughDelayedFindRecipes();
             if (ShouldPVPDraw)
@@ -82,7 +478,7 @@ namespace BetterGameUI
                         ItemSlot.MouseHover(player[myPlayer].inventory, 0, num9);
                     }
 
-                    ItemSlot.Draw(spriteBatch, player[myPlayer].inventory, 0, num9, new Vector2(num7, num8));
+                    DrawItemSlot(spriteBatch, player[myPlayer].inventory, 0, num9, new Vector2(num7, num8));
                 }
             }
 
@@ -1114,10 +1510,13 @@ namespace BetterGameUI
         public static int DisplayedSelectedItem = 0;
         public static int ItemSelectedOnAnimationStart = 0;
         public static void HandleHotbar() {
-            if (player[myPlayer].itemAnimation == 0 && player[myPlayer].ItemTimeIsZero && player[myPlayer].reuseDelay == 0) {
+            if (!BetterGameUI.Mod.ClientConfig.AllowInteractingWithHotbarWhileUsingAnItem) {
+                DisplayedSelectedItem = player[myPlayer].selectedItem;
+            }
+            else if (player[myPlayer].itemAnimation == 0 && player[myPlayer].ItemTimeIsZero && player[myPlayer].reuseDelay == 0) {
                 ItemSelectedOnAnimationStart = DisplayedSelectedItem = player[myPlayer].selectedItem;
             }
-            else if (BetterGameUI.Mod.ClientConfig.AllowInteractingWithHotbarWhileUsingAnItem) {
+            else {
                 if (player[myPlayer].ItemAnimationJustStarted) {
                     ItemSelectedOnAnimationStart = DisplayedSelectedItem = player[myPlayer].selectedItem;
                 }
@@ -1230,7 +1629,10 @@ namespace BetterGameUI
             }
         }
 
-        // NOTE: has the map always been drawn while the menu is up?
+        // TODO: shift should behave like any other request to change the selected item
+        // TODO: fix minimap buttons being interactable when the hotbar is locked1
+        // NOTE: has the map always been drawn while the menu is up? // yes, though it probably shouldn't
+        // TODO: fix inventory item in usage not lightening up when the inventory is up
         public static bool DrawInterface_Hotbar() {
             if (playerInventory || player[myPlayer].ghost) {
                 return true;
@@ -1271,14 +1673,18 @@ namespace BetterGameUI
                 int a = (int)(75f + 150f * itrHotbarScale);
                 Microsoft.Xna.Framework.Color lightColor = new Microsoft.Xna.Framework.Color(255, 255, 255, a);
                 // if the hotbar is not locked AND the player input doesn't say to ignore the mouse interface AND the mouse is hovering this hotbar slot
-                if (!player[myPlayer].hbLocked && !PlayerInput.IgnoreMouseInterface && mouseX >= num && (float)mouseX <= (float)num + (float)TextureAssets.InventoryBack.Width() * hotbarScale[i] && mouseY >= num3 && (float)mouseY <= (float)num3 + (float)TextureAssets.InventoryBack.Height() * hotbarScale[i] && !player[myPlayer].channel) {
-                    player[myPlayer].mouseInterface = true;
-                    player[myPlayer].cursorItemIconEnabled = false;
-                    // NOTE: clicking on item is reflected one frame late
-                    if (mouseLeft && !blockMouse) {
-                        player[myPlayer].changeItem = i;
+                if (!player[myPlayer].hbLocked && mouseX >= num && (float)mouseX <= (float)num + (float)TextureAssets.InventoryBack.Width() * hotbarScale[i] && mouseY >= num3 && (float)mouseY <= (float)num3 + (float)TextureAssets.InventoryBack.Height() * hotbarScale[i] && !player[myPlayer].channel) {
+                    if (!PlayerInput.IgnoreMouseInterface) {
+                        player[myPlayer].mouseInterface = true;
+                        player[myPlayer].cursorItemIconEnabled = false;
                     }
 
+                    // NOTE: clicking on item is reflected one frame late
+                    // TODO: look into blockMouse
+                    if (BetterGameUI.Mod.ClientConfig.AllowInteractingWithHotbarWhileUsingAnItem & mouseLeft & !blockMouse) {
+                        player[myPlayer].changeItem = i;
+                    }
+                    
                     // TODO: consider adding comas to stacks of very big numbers
                     hoverItemName = player[myPlayer].inventory[i].AffixName();
                     if (player[myPlayer].inventory[i].stack > 1)

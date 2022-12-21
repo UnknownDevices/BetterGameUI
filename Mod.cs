@@ -10,6 +10,7 @@ namespace BetterGameUI
         // TODO: OnServerConfigChanged is not needed at the time but do consider it
         public static event Action OnClientConfigChanged;
 
+        // TODO: visually signal somehow when the hotbar is locked without needing to open the inventory
         // FIXME: hotbar is drawn for one frame when opening bestiary or emotes window
         // FIXME: text of baner buff icon has trouble displaying full text if the icon is too low on the screen
         // updated every frame by DrawInterface_Logic_0

@@ -10,6 +10,11 @@ My Discord profile: UnknownDevices#5926 (feel free to DM).
 Image used in the icon of this mod can be found on @BirdSteely's account on Twitter.
 
 Latest changelog:
+v0.3.3.0
+- highlight any selected item in the inventory, not just hotbar's ones
+- display the name of a hovered hotbar's item regardless of an item being in use
+- allow pointing to an item on the hotbar by clicking it regardless of an item being in use
+
 v0.3.2.1
 - fix bug which kept the hotbar always locked
 
@@ -29,10 +34,6 @@ V0.3.1.2
 V0.3.1.1
 - fix bug which sometimes caused wrong item to be selected in the hotbar while using an item.
 
-v0.3.1.0
-- add config to set alpha of buff's bars.
-- do scroller lightning up gradually when cursor hovered.
-
 
 ------------------------------------------
 
@@ -49,6 +50,11 @@ Mi perfil de Discord: UnknownDevices#5926 (siéntete libre de mandar mensaje pri
 Imagen usada en el icono de este mod puede ser encontrada en la cuenta de @BirdSteely en Twitter.
 
 Registro reciente de cambios:
+v0.3.3.0
+- resalta cualquier item seleccionado en el inventario, no solo aquellos de la barra de acceso rápido
+- Dibuja el nombre de item de la barra de acceso rápido que se encuentre debajo del cursor independientemente de un item estando en uso
+- Permite apuntar a un item en la barra de acceso rápido al clicarlo independientemente de un item estando en uso
+
 v0.3.2.1
 - arregla bug que mantenía a la barra de acceso rápido siempre bloqueada
 
@@ -67,7 +73,3 @@ v0.3.1.2
 
 V0.3.1.1
 - soluciona bug que ocasionalmente causaba que el ítem incorrecto fuera seleccionado en la barra de acceso rápido mientras se usaba un item.
-
-v0.3.1.0
-- añade configuración para cambiar el alfa de las barras de bufos.
-- ilumina el desplazador de manera gradual cuando este se encuentre debajo del cursor.
