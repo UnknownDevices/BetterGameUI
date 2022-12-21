@@ -1,17 +1,10 @@
-﻿using Humanizer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.UI;
 
-namespace BetterGameUI
+namespace BetterGameUI.Reflection
 {
-    // TODO: move reflection classes to Reflection folder
-    public class ItemSlotReflection
+    public class ItemSlot
     {
         public static readonly Func<Item[], int, int, int> GetGamepadPointForSlot;
         private static readonly FieldInfo inventoryGlowTime;
@@ -24,17 +17,18 @@ namespace BetterGameUI
         private static readonly FieldInfo inventoryGlowHueChest;
         public static float[] GetInventoryGlowHueChest() => inventoryGlowHueChest.GetValue(null) as float[];
 
-        static ItemSlotReflection() {
-            GetGamepadPointForSlot = typeof(ItemSlot).
+        static ItemSlot()
+        {
+            GetGamepadPointForSlot = typeof(Terraria.UI.ItemSlot).
                 GetMethod("GetGamepadPointForSlot", BindingFlags.NonPublic | BindingFlags.Static).
                 CreateDelegate(typeof(Func<Item[], int, int, int>)) as Func<Item[], int, int, int>;
-            inventoryGlowTime = typeof(ItemSlot).
+            inventoryGlowTime = typeof(Terraria.UI.ItemSlot).
                 GetField("inventoryGlowTime", BindingFlags.NonPublic | BindingFlags.Static);
-            inventoryGlowHue = typeof(ItemSlot).
-                GetField("inventoryGlowHue", BindingFlags.NonPublic | BindingFlags.Static); 
-            inventoryGlowTimeChest = typeof(ItemSlot).
+            inventoryGlowHue = typeof(Terraria.UI.ItemSlot).
+                GetField("inventoryGlowHue", BindingFlags.NonPublic | BindingFlags.Static);
+            inventoryGlowTimeChest = typeof(Terraria.UI.ItemSlot).
                 GetField("inventoryGlowTimeChest", BindingFlags.NonPublic | BindingFlags.Static);
-            inventoryGlowHueChest = typeof(ItemSlot).
+            inventoryGlowHueChest = typeof(Terraria.UI.ItemSlot).
                 GetField("inventoryGlowHueChest", BindingFlags.NonPublic | BindingFlags.Static);
         }
     }

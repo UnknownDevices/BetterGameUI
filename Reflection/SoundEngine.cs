@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
 using Terraria.Audio;
 
-namespace BetterGameUI
+namespace BetterGameUI.Reflection
 {
-    public static class SoundEngineReflection
+    public static class SoundEngine
     {
         public static readonly MethodInfo PlaySoundInfo;
 
@@ -11,8 +11,9 @@ namespace BetterGameUI
             float volumeScale = 1f, float pitchOffset = 0f) =>
             PlaySoundInfo.Invoke(null, new object[] { type, x, y, Style, volumeScale, pitchOffset });
 
-        static SoundEngineReflection() {
-            PlaySoundInfo = typeof(SoundEngine).
+        static SoundEngine()
+        {
+            PlaySoundInfo = typeof(Terraria.Audio.SoundEngine).
             GetMethod("PlaySound",
             BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.DeclaredOnly,
             new[] { typeof(int), typeof(int), typeof(int), typeof(int), typeof(float), typeof(float) });

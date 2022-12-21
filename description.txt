@@ -10,6 +10,10 @@ My Discord profile: UnknownDevices#5926 (feel free to DM).
 Image used in the icon of this mod can be found on @BirdSteely's account on Twitter.
 
 Latest changelog:
+v0.3.3.1
+- fix hotbar being drawn for one frame when the bestiary or the emotes window was opened (this was vanilla behaviour)
+- fix crafting window reopening after closing and reopening the inventory
+
 v0.3.3.0
 - highlight any selected item in the inventory, not just hotbar's ones
 - display the name of a hovered hotbar's item regardless of an item being in use
@@ -31,9 +35,6 @@ V0.3.1.2
 - add sound effect to lock hotbar keybind.
 - tweak icons.
 
-V0.3.1.1
-- fix bug which sometimes caused wrong item to be selected in the hotbar while using an item.
-
 
 ------------------------------------------
 
@@ -50,10 +51,14 @@ Mi perfil de Discord: UnknownDevices#5926 (siéntete libre de mandar mensaje pri
 Imagen usada en el icono de este mod puede ser encontrada en la cuenta de @BirdSteely en Twitter.
 
 Registro reciente de cambios:
+v0.3.3.1
+- arregla la barra de acceso rápido siendo dibujada por un frame cuando el bestiario o la ventana de emotes era abierta (esto era el comportamiento vanilla)
+- arregla la ventana de crafteo reabriéndose después de cerrar y reabrir el inventario
+
 v0.3.3.0
 - resalta cualquier item seleccionado en el inventario, no solo aquellos de la barra de acceso rápido
-- Dibuja el nombre de item de la barra de acceso rápido que se encuentre debajo del cursor independientemente de un item estando en uso
-- Permite apuntar a un item en la barra de acceso rápido al clicarlo independientemente de un item estando en uso
+- dibuja el nombre de item de la barra de acceso rápido que se encuentre debajo del cursor independientemente de un item estando en uso
+- permite apuntar a un item en la barra de acceso rápido al clicarlo independientemente de un item estando en uso
 
 v0.3.2.1
 - arregla bug que mantenía a la barra de acceso rápido siempre bloqueada
@@ -65,11 +70,12 @@ v0.3.2.0
 - reescribe las etiquetas y tooltips de algunas configuraciones
 
 v0.3.1.3
-- Arregla las alfa de los bufos no siendo decrementanda naturalmente si ninguna barra de bufos are dibujada ese froame (estor era el comportamiento vanilla)
+- Arregla las alfa de los bufos no siendo decrementanda naturalmente si ninguna barra de bufos are dibujada ese froame (esto era el comportamiento vanilla)
 
 v0.3.1.2
 - añade efecto de sonido a la asignación de tecla para bloquear la barra de acceso rápido.
 - modifica ligeramente los iconos.
 
-V0.3.1.1
-- soluciona bug que ocasionalmente causaba que el ítem incorrecto fuera seleccionado en la barra de acceso rápido mientras se usaba un item.
+-- next:
+- scrollbars hitbox modifier config
+- interact with scrollbar while auto use is on

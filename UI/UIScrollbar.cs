@@ -132,7 +132,6 @@ namespace BetterGameUI.UI
                     ScrollerDraggingPointY = (float)Math.Clamp(mouseY - UIScroller.GetDimensions().Y, 0,
                             UIScroller.GetDimensions().Height);
                 }
-                // TODO: consider having this require you to click on it to consume mouse, same with buff icons
                 if (!float.IsNaN(ScrollerDraggingPointY) | IsScrollerHitboxHovered() |
                     (Mod.ClientConfig.AllowScrollerSnappingToCursor & IsHovered())) 
                 {

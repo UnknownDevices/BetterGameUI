@@ -1,6 +1,7 @@
 ﻿// STFU Microsoft
 #pragma warning disable CA2211
 
+using BetterGameUI.Reflection;
 using BetterGameUI.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,19 +16,19 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.States;
 using Terraria.GameInput;
+using Terraria.Graphics.Capture;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using Terraria.UI.Gamepad;
-using static BetterGameUI.MainReflection;
+using static BetterGameUI.Reflection.Main;
 using static Terraria.Main;
 
 namespace BetterGameUI
 {
-    public class UISystem : ModSystem
-    {
+    public class UISystem : ModSystem {
         public static UserInterface UserInterfaceInventoryDownBuffsBar;
         public static UserInterface UserInterfaceMap;
         public static GameTime LastUpdateUIGameTime;
@@ -39,16 +40,16 @@ namespace BetterGameUI
             UserInterfaceMap.CurrentState.Children.First() as UIInventoryUpBuffsBar;
 
         public static void DrawItemSlot(SpriteBatch spriteBatch, Item[] inv, int context, int slot, Vector2 position, Color lightColor = default(Color)) {
-            Terraria.Player player = Main.player[Main.myPlayer];
+            Terraria.Player player = Terraria.Main.player[Terraria.Main.myPlayer];
             Item item = inv[slot];
-            float inventoryScale = Main.inventoryScale;
+            float inventoryScale = Terraria.Main.inventoryScale;
             Color color = Color.White;
             if (lightColor != Color.Transparent)
                 color = lightColor;
 
             bool flag = false;
             int num = 0;
-            int gamepadPointForSlot = ItemSlotReflection.GetGamepadPointForSlot(inv, context, slot);
+            int gamepadPointForSlot = Reflection.ItemSlot.GetGamepadPointForSlot(inv, context, slot);
             if (PlayerInput.UsingGamepadUI) {
                 flag = (UILinkPointNavigator.CurrentPoint == gamepadPointForSlot);
                 if (PlayerInput.SettingsForUI.PreventHighlightsForGamepad)
@@ -62,7 +63,7 @@ namespace BetterGameUI
             }
 
             Texture2D value = TextureAssets.InventoryBack.Value;
-            Color color2 = Main.inventoryBack;
+            Color color2 = Terraria.Main.inventoryBack;
             bool flag2 = false;
             bool highlightThingsForMouse = PlayerInput.SettingsForUI.HighlightThingsForMouse;
             if (item.type > 0 && item.stack > 0 && item.favorited && context != 13 && context != 21 && context != 22 && context != 14) {
@@ -72,15 +73,15 @@ namespace BetterGameUI
                     value = TextureAssets.InventoryBack17.Value;
                 }
             }
-            else if (item.type > 0 && item.stack > 0 && ItemSlot.Options.HighlightNewItems && item.newAndShiny && context != 13 && context != 21 && context != 14 && context != 22) {
+            else if (item.type > 0 && item.stack > 0 && Terraria.UI.ItemSlot.Options.HighlightNewItems && item.newAndShiny && context != 13 && context != 21 && context != 14 && context != 22) {
                 value = TextureAssets.InventoryBack15.Value;
-                float num2 = (float)(int)Main.mouseTextColor / 255f;
+                float num2 = (float)(int)Terraria.Main.mouseTextColor / 255f;
                 num2 = num2 * 0.2f + 0.8f;
                 color2 = color2.MultiplyRGBA(new Color(num2, num2, num2));
             }
             else if (!highlightThingsForMouse && item.type > 0 && item.stack > 0 && num != 0 && context != 13 && context != 21 && context != 22) {
                 value = TextureAssets.InventoryBack15.Value;
-                float num3 = (float)(int)Main.mouseTextColor / 255f;
+                float num3 = (float)(int)Terraria.Main.mouseTextColor / 255f;
                 num3 = num3 * 0.2f + 0.8f;
                 color2 = ((num != 1) ? color2.MultiplyRGBA(new Color(num3 / 2f, num3, num3 / 2f)) : color2.MultiplyRGBA(new Color(num3, num3 / 2f, num3 / 2f)));
             }
@@ -125,7 +126,7 @@ namespace BetterGameUI
                     case -10:
                     case -11:
                     case -12:
-                        value = AccessorySlotLoaderReflection.GetBackgroundTexture(LoaderManager.Get<AccessorySlotLoader>(), slot, context);
+                        value = Reflection.AccessorySlotLoader.GetBackgroundTexture(LoaderManager.Get<Terraria.ModLoader.AccessorySlotLoader>(), slot, context);
                         break;
                     case 3:
                         value = TextureAssets.InventoryBack5.Value;
@@ -142,7 +143,7 @@ namespace BetterGameUI
                         break;
                     case 13: {
                             byte b = 200;
-                            if (slot == Main.player[Main.myPlayer].selectedItem) {
+                            if (slot == Terraria.Main.player[Terraria.Main.myPlayer].selectedItem) {
                                 value = TextureAssets.InventoryBack14.Value;
                                 b = byte.MaxValue;
                             }
@@ -166,8 +167,8 @@ namespace BetterGameUI
                         break;
                     case 22:
                         value = TextureAssets.InventoryBack4.Value;
-                        if (ItemSlot.DrawGoldBGForCraftingMaterial) {
-                            ItemSlot.DrawGoldBGForCraftingMaterial = false;
+                        if (Terraria.UI.ItemSlot.DrawGoldBGForCraftingMaterial) {
+                            Terraria.UI.ItemSlot.DrawGoldBGForCraftingMaterial = false;
                             value = TextureAssets.InventoryBack14.Value;
                             float num4 = (float)(int)color2.A / 255f;
                             num4 = ((!(num4 < 0.7f)) ? 1f : Utils.GetLerpValue(0f, 0.7f, num4, clamped: true));
@@ -177,24 +178,24 @@ namespace BetterGameUI
                 }
             }
 
-            if ((context == 0 || context == 2) & ItemSlotReflection.GetInventoryGlowTime()[slot] > 0 && !inv[slot].favorited && !inv[slot].IsAir) {
-                float scale = Main.invAlpha / 255f;
+            if ((context == 0 || context == 2) & Reflection.ItemSlot.GetInventoryGlowTime()[slot] > 0 && !inv[slot].favorited && !inv[slot].IsAir) {
+                float scale = Terraria.Main.invAlpha / 255f;
                 Color value2 = new Color(63, 65, 151, 255) * scale;
-                Color value3 = Main.hslToRgb(ItemSlotReflection.GetInventoryGlowHue()[slot], 1f, 0.5f) * scale;
-                float num5 = (float)ItemSlotReflection.GetInventoryGlowTime()[slot] / 300f;
+                Color value3 = Terraria.Main.hslToRgb(Reflection.ItemSlot.GetInventoryGlowHue()[slot], 1f, 0.5f) * scale;
+                float num5 = (float)Reflection.ItemSlot.GetInventoryGlowTime()[slot] / 300f;
                 num5 *= num5;
                 color2 = Color.Lerp(value2, value3, num5 / 2f);
                 value = TextureAssets.InventoryBack13.Value;
             }
 
-            if ((context == 4 || context == 3) && ItemSlotReflection.GetInventoryGlowTimeChest()[slot] > 0 && !inv[slot].favorited && !inv[slot].IsAir) {
-                float scale2 = Main.invAlpha / 255f;
+            if ((context == 4 || context == 3) && Reflection.ItemSlot.GetInventoryGlowTimeChest()[slot] > 0 && !inv[slot].favorited && !inv[slot].IsAir) {
+                float scale2 = Terraria.Main.invAlpha / 255f;
                 Color value4 = new Color(130, 62, 102, 255) * scale2;
                 if (context == 3)
                     value4 = new Color(104, 52, 52, 255) * scale2;
 
-                Color value5 = Main.hslToRgb(ItemSlotReflection.GetInventoryGlowHueChest()[slot], 1f, 0.5f) * scale2;
-                float num6 = (float)ItemSlotReflection.GetInventoryGlowTimeChest()[slot] / 300f;
+                Color value5 = Terraria.Main.hslToRgb(Reflection.ItemSlot.GetInventoryGlowHueChest()[slot], 1f, 0.5f) * scale2;
+                float num6 = (float)Reflection.ItemSlot.GetInventoryGlowTimeChest()[slot] / 300f;
                 num6 *= num6;
                 color2 = Color.Lerp(value4, value5, num6 / 2f);
                 value = TextureAssets.InventoryBack13.Value;
@@ -205,7 +206,7 @@ namespace BetterGameUI
                 color2 = Color.White;
             }
 
-            if (context == 28 && Main.MouseScreen.Between(position, position + value.Size() * inventoryScale) && !player.mouseInterface) {
+            if (context == 28 && Terraria.Main.MouseScreen.Between(position, position + value.Size() * inventoryScale) && !player.mouseInterface) {
                 value = TextureAssets.InventoryBack14.Value;
                 color2 = Color.White;
             }
@@ -283,7 +284,7 @@ namespace BetterGameUI
 
                 // Modded Accessory Slots
                 if (context == -10 || context == -11 || context == -12) {
-                    AccessorySlotLoaderReflection.DrawSlotTexture(LoaderManager.Get<AccessorySlotLoader>(), value6, position + value.Size() / 2f * inventoryScale, rectangle, Color.White * 0.35f, 0f, rectangle.Size() / 2f, inventoryScale, SpriteEffects.None, 0f, slot, context);
+                    Reflection.AccessorySlotLoader.DrawSlotTexture(LoaderManager.Get<Terraria.ModLoader.AccessorySlotLoader>(), value6, position + value.Size() / 2f * inventoryScale, rectangle, Color.White * 0.35f, 0f, rectangle.Size() / 2f, inventoryScale, SpriteEffects.None, 0f, slot, context);
 
                     goto SkipVanillaDraw;
                 }
@@ -295,12 +296,12 @@ namespace BetterGameUI
 
             Vector2 vector = value.Size() * inventoryScale;
             if (item.type > 0 && item.stack > 0) {
-                Main.instance.LoadItem(item.type);
+                Terraria.Main.instance.LoadItem(item.type);
                 Texture2D value7 = TextureAssets.Item[item.type].Value;
-                Rectangle rectangle2 = (Main.itemAnimations[item.type] == null) ? value7.Frame() : Main.itemAnimations[item.type].GetFrame(value7);
+                Rectangle rectangle2 = (Terraria.Main.itemAnimations[item.type] == null) ? value7.Frame() : Terraria.Main.itemAnimations[item.type].GetFrame(value7);
                 Color currentColor = color;
                 float scale3 = 1f;
-                ItemSlot.GetItemLight(ref currentColor, ref scale3, item);
+                Terraria.UI.ItemSlot.GetItemLight(ref currentColor, ref scale3, item);
                 float num8 = 1f;
                 if (rectangle2.Width > 32 || rectangle2.Height > 32)
                     num8 = ((rectangle2.Width <= rectangle2.Height) ? (32f / (float)rectangle2.Height) : (32f / (float)rectangle2.Width));
@@ -398,7 +399,7 @@ namespace BetterGameUI
                     // Extra context.
                 }
 
-                if ((context == 10 || context == 18) && ((item.expertOnly && !Main.expertMode) || (item.masterOnly && !Main.masterMode))) {
+                if ((context == 10 || context == 18) && ((item.expertOnly && !Terraria.Main.expertMode) || (item.masterOnly && !Terraria.Main.masterMode))) {
                     Vector2 position4 = position + value.Size() * inventoryScale / 2f - TextureAssets.Cd.Value.Size() * inventoryScale / 2f;
                     Color white = Color.White;
                     spriteBatch.Draw(TextureAssets.Cd.Value, position4, null, white, 0f, default(Vector2), num8, SpriteEffects.None, 0f);
@@ -418,9 +419,9 @@ namespace BetterGameUI
                 if (text2 == "10")
                     text2 = "0";
 
-                Color baseColor = Main.inventoryBack;
+                Color baseColor = Terraria.Main.inventoryBack;
                 int num11 = 0;
-                if (Main.player[Main.myPlayer].selectedItem == slot) {
+                if (Terraria.Main.player[Terraria.Main.myPlayer].selectedItem == slot) {
                     baseColor = Color.White;
                     baseColor.A = 200;
                     num11 -= 2;
@@ -464,18 +465,18 @@ namespace BetterGameUI
                     new Microsoft.Xna.Framework.Color(100, 100, 100, 100);
                     if (mouseX >= num7 && (float)mouseX <= (float)num7 + (float)TextureAssets.InventoryBack.Width() * inventoryScale && mouseY >= num8 && (float)mouseY <= (float)num8 + (float)TextureAssets.InventoryBack.Height() * inventoryScale && !PlayerInput.IgnoreMouseInterface) {
                         player[myPlayer].mouseInterface = true;
-                        ItemSlot.OverrideHover(player[myPlayer].inventory, 0, num9);
+                        Terraria.UI.ItemSlot.OverrideHover(player[myPlayer].inventory, 0, num9);
                         if (player[myPlayer].inventoryChestStack[num9] && (player[myPlayer].inventory[num9].type == 0 || player[myPlayer].inventory[num9].stack == 0))
                             player[myPlayer].inventoryChestStack[num9] = false;
 
                         if (!player[myPlayer].inventoryChestStack[num9]) {
-                            ItemSlot.LeftClick(player[myPlayer].inventory, 0, num9);
-                            ItemSlot.RightClick(player[myPlayer].inventory, 0, num9);
+                            Terraria.UI.ItemSlot.LeftClick(player[myPlayer].inventory, 0, num9);
+                            Terraria.UI.ItemSlot.RightClick(player[myPlayer].inventory, 0, num9);
                             if (mouseLeftRelease && mouseLeft)
                                 Recipe.FindRecipes();
                         }
 
-                        ItemSlot.MouseHover(player[myPlayer].inventory, 0, num9);
+                        Terraria.UI.ItemSlot.MouseHover(player[myPlayer].inventory, 0, num9);
                     }
 
                     DrawItemSlot(spriteBatch, player[myPlayer].inventory, 0, num9, new Vector2(num7, num8));
@@ -487,7 +488,7 @@ namespace BetterGameUI
             if (!PlayerInput.UsingGamepad)
                 DrawHotbarLockIcon(instance, num, num2, pushSideToolsUp);
 
-            ItemSlot.DrawRadialDpad(spriteBatch, new Vector2(20f) + new Vector2(56f * inventoryScale * 10f, 56f * inventoryScale * 5f) + new Vector2(26f, 70f) + value);
+            Terraria.UI.ItemSlot.DrawRadialDpad(spriteBatch, new Vector2(20f) + new Vector2(56f * inventoryScale * 10f, 56f * inventoryScale * 5f) + new Vector2(26f, 70f) + value);
             if ((achievementAdvisorInfo.GetValue(instance) as AchievementAdvisor).CanDrawAboveCoins) {
                 int num10 = (int)(20f + 560f * inventoryScale) + num;
                 int num11 = (int)(20f + 0f * inventoryScale) + num2;
@@ -529,7 +530,7 @@ namespace BetterGameUI
                                 playerInventory = false;
                                 player[myPlayer].SetTalkNPC(-1);
                                 npcChatCornerItem = 0;
-                                SoundEngineReflection.PlaySound(10);
+                                Reflection.SoundEngine.PlaySound(10);
                                 mapFullscreenScale = 2.5f;
                                 mapFullscreen = true;
                                 resetMapFull = true;
@@ -537,17 +538,17 @@ namespace BetterGameUI
 
                             if (k == 1) {
                                 mapStyle = 0;
-                                SoundEngineReflection.PlaySound(12);
+                                Reflection.SoundEngine.PlaySound(12);
                             }
 
                             if (k == 2) {
                                 mapStyle = 1;
-                                SoundEngineReflection.PlaySound(12);
+                                Reflection.SoundEngine.PlaySound(12);
                             }
 
                             if (k == 3) {
                                 mapStyle = 2;
-                                SoundEngineReflection.PlaySound(12);
+                                Reflection.SoundEngine.PlaySound(12);
                             }
                         }
                     }
@@ -665,7 +666,7 @@ namespace BetterGameUI
                                     player[myPlayer].ToggleLight();
 
                                 mouseLeftRelease = false;
-                                SoundEngineReflection.PlaySound(12);
+                                Reflection.SoundEngine.PlaySound(12);
                                 if (netMode == 1)
                                     NetMessage.SendData(4, -1, -1, null, myPlayer);
                             }
@@ -676,10 +677,10 @@ namespace BetterGameUI
                         if (r.Contains(value2) && !flag2 && !PlayerInput.IgnoreMouseInterface) {
                             player[myPlayer].mouseInterface = true;
                             armorHide = true;
-                            ItemSlot.Handle(inv, context, m);
+                            Terraria.UI.ItemSlot.Handle(inv, context, m);
                         }
 
-                        ItemSlot.Draw(spriteBatch, inv, context, m, r.TopLeft());
+                        Terraria.UI.ItemSlot.Draw(spriteBatch, inv, context, m, r.TopLeft());
                         if (num25 != -1) {
                             spriteBatch.Draw(value3, r2.TopLeft(), Microsoft.Xna.Framework.Color.White * 0.7f);
                             if (num26 > 0) {
@@ -751,7 +752,7 @@ namespace BetterGameUI
                         player[myPlayer].mouseInterface = true;
                         if (mouseLeft && mouseLeftRelease) {
                             player[myPlayer].hideVisibleAccessory[num40] = !player[myPlayer].hideVisibleAccessory[num40];
-                            SoundEngineReflection.PlaySound(12);
+                            Reflection.SoundEngine.PlaySound(12);
                             if (netMode == 1)
                                 NetMessage.SendData(4, -1, -1, null, myPlayer);
                         }
@@ -761,17 +762,17 @@ namespace BetterGameUI
                     else if (mouseX >= num41 && (float)mouseX <= (float)num41 + (float)TextureAssets.InventoryBack.Width() * inventoryScale && mouseY >= num42 && (float)mouseY <= (float)num42 + (float)TextureAssets.InventoryBack.Height() * inventoryScale && !PlayerInput.IgnoreMouseInterface) {
                         armorHide = true;
                         player[myPlayer].mouseInterface = true;
-                        ItemSlot.OverrideHover(player[myPlayer].armor, context2, num40);
+                        Terraria.UI.ItemSlot.OverrideHover(player[myPlayer].armor, context2, num40);
                         if (flag6 || mouseItem.IsAir)
-                            ItemSlot.LeftClick(player[myPlayer].armor, context2, num40);
+                            Terraria.UI.ItemSlot.LeftClick(player[myPlayer].armor, context2, num40);
 
-                        ItemSlot.MouseHover(player[myPlayer].armor, context2, num40);
+                        Terraria.UI.ItemSlot.MouseHover(player[myPlayer].armor, context2, num40);
                     }
 
                     if (flag3)
                         inventoryBack = color2;
 
-                    ItemSlot.Draw(spriteBatch, player[myPlayer].armor, context2, num40, new Vector2(num41, num42));
+                    Terraria.UI.ItemSlot.Draw(spriteBatch, player[myPlayer].armor, context2, num40, new Vector2(num41, num42));
                     if (num40 > 2) {
                         spriteBatch.Draw(value4, new Vector2(num43, num44), Microsoft.Xna.Framework.Color.White * 0.7f);
                         if (num45 > 0) {
@@ -807,19 +808,19 @@ namespace BetterGameUI
                     if (mouseX >= num48 && (float)mouseX <= (float)num48 + (float)TextureAssets.InventoryBack.Width() * inventoryScale && mouseY >= num49 && (float)mouseY <= (float)num49 + (float)TextureAssets.InventoryBack.Height() * inventoryScale && !PlayerInput.IgnoreMouseInterface) {
                         player[myPlayer].mouseInterface = true;
                         armorHide = true;
-                        ItemSlot.OverrideHover(player[myPlayer].armor, context3, num46);
+                        Terraria.UI.ItemSlot.OverrideHover(player[myPlayer].armor, context3, num46);
                         if (!flag7) {
-                            ItemSlot.LeftClick(player[myPlayer].armor, context3, num46);
-                            ItemSlot.RightClick(player[myPlayer].armor, context3, num46);
+                            Terraria.UI.ItemSlot.LeftClick(player[myPlayer].armor, context3, num46);
+                            Terraria.UI.ItemSlot.RightClick(player[myPlayer].armor, context3, num46);
                         }
 
-                        ItemSlot.MouseHover(player[myPlayer].armor, context3, num46);
+                        Terraria.UI.ItemSlot.MouseHover(player[myPlayer].armor, context3, num46);
                     }
 
                     if (flag3)
                         inventoryBack = color2;
 
-                    ItemSlot.Draw(spriteBatch, player[myPlayer].armor, context3, num46, new Vector2(num48, num49));
+                    Terraria.UI.ItemSlot.Draw(spriteBatch, player[myPlayer].armor, context3, num46, new Vector2(num48, num49));
                 }
 
                 inventoryBack = color;
@@ -844,26 +845,26 @@ namespace BetterGameUI
                     if (mouseX >= num52 && (float)mouseX <= (float)num52 + (float)TextureAssets.InventoryBack.Width() * inventoryScale && mouseY >= num53 && (float)mouseY <= (float)num53 + (float)TextureAssets.InventoryBack.Height() * inventoryScale && !PlayerInput.IgnoreMouseInterface) {
                         player[myPlayer].mouseInterface = true;
                         armorHide = true;
-                        ItemSlot.OverrideHover(player[myPlayer].dye, 12, num50);
+                        Terraria.UI.ItemSlot.OverrideHover(player[myPlayer].dye, 12, num50);
                         if (!flag8) {
                             if (mouseRightRelease && mouseRight)
-                                ItemSlot.RightClick(player[myPlayer].dye, 12, num50);
+                                Terraria.UI.ItemSlot.RightClick(player[myPlayer].dye, 12, num50);
 
-                            ItemSlot.LeftClick(player[myPlayer].dye, 12, num50);
+                            Terraria.UI.ItemSlot.LeftClick(player[myPlayer].dye, 12, num50);
                         }
 
-                        ItemSlot.MouseHover(player[myPlayer].dye, 12, num50);
+                        Terraria.UI.ItemSlot.MouseHover(player[myPlayer].dye, 12, num50);
                     }
 
                     if (flag3)
                         inventoryBack = color2;
 
-                    ItemSlot.Draw(spriteBatch, player[myPlayer].dye, 12, num50, new Vector2(num52, num53));
+                    Terraria.UI.ItemSlot.Draw(spriteBatch, player[myPlayer].dye, 12, num50, new Vector2(num52, num53));
                 }
 
                 inventoryBack = color;
 
-                var defPos = AccessorySlotLoader.DefenseIconPosition;
+                var defPos = Terraria.ModLoader.AccessorySlotLoader.DefenseIconPosition;
                 DrawDefenseCounter((int)defPos.X, (int)defPos.Y);
 
                 if (!(achievementAdvisorInfo.GetValue(instance) as AchievementAdvisor).CanDrawAboveCoins) {
@@ -876,7 +877,7 @@ namespace BetterGameUI
                 inventoryScale = num36;
             }
 
-            LoaderManager.Get<AccessorySlotLoader>().DrawAccSlots(num20);
+            LoaderManager.Get<Terraria.ModLoader.AccessorySlotLoader>().DrawAccSlots(num20);
 
             int num54 = (screenHeight - 600) / 2;
             int num55 = (int)((float)screenHeight / 600f * 250f);
@@ -972,7 +973,7 @@ namespace BetterGameUI
                         if (num62 > 0)
                             text2 = text2 + "[c/" + Colors.AlphaDarken(Colors.CoinCopper).Hex3() + ":" + num62 + " " + Lang.inter[18].Value + "] ";
 
-                        ItemSlot.DrawSavings(spriteBatch, num56 + 130, instance.invBottom, horizontal: true);
+                        Terraria.UI.ItemSlot.DrawSavings(spriteBatch, num56 + 130, instance.invBottom, horizontal: true);
                         ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, text2, new Vector2((float)(num56 + 50) + FontAssets.MouseText.Value.MeasureString(text).X, num57), Microsoft.Xna.Framework.Color.White, 0f, Vector2.Zero, Vector2.One);
                         int num64 = num56 + 70;
                         int num65 = num57 + 40;
@@ -986,7 +987,7 @@ namespace BetterGameUI
                         if (num66) {
                             hoverItemName = Lang.inter[19].Value;
                             if (!mouseReforge)
-                                SoundEngineReflection.PlaySound(12);
+                                Reflection.SoundEngine.PlaySound(12);
 
                             mouseReforge = true;
                             player[myPlayer].mouseInterface = true;
@@ -1007,7 +1008,7 @@ namespace BetterGameUI
                                 reforgeItem.stack = stack;
                                 ItemLoader.PostReforge(reforgeItem);
                                 PopupText.NewText(PopupTextContext.ItemReforge, reforgeItem, reforgeItem.stack, noStack: true);
-                                SoundEngine.PlaySound(SoundID.Item37);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item37);
                             }
                         }
                         else {
@@ -1022,15 +1023,15 @@ namespace BetterGameUI
                     if (mouseX >= num56 && (float)mouseX <= (float)num56 + (float)TextureAssets.InventoryBack.Width() * inventoryScale && mouseY >= num57 && (float)mouseY <= (float)num57 + (float)TextureAssets.InventoryBack.Height() * inventoryScale && !PlayerInput.IgnoreMouseInterface) {
                         player[myPlayer].mouseInterface = true;
                         craftingHide = true;
-                        ItemSlot.LeftClick(ref reforgeItem, 5);
+                        Terraria.UI.ItemSlot.LeftClick(ref reforgeItem, 5);
                         if (mouseLeftRelease && mouseLeft)
                             Recipe.FindRecipes();
 
-                        ItemSlot.RightClick(ref reforgeItem, 5);
-                        ItemSlot.MouseHover(ref reforgeItem, 5);
+                        Terraria.UI.ItemSlot.RightClick(ref reforgeItem, 5);
+                        Terraria.UI.ItemSlot.MouseHover(ref reforgeItem, 5);
                     }
 
-                    ItemSlot.Draw(spriteBatch, ref reforgeItem, 5, new Vector2(num56, num57));
+                    Terraria.UI.ItemSlot.Draw(spriteBatch, ref reforgeItem, 5, new Vector2(num56, num57));
                 }
             }
             else if (InGuideCraftMenu) {
@@ -1045,17 +1046,17 @@ namespace BetterGameUI
                     if (mouseX >= inventoryX && (float)mouseX <= (float)inventoryX + (float)TextureAssets.InventoryBack.Width() * inventoryScale && mouseY >= inventoryY && (float)mouseY <= (float)inventoryY + (float)TextureAssets.InventoryBack.Height() * inventoryScale && !PlayerInput.IgnoreMouseInterface) {
                         player[myPlayer].mouseInterface = true;
                         craftingHide = true;
-                        ItemSlot.OverrideHover(ref guideItem, 7);
-                        ItemSlot.LeftClick(ref guideItem, 7);
+                        Terraria.UI.ItemSlot.OverrideHover(ref guideItem, 7);
+                        Terraria.UI.ItemSlot.LeftClick(ref guideItem, 7);
                         if (mouseLeftRelease && mouseLeft)
                             Recipe.FindRecipes();
 
-                        ItemSlot.RightClick(ref guideItem, 7);
-                        ItemSlot.MouseHover(ref guideItem, 7);
+                        Terraria.UI.ItemSlot.RightClick(ref guideItem, 7);
+                        Terraria.UI.ItemSlot.MouseHover(ref guideItem, 7);
                     }
 
                     //Extra patch context.
-                    ItemSlot.Draw(spriteBatch, ref guideItem, 7, new Vector2(inventoryX, inventoryY));
+                    Terraria.UI.ItemSlot.Draw(spriteBatch, ref guideItem, 7, new Vector2(inventoryX, inventoryY));
                 }
             }
 
@@ -1077,7 +1078,7 @@ namespace BetterGameUI
 
                     if (availableRecipeY[num67] < (float)((num67 - focusRecipe) * 65)) {
                         if (availableRecipeY[num67] == 0f && !recFastScroll)
-                            SoundEngineReflection.PlaySound(12);
+                            Reflection.SoundEngine.PlaySound(12);
 
                         availableRecipeY[num67] += 6.5f;
                         if (recFastScroll)
@@ -1088,7 +1089,7 @@ namespace BetterGameUI
                     }
                     else if (availableRecipeY[num67] > (float)((num67 - focusRecipe) * 65)) {
                         if (availableRecipeY[num67] == 0f && !recFastScroll)
-                            SoundEngineReflection.PlaySound(12);
+                            Reflection.SoundEngine.PlaySound(12);
 
                         availableRecipeY[num67] -= 6.5f;
                         if (recFastScroll)
@@ -1128,7 +1129,7 @@ namespace BetterGameUI
                     if (num67 == focusRecipe) {
                         UILinkPointNavigator.Shortcuts.CRAFT_CurrentRecipeSmall = 0;
                         if (PlayerInput.SettingsForUI.HighlightThingsForMouse)
-                            ItemSlot.DrawGoldBGForCraftingMaterial = true;
+                            Terraria.UI.ItemSlot.DrawGoldBGForCraftingMaterial = true;
                     }
                     else {
                         UILinkPointNavigator.Shortcuts.CRAFT_CurrentRecipeSmall = -1;
@@ -1136,7 +1137,7 @@ namespace BetterGameUI
 
                     Microsoft.Xna.Framework.Color color4 = inventoryBack;
                     inventoryBack = new Microsoft.Xna.Framework.Color((byte)num70, (byte)num70, (byte)num70, (byte)num70);
-                    ItemSlot.Draw(spriteBatch, ref recipe[availableRecipe[num67]].createItem, 22, new Vector2(num68, num69), lightColor);
+                    Terraria.UI.ItemSlot.Draw(spriteBatch, ref recipe[availableRecipe[num67]].createItem, 22, new Vector2(num68, num69), lightColor);
                     inventoryBack = color4;
                 }
 
@@ -1189,7 +1190,7 @@ namespace BetterGameUI
                         Microsoft.Xna.Framework.Color color5 = inventoryBack;
                         inventoryBack = new Microsoft.Xna.Framework.Color((byte)num75, (byte)num75, (byte)num75, (byte)num75);
                         Item tempItem = recipe[availableRecipe[focusRecipe]].requiredItem[num72];
-                        ItemSlot.Draw(spriteBatch, ref tempItem, 22, new Vector2(num73, num74));
+                        Terraria.UI.ItemSlot.Draw(spriteBatch, ref tempItem, 22, new Vector2(num73, num74));
                         inventoryBack = color5;
                     }
                 }
@@ -1212,11 +1213,11 @@ namespace BetterGameUI
                         if (mouseLeft && mouseLeftRelease) {
                             if (!recBigList) {
                                 recBigList = true;
-                                SoundEngineReflection.PlaySound(12);
+                                Reflection.SoundEngine.PlaySound(12);
                             }
                             else {
                                 recBigList = false;
-                                SoundEngineReflection.PlaySound(12);
+                                Reflection.SoundEngine.PlaySound(12);
                             }
                         }
                     }
@@ -1257,7 +1258,7 @@ namespace BetterGameUI
                             if (recStart < 0)
                                 recStart = 0;
 
-                            SoundEngineReflection.PlaySound(12);
+                            Reflection.SoundEngine.PlaySound(12);
                             mouseLeftRelease = false;
                         }
                     }
@@ -1271,7 +1272,7 @@ namespace BetterGameUI
                         player[myPlayer].mouseInterface = true;
                         if (mouseLeftRelease && mouseLeft) {
                             recStart += num83;
-                            SoundEngineReflection.PlaySound(12);
+                            Reflection.SoundEngine.PlaySound(12);
                             if (recStart > numAvailableRecipes - num83)
                                 recStart = numAvailableRecipes - num83;
 
@@ -1295,7 +1296,7 @@ namespace BetterGameUI
                             focusRecipe = num91;
                             recFastScroll = true;
                             recBigList = false;
-                            SoundEngineReflection.PlaySound(12);
+                            Reflection.SoundEngine.PlaySound(12);
                             mouseLeftRelease = false;
                             if (PlayerInput.UsingGamepadUI) {
                                 UILinkPointNavigator.ChangePage(9);
@@ -1318,7 +1319,7 @@ namespace BetterGameUI
                         UILinkPointNavigator.Shortcuts.CRAFT_CurrentRecipeBig = num91 - recStart;
                         Microsoft.Xna.Framework.Color color6 = inventoryBack;
                         inventoryBack = new Microsoft.Xna.Framework.Color((byte)num94, (byte)num94, (byte)num94, (byte)num94);
-                        ItemSlot.Draw(spriteBatch, ref recipe[availableRecipe[num91]].createItem, 22, new Vector2(num92, num93));
+                        Terraria.UI.ItemSlot.Draw(spriteBatch, ref recipe[availableRecipe[num91]].createItem, 22, new Vector2(num92, num93));
                         inventoryBack = color6;
                     }
 
@@ -1347,16 +1348,16 @@ namespace BetterGameUI
                 new Microsoft.Xna.Framework.Color(100, 100, 100, 100);
                 if (mouseX >= num98 && (float)mouseX <= (float)num98 + (float)TextureAssets.InventoryBack.Width() * inventoryScale && mouseY >= num99 && (float)mouseY <= (float)num99 + (float)TextureAssets.InventoryBack.Height() * inventoryScale && !PlayerInput.IgnoreMouseInterface) {
                     player[myPlayer].mouseInterface = true;
-                    ItemSlot.OverrideHover(player[myPlayer].inventory, 1, slot);
-                    ItemSlot.LeftClick(player[myPlayer].inventory, 1, slot);
-                    ItemSlot.RightClick(player[myPlayer].inventory, 1, slot);
+                    Terraria.UI.ItemSlot.OverrideHover(player[myPlayer].inventory, 1, slot);
+                    Terraria.UI.ItemSlot.LeftClick(player[myPlayer].inventory, 1, slot);
+                    Terraria.UI.ItemSlot.RightClick(player[myPlayer].inventory, 1, slot);
                     if (mouseLeftRelease && mouseLeft)
                         Recipe.FindRecipes();
 
-                    ItemSlot.MouseHover(player[myPlayer].inventory, 1, slot);
+                    Terraria.UI.ItemSlot.MouseHover(player[myPlayer].inventory, 1, slot);
                 }
 
-                ItemSlot.Draw(spriteBatch, player[myPlayer].inventory, 1, slot, new Vector2(num98, num99));
+                Terraria.UI.ItemSlot.Draw(spriteBatch, player[myPlayer].inventory, 1, slot, new Vector2(num98, num99));
             }
 
             Vector2 vector3 = FontAssets.MouseText.Value.MeasureString("Ammo");
@@ -1371,16 +1372,16 @@ namespace BetterGameUI
                 new Microsoft.Xna.Framework.Color(100, 100, 100, 100);
                 if (mouseX >= num102 && (float)mouseX <= (float)num102 + (float)TextureAssets.InventoryBack.Width() * inventoryScale && mouseY >= num103 && (float)mouseY <= (float)num103 + (float)TextureAssets.InventoryBack.Height() * inventoryScale && !PlayerInput.IgnoreMouseInterface) {
                     player[myPlayer].mouseInterface = true;
-                    ItemSlot.OverrideHover(player[myPlayer].inventory, 2, slot2);
-                    ItemSlot.LeftClick(player[myPlayer].inventory, 2, slot2);
-                    ItemSlot.RightClick(player[myPlayer].inventory, 2, slot2);
+                    Terraria.UI.ItemSlot.OverrideHover(player[myPlayer].inventory, 2, slot2);
+                    Terraria.UI.ItemSlot.LeftClick(player[myPlayer].inventory, 2, slot2);
+                    Terraria.UI.ItemSlot.RightClick(player[myPlayer].inventory, 2, slot2);
                     if (mouseLeftRelease && mouseLeft)
                         Recipe.FindRecipes();
 
-                    ItemSlot.MouseHover(player[myPlayer].inventory, 2, slot2);
+                    Terraria.UI.ItemSlot.MouseHover(player[myPlayer].inventory, 2, slot2);
                 }
 
-                ItemSlot.Draw(spriteBatch, player[myPlayer].inventory, 2, slot2, new Vector2(num102, num103));
+                Terraria.UI.ItemSlot.Draw(spriteBatch, player[myPlayer].inventory, 2, slot2, new Vector2(num102, num103));
             }
 
             if (npcShop > 0 && (!playerInventory || player[myPlayer].talkNPC == -1))
@@ -1388,7 +1389,7 @@ namespace BetterGameUI
 
             if (npcShop > 0 && !recBigList) {
                 Utils.DrawBorderStringFourWay(spriteBatch, FontAssets.MouseText.Value, Lang.inter[28].Value, 504f, instance.invBottom, Microsoft.Xna.Framework.Color.White * ((float)(int)mouseTextColor / 255f), Microsoft.Xna.Framework.Color.Black, Vector2.Zero);
-                ItemSlot.DrawSavings(spriteBatch, 504f, instance.invBottom);
+                Terraria.UI.ItemSlot.DrawSavings(spriteBatch, 504f, instance.invBottom);
                 inventoryScale = 0.755f;
                 if (mouseX > 73 && mouseX < (int)(73f + 560f * inventoryScale) && mouseY > instance.invBottom && mouseY < (int)((float)instance.invBottom + 224f * inventoryScale) && !PlayerInput.IgnoreMouseInterface)
                     player[myPlayer].mouseInterface = true;
@@ -1400,14 +1401,14 @@ namespace BetterGameUI
                         int slot3 = num104 + num105 * 10;
                         new Microsoft.Xna.Framework.Color(100, 100, 100, 100);
                         if (mouseX >= num106 && (float)mouseX <= (float)num106 + (float)TextureAssets.InventoryBack.Width() * inventoryScale && mouseY >= num107 && (float)mouseY <= (float)num107 + (float)TextureAssets.InventoryBack.Height() * inventoryScale && !PlayerInput.IgnoreMouseInterface) {
-                            ItemSlot.OverrideHover(instance.shop[npcShop].item, 15, slot3);
+                            Terraria.UI.ItemSlot.OverrideHover(instance.shop[npcShop].item, 15, slot3);
                             player[myPlayer].mouseInterface = true;
-                            ItemSlot.LeftClick(instance.shop[npcShop].item, 15, slot3);
-                            ItemSlot.RightClick(instance.shop[npcShop].item, 15, slot3);
-                            ItemSlot.MouseHover(instance.shop[npcShop].item, 15, slot3);
+                            Terraria.UI.ItemSlot.LeftClick(instance.shop[npcShop].item, 15, slot3);
+                            Terraria.UI.ItemSlot.RightClick(instance.shop[npcShop].item, 15, slot3);
+                            Terraria.UI.ItemSlot.MouseHover(instance.shop[npcShop].item, 15, slot3);
                         }
 
-                        ItemSlot.Draw(spriteBatch, instance.shop[npcShop].item, 15, slot3, new Vector2(num106, num107));
+                        Terraria.UI.ItemSlot.Draw(spriteBatch, instance.shop[npcShop].item, 15, slot3, new Vector2(num106, num107));
                     }
                 }
             }
@@ -1435,7 +1436,7 @@ namespace BetterGameUI
                 if (mouseX >= num109 && mouseX <= num109 + num111 && mouseY >= num110 && mouseY <= num110 + num112 && !PlayerInput.IgnoreMouseInterface) {
                     num108 = 1;
                     if (!allChestStackHover) {
-                        SoundEngineReflection.PlaySound(12);
+                        Reflection.SoundEngine.PlaySound(12);
                         allChestStackHover = true;
                     }
 
@@ -1448,7 +1449,7 @@ namespace BetterGameUI
                     player[myPlayer].mouseInterface = true;
                 }
                 else if (allChestStackHover) {
-                    SoundEngineReflection.PlaySound(12);
+                    Reflection.SoundEngine.PlaySound(12);
                     allChestStackHover = false;
                 }
 
@@ -1479,7 +1480,7 @@ namespace BetterGameUI
             }
 
             if (flag11 != inventorySortMouseOver) {
-                SoundEngineReflection.PlaySound(12);
+                Reflection.SoundEngine.PlaySound(12);
                 inventorySortMouseOver = flag11;
             }
 
@@ -1489,9 +1490,8 @@ namespace BetterGameUI
                 instance.MouseText(Language.GetTextValue("GameUI.SortInventory"), 0, 0);
         }
 
-
         public static bool DrawInterface_Logic_0() {
-           BetterGameUI.Mod.ActiveBuffsIndexes = new List<int>(Terraria.Player.MaxBuffs);
+            BetterGameUI.Mod.ActiveBuffsIndexes = new List<int>(Terraria.Player.MaxBuffs);
             for (int i = 0; i < Terraria.Player.MaxBuffs; ++i) {
                 if (player[myPlayer].buffType[i] > 0) {
                     BetterGameUI.Mod.ActiveBuffsIndexes.Add(i);
@@ -1510,131 +1510,180 @@ namespace BetterGameUI
         public static int DisplayedSelectedItem = 0;
         public static int ItemSelectedOnAnimationStart = 0;
         public static void HandleHotbar() {
-            if (!BetterGameUI.Mod.ClientConfig.AllowInteractingWithHotbarWhileUsingAnItem) {
-                DisplayedSelectedItem = player[myPlayer].selectedItem;
-            }
-            else if (player[myPlayer].itemAnimation == 0 && player[myPlayer].ItemTimeIsZero && player[myPlayer].reuseDelay == 0) {
+            if (!BetterGameUI.Mod.ClientConfig.AllowInteractingWithHotbarWhileUsingAnItem ||
+                player[myPlayer].itemAnimation == 0 & player[myPlayer].ItemTimeIsZero & player[myPlayer].reuseDelay == 0) {
                 ItemSelectedOnAnimationStart = DisplayedSelectedItem = player[myPlayer].selectedItem;
             }
             else {
-                if (player[myPlayer].ItemAnimationJustStarted) {
-                    ItemSelectedOnAnimationStart = DisplayedSelectedItem = player[myPlayer].selectedItem;
-                }
                 if (player[myPlayer].selectedItem != ItemSelectedOnAnimationStart) {
                     ItemSelectedOnAnimationStart = DisplayedSelectedItem = player[myPlayer].selectedItem;
                 }
 
+                int prevDisplayedSelectedItem = DisplayedSelectedItem;
+                bool flag7 = false;
                 if (!drawingPlayerChat && DisplayedSelectedItem != 58 && !editSign && !editChest) {
                     if (PlayerInput.Triggers.Current.Hotbar1) {
                         DisplayedSelectedItem = 0;
+                        flag7 = true;
                     }
                     if (PlayerInput.Triggers.Current.Hotbar2) {
                         DisplayedSelectedItem = 1;
+                        flag7 = true;
                     }
                     if (PlayerInput.Triggers.Current.Hotbar3) {
                         DisplayedSelectedItem = 2;
+                        flag7 = true;
                     }
                     if (PlayerInput.Triggers.Current.Hotbar4) {
                         DisplayedSelectedItem = 3;
+                        flag7 = true;
                     }
                     if (PlayerInput.Triggers.Current.Hotbar5) {
                         DisplayedSelectedItem = 4;
+                        flag7 = true;
                     }
                     if (PlayerInput.Triggers.Current.Hotbar6) {
                         DisplayedSelectedItem = 5;
+                        flag7 = true;
                     }
                     if (PlayerInput.Triggers.Current.Hotbar7) {
                         DisplayedSelectedItem = 6;
+                        flag7 = true;
                     }
                     if (PlayerInput.Triggers.Current.Hotbar8) {
                         DisplayedSelectedItem = 7;
-
+                        flag7 = true;
                     }
                     if (PlayerInput.Triggers.Current.Hotbar9) {
                         DisplayedSelectedItem = 8;
-
+                        flag7 = true;
                     }
                     if (PlayerInput.Triggers.Current.Hotbar10) {
                         DisplayedSelectedItem = 9;
+                        flag7 = true;
+                    }
+
+                    Terraria.Player thisPlayer = player[myPlayer];
+                    int selectedBinding = thisPlayer.DpadRadial.SelectedBinding;
+                    int selectedBinding2 = thisPlayer.CircularRadial.SelectedBinding;
+                    _ = thisPlayer.QuicksRadial.SelectedBinding;
+                    thisPlayer.DpadRadial.Update();
+                    thisPlayer.CircularRadial.Update();
+                    thisPlayer.QuicksRadial.Update();
+                    if (thisPlayer.CircularRadial.SelectedBinding >= 0 && selectedBinding2 != thisPlayer.CircularRadial.SelectedBinding)
+                        thisPlayer.DpadRadial.ChangeSelection(-1);
+
+                    if (thisPlayer.DpadRadial.SelectedBinding >= 0 && selectedBinding != thisPlayer.DpadRadial.SelectedBinding)
+                        thisPlayer.CircularRadial.ChangeSelection(-1);
+
+                    if (thisPlayer.QuicksRadial.SelectedBinding != -1 && PlayerInput.Triggers.JustReleased.RadialQuickbar && !PlayerInput.MiscSettingsTEMP.HotbarRadialShouldBeUsed) {
+                        switch (thisPlayer.QuicksRadial.SelectedBinding) {
+                            case 0:
+                                thisPlayer.QuickMount();
+                                break;
+                            case 1:
+                                thisPlayer.QuickHeal();
+                                break;
+                            case 2:
+                                thisPlayer.QuickBuff();
+                                break;
+                            case 3:
+                                thisPlayer.QuickMana();
+                                break;
+                        }
+                    }
+
+                    if (thisPlayer.controlTorch || flag7) {
+                        thisPlayer.DpadRadial.ChangeSelection(-1);
+                        thisPlayer.CircularRadial.ChangeSelection(-1);
+                    }
+
+                    if (thisPlayer.controlTorch && flag7) {
+                        thisPlayer.nonTorch = DisplayedSelectedItem;
+                        DisplayedSelectedItem = prevDisplayedSelectedItem;
+                        flag7 = false;
                     }
                 };
 
-                int offset = 0;
-                // these correrpond to mouse 4 and mouse 5 respectively
-                int num9 = PlayerInput.Triggers.Current.HotbarPlus.ToInt() - PlayerInput.Triggers.Current.HotbarMinus.ToInt();
-                if (PlayerInput.CurrentProfile.HotbarAllowsRadial && num9 != 0 && PlayerInput.Triggers.Current.HotbarHoldTime > PlayerInput.CurrentProfile.HotbarRadialHoldTimeRequired && PlayerInput.CurrentProfile.HotbarRadialHoldTimeRequired != -1) {
-                    PlayerInput.MiscSettingsTEMP.HotbarRadialShouldBeUsed = true;
-                    PlayerInput.Triggers.Current.HotbarScrollCD = 2;
+                if (flag7 && CaptureManager.Instance.Active) {
+                    CaptureManager.Instance.Active = false;
                 }
 
-                if (PlayerInput.CurrentProfile.HotbarRadialHoldTimeRequired != -1) {
-                    num9 = PlayerInput.Triggers.JustReleased.HotbarPlus.ToInt() - PlayerInput.Triggers.JustReleased.HotbarMinus.ToInt();
-                    if (PlayerInput.Triggers.Current.HotbarScrollCD == 1 && num9 != 0)
-                        num9 = 0;
-                }
-
-                if (PlayerInput.Triggers.Current.HotbarScrollCD == 0 && num9 != 0) {
-                    offset += num9;
-                    PlayerInput.Triggers.Current.HotbarScrollCD = 8;
-                }
-
-                if (!inFancyUI && !Main.ingameOptionsWindow)
-                    offset += PlayerInput.ScrollWheelDelta / -120;
-
-                if (DisplayedSelectedItem <= 9) {
-                    while (offset + DisplayedSelectedItem > 9) {
-                        offset -= 10;
+                if (!Terraria.Main.mapFullscreen & !CaptureManager.Instance.Active & !Terraria.Main.playerInventory &
+                    !player[myPlayer].controlTorch) 
+                {
+                    int offset = 0;
+                    int num9 = PlayerInput.Triggers.Current.HotbarPlus.ToInt() - PlayerInput.Triggers.Current.HotbarMinus.ToInt();
+                    if (PlayerInput.CurrentProfile.HotbarAllowsRadial && num9 != 0 && PlayerInput.Triggers.Current.HotbarHoldTime > PlayerInput.CurrentProfile.HotbarRadialHoldTimeRequired && PlayerInput.CurrentProfile.HotbarRadialHoldTimeRequired != -1) {
+                        PlayerInput.MiscSettingsTEMP.HotbarRadialShouldBeUsed = true;
+                        PlayerInput.Triggers.Current.HotbarScrollCD = 2;
                     }
 
-                    while (offset + DisplayedSelectedItem < 0) {
-                        offset += 10;
+                    if (PlayerInput.CurrentProfile.HotbarRadialHoldTimeRequired != -1) {
+                        num9 = PlayerInput.Triggers.JustReleased.HotbarPlus.ToInt() - PlayerInput.Triggers.JustReleased.HotbarMinus.ToInt();
+                        if (PlayerInput.Triggers.Current.HotbarScrollCD == 1 && num9 != 0)
+                            num9 = 0;
                     }
 
-                    DisplayedSelectedItem += offset;
-                    if (offset != 0) {
-                        SoundEngineReflection.PlaySound(12);
-                        int num10 = DisplayedSelectedItem - offset;
-                        player[myPlayer].DpadRadial.ChangeSelection(-1);
-                        player[myPlayer].CircularRadial.ChangeSelection(-1);
-                        DisplayedSelectedItem = num10 + offset;
-                        player[myPlayer].nonTorch = -1;
+                    if (PlayerInput.Triggers.Current.HotbarScrollCD == 0 && num9 != 0) {
+                        offset += num9;
+                        PlayerInput.Triggers.Current.HotbarScrollCD = 8;
                     }
 
-                    if (player[myPlayer].changeItem >= 0) {
-                        if (DisplayedSelectedItem != player[myPlayer].changeItem) {
-                            SoundEngineReflection.PlaySound(12);
+                    if (!inFancyUI && !Terraria.Main.playerInventory /*&& !Main.ingameOptionsWindow*/) {
+                        offset += PlayerInput.ScrollWheelDelta / -120;
+                    }
+
+                    if (DisplayedSelectedItem <= 9) {
+                        while (offset + DisplayedSelectedItem > 9) {
+                            offset -= 10;
                         }
 
-                        DisplayedSelectedItem = player[myPlayer].changeItem;
-                        player[myPlayer].changeItem = -1;
-                    }
-
-                    if (player[myPlayer].itemAnimation == 0 && DisplayedSelectedItem != 58) {
-                        while (DisplayedSelectedItem > 9) {
-                            DisplayedSelectedItem -= 10;
+                        while (offset + DisplayedSelectedItem < 0) {
+                            offset += 10;
                         }
 
-                        while (DisplayedSelectedItem < 0) {
-                            DisplayedSelectedItem += 10;
+                        DisplayedSelectedItem += offset;
+                        if (offset != 0) {
+                            int num10 = DisplayedSelectedItem - offset;
+                            player[myPlayer].DpadRadial.ChangeSelection(-1);
+                            player[myPlayer].CircularRadial.ChangeSelection(-1);
+                            DisplayedSelectedItem = num10 + offset;
+                            player[myPlayer].nonTorch = -1;
+                        }
+
+                        if (player[myPlayer].changeItem >= 0) {
+                            DisplayedSelectedItem = player[myPlayer].changeItem;
+                            player[myPlayer].changeItem = -1;
+                        }
+
+                        if (player[myPlayer].itemAnimation == 0 && DisplayedSelectedItem != 58) {
+                            while (DisplayedSelectedItem > 9) {
+                                DisplayedSelectedItem -= 10;
+                            }
+
+                            while (DisplayedSelectedItem < 0) {
+                                DisplayedSelectedItem += 10;
+                            }
                         }
                     }
                 }
 
-                if (player[myPlayer].itemAnimation == 1) {
-                    if (player[myPlayer].selectedItem != DisplayedSelectedItem) {
-                        player[myPlayer].selectedItem = DisplayedSelectedItem;
-                        player[myPlayer].reuseDelay = 0;
-                    }
+                if (DisplayedSelectedItem != prevDisplayedSelectedItem) {
+                    Reflection.SoundEngine.PlaySound(12);
+                }
+
+                if (player[myPlayer].ItemAnimationEndingOrEnded & player[myPlayer].selectedItem != DisplayedSelectedItem) {
+                    player[myPlayer].selectedItem = DisplayedSelectedItem;
+                    player[myPlayer].reuseDelay = 0;
                 }
             }
         }
 
-        // TODO: shift should behave like any other request to change the selected item
-        // TODO: fix minimap buttons being interactable when the hotbar is locked1
+        // TODO: fix minimap buttons being interactable when the hotbar is locked
         // NOTE: has the map always been drawn while the menu is up? // yes, though it probably shouldn't
-        // TODO: fix inventory item in usage not lightening up when the inventory is up
         public static bool DrawInterface_Hotbar() {
-            if (playerInventory || player[myPlayer].ghost) {
+            if (playerInventory || player[myPlayer].ghost || inFancyUI) {
                 return true;
             }
 
@@ -1653,7 +1702,6 @@ namespace BetterGameUI
             // iterate over each item in the hotbar and draw it
             int num = 20;
             for (int i = 0; i < 10; i++) {
-                // TODO: consider making some of these values configurable
                 // if the item to draw is the selected one, progresively scale it up.
                 if (i == DisplayedSelectedItem) {
                     if (hotbarScale[i] < 1f)
@@ -1663,9 +1711,6 @@ namespace BetterGameUI
                 else if ((double)hotbarScale[i] > 0.75) {
                     hotbarScale[i] -= 0.05f;
                 }
-
-                // TODO: an animation where the left most and right most items dont move would be nicer
-                // TODO: clamp hotbarScale[i]
 
                 float itrHotbarScale = hotbarScale[i];
                 int num3 = (int)(20f + 22f * (1f - itrHotbarScale));
@@ -1680,7 +1725,6 @@ namespace BetterGameUI
                     }
 
                     // NOTE: clicking on item is reflected one frame late
-                    // TODO: look into blockMouse
                     if (BetterGameUI.Mod.ClientConfig.AllowInteractingWithHotbarWhileUsingAnItem & mouseLeft & !blockMouse) {
                         player[myPlayer].changeItem = i;
                     }
@@ -1695,7 +1739,7 @@ namespace BetterGameUI
 
                 float prevInventoryScale = inventoryScale;
                 inventoryScale = itrHotbarScale;
-                ItemSlot.Draw(spriteBatch, player[myPlayer].inventory, 13, i, new Vector2(num, num3), lightColor);
+                Terraria.UI.ItemSlot.Draw(spriteBatch, player[myPlayer].inventory, 13, i, new Vector2(num, num3), lightColor);
                 inventoryScale = prevInventoryScale;
                 num += (int)((float)TextureAssets.InventoryBack.Width() * hotbarScale[i]) + 4;
             }
@@ -1707,7 +1751,7 @@ namespace BetterGameUI
                 Microsoft.Xna.Framework.Color lightColor2 = new Microsoft.Xna.Framework.Color(255, 255, 255, a2);
                 float prevInventoryScale = inventoryScale;
                 inventoryScale = 1f;
-                ItemSlot.Draw(spriteBatch, player[myPlayer].inventory, 13, DisplayedSelectedItem, new Vector2(num, 20f), lightColor2);
+                Terraria.UI.ItemSlot.Draw(spriteBatch, player[myPlayer].inventory, 13, DisplayedSelectedItem, new Vector2(num, 20f), lightColor2);
                 inventoryScale = prevInventoryScale;
             }
 
@@ -1730,10 +1774,9 @@ namespace BetterGameUI
                 EquipPage = 0;
             }
 
-            // TODO: check if the breath being drawn below the player when the inventory is open is something that's always been a thing or something that I'm causing
             // TODO: make mapHeight automatically call GetValue(null) on itself
             // TODO: do this in UIMap.Update
-            var mapHeight = (int)MainReflection.mapHeight.GetValue(null);
+            var mapHeight = (int)Reflection.Main.mapHeight.GetValue(null);
             if (UIMap.Height.Pixels != mapHeight) {
                 UIMap.Height = StyleDimension.FromPixels(mapHeight);
                 UserInterfaceMap.Recalculate();
@@ -1745,6 +1788,10 @@ namespace BetterGameUI
         }
 
         public static bool DrawInterface_ResourceBars() {
+            if (!Terraria.Main.playerInventory) {
+                recBigList = false;
+            }
+
             ResourceSetsManager.Draw();
             // TODO: doesn't GameInterfaceLayer.Draw() already call spriteBatch.Begin? does it use the same params?
             spriteBatch.End();
