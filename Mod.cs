@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameInput;
 using Terraria.ID;
 
 namespace BetterGameUI
@@ -10,7 +11,6 @@ namespace BetterGameUI
         // TODO: work on features and tweaks list for mod's description
         // TODO: allow scrolling full screen map while using an item
         // TODO: play sound when auto use item changes
-        // TODO: always play sound effect when switching to an item from auto use for the first time
         // TODO: signal auto select being active through some other, unique way
         // TODO: consider crafting item clicked on crafting window
         // TODO: consider displaying item's name on top of hotbar even while the inventory is up
@@ -37,7 +37,9 @@ namespace BetterGameUI
 
         public override void Unload() {
             OnClientConfigChanged = null;
+            ActiveBuffsIndexes = null;
             ClientConfig = null;
+            ServerConfig = null;
 
             BetterGameUI.Assets.Unload();
         }

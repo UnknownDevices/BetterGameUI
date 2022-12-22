@@ -23,8 +23,6 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.BuffsBarHitboxMod")]
         public int BuffsBarHitboxMod { get; set; }
 
-        // TODO: consider scrollbar's hitbox modifier
-
         [DefaultValue(true)]
         [Label("$Mods.BetterGameUI.Config.Label.AllowScrollerDragging")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.AllowScrollerDragging")]
@@ -46,9 +44,9 @@ namespace BetterGameUI
         public bool InvertMouseScrollForScrollbar { get; set; }
 
         [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.AllowInteractingWithHotbarWhileUsingAnItem")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.AllowInteractingWithHotbarWhileUsingAnItem")]
-        public bool AllowInteractingWithHotbarWhileUsingAnItem { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.HotbarIsAlwaysInteractive")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.HotbarIsAlwaysInteractive")]
+        public bool HotbarIsAlwaysInteractive { get; set; }
 
         // ------------- General UI Config ------------- //
 
