@@ -14,7 +14,7 @@ namespace BetterGameUI.UI
 
         // TODO: should this light up when scrolling?
         protected override void DrawSelf(SpriteBatch spriteBatch) {
-            if ((UIScrollbar.IsDraggingScrollerAllowed() & UIScrollbar.IsScrollerHitboxHovered()) |
+            if ((UIScrollbar.IsDraggingScrollerAllowed() && UIScrollbar.IsScrollerHitboxHovered()) |
                 !float.IsNaN(UIScrollbar.ScrollerDraggingPointY)) 
             {
                 DynamicAlpha += 0.1f;

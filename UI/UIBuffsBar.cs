@@ -141,32 +141,16 @@ namespace BetterGameUI.UI
 
             if (!IsLocked() && mouseRectangle.Contains(mouseX, mouseY)) {
                 hoveredIcon = buffSlotOnPlayer;
-                // NOTE: this value is increased by 0.05f to compensate from UISystem.DrawInterface_Logic_0 substraction 0.05f from every buff every frame
                 buffAlpha[buffSlotOnPlayer] += 0.15f;
 
-                bool flag = mouseRight && mouseRightRelease;
-                if (PlayerInput.UsingGamepad) {
-                    flag = (mouseLeft && mouseLeftRelease && playerInventory);
-                    if (playerInventory)
-                        player[myPlayer].mouseInterface = true;
+                if (mouseRight && mouseRightRelease) {
+                    if (BuffLoader.RightClick(buffTy, buffSlotOnPlayer)) {
+                        TryRemovingBuff(buffSlotOnPlayer, buffTy);
+                    }
                 }
-                else {
-                    player[myPlayer].mouseInterface = true;
-                }
-
-                if (flag)
-                    flag &= BuffLoader.RightClick(buffTy, buffSlotOnPlayer);
-
-                if (flag)
-                    TryRemovingBuff(buffSlotOnPlayer, buffTy);
             }
 
-            if (buffAlpha[buffSlotOnPlayer] > 1f) {
-                buffAlpha[buffSlotOnPlayer] = 1f;
-            }
-            else if (buffAlpha[buffSlotOnPlayer] < Alpha) {
-                buffAlpha[buffSlotOnPlayer] = Alpha;
-            }
+            buffAlpha[buffSlotOnPlayer] = Math.Clamp(buffAlpha[buffSlotOnPlayer], Alpha, 1f);
 
             var color = new Color(buffAlpha[buffSlotOnPlayer], buffAlpha[buffSlotOnPlayer], buffAlpha[buffSlotOnPlayer],
                 buffAlpha[buffSlotOnPlayer]);

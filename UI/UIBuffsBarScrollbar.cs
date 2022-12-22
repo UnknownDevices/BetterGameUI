@@ -30,11 +30,11 @@ namespace BetterGameUI.UI
 
         public override bool IsMouseScrollFocusingThis() {
             return Player.MouseScrollIsFocusingBuffsBar |
-                (Mod.ClientConfig.MouseScrollFocusesMouseHoveredUI & UIBuffsBar.IsMouseHoveringHitbox());
+                (Mod.ClientConfig.MouseScrollFocusesMouseHoveredUI && UIBuffsBar.IsMouseHoveringHitbox());
         }
 
         public override bool IsDraggingScrollerAllowed() {
-            return Mod.ClientConfig.AllowScrollerDragging & !UIBuffsBar.IsLocked();
+            return Mod.ClientConfig.AllowScrollerDragging && !UIBuffsBar.IsLocked();
         }
 
         public override bool AllowScrollerSnappingToCursor() {
@@ -68,11 +68,11 @@ namespace BetterGameUI.UI
                 (uint)Math.Max(Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)UIBuffsBar.IconColsCount) - 
                     UIBuffsBar.IconRowsCount, 0);
 
-            MaybeDisable(Mod.ClientConfig.SmartHideScrollbar & MaxScrollNotches <= 0);
+            MaybeDisable(Mod.ClientConfig.SmartHideScrollbar && MaxScrollNotches <= 0);
 
             base.Draw(spriteBatch);
 
-            if (IsEnabled & IsMouseScrollFocusingThis() | !float.IsNaN(ScrollerDraggingPointY)) {
+            if (IsEnabled && IsMouseScrollFocusingThis() | !float.IsNaN(ScrollerDraggingPointY)) {
                 PlayerInput.LockVanillaMouseScroll("UIBuffsBarScrollbar");
             }
         }

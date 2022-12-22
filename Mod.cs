@@ -15,12 +15,12 @@ namespace BetterGameUI
         // TODO: consider crafting item clicked on crafting window
         // TODO: consider displaying item's name on top of hotbar even while the inventory is up
         // TODO: OnServerConfigChanged is not needed at the time but do consider it
-        public static event Action OnClientConfigChanged;
-
         // TODO: look into fasterUIs mod in steam
         // TODO: visually signal somehow when the hotbar is locked without needing to open the inventory
-        // FIXME: hotbar is drawn for one frame when opening bestiary or emotes window (vanilla error)
-        // FIXME: text of baner buff icon has trouble displaying full text if the icon is too low on the screen
+        // FIXME: text of baner buff icon has trouble displaying full text if the icon is too low on the screen - 12/22/22: can't replicate bug
+        public static event Action OnClientConfigChanged;
+
+        
         // updated every frame by DrawInterface_Logic_0
         public static List<int> ActiveBuffsIndexes { get; set; }
         public static ClientConfig ClientConfig { get; set; }

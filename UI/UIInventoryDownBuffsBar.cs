@@ -9,7 +9,7 @@ namespace BetterGameUI.UI
     public sealed class UIInventoryDownBuffsBar : UIBuffsBar 
     {
         public override bool IsLocked() {
-            return Mod.ClientConfig.InventoryDownHotbarLockingAlsoLocksThis & Main.player[Main.myPlayer].hbLocked;
+            return Mod.ClientConfig.InventoryDownHotbarLockingAlsoLocksThis && Main.player[Main.myPlayer].hbLocked;
         }
 
         public override void Draw(SpriteBatch spriteBatch) {

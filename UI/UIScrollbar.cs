@@ -61,7 +61,7 @@ namespace BetterGameUI.UI
                     if (!PlayerInput.Triggers.Current.MouseLeft | !IsHovered()) {
                         HoldingLeftMouse = false;
                     }
-                } else if (PlayerInput.Triggers.JustPressed.MouseLeft & IsHovered()) {
+                } else if (PlayerInput.Triggers.JustPressed.MouseLeft && IsHovered()) {
                     HoldingLeftMouse = true;
                 }
 
@@ -75,10 +75,10 @@ namespace BetterGameUI.UI
                             float draggedDistInPxs = mouseY - UIScroller.GetDimensions().Y - ScrollerDraggingPointY;
 
                             if (draggedDistInPxs != 0) {
-                                if (ScrolledNotches <= 0 & draggedDistInPxs < 0) {
+                                if (ScrolledNotches <= 0 && draggedDistInPxs < 0) {
                                     ScrollerDraggingPointY = Math.Max(mouseY - UIScroller.GetDimensions().Y, 0);
                                 }
-                                else if (MaxScrollNotches <= ScrolledNotches & 0 < draggedDistInPxs) {
+                                else if (MaxScrollNotches <= ScrolledNotches && 0 < draggedDistInPxs) {
                                     ScrollerDraggingPointY = Math.Min(mouseY - UIScroller.GetDimensions().Y,
                                         UIScroller.GetDimensions().Height);
                                 }
@@ -108,7 +108,7 @@ namespace BetterGameUI.UI
                     ScrollerDraggingPointY = float.NaN;
                 }
 
-                if (IsMouseScrollFocusingThis() & float.IsNaN(ScrollerDraggingPointY)) {
+                if (IsMouseScrollFocusingThis() && float.IsNaN(ScrollerDraggingPointY)) {
                     scrolledNotchesBeforeClamp += MouseScroll();
                 }
 
@@ -133,7 +133,7 @@ namespace BetterGameUI.UI
                             UIScroller.GetDimensions().Height);
                 }
                 if (!float.IsNaN(ScrollerDraggingPointY) | IsScrollerHitboxHovered() |
-                    (Mod.ClientConfig.AllowScrollerSnappingToCursor & IsHovered())) 
+                    (Mod.ClientConfig.AllowScrollerSnappingToCursor && IsHovered())) 
                 {
                     Main.player[Main.myPlayer].mouseInterface = true;
                 }

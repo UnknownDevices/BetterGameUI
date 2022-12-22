@@ -178,7 +178,7 @@ namespace BetterGameUI.UI
                 }
             }
 
-            if ((context == 0 || context == 2) & Reflection.ItemSlot.GetInventoryGlowTime()[slot] > 0 && !inv[slot].favorited && !inv[slot].IsAir) {
+            if ((context == 0 || context == 2) && Reflection.ItemSlot.GetInventoryGlowTime()[slot] > 0 && !inv[slot].favorited && !inv[slot].IsAir) {
                 float scale = invAlpha / 255f;
                 Color value2 = new Color(63, 65, 151, 255) * scale;
                 Color value3 = hslToRgb(Reflection.ItemSlot.GetInventoryGlowHue()[slot], 1f, 0.5f) * scale;
@@ -1507,64 +1507,53 @@ namespace BetterGameUI.UI
             return true;
         }
 
-        public static int QueuedToSelectItem = 0;
-        public static int ItemSelectedOnAnimationStart = 0;
+        public static int PointedToItem = 0;
+        public static int SelectedItemOnAnimationStart = 0;
         public static bool PrevControlTorch = false;
         public static int HotbarScrollCDWhenSmartSelect = 0;
 
         public static void HandleHotbar() {
             if (!BetterGameUI.Mod.ClientConfig.HotbarIsAlwaysInteractive | !player[myPlayer].controlTorch &
-                (player[myPlayer].itemAnimation == 0 & player[myPlayer].ItemTimeIsZero & player[myPlayer].reuseDelay == 0)) {
-                ItemSelectedOnAnimationStart = QueuedToSelectItem = player[myPlayer].selectedItem;
+                (player[myPlayer].itemAnimation == 0 && player[myPlayer].ItemTimeIsZero && player[myPlayer].reuseDelay == 0)) {
+                SelectedItemOnAnimationStart = PointedToItem = player[myPlayer].selectedItem;
             }
             else {
-                if (player[myPlayer].selectedItem != ItemSelectedOnAnimationStart) 
+                if (player[myPlayer].selectedItem != SelectedItemOnAnimationStart) 
                 {
-                    ItemSelectedOnAnimationStart = player[myPlayer].selectedItem;
+                    SelectedItemOnAnimationStart = player[myPlayer].selectedItem;
                 }
 
-                int prevQueuedToSelectItem = QueuedToSelectItem;
-                if (!drawingPlayerChat & QueuedToSelectItem != 58 & !editSign & !editChest) {
-                    bool flag7 = false;
-                    if (PlayerInput.Triggers.Current.Hotbar1) {
-                        QueuedToSelectItem = 0;
-                        flag7 = true;
-                    }
-                    if (PlayerInput.Triggers.Current.Hotbar2) {
-                        QueuedToSelectItem = 1;
-                        flag7 = true;
-                    }
-                    if (PlayerInput.Triggers.Current.Hotbar3) {
-                        QueuedToSelectItem = 2;
-                        flag7 = true;
-                    }
-                    if (PlayerInput.Triggers.Current.Hotbar4) {
-                        QueuedToSelectItem = 3;
-                        flag7 = true;
-                    }
-                    if (PlayerInput.Triggers.Current.Hotbar5) {
-                        QueuedToSelectItem = 4;
-                        flag7 = true;
-                    }
-                    if (PlayerInput.Triggers.Current.Hotbar6) {
-                        QueuedToSelectItem = 5;
-                        flag7 = true;
-                    }
-                    if (PlayerInput.Triggers.Current.Hotbar7) {
-                        QueuedToSelectItem = 6;
-                        flag7 = true;
-                    }
-                    if (PlayerInput.Triggers.Current.Hotbar8) {
-                        QueuedToSelectItem = 7;
-                        flag7 = true;
-                    }
-                    if (PlayerInput.Triggers.Current.Hotbar9) {
-                        QueuedToSelectItem = 8;
-                        flag7 = true;
-                    }
+                int prevPointedToItem = PointedToItem;
+                if (!drawingPlayerChat && PointedToItem != 58 && !editSign && !editChest) {
                     if (PlayerInput.Triggers.Current.Hotbar10) {
-                        QueuedToSelectItem = 9;
-                        flag7 = true;
+                        PointedToItem = 9;
+                    }
+                    else if (PlayerInput.Triggers.Current.Hotbar9) {
+                        PointedToItem = 8;
+                    }
+                    else if (PlayerInput.Triggers.Current.Hotbar8) {
+                        PointedToItem = 7;
+                    }
+                    else if (PlayerInput.Triggers.Current.Hotbar7) {
+                        PointedToItem = 6;
+                    }
+                    else if (PlayerInput.Triggers.Current.Hotbar6) {
+                        PointedToItem = 5;
+                    }
+                    else if (PlayerInput.Triggers.Current.Hotbar5) {
+                        PointedToItem = 4;
+                    }
+                    else if (PlayerInput.Triggers.Current.Hotbar4) {
+                        PointedToItem = 3;
+                    }
+                    else if (PlayerInput.Triggers.Current.Hotbar3) {
+                        PointedToItem = 2;
+                    }
+                    else if (PlayerInput.Triggers.Current.Hotbar2) {
+                        PointedToItem = 1;
+                    }
+                    else if (PlayerInput.Triggers.Current.Hotbar1) {
+                        PointedToItem = 0;
                     }
 
                     Terraria.Player thisPlayer = player[myPlayer];
@@ -1574,13 +1563,17 @@ namespace BetterGameUI.UI
                     thisPlayer.DpadRadial.Update();
                     thisPlayer.CircularRadial.Update();
                     thisPlayer.QuicksRadial.Update();
-                    if (thisPlayer.CircularRadial.SelectedBinding >= 0 && selectedBinding2 != thisPlayer.CircularRadial.SelectedBinding)
+                    if (thisPlayer.CircularRadial.SelectedBinding >= 0 && selectedBinding2 != thisPlayer.CircularRadial.SelectedBinding) {
                         thisPlayer.DpadRadial.ChangeSelection(-1);
+                    }
 
-                    if (thisPlayer.DpadRadial.SelectedBinding >= 0 && selectedBinding != thisPlayer.DpadRadial.SelectedBinding)
+                    if (thisPlayer.DpadRadial.SelectedBinding >= 0 && selectedBinding != thisPlayer.DpadRadial.SelectedBinding) {
                         thisPlayer.CircularRadial.ChangeSelection(-1);
+                    }
 
-                    if (thisPlayer.QuicksRadial.SelectedBinding != -1 && PlayerInput.Triggers.JustReleased.RadialQuickbar && !PlayerInput.MiscSettingsTEMP.HotbarRadialShouldBeUsed) {
+                    if (thisPlayer.QuicksRadial.SelectedBinding != -1 && PlayerInput.Triggers.JustReleased.RadialQuickbar && 
+                        PlayerInput.MiscSettingsTEMP.HotbarRadialShouldBeUsed) 
+                    {
                         switch (thisPlayer.QuicksRadial.SelectedBinding) {
                             case 0:
                                 thisPlayer.QuickMount();
@@ -1597,12 +1590,12 @@ namespace BetterGameUI.UI
                         }
                     }
 
-                    if (flag7 && CaptureManager.Instance.Active) {
+                    if (prevPointedToItem != PointedToItem && CaptureManager.Instance.Active) {
                         CaptureManager.Instance.Active = false;
                     }
                 };
 
-                if (!mapFullscreen & !CaptureManager.Instance.Active & !playerInventory) {
+                if (!mapFullscreen && !CaptureManager.Instance.Active && !playerInventory) {
                     int offset = 0;
                     int num9 = PlayerInput.Triggers.Current.HotbarPlus.ToInt() - PlayerInput.Triggers.Current.HotbarMinus.ToInt();
                     if (PlayerInput.CurrentProfile.HotbarAllowsRadial && num9 != 0 && PlayerInput.Triggers.Current.HotbarHoldTime > PlayerInput.CurrentProfile.HotbarRadialHoldTimeRequired && PlayerInput.CurrentProfile.HotbarRadialHoldTimeRequired != -1) {
@@ -1619,7 +1612,7 @@ namespace BetterGameUI.UI
 
                     HotbarScrollCDWhenSmartSelect = Math.Max(--HotbarScrollCDWhenSmartSelect, 0);
                     if ((PlayerInput.Triggers.Current.HotbarScrollCD == 0 | 
-                        (player[myPlayer].controlTorch & HotbarScrollCDWhenSmartSelect == 0)) & num9 != 0) 
+                        (player[myPlayer].controlTorch && HotbarScrollCDWhenSmartSelect == 0)) && num9 != 0) 
                     {
                         offset += num9;
                         PlayerInput.Triggers.Current.HotbarScrollCD = 8;
@@ -1630,54 +1623,55 @@ namespace BetterGameUI.UI
                         offset += PlayerInput.ScrollWheelDelta / -120;
                     }
 
-                    if (QueuedToSelectItem <= 9) {
-                        while (offset + QueuedToSelectItem > 9) {
+                    if (PointedToItem <= 9) {
+                        while (offset + PointedToItem > 9) {
                             offset -= 10;
                         }
 
-                        while (offset + QueuedToSelectItem < 0) {
+                        while (offset + PointedToItem < 0) {
                             offset += 10;
                         }
 
-                        QueuedToSelectItem += offset;
+                        PointedToItem += offset;
                         if (offset != 0) {
-                            int num10 = QueuedToSelectItem - offset;
+                            int num10 = PointedToItem - offset;
                             player[myPlayer].DpadRadial.ChangeSelection(-1);
                             player[myPlayer].CircularRadial.ChangeSelection(-1);
-                            QueuedToSelectItem = num10 + offset;
+                            PointedToItem = num10 + offset;
                         }
 
                         if (player[myPlayer].changeItem >= 0) {
-                            QueuedToSelectItem = player[myPlayer].changeItem;
+                            PointedToItem = player[myPlayer].changeItem;
                             player[myPlayer].changeItem = -1;
                         }
 
-                        if (player[myPlayer].itemAnimation == 0 && QueuedToSelectItem != 58) {
-                            while (QueuedToSelectItem > 9) {
-                                QueuedToSelectItem -= 10;
+                        if (player[myPlayer].itemAnimation == 0 && PointedToItem != 58) {
+                            while (PointedToItem > 9) {
+                                PointedToItem -= 10;
                             }
 
-                            while (QueuedToSelectItem < 0) {
-                                QueuedToSelectItem += 10;
+                            while (PointedToItem < 0) {
+                                PointedToItem += 10;
                             }
                         }
                     }
                 }
 
-                if (QueuedToSelectItem != prevQueuedToSelectItem) {
+                if (player[myPlayer].controlTorch) {
+                    player[myPlayer].nonTorch = PointedToItem;
+                }
+
+                if (PointedToItem != prevPointedToItem) {
                     Reflection.SoundEngine.PlaySound(12);
                 }
 
-                if (player[myPlayer].controlTorch) {
-                    player[myPlayer].nonTorch = QueuedToSelectItem;
-                }
                 if (player[myPlayer].ItemAnimationEndingOrEnded) 
                 {
                     if (player[myPlayer].controlTorch) {
                         SmartSelectLookup(player[myPlayer]);
                         player[myPlayer].reuseDelay = 0;
-                    } else if (player[myPlayer].selectedItem != QueuedToSelectItem) {
-                        player[myPlayer].selectedItem = QueuedToSelectItem;
+                    } else if (player[myPlayer].selectedItem != PointedToItem) {
+                        player[myPlayer].selectedItem = PointedToItem;
                         player[myPlayer].reuseDelay = 0;
                     }
                 }
@@ -1709,18 +1703,17 @@ namespace BetterGameUI.UI
         // NOTE: has the map always been drawn while the menu is up? // yes, though it probably shouldn't
         public static bool DrawInterface_Hotbar()
         {
-            if (playerInventory || player[myPlayer].ghost || inFancyUI)
-            {
+            if (playerInventory || player[myPlayer].ghost || inFancyUI) {
                 return true;
             }
 
             // set to 'items' in case the next conditional turns out false
             string text = Lang.inter[37].Value;
             // if selected item has a name AND that name is not empty
-            if (player[myPlayer].inventory[QueuedToSelectItem].Name != null && player[myPlayer].inventory[QueuedToSelectItem].Name != "")
+            if (player[myPlayer].inventory[PointedToItem].Name != null && player[myPlayer].inventory[PointedToItem].Name != "")
             {
                 // get name of selected item
-                text = player[myPlayer].inventory[QueuedToSelectItem].AffixName();
+                text = player[myPlayer].inventory[PointedToItem].AffixName();
             }
 
             // draw selected item name
@@ -1732,16 +1725,8 @@ namespace BetterGameUI.UI
             for (int i = 0; i < 10; i++)
             {
                 // if the item to draw is the selected one, progresively scale it up.
-                if (i == QueuedToSelectItem)
-                {
-                    if (hotbarScale[i] < 1f)
-                        hotbarScale[i] += 0.05f;
-                }
-                // else progresively scale it down
-                else if (hotbarScale[i] > 0.75)
-                {
-                    hotbarScale[i] -= 0.05f;
-                }
+                hotbarScale[i] += (i == PointedToItem) ? 0.05f : -0.05f;
+                hotbarScale[i] = Math.Clamp(hotbarScale[i], 0.75f, 1f);
 
                 float itrHotbarScale = hotbarScale[i];
                 int num3 = (int)(20f + 22f * (1f - itrHotbarScale));
@@ -1758,7 +1743,7 @@ namespace BetterGameUI.UI
                     }
 
                     // NOTE: clicking on item is reflected one frame late
-                    if (BetterGameUI.Mod.ClientConfig.HotbarIsAlwaysInteractive & mouseLeft & !blockMouse)
+                    if (BetterGameUI.Mod.ClientConfig.HotbarIsAlwaysInteractive && mouseLeft && !blockMouse)
                     {
                         player[myPlayer].changeItem = i;
                     }
