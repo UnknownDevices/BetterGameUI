@@ -68,7 +68,7 @@ namespace BetterGameUI.UI
             bool highlightThingsForMouse = PlayerInput.SettingsForUI.HighlightThingsForMouse;
             if (item.type > 0 && item.stack > 0 && item.favorited && context != 13 && context != 21 && context != 22 && context != 14) {
                 value = TextureAssets.InventoryBack10.Value;
-                if (context == 0/* && slot < 10*/ && player.selectedItem == slot) {
+                if (context == 0 && slot < 10 && player.selectedItem == slot) {
                     color2 = Color.White;
                     value = TextureAssets.InventoryBack17.Value;
                 }
@@ -479,7 +479,7 @@ namespace BetterGameUI.UI
                         Terraria.UI.ItemSlot.MouseHover(player[myPlayer].inventory, 0, num9);
                     }
 
-                    DrawItemSlot(spriteBatch, player[myPlayer].inventory, 0, num9, new Vector2(num7, num8));
+                    Terraria.UI.ItemSlot.Draw(spriteBatch, player[myPlayer].inventory, 0, num9, new Vector2(num7, num8));
                 }
             }
 
@@ -1509,7 +1509,6 @@ namespace BetterGameUI.UI
 
         public static int PointedToItem = 0;
         public static int SelectedItemOnAnimationStart = 0;
-        public static bool PrevControlTorch = false;
         public static int HotbarScrollCDWhenSmartSelect = 0;
 
         public static void HandleHotbar() {
@@ -1657,27 +1656,19 @@ namespace BetterGameUI.UI
                     }
                 }
 
-                if (player[myPlayer].controlTorch) {
-                    player[myPlayer].nonTorch = PointedToItem;
-                }
-
+                
                 if (PointedToItem != prevPointedToItem) {
                     Reflection.SoundEngine.PlaySound(12);
                 }
-
-                if (player[myPlayer].ItemAnimationEndingOrEnded) 
+                if (player[myPlayer].controlTorch) {
+                    player[myPlayer].nonTorch = PointedToItem;
+                }
+                else if (player[myPlayer].ItemAnimationEndingOrEnded & player[myPlayer].selectedItem != PointedToItem) 
                 {
-                    if (player[myPlayer].controlTorch) {
-                        SmartSelectLookup(player[myPlayer]);
-                        player[myPlayer].reuseDelay = 0;
-                    } else if (player[myPlayer].selectedItem != PointedToItem) {
-                        player[myPlayer].selectedItem = PointedToItem;
-                        player[myPlayer].reuseDelay = 0;
-                    }
+                    player[myPlayer].selectedItem = PointedToItem;
+                    player[myPlayer].reuseDelay = 0;
                 }
             }
-
-            PrevControlTorch = player[myPlayer].controlTorch;
         }
 
         public static void SmartSelectLookup(Terraria.Player player) {
