@@ -1,6 +1,7 @@
 Mainly QoL mod which tweaks vanilla UIs in mayor and minor ways, remarkably, it adds scrollbars to both buffs bars and allows interacting with the hotbar while using an item or having auto-select on.
 Most features of this mod are toggable and tweakable so make sure to look into all of the keybinds and configs available.
-
+This mod is completely client side except for a single ignorable server side config
+ 
 This mod should be compatible with any mod which doesn't replace vanilla UIs as well.
 This mod doesn't work whith gamepads.
 Any bug report or suggestion is greatly appreciated.
@@ -10,6 +11,14 @@ My Discord profile: UnknownDevices#5926 (feel free to DM).
 Image used in the icon of this mod can be found on @BirdSteely's account on Twitter.
 
 Latest changelog:
+v0.3.4.2
+- change the way this mod's tweaks to the drawing of item slots are done, so as to reduce the chance of conflicts with other mods
+- no longer just select the item pointed to by the hotbar as soon as the current item animation ends, now you're required to have let go of the left mouse at least once during the item animation
+
+v0.3.4.1
+- make compatible with Rarity Borders mod by hamsgbschbep
+- fix bug where auto-select item changed without letting go of left mouse
+
 v0.3.4.0
 - rename 'Allow Interacting With Hotbar While Using An Item' config to 'Hotbar Is Always Interactive' (this has reset its value)
 - allow interacting with hotbar regardless of auto-select being on if the 'Hotbar Is Always Interactive' config is on
@@ -23,24 +32,13 @@ v0.3.3.0
 - display the name of a hovered hotbar's item regardless of an item being in use
 - allow pointing to an item on the hotbar by clicking it regardless of an item being in use
 
-v0.3.2.1
-- fix bug which kept the hotbar always locked
-
-v0.3.2.0
-- move 'Extra Player Buff Slots' config to server config page (this has reset its value)
-- add config to allow scroller snapping to cursor when the scrollbar is clicked
-- remove 'Scroller's Hitbox Modifier' config
-- reword some config labels and tooltips
-
-v0.3.1.3
-- fix buff alphas not naturally decreasing if no buffs bar was being drawn that frame (this was vanilla behaviour)
-
 
 ------------------------------------------
 
 
 Mod principalmente de Calidad de Vida que realiza cambios para mejor a varias UIs vanilla, notablemente, añade barras de desplazamiento a ambas barras de bufo y permite interactuar con la barra de acceso rápido mientras se usa un ítem o el auto-seleccionado esta activo.
 La mayoría de las características de este mod son deshabilitables y modificables así que asegurate de tomar un vistazo a todas las asignaciones de teclas y configuraciones disponibles.
+Este mod es completamente del lado del cliente excepto por una sola configuración ignorable del lado del servidor.
 
 Este mod debería ser compatible con cualquier otro mod que no reemplace UIs vanilla también.
 Este mod no funciona con mandos.
@@ -51,6 +49,14 @@ Mi perfil de Discord: UnknownDevices#5926 (siéntete libre de mandar mensaje pri
 Imagen usada en el icono de este mod puede ser encontrada en la cuenta de @BirdSteely en Twitter.
 
 Registro reciente de cambios:
+v0.3.4.2
+- cambia la manera en la que los cambios de este mod al dibujo de ranuras de ítems son realizados, esto es con el fin de reducir la posibilidad de conflictos con otros mods
+- ya no simplemente selecciona el ítem apuntado por la barra de acceso rápido tan pronto como la actual animación de ítem termina, ahora es requerido que hayas dejado ir del ratón izquierdo al menos una vez durante la animación del ítem
+
+v0.3.4.1
+- haz compatible con el mod Rarity Borders de hamsgbschbep
+- arregla bug en el que el ítem auto-seleccionado cambiaba sin haber dejado ir del ratón izquierdo
+
 v0.3.4.0
 - renombra la configuración de 'Permite Interactuar Con La Barra De Acceso Rápido Mientras Se Usa Un Item' a 'La Barra De Acceso Rápido Siempre Es Interactiva' (esto ha reseteado su valor)
 - permite interactuar con la barra de acceso rápido sin importar si el auto-seleccionado esta activo si la configuración de 'La Barra De Acceso Rápido Siempre Es Interactiva' esta activa.
@@ -64,14 +70,3 @@ v0.3.3.0
 - dibuja el nombre de item de la barra de acceso rápido que se encuentre debajo del cursor independientemente de un item estando en uso
 - permite apuntar a un item en la barra de acceso rápido al clicarlo independientemente de un item estando en uso
 
-v0.3.2.1
-- arregla bug que mantenía a la barra de acceso rápido siempre bloqueada
-
-v0.3.2.0
-- mueve la configuración de 'Espacios De Bufo Extra Para El Jugador' a la pagina de configuración del servidor (esto ha reseteado su valor)
-- añade configuración para permitir que el desplazador se dirija al cursor cuando su barra de desplazamiento es clicada
-- remueve configuración de 'Modificador Del Hitbox Del Desplazador'
-- reescribe las etiquetas y tooltips de algunas configuraciones
-
-v0.3.1.3
-- Arregla las alfa de los bufos no siendo decrementanda naturalmente si ninguna barra de bufos are dibujada ese froame (esto era el comportamiento vanilla)
