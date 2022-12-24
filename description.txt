@@ -19,16 +19,14 @@ Any bug report or suggestion is greatly appreciated.
 
 This mod's repo on GitHub: https://github.com/UnknownDevices/BetterGameUI
 My Discord profile: UnknownDevices#5926
-Image used in the icon of this mod can be found on @BirdSteely's account on Twitter.
 
 
 
-[ESP] Mod principalmente de Calidad de Vida que realiza cambios para mejor a varias UIs vanilla, notablemente, añade barras de desplazamiento a ambas barras de bufo y permite interactuar con la barra de acceso rápido mientras se usa un ítem o el auto-seleccionado esta activo.
-La mayoría de las características de este mod son deshabilitables y modificables así que asegurate de tomar un vistazo a todas las asignaciones de teclas y configuraciones disponibles.
+[ESP] Mod principalmente de Calidad de Vida que mejora varias UIs en el juego manteniendolas 'vanilla'.
+La mayoría de las características de este mod son deshabilitables y modificables así que asegurate de tomar un vistazo a todas las configuraciones disponibles.
 
 Este mod mas que probablemente no funciona con mandos.
 Cualquier reporte de bug o sugerencia es apreciada.
 
 El repositorio de este mod en GitHub: https://github.com/UnknownDevices/BetterGameUI
 Mi perfil de Discord: UnknownDevices#5926
-Imagen usada en el icono de este mod puede ser encontrada en la cuenta de @BirdSteely en Twitter.
