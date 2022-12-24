@@ -279,13 +279,15 @@ namespace BetterGameUI
                 player.nonTorch = PointedToItem;
             }
 
-            if (player.itemAnimation == 0 && player.ItemTimeIsZero && player.reuseDelay == 0) {
-                player.selectedItem = PointedToItem;
-            }
-            else if (player.ItemAnimationEndingOrEnded && HasControlUseItemStoppedSinceAnimationStarted &&
-                !player.controlTorch) {
-                player.selectedItem = PointedToItem;
-                player.reuseDelay = 0;
+            if (player.selectedItem != 58) {
+                if (player.itemAnimation == 0 && player.ItemTimeIsZero && player.reuseDelay == 0) {
+                    player.selectedItem = PointedToItem;
+                }
+                else if (player.ItemAnimationEndingOrEnded && HasControlUseItemStoppedSinceAnimationStarted &&
+                    !player.controlTorch) {
+                    player.selectedItem = PointedToItem;
+                    player.reuseDelay = 0;
+                }
             }
         }
 
