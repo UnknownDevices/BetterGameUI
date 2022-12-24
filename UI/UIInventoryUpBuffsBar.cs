@@ -9,7 +9,7 @@ namespace BetterGameUI.UI
     public sealed class UIInventoryUpBuffsBar : UIBuffsBar
     {
         public override void Draw(SpriteBatch spriteBatch) {
-            MaybeDisable(!Main.playerInventory | Main.EquipPage != 2);
+            MaybeDisable(!Main.playerInventory || Main.EquipPage != 2);
             base.Draw(spriteBatch);
         }
 

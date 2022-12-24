@@ -58,7 +58,7 @@ namespace BetterGameUI.UI
         public override void Draw(SpriteBatch spriteBatch) {
             if (IsEnabled) {
                 if (HoldingLeftMouse) {
-                    if (!PlayerInput.Triggers.Current.MouseLeft | !IsHovered()) {
+                    if (!PlayerInput.Triggers.Current.MouseLeft || !IsHovered()) {
                         HoldingLeftMouse = false;
                     }
                 } else if (PlayerInput.Triggers.JustPressed.MouseLeft && IsHovered()) {
@@ -122,7 +122,7 @@ namespace BetterGameUI.UI
                         scrollerCalculatedMinHeight, scrollerCalculatedMaxHeight));
 
                 var scrollerMovementRange = GetInnerDimensions().Height - UIScroller.Height.Pixels;
-                float pxsPerNotch = (scrollerMovementRange <= 0 | MaxScrollNotches <= 0) ? 0 :
+                float pxsPerNotch = (scrollerMovementRange <= 0 || MaxScrollNotches <= 0) ? 0 :
                     scrollerMovementRange / MaxScrollNotches;
                 UIScroller.Top = StyleDimension.FromPixels((float)Math.Round(pxsPerNotch * ScrolledNotches));
 
@@ -132,7 +132,7 @@ namespace BetterGameUI.UI
                     ScrollerDraggingPointY = (float)Math.Clamp(mouseY - UIScroller.GetDimensions().Y, 0,
                             UIScroller.GetDimensions().Height);
                 }
-                if (!float.IsNaN(ScrollerDraggingPointY) | IsScrollerHitboxHovered() |
+                if (!float.IsNaN(ScrollerDraggingPointY) || IsScrollerHitboxHovered() |
                     (Mod.ClientConfig.AllowScrollerSnappingToCursor && IsHovered())) 
                 {
                     Main.player[Main.myPlayer].mouseInterface = true;

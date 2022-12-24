@@ -13,7 +13,7 @@ namespace BetterGameUI
         public override void OnLoaded() => BetterGameUI.Mod.ClientConfig = this;
 
         public override void OnChanged() => BetterGameUI.Mod.RaiseClientConfigChanged();
-
+        
         // ------------- Input Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.InputConfig")]
@@ -42,11 +42,6 @@ namespace BetterGameUI
         [Label("$Mods.BetterGameUI.Config.Label.InvertMouseScrollForScrollbar")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertMouseScrollForScrollbar")]
         public bool InvertMouseScrollForScrollbar { get; set; }
-
-        [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.HotbarIsAlwaysInteractive")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.HotbarIsAlwaysInteractive")]
-        public bool HotbarIsAlwaysInteractive { get; set; }
 
         // ------------- General UI Config ------------- //
 
@@ -155,5 +150,21 @@ namespace BetterGameUI
         [Label("$Mods.BetterGameUI.Config.Label.IconCols")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconCols")]
         public int InventoryUpIconCols { get; set; }
+
+        // ------------- MiscConfig ------------- //
+
+        [Header("$Mods.BetterGameUI.Config.Header.MiscConfig")]
+        [ReloadRequired]
+        [DefaultValue(false)]
+        [Label("$Mods.BetterGameUI.Config.Label.DisableThisModChangesToTheHotbar")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.DisableThisModChangesToTheHotbar")]
+        public bool DisableThisModChangesToTheHotbar { get; set; }
+
+        [ReloadRequired]
+        [DefaultValue(false)]
+        [Label("$Mods.BetterGameUI.Config.Label.DisableThisModChangesToTheItemSlots")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.DisableThisModChangesToTheItemSlots")]
+        public bool DisableThisModChangesToTheItemSlots { get; set; }
+
     }
 }

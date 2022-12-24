@@ -1,6 +1,5 @@
-Mainly QoL mod which tweaks vanilla UIs in mayor and minor ways, remarkably, it adds scrollbars to both buffs bars and allows interacting with the hotbar while using an item or having auto-select on.
+[ENG] Mainly QoL mod which tweaks vanilla UIs in mayor and minor ways, remarkably, it adds scrollbars to both buffs bars and allows interacting with the hotbar while using an item or having auto-select on.
 Most features of this mod are toggable and tweakable so make sure to look into all of the keybinds and configs available.
-This mod is completely client side except for a single ignorable server side config
  
 This mod should be compatible with any mod which doesn't replace vanilla UIs as well.
 This mod doesn't work whith gamepads.
@@ -10,7 +9,33 @@ My GitHub profile: UnknownDevices (where you can find this mod's source code).
 My Discord profile: UnknownDevices#5926 (feel free to DM).
 Image used in the icon of this mod can be found on @BirdSteely's account on Twitter.
 
+
+[ESP] Mod principalmente de Calidad de Vida que realiza cambios para mejor a varias UIs vanilla, notablemente, añade barras de desplazamiento a ambas barras de bufo y permite interactuar con la barra de acceso rápido mientras se usa un ítem o el auto-seleccionado esta activo.
+La mayoría de las características de este mod son deshabilitables y modificables así que asegurate de tomar un vistazo a todas las asignaciones de teclas y configuraciones disponibles.
+
+Este mod debería ser compatible con cualquier otro mod que no reemplace UIs vanilla también.
+Este mod no funciona con mandos.
+Cualquier reporte de bug o sugerencia es apreciada.
+
+Mi perfil de GitHub: UnknownDevices (donde puedes encontrar el código fuente de este mod).
+Mi perfil de Discord: UnknownDevices#5926 (siéntete libre de mandar mensaje privado).
+Imagen usada en el icono de este mod puede ser encontrada en la cuenta de @BirdSteely en Twitter.
+
+
 Latest changelog:
+v0.3.5.1
+- fix bug in which in some cases selecting an item in the hotbar was unnecesarily delayed
+
+v0.3.5.0
+- remove 'Extra Player Buff Slots' config so this mod can now be completely client side
+- allow scrolling fullscreen map regardless of an item being used
+- allow scrolling recipes list regardless of an item being used
+- change the way this mod's tweaks to the player update and the hotbar scrolling are done, so as to reduce the chance of conflicts with other mods
+- remove "Hotbar Is Always Interactive" config
+- add "Disable This Mod's Changes To The Hotbar" config
+- add "Disable This Mod's Changes To The Item Slots" config
+- mouse scroll will no longer focus buff's bars which have their scrollbar hidden
+
 v0.3.4.2
 - change the way this mod's tweaks to the drawing of item slots are done, so as to reduce the chance of conflicts with other mods
 - no longer just select the item pointed to by the hotbar as soon as the current item animation ends, now you're required to have let go of the left mouse at least once during the item animation
@@ -26,47 +51,3 @@ v0.3.4.0
 v0.3.3.1
 - fix hotbar being drawn for one frame when the bestiary or the emotes window was opened (this was vanilla behaviour)
 - fix crafting window reopening after closing and reopening the inventory
-
-v0.3.3.0
-- highlight any selected item in the inventory, not just hotbar's ones
-- display the name of a hovered hotbar's item regardless of an item being in use
-- allow pointing to an item on the hotbar by clicking it regardless of an item being in use
-
-
-------------------------------------------
-
-
-Mod principalmente de Calidad de Vida que realiza cambios para mejor a varias UIs vanilla, notablemente, añade barras de desplazamiento a ambas barras de bufo y permite interactuar con la barra de acceso rápido mientras se usa un ítem o el auto-seleccionado esta activo.
-La mayoría de las características de este mod son deshabilitables y modificables así que asegurate de tomar un vistazo a todas las asignaciones de teclas y configuraciones disponibles.
-Este mod es completamente del lado del cliente excepto por una sola configuración ignorable del lado del servidor.
-
-Este mod debería ser compatible con cualquier otro mod que no reemplace UIs vanilla también.
-Este mod no funciona con mandos.
-Cualquier reporte de bug o sugerencia es apreciada.
-
-Mi perfil de GitHub: UnknownDevices (donde puedes encontrar el código fuente de este mod).
-Mi perfil de Discord: UnknownDevices#5926 (siéntete libre de mandar mensaje privado).
-Imagen usada en el icono de este mod puede ser encontrada en la cuenta de @BirdSteely en Twitter.
-
-Registro reciente de cambios:
-v0.3.4.2
-- cambia la manera en la que los cambios de este mod al dibujo de ranuras de ítems son realizados, esto es con el fin de reducir la posibilidad de conflictos con otros mods
-- ya no simplemente selecciona el ítem apuntado por la barra de acceso rápido tan pronto como la actual animación de ítem termina, ahora es requerido que hayas dejado ir del ratón izquierdo al menos una vez durante la animación del ítem
-
-v0.3.4.1
-- haz compatible con el mod Rarity Borders de hamsgbschbep
-- arregla bug en el que el ítem auto-seleccionado cambiaba sin haber dejado ir del ratón izquierdo
-
-v0.3.4.0
-- renombra la configuración de 'Permite Interactuar Con La Barra De Acceso Rápido Mientras Se Usa Un Item' a 'La Barra De Acceso Rápido Siempre Es Interactiva' (esto ha reseteado su valor)
-- permite interactuar con la barra de acceso rápido sin importar si el auto-seleccionado esta activo si la configuración de 'La Barra De Acceso Rápido Siempre Es Interactiva' esta activa.
-
-v0.3.3.1
-- arregla la barra de acceso rápido siendo dibujada por un frame cuando el bestiario o la ventana de emotes era abierta (esto era el comportamiento vanilla)
-- arregla la ventana de crafteo reabriéndose después de cerrar y reabrir el inventario
-
-v0.3.3.0
-- resalta cualquier item seleccionado en el inventario, no solo aquellos de la barra de acceso rápido
-- dibuja el nombre de item de la barra de acceso rápido que se encuentre debajo del cursor independientemente de un item estando en uso
-- permite apuntar a un item en la barra de acceso rápido al clicarlo independientemente de un item estando en uso
-

@@ -7,8 +7,7 @@ using Terraria.UI;
 
 namespace BetterGameUI.UI
 {
-    public sealed class UIBuffsBarScrollbar : UIScrollbar
-    {
+    public sealed class UIBuffsBarScrollbar : UIScrollbar {
         public UIBuffsBar UIBuffsBar => Parent as UIBuffsBar;
 
         public UIBuffsBarScrollbar() {
@@ -30,7 +29,7 @@ namespace BetterGameUI.UI
 
         public override bool IsMouseScrollFocusingThis() {
             return Player.MouseScrollIsFocusingBuffsBar |
-                (Mod.ClientConfig.MouseScrollFocusesMouseHoveredUI && UIBuffsBar.IsMouseHoveringHitbox());
+                (Mod.ClientConfig.MouseScrollFocusesMouseHoveredUI && UIBuffsBar.IsMouseHoveringHitbox() && IsEnabled);
         }
 
         public override bool IsDraggingScrollerAllowed() {
@@ -40,7 +39,7 @@ namespace BetterGameUI.UI
         public override bool AllowScrollerSnappingToCursor() {
             return Mod.ClientConfig.AllowScrollerSnappingToCursor;
         }
-        
+
         public override int MouseScroll() {
             int output = 0;
 
@@ -64,15 +63,15 @@ namespace BetterGameUI.UI
         }
 
         public override void Draw(SpriteBatch spriteBatch) {
-            MaxScrollNotches = (Mod.ActiveBuffsIndexes.Count <= 0) ? 0 : 
-                (uint)Math.Max(Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)UIBuffsBar.IconColsCount) - 
+            MaxScrollNotches = (Mod.ActiveBuffsIndexes.Count <= 0) ? 0 :
+                (uint)Math.Max(Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)UIBuffsBar.IconColsCount) -
                     UIBuffsBar.IconRowsCount, 0);
 
             MaybeDisable(Mod.ClientConfig.SmartHideScrollbar && MaxScrollNotches <= 0);
 
             base.Draw(spriteBatch);
 
-            if (IsEnabled && IsMouseScrollFocusingThis() | !float.IsNaN(ScrollerDraggingPointY)) {
+            if (IsMouseScrollFocusingThis() || !float.IsNaN(ScrollerDraggingPointY)) {
                 PlayerInput.LockVanillaMouseScroll("UIBuffsBarScrollbar");
             }
         }

@@ -143,6 +143,7 @@ namespace BetterGameUI.UI
                 hoveredIcon = buffSlotOnPlayer;
                 buffAlpha[buffSlotOnPlayer] += 0.15f;
 
+                player[myPlayer].mouseInterface = true;
                 if (mouseRight && mouseRightRelease) {
                     if (BuffLoader.RightClick(buffTy, buffSlotOnPlayer)) {
                         TryRemovingBuff(buffSlotOnPlayer, buffTy);

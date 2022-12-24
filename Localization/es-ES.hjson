@@ -18,7 +18,7 @@
 				AllowScrollerSnappingToCursor: "Permite Al Desplazador Dirigirse Al Cursor"
 				MouseScrollFocusesMouseHoveredUI: "Desplazamiento De La Rueda Enfoca UI Debajo Del Cursor"
 				InvertMouseScrollForScrollbar: "Invierte Desplazamiento De La Rueda Para La Barra De Desplazamiento"
-				HotbarIsAlwaysInteractive: "La Barra De Acceso Rápido Siempre Es Interactiva"
+				DoNotLockMouseScrollWhileUsingAnItem: "La Barra De Acceso Rápido Siempre Es Interactiva"
 				MinScrollerHeight: "Mínima Altura Del Desplazador"
 				SmartHideScrollbar: "Esconde La Barra De Desplazamiento Inteligentemente" 
 				ScrollbarRelPos: "Posición Relativa De La Barra De Desplazamiento"
@@ -29,14 +29,16 @@
 				IconRows: "Filas De Iconos"
 				IconCols: "Columnas De Iconos"
 				HotbarLockingAlsoLocksThis: "El Bloqueo De La Barra De Acceso Rápido También Bloquea Esto"
-				ExtraPlayerBuffSlots: "Espacios De Bufo Extra Para El Jugador"
+				DisableThisModChangesToTheHotbar: "Desactiva Los Cambios De Este Mod A La Barra De Acceso Rapido"
+				DisableThisModChangesToTheItemSlots: "Desactiva Los Cambios De Este Mod A Las Ranuras De Ítems"
 			}
 			Tooltip: {
 				BuffsBarHitboxMod: "Medido en pixels. Modifica el tamaño del hitbox usado por la barra de bufos para interactuar con el cursor.\nPor defecto, el tamaño del hitbox es el mismo que el de la UI."
 				AllowScrollerDragging: "Si esta activado, clicar en un desplazador permitirá arrastrarlo hasta que este clic sea soltado."
-				AllowScrollerSnappingToCursor: "Si esta activado, clicar una barra de desplazamiento causara que su desplazador se dirija a la posición de tu cursor."				MouseScrollFocusesMouseHoveredUI: "Si esta activado, el desplazamiento de la rueda sera recibido por cualquier UI que se encuentre debajo del cursor.\nUIs no reactivas al desplazamiento de la rueda no son contadas para este propósito.\nSi no UI valida se encuentra debajo del cursor, el desplazamiento de la rueda sera entonces recibido por una UI predeterminada."
+				AllowScrollerSnappingToCursor: "Si esta activado, clicar una barra de desplazamiento causara que su desplazador se dirija a la posición de tu cursor."				
+				MouseScrollFocusesMouseHoveredUI: "Si esta activado, el desplazamiento de la rueda sera recibido por cualquier UI que se encuentre debajo del cursor.\nUIs no reactivas al desplazamiento de la rueda no son contadas para este propósito.\nSi no UI valida se encuentra debajo del cursor, el desplazamiento de la rueda sera entonces recibido por una UI predeterminada."
 				InvertMouseScrollForScrollbar: "Si esta activado, el desplazamiento de la rueda recibido por una barra de desplazamiento sera invertido."
-				HotbarIsAlwaysInteractive: "Si esta activado, estar usando un ítem o tener auto-seleccionado activo no te prevenira interactuar con la barra de acceso rápido.\n Cual sea el ítem apuntado por la barra de acceso rápido es seleccionado tan pronto como la animación del ítem actual termina.\n"				MinScrollerHeight: "Medido en pixels. Determina la mínima altura un desplazador puede tener.\nEsta configuración puede prevenir un desplazador de llegar a ser tan corto que se vuelve complicado clicarlo.\nValor tiene que ser mayor o igual a 6."
+				DoNotLockMouseScrollWhileUsingAnItem: "Si esta activado, estar usando un ítem o tener auto-seleccionado activo no te prevenira interactuar con la barra de acceso rápido.\n Cual sea el ítem apuntado por la barra de acceso rápido es seleccionado tan pronto como la animación del ítem actual termina.\n"				MinScrollerHeight: "Medido en pixels. Determina la mínima altura un desplazador puede tener.\nEsta configuración puede prevenir un desplazador de llegar a ser tan corto que se vuelve complicado clicarlo.\nValor tiene que ser mayor o igual a 6."
 				SmartHideScrollbar: "Si esta activado, las barras de desplazamiento serán ocultados cuando sean redundantes, como cuando solo haya una pagina de contenido."
 				ScrollbarRelPos: "Determina donde la barra de desplazamiento de esta UI sera posicionada relativa ha esta UI.\n"
 				IconsHorOrder: "Determina el orden horizontal en el que iconos de bufo de esta UI son alineados."
@@ -46,7 +48,8 @@
 				IconRows: "Determina la cantidad de filas de iconos de bufos de esta UI.\nValor tiene que ser mayor o igual a 1."
 				IconCols: "Determina la cantidad de columnas de iconos de bufos de esta UI.\nValor tiene que ser mayor o igual a 1."
 				HotbarLockingAlsoLocksThis: "Si esta activado, bloquear la barra de acceso rápido también bloqueara esto.\nPuedes bloquear la barra de acceso rápido clicando el pequeño icono de cerrojo en la esquina superior-izquierda de la pantalla mientras el inventario esta arriba.\nUIs bloqueadas no interactúan con el cursor."
-				ExtraPlayerBuffSlots: "Determina la cantidad de espacios de bufo extra con que proveer al jugador.\nPor defecto, el jugado cuenta con 22 espacios de bufo.\nValor tiene que ser mayor o igual a 0.\nRequiere recargar el mod para guardar cambios."
+				DisableThisModChangesToTheHotbar: "Si esta activado, este mod no realizara ningún cambio a la barra de acceso rápido.\nUtil si estos confligen con otro mod que tienes instalado o si prefieres el comportamiento vanilla.\nRequire recargar los mods."
+				DisableThisModChangesToTheItemSlots: "Si esta activado, este mod no realizara ningún cambio a las ranuras de ítems.\nUtil si estos confligen con otro mod que tienes instalado o si prefieres el comportamiento vanilla.\nRequire recargar los mods."
 			}
 		}
 	}

@@ -19,6 +19,11 @@ namespace BetterGameUI.UI
             IsEnabled &= !condition;
         }
 
+        public override void Update(GameTime gameTime) {
+            IsEnabled = true;
+            base.Update(gameTime);
+        }
+
         public override void Draw(SpriteBatch spriteBatch) {
             if (!IsEnabled) {
                 foreach (UIElement element in Elements) {
@@ -29,7 +34,6 @@ namespace BetterGameUI.UI
             }
 
             base.Draw(spriteBatch);
-            IsEnabled = true;
         }
     }
 }
