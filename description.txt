@@ -1,53 +1,34 @@
-[ENG] Mainly QoL mod which tweaks vanilla UIs in mayor and minor ways, remarkably, it adds scrollbars to both buffs bars and allows interacting with the hotbar while using an item or having auto-select on.
-Most features of this mod are toggable and tweakable so make sure to look into all of the keybinds and configs available.
- 
-This mod should be compatible with any mod which doesn't replace vanilla UIs as well.
-This mod doesn't work whith gamepads.
-Any bug report or suggestion is greatly appreciated.
+[ENG] Mainly QoL mod which improves various UIs in the game while keeping them 'vanilla'.
+Most features of this mod are toggable and tweakable so make sure to look into all of the configs available.
 
-My GitHub profile: UnknownDevices (where you can find this mod's source code).
-My Discord profile: UnknownDevices#5926 (feel free to DM).
+Features: #(not exhaustive)
+- adds scrollbars to both buffs bars
+- adds configs to customize the rows, columns, alpha, and more of each buffs bar
+- changes the hotbar locking to now also lock the buffs bar below it
+- adds a keybind to lock/unlock the hotbar
+- allows interacting with the hotbar (scrolling, clicking on, etc.) regardless of an item being in use or auto-select being on
+- changes the hotbar to now scale up the item pointed to by the hotbar, which won't always be the selected item
+- allows scrolling to go up or down the recipes list regardless of an item being in use
+- allows scrolling to zoom in or out on the fullscreen map regardless of an item being in use
+- changes the inventory to now also highlight items selected by auto-select, not just manually selected ones
+- fixes a vanilla bug where the hotbar is drawn for one frame when opening the bestiary or emotes window
+- fixes a vanilla bug where hovered buff icons remain highlighted between toggles of the inventory
+
+This mod most likely doesn't work whith gamepads.
+Any bug report or suggestion is greatly appreciated. 
+
+This mod's repo on GitHub: https://github.com/UnknownDevices/BetterGameUI
+My Discord profile: UnknownDevices#5926
 Image used in the icon of this mod can be found on @BirdSteely's account on Twitter.
+
 
 
 [ESP] Mod principalmente de Calidad de Vida que realiza cambios para mejor a varias UIs vanilla, notablemente, añade barras de desplazamiento a ambas barras de bufo y permite interactuar con la barra de acceso rápido mientras se usa un ítem o el auto-seleccionado esta activo.
 La mayoría de las características de este mod son deshabilitables y modificables así que asegurate de tomar un vistazo a todas las asignaciones de teclas y configuraciones disponibles.
 
-Este mod debería ser compatible con cualquier otro mod que no reemplace UIs vanilla también.
-Este mod no funciona con mandos.
+Este mod mas que probablemente no funciona con mandos.
 Cualquier reporte de bug o sugerencia es apreciada.
 
-Mi perfil de GitHub: UnknownDevices (donde puedes encontrar el código fuente de este mod).
-Mi perfil de Discord: UnknownDevices#5926 (siéntete libre de mandar mensaje privado).
+El repositorio de este mod en GitHub: https://github.com/UnknownDevices/BetterGameUI
+Mi perfil de Discord: UnknownDevices#5926
 Imagen usada en el icono de este mod puede ser encontrada en la cuenta de @BirdSteely en Twitter.
-
-
-Latest changelog:
-v0.3.5.1
-- fix bug in which in some cases selecting an item in the hotbar was unnecesarily delayed
-
-v0.3.5.0
-- remove 'Extra Player Buff Slots' config so this mod can now be completely client side
-- allow scrolling fullscreen map regardless of an item being used
-- allow scrolling recipes list regardless of an item being used
-- change the way this mod's tweaks to the player update and the hotbar scrolling are done, so as to reduce the chance of conflicts with other mods
-- remove "Hotbar Is Always Interactive" config
-- add "Disable This Mod's Changes To The Hotbar" config
-- add "Disable This Mod's Changes To The Item Slots" config
-- mouse scroll will no longer focus buff's bars which have their scrollbar hidden
-
-v0.3.4.2
-- change the way this mod's tweaks to the drawing of item slots are done, so as to reduce the chance of conflicts with other mods
-- no longer just select the item pointed to by the hotbar as soon as the current item animation ends, now you're required to have let go of the left mouse at least once during the item animation
-
-v0.3.4.1
-- make compatible with Rarity Borders mod by hamsgbschbep
-- fix bug where auto-select item changed without letting go of left mouse
-
-v0.3.4.0
-- rename 'Allow Interacting With Hotbar While Using An Item' config to 'Hotbar Is Always Interactive' (this has reset its value)
-- allow interacting with hotbar regardless of auto-select being on if the 'Hotbar Is Always Interactive' config is on
-
-v0.3.3.1
-- fix hotbar being drawn for one frame when the bestiary or the emotes window was opened (this was vanilla behaviour)
-- fix crafting window reopening after closing and reopening the inventory
