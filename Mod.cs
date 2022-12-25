@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
+using MonoMod.Cil;
 using MonoMod.Utils;
 using ReLogic.Graphics;
 using System;
@@ -9,6 +11,7 @@ using Terraria;
 using Terraria.GameInput;
 using Terraria.Graphics.Capture;
 using Terraria.ID;
+using Terraria.ModLoader;
 using static Terraria.Main;
 
 namespace BetterGameUI
@@ -34,21 +37,62 @@ namespace BetterGameUI
 
         // TODO: unload
         public override void Load() {
+            IL.Terraria.Main.DrawInventory += IL_Main_DrawInventory;
+            if (!ClientConfig.DisableThisModChangesToTheItemSlots) {
+                IL.Terraria.UI.ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color +=
+                    IL_ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color;
+            }
+            if (!ClientConfig.DisableThisModChangesToTheHotbar) {
+                IL.Terraria.Player.Update += IL_Player_Update;
+                On.Terraria.Player.ScrollHotbar += On_Player_ScrollHotbar;
+            }
+
             if (Main.netMode != NetmodeID.Server) {
-                if (!ClientConfig.DisableThisModChangesToTheItemSlots) {
-                    IL.Terraria.UI.ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color +=
-                        IL_ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color;
-                }
-                if (!ClientConfig.DisableThisModChangesToTheHotbar) {
-                    IL.Terraria.Player.Update += IL_Player_Update;
-                    On.Terraria.Player.ScrollHotbar += On_Player_ScrollHotbar;
-                }
-                
                 BetterGameUI.Assets.Load();
             }
         }
 
-        public static void IL_Player_Update(MonoMod.Cil.ILContext il) {
+        public override void Unload() {
+            IL.Terraria.Main.DrawInventory -= IL_Main_DrawInventory;
+            IL.Terraria.UI.ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color -=
+                IL_ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color;
+            IL.Terraria.Player.Update -= IL_Player_Update;
+            On.Terraria.Player.ScrollHotbar -= On_Player_ScrollHotbar;
+            
+            OnClientConfigChanged = null;
+            ActiveBuffsIndexes = null;
+            ClientConfig = null;
+
+            BetterGameUI.Assets.Unload();
+        }
+
+        public static void IL_Main_DrawInventory(ILContext il) {
+            var c = new ILCursor(il);
+
+            var mouseTextHackZoomInfo = typeof(Main).GetMethod("MouseTextHackZoom",
+                    System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance,
+                    new[] { typeof(string), typeof(int), typeof(byte), typeof(string) });
+
+            if (!c.TryGotoNext(MoveType.After,
+                x => x.MatchCall(mouseTextHackZoomInfo))) {
+                return;
+            }
+
+            var afterVanillaBuffsBarDrawLabel = c.MarkLabel();
+
+            if (!c.TryGotoPrev(MoveType.Before,
+                x => x.MatchLdloc(55) &&
+                x.Next.MatchLdcI4(247) &&
+                x.Next.Next.MatchAdd())) {
+                return;
+            }
+
+            c.Emit(OpCodes.Ldsfld, Reflection.Main.mapHeight);
+            c.Emit(OpCodes.Call, typeof(UI.UISystem).GetMethod("Draw_InventoryBuffsBar"));
+            c.Emit(OpCodes.Br, afterVanillaBuffsBarDrawLabel);
+        }
+
+        public static void IL_Player_Update(ILContext il) {
             // TODO: document this process
             il.IL.InsertAfter(il.Instrs[1854], il.IL.Create(OpCodes.Call, typeof(Mod).GetMethod("Player_Update_Detour")));
             il.IL.InsertAfter(il.Instrs[1854], il.IL.Create(OpCodes.Ldarg_0));
@@ -111,13 +155,11 @@ namespace BetterGameUI
         public static int PointedToItem;
         public static bool HasControlUseItemStoppedSinceAnimationStarted;
         public static void Player_Update_Detour(Terraria.Player player) {
-            //NewText(player.selectedItem + " " + PointedToItem);
             if (player.itemAnimation == 0 && player.ItemTimeIsZero && player.reuseDelay == 0) {
                 player.dropItemCheck();
             }
 
             int prevPointedToItem = PointedToItem;
-            // TODO: why 'PointedToItem != 58'?
             if (!Main.drawingPlayerChat && PointedToItem != 58 && !Main.editSign && !Main.editChest) {
                 if (PlayerInput.Triggers.Current.Hotbar1) {
                     PointedToItem = 0;
@@ -376,21 +418,6 @@ namespace BetterGameUI
             // + 1573:         value = TextureAssets.InventoryBack9.Value;
             // + 1574:     }
             il.Instrs[214].Operand = il.Instrs[218];
-        }
-        
-        public override void Unload() {
-            if (Main.netMode != NetmodeID.Server) {
-                IL.Terraria.UI.ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color -=
-                    IL_ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color;
-                IL.Terraria.Player.Update -= IL_Player_Update;
-                On.Terraria.Player.ScrollHotbar -= On_Player_ScrollHotbar;
-            }
-
-            OnClientConfigChanged = null;
-            ActiveBuffsIndexes = null;
-            ClientConfig = null;
-
-            BetterGameUI.Assets.Unload();
         }
     }
 }

@@ -1110,38 +1110,15 @@ namespace BetterGameUI.UI
             return true;
         }
 
-        public static bool DrawInterface_Inventory()
-        {
-            HackForGamepadInputHell(instance);
-            if (playerInventory)
-            {
-                if (player[myPlayer].chest != -1)
-                {
-                    CreativeMenu.CloseMenu();
-                }
-
-                DrawInventory();
-            }
-            else
-            {
-                CreativeMenu.CloseMenu();
-                recFastScroll = true;
-                instance.SetMouseNPC(-1, -1);
-                EquipPage = 0;
-            }
-
+        public static void Draw_InventoryBuffsBar(int mapHeight) {
             // TODO: make mapHeight automatically call GetValue(null) on itself
             // TODO: do this in UIMap.Update
-            var mapHeight = (int)Reflection.Main.mapHeight.GetValue(null);
-            if (UIMap.Height.Pixels != mapHeight)
-            {
+            if (UIMap.Height.Pixels != mapHeight) {
                 UIMap.Height = StyleDimension.FromPixels(mapHeight);
                 UserInterfaceMap.Recalculate();
             }
 
             UserInterfaceMap.Draw(spriteBatch, LastUpdateUIGameTime);
-
-            return true;
         }
 
         public static bool DrawInterface_ResourceBars()
@@ -1210,14 +1187,6 @@ namespace BetterGameUI.UI
             {
                 layers[index] = new LegacyGameInterfaceLayer(
                     "Vanilla: Resource Bars", DrawInterface_ResourceBars,
-                    InterfaceScaleType.UI);
-            }
-
-            index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
-            if (index != -1)
-            {
-                layers[index] = new LegacyGameInterfaceLayer(
-                    "Vanilla: Inventory", DrawInterface_Inventory,
                     InterfaceScaleType.UI);
             }
 

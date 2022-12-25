@@ -8,11 +8,6 @@ namespace BetterGameUI.UI
 {
     public sealed class UIInventoryUpBuffsBar : UIBuffsBar
     {
-        public override void Draw(SpriteBatch spriteBatch) {
-            MaybeDisable(!Main.playerInventory || Main.EquipPage != 2);
-            base.Draw(spriteBatch);
-        }
-
         public override void UpdateClientConfigDependencies() {
             IconRowsCount = (ushort)Mod.ClientConfig.InventoryUpIconRows;
             IconColsCount = (ushort)Mod.ClientConfig.InventoryUpIconCols;
