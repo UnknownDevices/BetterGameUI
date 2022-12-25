@@ -1,17 +1,19 @@
+// STFU Microsoft
+#pragma warning disable CA2211
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Mono.Cecil;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using MonoMod.Utils;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.Graphics.Capture;
 using Terraria.ID;
-using Terraria.ModLoader;
 using static Terraria.Main;
 
 namespace BetterGameUI
@@ -70,7 +72,7 @@ namespace BetterGameUI
             var c = new ILCursor(il);
 
             var mouseTextHackZoomInfo = typeof(Main).GetMethod("MouseTextHackZoom",
-                    System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance,
+                    BindingFlags.Public | BindingFlags.Instance,
                     new[] { typeof(string), typeof(int), typeof(byte), typeof(string) });
 
             if (!c.TryGotoNext(MoveType.After,
@@ -87,7 +89,7 @@ namespace BetterGameUI
                 return;
             }
 
-            c.Emit(OpCodes.Ldsfld, Reflection.Main.mapHeight);
+            c.Emit(OpCodes.Ldsfld, typeof(Main).GetField("mH", BindingFlags.NonPublic | BindingFlags.Static));
             c.Emit(OpCodes.Call, typeof(UI.UISystem).GetMethod("Draw_InventoryBuffsBar"));
             c.Emit(OpCodes.Br, afterVanillaBuffsBarDrawLabel);
         }
