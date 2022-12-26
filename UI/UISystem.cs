@@ -122,7 +122,7 @@ namespace BetterGameUI.UI
                 index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Hotbar"));
                 if (index != -1) {
                     layers[index] = new LegacyGameInterfaceLayer(
-                        "Vanilla: Hotbar", BetterGameUI.Mod.DrawInterface_Hotbar,
+                        "Vanilla: Hotbar", HotbarChanges.DrawInterface_Hotbar,
                         InterfaceScaleType.UI);
                 }
             }

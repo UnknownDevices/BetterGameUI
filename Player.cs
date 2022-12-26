@@ -25,6 +25,7 @@ namespace BetterGameUI
 
             if (BetterGameUI.Mod.ClientConfig.ShowStartupMessageForImportantChangeNotes_0_3_6_0) {
                 Main.NewText(Messages.ImportantChangeNotes(), Color.Yellow);
+                return;
             }
         }
 

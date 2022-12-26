@@ -10,10 +10,9 @@ namespace BetterGameUI
     public class ClientConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
-
         public override void OnLoaded() => BetterGameUI.Mod.ClientConfig = this;
-
         public override void OnChanged() => BetterGameUI.Mod.RaiseClientConfigChanged();
+
 
         // ------------- Notifications Config ------------- //
 
@@ -83,24 +82,11 @@ namespace BetterGameUI
         // ------------- Off Inventory's Buffs Bar Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.OffInventoryBuffsBarConfig")]
-        [DefaultValue(0.4f)]
-        [Range(0f, 1f)]
-        [Increment(0.01f)]
+        [DefaultValue(40)]
+        [Range(10, 100f)]
         [Label("$Mods.BetterGameUI.Config.Label.Alpha")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Alpha")]
-        public float InventoryDownAlpha { get; set; }
-
-        [DefaultValue(0)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.XPosMod")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.XPosMod")]
-        public int InventoryDownXPosMod { get; set; }
-
-        [DefaultValue(0)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.YPosMod")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.YPosMod")]
-        public int InventoryDownYPosMod { get; set; }
+        public int InventoryDownAlpha { get; set; }
 
         [DefaultValue(2)]
         [Range((ushort)1, ushort.MaxValue)]
@@ -122,24 +108,11 @@ namespace BetterGameUI
         // ------------- Inventory's Buffs Bar Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.InventoryBuffsBarConfig")]
-        [DefaultValue(0.65f)]
-        [Range(0f, 1f)]
-        [Increment(0.01f)]
+        [DefaultValue(65)]
+        [Range(10, 100)]
         [Label("$Mods.BetterGameUI.Config.Label.Alpha")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Alpha")]
-        public float InventoryUpAlpha { get; set; }
-
-        [DefaultValue(0)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.XPosMod")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.XPosMod")]
-        public int InventoryUpXPosMod { get; set; }
-
-        [DefaultValue(0)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.YPosMod")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.YPosMod")]
-        public int InventoryUpYPosMod { get; set; }
+        public int InventoryUpAlpha { get; set; }
 
         [DefaultValue(3)]
         [Range((ushort)1, ushort.MaxValue)]

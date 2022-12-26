@@ -9,6 +9,8 @@ namespace BetterGameUI.UI
     public sealed class UIInventoryUpBuffsBar : UIBuffsBar
     {
         public UIInventoryUpBuffsBar() {
+            Left = StyleDimension.FromPixelsAndPercent(-84 - 38 * (IconColsCount - 1), 1f);
+            Top = StyleDimension.FromPixelsAndPercent(421, 1f);
             ScrollbarPosition = ScrollbarRelPos.RightOfIcons;
             IconsHorOrder = BuffIconsHorOrder.RightToLeft;
         }
@@ -16,12 +18,7 @@ namespace BetterGameUI.UI
         public override void UpdateClientConfigDependencies() {
             IconRowsCount = (ushort)Mod.ClientConfig.InventoryUpIconRows;
             IconColsCount = (ushort)Mod.ClientConfig.InventoryUpIconCols;
-            Left = StyleDimension.FromPixelsAndPercent(
-                -84 - 38 * (IconColsCount - 1) + Mod.ClientConfig.InventoryUpXPosMod, 1f);
-            Top = StyleDimension.FromPixelsAndPercent(421 + Mod.ClientConfig.InventoryUpYPosMod, 1f);
-            Alpha = Mod.ClientConfig.InventoryUpAlpha;
-            UIScrollbar.Alpha = Mod.ClientConfig.InventoryUpAlpha;
-            UIScrollbar.UIScroller.Alpha = Mod.ClientConfig.InventoryUpAlpha;
+            UIScrollbar.UIScroller.Alpha = UIScrollbar.Alpha = Alpha = (float)Mod.ClientConfig.InventoryUpAlpha / 100;
 
             base.UpdateClientConfigDependencies();
         }

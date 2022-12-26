@@ -18,6 +18,7 @@ namespace BetterGameUI
                 Language.GetTextValue("Mods.BetterGameUI.Version"),
                 changesTarget);
 
+        // TODO:! localize
         public static string ErrorLoadingChangesToTheHotbar() => ErrorLoadingDisableableChanges("the hotbar");
         public static string ErrorLoadingChangesToTheItemSlots() => ErrorLoadingDisableableChanges("the item slots");
     }
