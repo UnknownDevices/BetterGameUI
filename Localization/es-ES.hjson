@@ -4,7 +4,6 @@
 		Version: "0.3.6.0"
 		Message: {
 			ImportantChangeNotes: "[{0}] - {1}\n*  This mod broke shit!\n*  You can disable this startup message in config."
-			ErrorLoadingDisableableChanges: "[{0}] - {1}\n*  This mod encountered an issue while loading its changes to {2}.\n*  You can try disabling any mods that might be conflicting with this one or you can try disabling this mod's changes to {2} in config.\n*  You can also report this issue to me on Discord: UnknownDevices#5926."
 		}
 		Config: {
 			Title: {

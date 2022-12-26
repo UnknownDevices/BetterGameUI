@@ -1,21 +1,10 @@
 // STFU Microsoft
 #pragma warning disable CA2211
 
-using IL.Terraria.DataStructures;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using MonoMod.Utils;
-using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Terraria;
-using Terraria.GameInput;
-using Terraria.Graphics.Capture;
 using Terraria.ID;
-using static Terraria.Main;
 
 namespace BetterGameUI
 {

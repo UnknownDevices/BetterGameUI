@@ -1,17 +1,20 @@
 ﻿using Mono.Cecil.Cil;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BetterGameUI
 {
     public static class ItemSlotsChanges
     {
         public static void Load() {
-            IL.Terraria.UI.ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color +=
-                IL_ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color;
+            try {
+                IL.Terraria.UI.ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color +=
+                    IL_ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color;
+            }
+            catch (System.Reflection.TargetInvocationException e) {
+                throw new BetterGameUI.Exception.LoadItemSlotsChanges(e);
+            }
+            catch (BetterGameUI.Exception.FailToFindInstruction e) {
+                throw new BetterGameUI.Exception.LoadItemSlotsChanges(e);
+            }
         }
 
         public static void IL_ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color(MonoMod.Cil.ILContext il) {

@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using MonoMod.Utils;
-using rail;
 using ReLogic.Graphics;
 using System;
 using Terraria;
@@ -22,7 +21,16 @@ namespace BetterGameUI
         public static bool HasControlUseItemStoppedSinceAnimationStarted { get; set; }
 
         public static void Load() {
-            IL.Terraria.Player.Update += IL_Player_Update;
+            try {
+                IL.Terraria.Player.Update += IL_Player_Update;
+            }
+            catch (System.Reflection.TargetInvocationException e) {
+                throw new BetterGameUI.Exception.LoadHotbarChanges(e);
+            }
+            catch (BetterGameUI.Exception.FailToFindInstruction e) {
+                throw new BetterGameUI.Exception.LoadHotbarChanges(e);
+            }
+            
             On.Terraria.Player.ScrollHotbar += On_Player_ScrollHotbar;
         }
 
@@ -43,9 +51,6 @@ namespace BetterGameUI
             il.IL.RemoveAt(1423);
             il.IL.RemoveAt(1423);
             il.IL.RemoveAt(1423);
-
-            // TODO: ! remove
-            BetterGameUI.Mod.TrySetLatestLoadFirstErrorMessage(Messages.ErrorLoadingChangesToTheHotbar);
         }
 
         public static void On_Player_ScrollHotbar(On.Terraria.Player.orig_ScrollHotbar orig, Terraria.Player player,

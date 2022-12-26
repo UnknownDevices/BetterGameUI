@@ -8,7 +8,15 @@ namespace BetterGameUI
     public static class BuffsBarsChanges
     {
         public static void Load() {
-            IL.Terraria.Main.DrawInventory += IL_Main_DrawInventory;
+            try {
+                IL.Terraria.Main.DrawInventory += IL_Main_DrawInventory;
+            }
+            catch (System.Reflection.TargetInvocationException e) {
+                throw new BetterGameUI.Exception.LoadBuffsBarsChanges(e);
+            }
+            catch (BetterGameUI.Exception.FailToFindInstruction e) {
+                throw new BetterGameUI.Exception.LoadBuffsBarsChanges(e);
+            }
         }
 
         public static void IL_Main_DrawInventory(ILContext il) {
@@ -18,9 +26,8 @@ namespace BetterGameUI
                     BindingFlags.Public | BindingFlags.Instance,
                     new[] { typeof(string), typeof(int), typeof(byte), typeof(string) });
 
-            if (!c.TryGotoNext(MoveType.After,
-                x => x.MatchCall(mouseTextHackZoomInfo))) {
-                return;
+            if (!c.TryGotoNext(MoveType.After, x => x.MatchCall(mouseTextHackZoomInfo))) {
+                throw new BetterGameUI.Exception.FailToFindInstruction();
             }
 
             var afterVanillaBuffsBarDrawLabel = c.MarkLabel();
@@ -29,7 +36,7 @@ namespace BetterGameUI
                 x => x.MatchLdloc(55) &&
                 x.Next.MatchLdcI4(247) &&
                 x.Next.Next.MatchAdd())) {
-                return;
+                throw new BetterGameUI.Exception.FailToFindInstruction();
             }
 
             c.Emit(OpCodes.Ldsfld, typeof(Main).GetField("mH", BindingFlags.NonPublic | BindingFlags.Static));
