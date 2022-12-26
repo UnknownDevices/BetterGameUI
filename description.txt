@@ -4,7 +4,7 @@ Most features of this mod are toggable and tweakable so make sure to look into a
 Features: #(not exhaustive)
 - adds scrollbars to both buffs bars
 - adds configs to customize the rows, columns, alpha, and more of each buffs bar
-- changes the hotbar locking to now also lock the buffs bar below it
+- changes the locking of the hotbar to now also lock the buffs bar below it
 - adds a keybind to lock/unlock the hotbar
 - allows interacting with the hotbar (scrolling, clicking on, etc.) regardless of an item being in use or auto-select being on
 - changes the hotbar to now scale up the item pointed to by the hotbar, which won't always be the selected item

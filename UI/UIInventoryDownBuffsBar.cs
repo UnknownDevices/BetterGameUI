@@ -8,6 +8,11 @@ namespace BetterGameUI.UI
 {
     public sealed class UIInventoryDownBuffsBar : UIBuffsBar 
     {
+        public UIInventoryDownBuffsBar() {
+            ScrollbarPosition = ScrollbarRelPos.LeftOfIcons;
+            IconsHorOrder = BuffIconsHorOrder.LeftToRight;
+        }
+        
         public override bool IsLocked() {
             return Mod.ClientConfig.InventoryDownHotbarLockingAlsoLocksThis && Main.player[Main.myPlayer].hbLocked;
         }
@@ -22,8 +27,6 @@ namespace BetterGameUI.UI
             IconColsCount = (ushort)Mod.ClientConfig.InventoryDownIconCols;
             Left = StyleDimension.FromPixels(32 - ScrollbarReservedWidth + Mod.ClientConfig.InventoryDownXPosMod);
             Top = StyleDimension.FromPixels(76 + Mod.ClientConfig.InventoryDownYPosMod);
-            ScrollbarPosition = Mod.ClientConfig.InventoryDownScrollbarRelPos;
-            IconsHorOrder = Mod.ClientConfig.InventoryDownIconsHorOrder;
             Alpha = Mod.ClientConfig.InventoryDownAlpha;
             UIScrollbar.Alpha = Mod.ClientConfig.InventoryDownAlpha;
             UIScrollbar.UIScroller.Alpha = Mod.ClientConfig.InventoryDownAlpha;

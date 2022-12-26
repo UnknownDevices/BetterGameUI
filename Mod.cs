@@ -1,6 +1,7 @@
 // STFU Microsoft
-#pragma warning disable CA2211
+//#pragma warning disable CA2211
 
+using IL.Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Mono.Cecil.Cil;
@@ -18,6 +19,12 @@ using static Terraria.Main;
 
 namespace BetterGameUI
 {
+    public enum DisableableFeatures {
+        Hotbar,
+        ItemSlots,
+        Minimap,
+    }
+
     public class Mod : Terraria.ModLoader.Mod
     {
         // TODO: scrollbar alfa config
@@ -31,20 +38,21 @@ namespace BetterGameUI
         // FIXME: text of baner buff icon has trouble displaying full text if the icon is too low on the screen - 12/22/22: can't replicate bug
         public static event Action OnClientConfigChanged;
 
+        // null if the latest load set no error messages
+        public static Func<string> LatestLoadFirstErrorMessage { get; private set; }
         // updated every frame by DrawInterface_Logic_0
         public static List<int> ActiveBuffsIndexes { get; set; }
         public static ClientConfig ClientConfig { get; set; }
 
         internal static void RaiseClientConfigChanged() => OnClientConfigChanged?.Invoke();
 
-        // TODO: unload
         public override void Load() {
             IL.Terraria.Main.DrawInventory += IL_Main_DrawInventory;
-            if (!ClientConfig.DisableThisModChangesToTheItemSlots) {
+            if (!ClientConfig.DisableChangesToTheItemSlots) {
                 IL.Terraria.UI.ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color +=
                     IL_ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color;
             }
-            if (!ClientConfig.DisableThisModChangesToTheHotbar) {
+            if (!ClientConfig.DisableChangesToTheHotbar) {
                 IL.Terraria.Player.Update += IL_Player_Update;
                 On.Terraria.Player.ScrollHotbar += On_Player_ScrollHotbar;
             }
@@ -55,17 +63,22 @@ namespace BetterGameUI
         }
 
         public override void Unload() {
-            IL.Terraria.Main.DrawInventory -= IL_Main_DrawInventory;
-            IL.Terraria.UI.ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color -=
-                IL_ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color;
-            IL.Terraria.Player.Update -= IL_Player_Update;
-            On.Terraria.Player.ScrollHotbar -= On_Player_ScrollHotbar;
+            LatestLoadFirstErrorMessage = null;
             
             OnClientConfigChanged = null;
             ActiveBuffsIndexes = null;
             ClientConfig = null;
 
             BetterGameUI.Assets.Unload();
+        }
+
+        public static bool TrySetLatestLoadFirstErrorMessage(Func<string> message) {
+            if (LatestLoadFirstErrorMessage != null) {
+                return false;
+            }
+
+            LatestLoadFirstErrorMessage = message;
+            return true;
         }
 
         public static void IL_Main_DrawInventory(ILContext il) {
@@ -109,6 +122,9 @@ namespace BetterGameUI
             il.IL.RemoveAt(1423);
             il.IL.RemoveAt(1423);
             il.IL.RemoveAt(1423);
+
+            // TODO: ! remove
+            TrySetLatestLoadFirstErrorMessage(Messages.ErrorLoadingChangesToTheHotbar);
         }
 
         public static void On_Player_ScrollHotbar(On.Terraria.Player.orig_ScrollHotbar orig, Terraria.Player player,

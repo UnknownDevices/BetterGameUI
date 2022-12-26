@@ -29,15 +29,11 @@ namespace BetterGameUI.UI
 
         public override bool IsMouseScrollFocusingThis() {
             return Player.MouseScrollIsFocusingBuffsBar |
-                (Mod.ClientConfig.MouseScrollFocusesMouseHoveredUI && UIBuffsBar.IsMouseHoveringHitbox() && IsEnabled);
+                (Mod.ClientConfig.MouseScrollFocusesHoveredBuffsBar && UIBuffsBar.IsMouseHoveringHitbox() && IsEnabled);
         }
 
         public override bool IsDraggingScrollerAllowed() {
             return Mod.ClientConfig.AllowScrollerDragging && !UIBuffsBar.IsLocked();
-        }
-
-        public override bool AllowScrollerSnappingToCursor() {
-            return Mod.ClientConfig.AllowScrollerSnappingToCursor;
         }
 
         public override int MouseScroll() {

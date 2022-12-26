@@ -95,7 +95,7 @@ namespace BetterGameUI.UI
                         ScrollerDraggingPointY = (float)Math.Clamp(mouseY - UIScroller.GetDimensions().Y, 0,
                             UIScroller.GetDimensions().Height);
                     }
-                    else if (HoldingLeftMouse && AllowScrollerSnappingToCursor()) { 
+                    else if (HoldingLeftMouse) {
                         if (0 < mouseY - UIScroller.GetDimensions().Y) {
                             scrolledNotchesBeforeClamp++;
                         }
@@ -132,9 +132,7 @@ namespace BetterGameUI.UI
                     ScrollerDraggingPointY = (float)Math.Clamp(mouseY - UIScroller.GetDimensions().Y, 0,
                             UIScroller.GetDimensions().Height);
                 }
-                if (!float.IsNaN(ScrollerDraggingPointY) || IsScrollerHitboxHovered() |
-                    (Mod.ClientConfig.AllowScrollerSnappingToCursor && IsHovered())) 
-                {
+                if (!float.IsNaN(ScrollerDraggingPointY) || IsScrollerHitboxHovered() || IsHovered()) {
                     Main.player[Main.myPlayer].mouseInterface = true;
                 }
             }
@@ -152,10 +150,6 @@ namespace BetterGameUI.UI
         }
 
         public virtual bool IsDraggingScrollerAllowed() {
-            return true;
-        }
-
-        public virtual bool AllowScrollerSnappingToCursor() {
             return true;
         }
 

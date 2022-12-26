@@ -90,10 +90,6 @@ namespace BetterGameUI.UI
             }
         }
 
-        public virtual bool IsLocked() {
-            return false;
-        }
-
         public virtual void UpdateClientConfigDependencies() {
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
                 IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
@@ -110,6 +106,10 @@ namespace BetterGameUI.UI
             }
 
             UIScrollbar.UIScroller.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinScrollerHeight);
+        }
+
+        public virtual bool IsLocked() {
+            return false;
         }
 
         public virtual void HandleClientConfigChanged() {

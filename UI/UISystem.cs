@@ -118,7 +118,7 @@ namespace BetterGameUI.UI
                     InterfaceScaleType.UI);
             }
 
-            if (!BetterGameUI.Mod.ClientConfig.DisableThisModChangesToTheHotbar) {
+            if (!BetterGameUI.Mod.ClientConfig.DisableChangesToTheHotbar) {
                 index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Hotbar"));
                 if (index != -1) {
                     layers[index] = new LegacyGameInterfaceLayer(
