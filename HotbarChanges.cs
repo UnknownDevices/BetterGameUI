@@ -25,10 +25,10 @@ namespace BetterGameUI
                 IL.Terraria.Player.Update += IL_Player_Update;
             }
             catch (System.Reflection.TargetInvocationException e) {
-                throw new BetterGameUI.Exception.LoadHotbarChanges(e);
+                throw new BetterGameUI.Exception.LoadingHotbarChanges(e);
             }
-            catch (BetterGameUI.Exception.FailToFindInstruction e) {
-                throw new BetterGameUI.Exception.LoadHotbarChanges(e);
+            catch (BetterGameUI.Exception.InstructionNotFound e) {
+                throw new BetterGameUI.Exception.LoadingHotbarChanges(e);
             }
             
             On.Terraria.Player.ScrollHotbar += On_Player_ScrollHotbar;
@@ -45,7 +45,6 @@ namespace BetterGameUI
                 typeof(HotbarChanges).GetMethod("Player_Update_Detour")));
             il.IL.InsertAfter(il.Instrs[1419], il.IL.Create(OpCodes.Ldarg_0));
 
-            // remove instructions which are not gonna be run to compensate for the instructions inserted
             il.IL.RemoveAt(1423);
             il.IL.RemoveAt(1423);
             il.IL.RemoveAt(1423);

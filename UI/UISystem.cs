@@ -16,11 +16,11 @@ namespace BetterGameUI.UI
         public static UserInterface UserInterfaceMap;
         public static GameTime LastUpdateUIGameTime;
 
-        public static UIInventoryDownBuffsBar UIInventoryDownBuffsBar =>
-            UserInterfaceInventoryDownBuffsBar.CurrentState as UIInventoryDownBuffsBar;
+        public static UIOffInventoryBuffsBar UIInventoryDownBuffsBar =>
+            UserInterfaceInventoryDownBuffsBar.CurrentState as UIOffInventoryBuffsBar;
         public static UIBasic UIMap => UserInterfaceMap.CurrentState as UIBasic;
-        public static UIInventoryUpBuffsBar UIInventoryUpBuffsBar =>
-            UserInterfaceMap.CurrentState.Children.First() as UIInventoryUpBuffsBar;
+        public static UIInventoryBuffsBar UIInventoryUpBuffsBar =>
+            UserInterfaceMap.CurrentState.Children.First() as UIInventoryBuffsBar;
 
         public static bool DrawInterface_Logic_0() {
             BetterGameUI.Mod.ActiveBuffsIndexes = new List<int>(Terraria.Player.MaxBuffs);
@@ -75,11 +75,11 @@ namespace BetterGameUI.UI
             if (!dedServ)
             {
                 UserInterfaceInventoryDownBuffsBar = new();
-                UserInterfaceInventoryDownBuffsBar.SetState(new UIInventoryDownBuffsBar());
+                UserInterfaceInventoryDownBuffsBar.SetState(new UIOffInventoryBuffsBar());
                 UIInventoryDownBuffsBar.Activate();
 
                 var inventoryBuffIconsBarParentUI = new UIBasic();
-                inventoryBuffIconsBarParentUI.Append(new UIInventoryUpBuffsBar());
+                inventoryBuffIconsBarParentUI.Append(new UIInventoryBuffsBar());
                 inventoryBuffIconsBarParentUI.Width = StyleDimension.FromPercent(1f);
                 UserInterfaceMap = new();
                 UserInterfaceMap.SetState(inventoryBuffIconsBarParentUI);

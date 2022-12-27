@@ -5,10 +5,10 @@ Mods: {
 		ExceptionMessage: {
 			LoadHotbarChanges: "\nThis mod encountered an issue while loading its changes to the hotbar.\nYou can try disabling any mods that might be conflicting with this one or you can try disabling this mod's changes to the hotbar in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
 			LoadItemSlotsChanges: "\nThis mod encountered an issue while loading its changes to the item slots.\nYou can try disabling any mods that might be conflicting with this one or you can try disabling this mod's changes to the item slots in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
-			LoadBuffsBarChanges: "\nThis mod encountered an issue while loading its changes to the buffs bars.\nYou can try disabling any mods that might be conflicting with this one.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
+			LoadBuffsBarsChanges: "\nThis mod encountered an issue while loading its changes to the buffs bars.\nYou can try disabling any mods that might be conflicting with this one.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
 		}
 		Message: {
-			ImportantChangeNotes: "[{0}] - {1}\n*  This mod broke shit!\n*  You can disable this startup message in config."
+			ImportantChangeNotes: "[{0}] - {1}\n*  Hey! just letting you know the latest update has set many of this mod's configs back to default!\n*  While you see into that, make sure to also disable this message for future startups\n\n*  As always, the change notes can be found on the Steam Workshop"
 		}
 		Config: {
 			Title: {

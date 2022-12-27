@@ -10,10 +10,10 @@ namespace BetterGameUI
                     IL_ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color;
             }
             catch (System.Reflection.TargetInvocationException e) {
-                throw new BetterGameUI.Exception.LoadItemSlotsChanges(e);
+                throw new BetterGameUI.Exception.LoadingItemSlotsChanges(e);
             }
-            catch (BetterGameUI.Exception.FailToFindInstruction e) {
-                throw new BetterGameUI.Exception.LoadItemSlotsChanges(e);
+            catch (BetterGameUI.Exception.InstructionNotFound e) {
+                throw new BetterGameUI.Exception.LoadingItemSlotsChanges(e);
             }
         }
 

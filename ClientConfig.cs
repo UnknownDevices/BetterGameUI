@@ -22,10 +22,6 @@ namespace BetterGameUI
         [Tooltip("New updates may re-enable this feature")]
         public bool ShowStartupMessageForImportantChangeNotes_0_3_6_0 { get; set; }
 
-        [DefaultValue(true)]
-        [Label("ShowErrorMessages")]
-        public bool ShowErrorMessages { get; set; }
-
         // ------------- Compatibility Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.CompatibilityConfig")]
@@ -86,24 +82,24 @@ namespace BetterGameUI
         [Range(10, 100f)]
         [Label("$Mods.BetterGameUI.Config.Label.Alpha")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Alpha")]
-        public int InventoryDownAlpha { get; set; }
+        public int OffInventoryAlpha { get; set; }
 
         [DefaultValue(2)]
         [Range((ushort)1, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconRows")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconRows")]
-        public int InventoryDownIconRows{ get; set; }
+        public int OffInventoryIconRows { get; set; }
 
         [DefaultValue(11)]
         [Range((ushort)1, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconCols")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconCols")]
-        public int InventoryDownIconCols { get; set; }
+        public int OffInventoryIconCols { get; set; }
 
         [DefaultValue(true)]
         [Label("$Mods.BetterGameUI.Config.Label.HotbarLockingAlsoLocksThis")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.HotbarLockingAlsoLocksThis")]
-        public bool InventoryDownHotbarLockingAlsoLocksThis { get; set; }
+        public bool OffInventoryHotbarLockingAlsoLocksThis { get; set; }
 
         // ------------- Inventory's Buffs Bar Config ------------- //
 
@@ -112,18 +108,18 @@ namespace BetterGameUI
         [Range(10, 100)]
         [Label("$Mods.BetterGameUI.Config.Label.Alpha")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Alpha")]
-        public int InventoryUpAlpha { get; set; }
+        public int InventoryAlpha { get; set; }
 
         [DefaultValue(3)]
         [Range((ushort)1, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconRows")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconRows")]
-        public int InventoryUpIconRows { get; set; }
+        public int InventoryIconRows { get; set; }
 
         [DefaultValue(6)]
         [Range((ushort)1, ushort.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.IconCols")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconCols")]
-        public int InventoryUpIconCols { get; set; }
+        public int InventoryIconCols { get; set; }
     }
 }
