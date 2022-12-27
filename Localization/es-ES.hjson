@@ -8,7 +8,7 @@
 			LoadBuffsBarsChanges: "\nEste mod encontró un problema mientras cargaba sus cambios a las barras de bufos.\nPuedes intentar desactivar cualquier mod que pueda estar confligiendo con este.\nTambién puedes reportarme este problema en Discord: UnknownDevices#5926.\n"
 		}
 		Message: {
-			ImportantChangeNotes: "[{0}] - {1}\n*  Ey! solo dejándote saber que la ultima actualización ha revertido varias de las configuraciones de este mod!\n*  Mientras estas allí, asegurate de también desactivar este mensaje para la siguiente vez que entres\n\n*  Como siempre, las notas de cambios pueden ser encontradas en el Taller de Steam"
+			ImportantChangeNotes: "[{0}] - {1}\n*  Ey! solo dejándote saber que la ultima actualización ha revertido varias de las configuraciones de este mod!\n*  Mientras estas allí, asegurate de también desactivar este mensaje para la siguiente vez que entres\n\n*  Como siempre, las notas de cambios de esta actualizacion pueden ser encontradas en el Taller de Steam"
 		}
 		Config: {
 			Title: {
@@ -23,6 +23,7 @@
 				InventoryBuffsBarConfig: "Configuración De La Barra De Bufos Del Inventario"
 			}
 			Label: {
+				ShowStartupMessageForImportantChangeNotes: "Muestra Mensaje Con Las Notas De Cambios Importantes"
 				DisableChangesToTheHotbar: "Desactiva Los Cambios De Este Mod A La Barra De Acceso Rapido"
 				DisableChangesToTheItemSlots: "Desactiva Los Cambios De Este Mod A Las Ranuras De Ítems"
 				BuffsBarHitboxMod: "Modificador Del Hitbox De La Barra De Bufos"
@@ -38,18 +39,19 @@
 				HotbarLockingAlsoLocksThis: "El Bloqueo De La Barra De Acceso Rápido También Bloquea Esto"
 			}
 			Tooltip: {
+				ShowStartupMessageForImportantChangeNotes: "Si esta activado, un mensaje con cualquier nota de cambio importante de la ultima actualización sera mostrado al entrar a un mundo.\nFuturas actualizaciones pueden re-activar esta función"
 				DisableChangesToTheHotbar: "Si esta activado, este mod no realizara ningún cambio a la barra de acceso rápido.\nUtil si estos confligen con otro mod que tienes instalado o si prefieres el comportamiento vanilla.\nRequire recargar los mods."
 				DisableChangesToTheItemSlots: "Si esta activado, este mod no realizara ningún cambio a las ranuras de ítems.\nUtil si estos confligen con otro mod que tienes instalado o si prefieres el comportamiento vanilla.\nRequire recargar los mods."
 				BuffsBarHitboxMod: "Medido en pixels. Modifica el tamaño del hitbox usado por la barra de bufos para interactuar con el cursor.\nPor defecto, el tamaño del hitbox es el mismo que el de la UI."
-				MouseScrollFocusesHoveredBuffsBar: "Si esta activado, colocar el cursor sobre una barra de bufos causara que esta reciba cualquier input de el desplazamiento de la rueda."
-				MinScrollerHeight: "Medido en pixels. Determina la minima altura un desplazador puede tener.\nEl valor tiene que ser 6 o mayor."				
+				MouseScrollFocusesHoveredBuffsBar: "Si esta activado, colocar el cursor sobre una barra de bufos causara que esta reciba cualquier input del desplazamiento de la rueda."
+				MinScrollerHeight: "Medido en pixels. Determina la minima altura un desplazador puede tener.\nEl valor tiene que ser 6 o mayor."
 				SmartHideScrollbar: "Si esta activado, las barras de desplazamiento serán ocultados cuando sean redundantes, como cuando solo haya una pagina de contenido."
 				AllowScrollerDragging: "Si esta activado, clicar en un desplazador permitirá arrastrarlo hasta que este clic sea soltado."
-				AllowScrollerSnappingToCursor: "Si esta activado, clicar una barra de desplazamiento causara que su desplazador se dirija a la posición de tu cursor."				
+				AllowScrollerSnappingToCursor: "Si esta activado, clicar una barra de desplazamiento causara que su desplazador se dirija a la posición de tu cursor."
 				InvertMouseScrollForScrollbar: "Si esta activado, el desplazamiento de la rueda recibido por una barra de desplazamiento sera invertido."
 				Alpha: "Determina el alfa color de esta UI.\nEl valor tiene que encontrarse entre 10 y 100."
-				IconRows: "Determina la cantidad de filas de iconos de bufos de esta UI.\nValor tiene que ser mayor o igual a 1."
-				IconCols: "Determina la cantidad de columnas de iconos de bufos de esta UI.\nValor tiene que ser mayor o igual a 1."
+				IconRows: "Determina la cantidad de filas de iconos de bufos de esta UI.\nEl valor tiene que ser 1 o mayor."
+				IconCols: "Determina la cantidad de columnas de iconos de bufos de esta UI.\nEl valor tiene que ser 1 o mayor."
 				HotbarLockingAlsoLocksThis: "Si esta activado, bloquear la barra de acceso rápido también bloqueara esto.\nPuedes bloquear la barra de acceso rápido clicando el pequeño icono de cerrojo en la esquina superior-izquierda de la pantalla mientras el inventario esta arriba.\nUIs bloqueadas no interactúan con el cursor."
 			}
 		}

@@ -18,8 +18,8 @@ namespace BetterGameUI
 
         [Header("$Mods.BetterGameUI.Config.Header.NotificationsConfig")]
         [DefaultValue(true)]
-        [Label("ShowStartupMessageForImportantChangeNotes")]
-        [Tooltip("New updates may re-enable this feature")]
+        [Label("$Mods.BetterGameUI.Config.Label.ShowStartupMessageForImportantChangeNotes")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.ShowStartupMessageForImportantChangeNotes")]
         public bool ShowStartupMessageForImportantChangeNotes_0_3_6_0 { get; set; }
 
         // ------------- Compatibility Config ------------- //
@@ -79,7 +79,7 @@ namespace BetterGameUI
 
         [Header("$Mods.BetterGameUI.Config.Header.OffInventoryBuffsBarConfig")]
         [DefaultValue(40)]
-        [Range(10, 100f)]
+        [Range(10, 100)]
         [Label("$Mods.BetterGameUI.Config.Label.Alpha")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Alpha")]
         public int OffInventoryAlpha { get; set; }
