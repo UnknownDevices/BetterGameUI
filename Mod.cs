@@ -28,7 +28,6 @@ namespace BetterGameUI
         public static event Action OnClientConfigChanged;
         public static ClientConfig ClientConfig { get; internal set; }
         public static List<int> ActiveBuffsIndexes { get; internal set; }
-        public static Func<string> LatestLoadFirstErrorMessage { get; internal set; }
 
         internal static void RaiseClientConfigChanged() => OnClientConfigChanged?.Invoke();
 
@@ -50,19 +49,8 @@ namespace BetterGameUI
             OnClientConfigChanged = null;
             ClientConfig = null;
             ActiveBuffsIndexes = null;
-            LatestLoadFirstErrorMessage = null;
 
             BetterGameUI.Assets.Unload();
         }
-
-        public static bool TrySetLatestLoadFirstErrorMessage(Func<string> message) {
-            if (LatestLoadFirstErrorMessage != null) {
-                return false;
-            }
-
-            LatestLoadFirstErrorMessage = message;
-            return true;
-        }
-
     }
 }
