@@ -70,7 +70,7 @@ namespace BetterGameUI
             // ++:     }
             //   :
             //   :     if (player.selectedItem == slot && highlightThingsForMouse) {
-            c.Prev.Operand = label;
+            c.Next.Next.Next.Next.Operand = label;
         }
     }
 }
