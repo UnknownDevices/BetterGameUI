@@ -1,7 +1,7 @@
 ﻿Mods: {
 	BetterGameUI: {
 		CompactName: "BetterGameUI"
-		Version: "0.3.7.0"
+		Version: "0.3.7.1"
 		ExceptionMessage: {
 			LoadBuffsBarsEdits: "\nEste mod encontró un problema mientras cargaba sus cambios a las barras de bufos.\nPuedes intentar desactivar cualquier mod que pueda estar confligiendo con este.\nTambién puedes reportarme este problema en Discord: UnknownDevices#5926.\n"
 			LoadAccessorySlotsEdits: "\nEste mod encontró un problema mientras cargaba sus cambios al las ranuras de accesorios\nPuedes intentar desactivar cualquier mod que pueda estar confligiendo con este o puedes intentar desactivar los cambios de este mod a la barra de acceso rápido.\nTambién puedes reportarme este problema en Discord: UnknownDevices#5926.\n"
