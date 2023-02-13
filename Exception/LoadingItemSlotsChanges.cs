@@ -3,13 +3,13 @@ using Terraria.ModLoader;
 
 namespace BetterGameUI.Exception
 {
-    public class LoadingItemSlotsChanges : System.Exception
+    public class LoadingItemSlotsEdits : System.Exception
     {
-        public LoadingItemSlotsChanges() : base(
-            LocalizationLoader.GetOrCreateTranslation("Mods.BetterGameUI.ExceptionMessage.LoadItemSlotsChanges").
+        public LoadingItemSlotsEdits() : base(
+            LocalizationLoader.GetOrCreateTranslation("Mods.BetterGameUI.ExceptionMessage.LoadItemSlotsEdits").
             GetTranslation(Language.ActiveCulture)) { }
-        public LoadingItemSlotsChanges(System.Exception innerException) : base(
-            LocalizationLoader.GetOrCreateTranslation("Mods.BetterGameUI.ExceptionMessage.LoadItemSlotsChanges").
+        public LoadingItemSlotsEdits(System.Exception innerException) : base(
+            LocalizationLoader.GetOrCreateTranslation("Mods.BetterGameUI.ExceptionMessage.LoadItemSlotsEdits").
             GetTranslation(Language.ActiveCulture), innerException) { }
     }
 }

@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace BetterGameUI.Reflection
 {
-    public class Player
+    public class PlayerReflection
     {
         public static readonly Action<Terraria.Player> HandleHotbar;
-        static Player() {
+         
+        static PlayerReflection() {
             HandleHotbar = typeof(Terraria.Player).
                 GetMethod("HandleHotbar", BindingFlags.NonPublic | BindingFlags.Instance).
                 CreateDelegate(typeof(Action<Terraria.Player>)) as Action<Terraria.Player>;

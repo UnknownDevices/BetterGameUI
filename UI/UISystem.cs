@@ -39,7 +39,6 @@ namespace BetterGameUI.UI
         }
 
         public static void Draw_InventoryBuffsBar(int mapHeight) {
-            // TODO: make mapHeight automatically call GetValue(null) on itself
             // TODO: do this in UIMap.Update
             if (UIMap.Height.Pixels != mapHeight) {
                 UIMap.Height = StyleDimension.FromPixels(mapHeight);
@@ -57,12 +56,11 @@ namespace BetterGameUI.UI
             }
 
             ResourceSetsManager.Draw();
-            // TODO: doesn't GameInterfaceLayer.Draw() already call spriteBatch.Begin? does it use the same params?
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None,
                 RasterizerState.CullCounterClockwise, null, UIScaleMatrix);
 
-            Reflection.Main.DrawInterface_Resources_Breath();
+            Reflection.MainReflection.DrawInterface_Resources_Breath();
             DrawInterface_Resources_ClearBuffs();
 
             UserInterfaceInventoryDownBuffsBar.Draw(spriteBatch, LastUpdateUIGameTime);
@@ -122,7 +120,7 @@ namespace BetterGameUI.UI
                 index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Hotbar"));
                 if (index != -1) {
                     layers[index] = new LegacyGameInterfaceLayer(
-                        "Vanilla: Hotbar", HotbarChanges.DrawInterface_Hotbar,
+                        "Vanilla: Hotbar", HotbarEdits.DrawInterface_Hotbar,
                         InterfaceScaleType.UI);
                 }
             }

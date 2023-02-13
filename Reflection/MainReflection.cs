@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace BetterGameUI.Reflection
 {
-    public class Main
+    public class MainReflection
     {
         public static readonly Action DrawInterface_Resources_Breath;
 
-        static Main() {
+        static MainReflection() {
             DrawInterface_Resources_Breath = typeof(Terraria.Main).
                 GetMethod("DrawInterface_Resources_Breath", BindingFlags.NonPublic | BindingFlags.Static).
                 CreateDelegate(typeof(Action)) as Action;

@@ -15,7 +15,7 @@ using static Terraria.Main;
 
 namespace BetterGameUI
 {
-    public static class HotbarChanges
+    public static class HotbarEdits
     {
         public static int PointedToItem { get; set; }
         public static bool HasControlUseItemStoppedSinceAnimationStarted { get; set; }
@@ -25,10 +25,10 @@ namespace BetterGameUI
                 IL.Terraria.Player.Update += IL_Player_Update;
             }
             catch (System.Reflection.TargetInvocationException e) {
-                throw new BetterGameUI.Exception.LoadingHotbarChanges(e);
+                throw new BetterGameUI.Exception.LoadingHotbarEdits(e);
             }
             catch (BetterGameUI.Exception.InstructionNotFound e) {
-                throw new BetterGameUI.Exception.LoadingHotbarChanges(e);
+                throw new BetterGameUI.Exception.LoadingHotbarEdits(e);
             }
             
             On.Terraria.Player.ScrollHotbar += On_Player_ScrollHotbar;
@@ -37,12 +37,12 @@ namespace BetterGameUI
         public static void IL_Player_Update(ILContext il) {
             // TODO: document this process
             il.IL.InsertAfter(il.Instrs[1854], il.IL.Create(OpCodes.Call, 
-                typeof(HotbarChanges).GetMethod("Player_Update_Detour")));
+                typeof(HotbarEdits).GetMethod("Player_Update_Detour")));
             il.IL.InsertAfter(il.Instrs[1854], il.IL.Create(OpCodes.Ldarg_0));
 
             il.IL.InsertAfter(il.Instrs[1419], il.IL.Create(OpCodes.Br, il.Instrs[1966]));
             il.IL.InsertAfter(il.Instrs[1419], il.IL.Create(OpCodes.Call, 
-                typeof(HotbarChanges).GetMethod("Player_Update_Detour")));
+                typeof(HotbarEdits).GetMethod("Player_Update_Detour")));
             il.IL.InsertAfter(il.Instrs[1419], il.IL.Create(OpCodes.Ldarg_0));
 
             il.IL.RemoveAt(1423);
@@ -68,7 +68,7 @@ namespace BetterGameUI
 
             PointedToItem += Offset;
             if (Offset != 0) {
-                Reflection.SoundEngine.PlaySound(12);
+                Reflection.SoundEngineReflection.PlaySound(12);
                 int num = PointedToItem - Offset;
                 player.DpadRadial.ChangeSelection(-1);
                 player.CircularRadial.ChangeSelection(-1);
@@ -77,7 +77,7 @@ namespace BetterGameUI
 
             if (player.changeItem >= 0) {
                 if (PointedToItem != player.changeItem)
-                    Reflection.SoundEngine.PlaySound(12);
+                    Reflection.SoundEngineReflection.PlaySound(12);
 
                 PointedToItem = player.changeItem;
                 player.changeItem = -1;
@@ -179,7 +179,7 @@ namespace BetterGameUI
             }
 
             if (prevPointedToItem != PointedToItem) {
-                Reflection.SoundEngine.PlaySound(12);
+                Reflection.SoundEngineReflection.PlaySound(12);
                 if (CaptureManager.Instance.Active) {
                     CaptureManager.Instance.Active = false;
                 }
@@ -196,11 +196,11 @@ namespace BetterGameUI
                 CaptureManager.Instance.Scrolling();
             }
             else if (!flag8) {
-                if (Reflection.PlayerInput.GetMouseInModdedUI().Count > 0) {
+                if (Reflection.PlayerInputReflection.GetMouseInModdedUI().Count > 0) {
                     //Do nothing
                 }
                 else if (!Main.playerInventory) {
-                    Reflection.Player.HandleHotbar(player);
+                    Reflection.PlayerReflection.HandleHotbar(player);
                 }
                 else {
                     int num8 = Terraria.Player.GetMouseScrollDelta();
@@ -244,7 +244,7 @@ namespace BetterGameUI
                     }
                 }
 
-                Reflection.PlayerInput.GetMouseInModdedUI().Clear();
+                Reflection.PlayerInputReflection.GetMouseInModdedUI().Clear();
             }
 
             if (player.controlUseItem) {

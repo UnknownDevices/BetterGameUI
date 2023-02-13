@@ -13,14 +13,13 @@ namespace BetterGameUI
         public override void OnLoaded() => BetterGameUI.Mod.ClientConfig = this;
         public override void OnChanged() => BetterGameUI.Mod.RaiseClientConfigChanged();
 
-
         // ------------- Notifications Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.NotificationsConfig")]
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         [Label("$Mods.BetterGameUI.Config.Label.ShowStartupMessageForImportantChangeNotes")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.ShowStartupMessageForImportantChangeNotes")]
-        public bool ShowStartupMessageForImportantChangeNotes_0_3_6_0 { get; set; }
+        public bool ShowStartupMessageForImportantChangeNotes_0_3_7_0 { get; set; }
 
         // ------------- Compatibility Config ------------- //
 
@@ -37,6 +36,12 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.DisableChangesToTheItemSlots")]
         public bool DisableChangesToTheItemSlots { get; set; }
 
+        [ReloadRequired]
+        [DefaultValue(false)]
+        [Label("$Mods.BetterGameUI.Config.Label.DisableChangesToTheAccessorySlots")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.DisableChangesToTheAccessorySlots")]
+        public bool DisableChangesToTheAccessorySlots { get; set; }
+
         // ------------- General Buffs Bar Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.GeneralBuffsBarConfig")]
@@ -51,9 +56,6 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.MouseScrollFocusesHoveredBuffsBar")]
         public bool MouseScrollFocusesHoveredBuffsBar { get; set; }
 
-        // ------------- General Scrollbar Config ------------- //
-
-        [Header("$Mods.BetterGameUI.Config.Header.GeneralScrollbarConfig")]
         [DefaultValue(12)]
         [Range((int)6, int.MaxValue)]
         [Label("$Mods.BetterGameUI.Config.Label.MinScrollerHeight")]
@@ -75,6 +77,15 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertMouseScrollForScrollbar")]
         public bool InvertMouseScrollForScrollbar { get; set; }
 
+        // ------------- Accessory Slots Config ------------- //
+        
+        [Header("$Mods.BetterGameUI.Config.Header.AccessorySlotsConfig")]
+        [DefaultValue(true)]
+        [Label("$Mods.BetterGameUI.Config.Label.InvertMouseScrollForScrollbar")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertMouseScrollForScrollbar")]
+        public bool AccessorySlots_InvertMouseScrollForScrollbar { get; set; }
+
+        // TODO: rename to hotbar's...??
         // ------------- Off Inventory's Buffs Bar Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.OffInventoryBuffsBarConfig")]

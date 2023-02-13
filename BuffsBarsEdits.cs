@@ -6,17 +6,17 @@ using Terraria;
 
 namespace BetterGameUI
 {
-    public static class BuffsBarsChanges
+    public static class BuffsBarsEdits
     {
         public static void Load() {
             try {
                 IL.Terraria.Main.DrawInventory += IL_Main_DrawInventory;
             }
             catch (System.Reflection.TargetInvocationException e) {
-                throw new BetterGameUI.Exception.LoadingBuffsBarsChanges(e);
+                throw new BetterGameUI.Exception.LoadingBuffsBarsEdits(e);
             }
             catch (System.Exception e) {
-                throw new BetterGameUI.Exception.LoadingBuffsBarsChanges(e);
+                throw new BetterGameUI.Exception.LoadingBuffsBarsEdits(e);
             }
         }
 

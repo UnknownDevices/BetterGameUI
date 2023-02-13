@@ -1,14 +1,15 @@
 Mods: {
 	BetterGameUI: {
 		CompactName: "BetterGameUI"
-		Version: "0.3.6.0"
+		Version: "0.3.7.0"
 		ExceptionMessage: {
-			LoadHotbarChanges: "\nThis mod encountered an issue while loading its changes to the hotbar.\nYou can try disabling any mods that might be conflicting with this one or you can try disabling this mod's changes to the hotbar in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
-			LoadItemSlotsChanges: "\nThis mod encountered an issue while loading its changes to the item slots.\nYou can try disabling any mods that might be conflicting with this one or you can try disabling this mod's changes to the item slots in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
-			LoadBuffsBarsChanges: "\nThis mod encountered an issue while loading its changes to the buffs bars.\nYou can try disabling any mods that might be conflicting with this one.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
+			LoadBuffsBarsEdits: "\nThis mod encountered an issue while loading its edits to the buffs bars.\nYou can try disabling any mods that might be conflicting with this one.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
+			LoadAccessorySlotsEdits: "\nThis mod encountered an issue while loading its edits to the accessory slots.\nYou can try disabling any mods that might be conflicting with this one or you can try disabling this mod's changes to the hotbar in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
+			LoadHotbarEdits: "\nThis mod encountered an issue while loading its edits to the hotbar.\nYou can try disabling any mods that might be conflicting with this one or you can try disabling this mod's changes to the hotbar in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
+			LoadItemSlotsEdits: "\nThis mod encountered an issue while loading its edits to the item slots.\nYou can try disabling any mods that might be conflicting with this one or you can try disabling this mod's changes to the item slots in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
 		}
 		Message: {
-			ImportantChangeNotes: "[{0}] - {1}\n*  Hey! just letting you know the latest update has set many of this mod's configs back to default!\n*  While you see into that, make sure to also disable this message for future startups\n\n*  As always, this update's change notes can be found on the Steam Workshop"
+			ImportantChangeNotes: ""
 		}
 		Config: {
 			Title: {
@@ -18,42 +19,44 @@ Mods: {
 				NotificationsConfig: "Notifications Config"
 				CompatibilityConfig: "Compatibility Config"
 				GeneralBuffsBarConfig: "General Buffs Bar Config"
-				GeneralScrollbarConfig: "General Scrollbar Config"
+				GeneralBuffsBarScrollbarConfig: "General Scrollbar Config"
+				AccessorySlotsConfig: "Accessory Slots Config"
 				OffInventoryBuffsBarConfig: "Off Inventory's Buffs Bar Config"
 				InventoryBuffsBarConfig: "Inventory's Buffs Bar Config"
 			}
 			Label: {
 				ShowStartupMessageForImportantChangeNotes: "Show Startup Message For Important Change Notes"
-				DisableChangesToTheHotbar: "Disable This Mod's Changes To The Hotbar"
-				DisableChangesToTheItemSlots: "Disable This Mod's Changes To The Item Slots"
-				BuffsBarHitboxMod: "Buffs Bar's Hitbox Modifier"
-				MouseScrollFocusesHoveredBuffsBar: "Mouse Scroll Focuses Hovered Buffs Bar"
+				DisableChangesToTheHotbar: "Disable This Mod's Edits To The Hotbar"
+				DisableChangesToTheItemSlots: "Disable This Mod's Edits To The Item Slots"
+				DisableChangesToTheAccessorySlots: "Disable This Mod's Edits To The Accessory Slots"
+				BuffsBarHitboxMod: "Hitbox Modifier"
+				MouseScrollFocusesHoveredBuffsBar: "Hovering Focuses Mouse Scroll"
 				MinScrollerHeight: "Minimal Scroller's Height"
 				SmartHideScrollbar: "Smart Hide Scrollbar"
 				AllowScrollerDragging: "Allow Scroller Dragging"
 				AllowScrollerSnappingToCursor: "Allow Scroller Snapping To Cursor"
 				InvertMouseScrollForScrollbar: "Invert Mouse Scroll For Scrollbar"
-				DoNotLockMouseScrollWhileUsingAnItem: "Hotbar Is Always Interactive"
 				Alpha: "Alpha"
 				IconRows: "Icon Rows"
 				IconCols: "Icon Columns"
 				HotbarLockingAlsoLocksThis: "Hotbar Locking Also Locks This"
 			}
 			Tooltip: {
-				ShowStartupMessageForImportantChangeNotes: "If enabled, a message with any important change notes from the last update will be shown on startup.\nFuture updates may re-enable this feature."
-				DisableChangesToTheHotbar: "If enabled, this mod will not realize any changes to the hotbar.\nUseful if these conflict with another mod you have installed or if you prefer the vanilla behaviour.\nRequires reloading mods."
-				DisableChangesToTheItemSlots: "If enabled, this mod will not realize any changes to the item slots.\nUseful if these conflict with another mod you have installed or if you prefer the vanilla behaviour.\nRequires reloading mods."
-				BuffsBarHitboxMod: "Measured in pixels. Modifies the size of the hitbox a buffs' bar uses to interact with the cursor.\nBy default, the hitbox is the same size as the UI."
-				MouseScrollFocusesHoveredBuffsBar: "If enabled, hovering your cursor over a buffs bar will cause this to receive the mouse scroll input."
-				MinScrollerHeight: "Measured in pixels. Determines the smallest height a scroller can be.\nValue must be 6 or greater."
-				SmartHideScrollbar: "If enabled, scrollbars will be hidden when redundant, such as when there is only one page of content."
-				AllowScrollerDragging: "If enabled, clicking on a scroller will allow dragging it until said click is released."
-				AllowScrollerSnappingToCursor: "If enabled, clicking on a scrollbar will cause its scroller to snap to your cursor's position."
-				InvertMouseScrollForScrollbar: "If enabled, mouse scroll received by a scrollbar will be inverted."
+				ShowStartupMessageForImportantChangeNotes: "If enabled, a message with any important change notes from the latest update will be shown on startup.\nFuture updates may re-enable this feature."
+				DisableChangesToTheHotbar: "If enabled, this mod will not realize any edits to the hotbar.\nUseful if these conflict with another mod you have installed or if you prefer the vanilla behaviour.\nRequires reloading mods."
+				DisableChangesToTheItemSlots: "If enabled, this mod will not realize any edits to the item slots.\nUseful if these conflict with another mod you have installed or if you prefer the vanilla behaviour.\nRequires reloading mods."
+				DisableChangesToTheAccessorySlots: "If enabled, this mod will not realize any edits to the accessory slots.\nUseful if these conflict with another mod you have installed or if you prefer the vanilla behaviour.\nRequires reloading mods."
+				BuffsBarHitboxMod: "Measured in pixels. Modifies the size of the hitbox used by the UI to interact with the cursor.\nBy default, the hitbox is the same size as the UI."
+				MouseScrollFocusesHoveredBuffsBar: "If enabled, hovering your cursor over the UI will cause this to receive the mouse scroll input."
+				MinScrollerHeight: "Measured in pixels. Determines the smallest height the scroller can be.\nValue must be 6 or greater."
+				SmartHideScrollbar: "If enabled, the scrollbar will be hidden when redundant, such as when there is only one page of content."
+				AllowScrollerDragging: "If enabled, left clicking on the scroller will allow dragging it until the left click is released."
+				AllowScrollerSnappingToCursor: "If enabled, clicking on the scrollbar will cause its scroller to snap to your cursor's position."
+				InvertMouseScrollForScrollbar: "If enabled, mouse scroll received by the scrollbar will be inverted."
 				Alpha: "Determines the alpha of this UI's color.\nValue must be between 10 and 100"
 				IconRows: "Determines the amount of rows of buff icons in this UI.\nValue must be 1 or greater."
 				IconCols: "Determines the amount of columns of buff icons in this UI.\nValue must be 1 or greater."
-				HotbarLockingAlsoLocksThis: "If enabled, locking the hotbar will also lock this UI.\nYou can lock the hotbar by clicking the little lock icon in the top-left of the screen while the inventory is up.\nLocked UIs do not interact with the cursor."
+				HotbarLockingAlsoLocksThis: "If enabled, locking the hotbar will also lock this UI.\nYou can lock the hotbar by clicking the lock icon on the top-left of the screen while on the inventory.\nLocked UIs do not interact with the cursor."
 			}
 		}
 	}
