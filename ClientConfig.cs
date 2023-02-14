@@ -19,11 +19,17 @@ namespace BetterGameUI
         [DefaultValue(false)]
         [Label("$Mods.BetterGameUI.Config.Label.ShowStartupMessageForImportantChangeNotes")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.ShowStartupMessageForImportantChangeNotes")]
-        public bool ShowStartupMessageForImportantChangeNotes_0_3_7_0 { get; set; }
+        public bool ShowStartupMessageForImportantChangeNotes_0_3_8_0 { get; set; }
 
         // ------------- Compatibility Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.CompatibilityConfig")]
+        [ReloadRequired]
+        [DefaultValue(false)]
+        [Label("$Mods.BetterGameUI.Config.Label.DisableChangesToTheBuffsBars")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.DisableChangesToTheBuffsBars")]
+        public bool DisableChangesToTheBuffsBars { get; set; }
+
         [ReloadRequired]
         [DefaultValue(false)]
         [Label("$Mods.BetterGameUI.Config.Label.DisableChangesToTheHotbar")]
@@ -42,7 +48,13 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.DisableChangesToTheAccessorySlots")]
         public bool DisableChangesToTheAccessorySlots { get; set; }
 
-        // ------------- General Buffs Bar Config ------------- //
+        [ReloadRequired]
+        [DefaultValue(false)]
+        [Label("$Mods.BetterGameUI.Config.Label.DisableChangesToTheMinimap")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.DisableChangesToTheMinimap")]
+        public bool DisableChangesToTheMinimap { get; set; }
+
+        // ------------- Buffs Bars Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.GeneralBuffsBarConfig")]
         [DefaultValue(0)]
@@ -73,20 +85,35 @@ namespace BetterGameUI
         public bool AllowScrollerDragging { get; set; }
 
         [DefaultValue(false)]
-        [Label("$Mods.BetterGameUI.Config.Label.InvertMouseScrollForScrollbar")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertMouseScrollForScrollbar")]
-        public bool InvertMouseScrollForScrollbar { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.InvertReceivedMouseScroll")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertReceivedMouseScroll")]
+        public bool BuffsBars_InvertReceivedMouseScroll { get; set; }
 
         // ------------- Accessory Slots Config ------------- //
         
         [Header("$Mods.BetterGameUI.Config.Header.AccessorySlotsConfig")]
         [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.InvertMouseScrollForScrollbar")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertMouseScrollForScrollbar")]
-        public bool AccessorySlots_InvertMouseScrollForScrollbar { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.InvertReceivedMouseScroll")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertReceivedMouseScroll")]
+        public bool AccessorySlots_InvertReceivedMouseScroll { get; set; }
 
-        // TODO: rename to hotbar's...??
-        // ------------- Off Inventory's Buffs Bar Config ------------- //
+        // ------------- Minimap Config ------------- //
+
+        [Header("$Mods.BetterGameUI.Config.Header.MinimapConfig")]
+        [DefaultValue(true)]
+        [Label("$Mods.BetterGameUI.Config.Label.HotbarLockingAlsoLocksThis")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.HotbarLockingAlsoLocksThis")]
+        public bool Minimap_HotbarLockingAlsoLocksThis { get; set; }
+
+        // ------------- Recipes List Config ------------- //
+
+        [Header("$Mods.BetterGameUI.Config.Header.RecipesListConfig")]
+        [DefaultValue(true)]
+        [Label("$Mods.BetterGameUI.Config.Label.InvertReceivedMouseScroll")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertReceivedMouseScroll")]
+        public bool RecipesList_InvertReceivedMouseScroll { get; set; }
+
+        // ------------- Hotbar's Buffs Bar Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.OffInventoryBuffsBarConfig")]
         [DefaultValue(40)]

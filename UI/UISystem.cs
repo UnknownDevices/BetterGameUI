@@ -104,16 +104,18 @@ namespace BetterGameUI.UI
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            layers.Insert(0, new LegacyGameInterfaceLayer(
+            int index = 0;
+            if (!BetterGameUI.Mod.ClientConfig.DisableChangesToTheBuffsBars) {
+                layers.Insert(0, new LegacyGameInterfaceLayer(
                     "BetterGameUI: Logic 0", DrawInterface_Logic_0,
                     InterfaceScaleType.None));
 
-            int index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
-            if (index != -1)
-            {
-                layers[index] = new LegacyGameInterfaceLayer(
-                    "Vanilla: Resource Bars", DrawInterface_ResourceBars,
-                    InterfaceScaleType.UI);
+                index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
+                if (index != -1) {
+                    layers[index] = new LegacyGameInterfaceLayer(
+                        "Vanilla: Resource Bars", DrawInterface_ResourceBars,
+                        InterfaceScaleType.UI);
+                }
             }
 
             if (!BetterGameUI.Mod.ClientConfig.DisableChangesToTheHotbar) {

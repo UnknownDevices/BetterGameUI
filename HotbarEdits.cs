@@ -35,21 +35,37 @@ namespace BetterGameUI
         }
 
         public static void IL_Player_Update(ILContext il) {
-            // TODO: document this process
-            il.IL.InsertAfter(il.Instrs[1854], il.IL.Create(OpCodes.Call, 
-                typeof(HotbarEdits).GetMethod("Player_Update_Detour")));
-            il.IL.InsertAfter(il.Instrs[1854], il.IL.Create(OpCodes.Ldarg_0));
+            var c = new ILCursor(il);
 
-            il.IL.InsertAfter(il.Instrs[1419], il.IL.Create(OpCodes.Br, il.Instrs[1966]));
-            il.IL.InsertAfter(il.Instrs[1419], il.IL.Create(OpCodes.Call, 
-                typeof(HotbarEdits).GetMethod("Player_Update_Detour")));
-            il.IL.InsertAfter(il.Instrs[1419], il.IL.Create(OpCodes.Ldarg_0));
+            if (!c.TryGotoNext(MoveType.Before,
+                x => x.MatchLdarg(0) &&
+                x.Next.MatchLdfld("Terraria.Player", "selectedItem") &&
+                x.Next.Next.MatchLdcI4(58) &&
+                x.Next.Next.Next.MatchBeq(out _) &&
+                x.Next.Next.Next.Next.MatchLdarg(0) &&
+                x.Next.Next.Next.Next.Next.MatchCall("Terraria.Player", "SmartSelectLookup"))) {
+                throw new BetterGameUI.Exception.InstructionNotFound();
+            }
 
-            il.IL.RemoveAt(1423);
-            il.IL.RemoveAt(1423);
-            il.IL.RemoveAt(1423);
-            il.IL.RemoveAt(1423);
-            il.IL.RemoveAt(1423);
+            var label = c.MarkLabel();
+
+            if (!c.TryGotoPrev(MoveType.Before,
+                x => x.MatchLdarg(0) &&
+                x.Next.MatchLdfld("Terraria.Player", "itemAnimation") &&
+                x.Next.Next.MatchBrtrue(out _) &&
+                x.Next.Next.Next.MatchLdarg(0) &&
+                x.Next.Next.Next.Next.MatchCall("Terraria.Player", "get_ItemTimeIsZero") &&
+                x.Next.Next.Next.Next.Next.MatchBrfalse(out _) &&
+                x.Next.Next.Next.Next.Next.Next.MatchLdarg(0) &&
+                x.Next.Next.Next.Next.Next.Next.Next.MatchLdfld("Terraria.Player", "reuseDelay") &&
+                x.Next.Next.Next.Next.Next.Next.Next.Next.MatchBrtrue(out _))) {
+                throw new BetterGameUI.Exception.InstructionNotFound();
+            }
+            c.MoveAfterLabels();
+
+            c.Emit(OpCodes.Ldarg_0);
+            c.EmitDelegate<Action<Terraria.Player>>(Player_Update_Detour);
+            c.Emit(OpCodes.Br, label);
         }
 
         public static void On_Player_ScrollHotbar(On.Terraria.Player.orig_ScrollHotbar orig, Terraria.Player player,
@@ -204,6 +220,10 @@ namespace BetterGameUI
                 }
                 else {
                     int num8 = Terraria.Player.GetMouseScrollDelta();
+                    if (!Mod.ClientConfig.RecipesList_InvertReceivedMouseScroll) {
+                        num8 *= -1;
+                    }
+
                     bool flag9 = true;
                     if (Main.recBigList) {
                         int num9 = 42;

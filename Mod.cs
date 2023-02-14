@@ -14,12 +14,6 @@ using Terraria.GameInput;
 
 namespace BetterGameUI
 {
-    public enum DisableableFeatures {
-        Hotbar,
-        ItemSlots,
-        Minimap,
-    }
-
     public class Mod : Terraria.ModLoader.Mod
     {
         // TODO: highlight the selected item even when this is in a coin or ammo slot
@@ -37,15 +31,20 @@ namespace BetterGameUI
         internal static void RaiseClientConfigChanged() => OnClientConfigChanged?.Invoke();
 
         public override void Load() {
-            BuffsBarsEdits.Load();
-            if (!ClientConfig.DisableChangesToTheItemSlots) {
-                ItemSlotsEdits.Load();
+            if (!ClientConfig.DisableChangesToTheBuffsBars) {
+                BuffsBarsEdits.Load();
             }
             if (!ClientConfig.DisableChangesToTheHotbar) {
                 HotbarEdits.Load();
             }
+            if (!ClientConfig.DisableChangesToTheItemSlots) {
+                ItemSlotsEdits.Load();
+            }
             if (!ClientConfig.DisableChangesToTheAccessorySlots) {
                 AccessorySlotsEdits.Load();
+            }
+            if (!ClientConfig.DisableChangesToTheMinimap) {
+                MinimapEdits.Load(); ;
             }
 
             if (Main.netMode != NetmodeID.Server) {

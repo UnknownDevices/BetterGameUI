@@ -13,7 +13,7 @@ namespace BetterGameUI
 
         public override void OnEnterWorld(Terraria.Player player) {
             // no important change notes this update
-            if (BetterGameUI.Mod.ClientConfig.ShowStartupMessageForImportantChangeNotes_0_3_7_0 && false) {
+            if (BetterGameUI.Mod.ClientConfig.ShowStartupMessageForImportantChangeNotes_0_3_8_0 && false) {
                 Main.NewText(Messages.ImportantChangeNotes(), Color.Yellow);
             }
         }

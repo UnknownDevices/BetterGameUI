@@ -47,7 +47,7 @@ namespace BetterGameUI.UI
             }
 
             output += base.MouseScroll();
-            return Mod.ClientConfig.InvertMouseScrollForScrollbar ? -output : output;
+            return Mod.ClientConfig.BuffsBars_InvertReceivedMouseScroll ? -output : output;
         }
 
         public override bool IsScrollerHitboxHovered() {

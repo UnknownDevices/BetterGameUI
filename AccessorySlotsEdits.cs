@@ -120,7 +120,7 @@ namespace BetterGameUI
 
             int scrollDelta = ModAccessorySlotPlayerReflection.GetScrollbarSlotPosition(AccessorySlotLoaderReflection.ModSlotPlayer
                 (Main.LocalPlayer));
-            scrollDelta += Mod.ClientConfig.AccessorySlots_InvertMouseScrollForScrollbar ?
+            scrollDelta += Mod.ClientConfig.AccessorySlots_InvertReceivedMouseScroll ?
                 (int)PlayerInput.ScrollWheelDelta / 120 :
                 -(int)PlayerInput.ScrollWheelDelta / 120;
             scrollDelta = Math.Min(scrollDelta, scrollIncrement);
