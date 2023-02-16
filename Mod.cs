@@ -11,6 +11,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
+using BetterGameUI.Edits;
 
 namespace BetterGameUI
 {
@@ -31,19 +32,19 @@ namespace BetterGameUI
         internal static void RaiseClientConfigChanged() => OnClientConfigChanged?.Invoke();
 
         public override void Load() {
-            if (!ClientConfig.DisableChangesToTheBuffsBars) {
+            if (!ClientConfig.Compatibility_DisableChangesToTheBuffsBars) {
                 BuffsBarsEdits.Load();
             }
-            if (!ClientConfig.DisableChangesToTheHotbar) {
+            if (!ClientConfig.Compatibility_DisableChangesToTheHotbar) {
                 HotbarEdits.Load();
             }
-            if (!ClientConfig.DisableChangesToTheItemSlots) {
+            if (!ClientConfig.Compatibility_DisableChangesToTheItemSlots) {
                 ItemSlotsEdits.Load();
             }
-            if (!ClientConfig.DisableChangesToTheAccessorySlots) {
+            if (!ClientConfig.Compatibility_DisableChangesToTheAccessorySlots) {
                 AccessorySlotsEdits.Load();
             }
-            if (!ClientConfig.DisableChangesToTheMinimap) {
+            if (!ClientConfig.Compatibility_DisableChangesToTheMinimap) {
                 MinimapEdits.Load(); ;
             }
 

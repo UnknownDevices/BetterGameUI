@@ -1,6 +1,7 @@
 ﻿// STFU Microsoft
 #pragma warning disable CA2211
 
+using BetterGameUI.Edits;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -39,7 +40,6 @@ namespace BetterGameUI.UI
         }
 
         public static void Draw_InventoryBuffsBar(int mapHeight) {
-            // TODO: do this in UIMap.Update
             if (UIMap.Height.Pixels != mapHeight) {
                 UIMap.Height = StyleDimension.FromPixels(mapHeight);
                 UserInterfaceMap.Recalculate();
@@ -67,7 +67,6 @@ namespace BetterGameUI.UI
             return true;
         }
 
-        // TODO: UIMap class
         public override void Load()
         {
             if (!dedServ)
@@ -105,7 +104,7 @@ namespace BetterGameUI.UI
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             int index = 0;
-            if (!BetterGameUI.Mod.ClientConfig.DisableChangesToTheBuffsBars) {
+            if (!BetterGameUI.Mod.ClientConfig.Compatibility_DisableChangesToTheBuffsBars) {
                 layers.Insert(0, new LegacyGameInterfaceLayer(
                     "BetterGameUI: Logic 0", DrawInterface_Logic_0,
                     InterfaceScaleType.None));
@@ -118,7 +117,7 @@ namespace BetterGameUI.UI
                 }
             }
 
-            if (!BetterGameUI.Mod.ClientConfig.DisableChangesToTheHotbar) {
+            if (!BetterGameUI.Mod.ClientConfig.Compatibility_DisableChangesToTheHotbar) {
                 index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Hotbar"));
                 if (index != -1) {
                     layers[index] = new LegacyGameInterfaceLayer(

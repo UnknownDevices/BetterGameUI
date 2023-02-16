@@ -23,9 +23,11 @@ namespace BetterGameUI.UI
 
         public ScrollbarRelPos ScrollbarPosition;
         public BuffIconsHorOrder IconsHorOrder;
+        public bool HoldingLeftMouse;
         public int HoveredIcon;
-        public ushort IconRowsCount;
-        public ushort IconColsCount;
+
+        public ushort RowsCountCount;
+        public ushort ColumnsCountCount;
 
         public UIBuffsBarScrollbar UIScrollbar {
             get => Elements[0] as UIBuffsBarScrollbar;
@@ -47,25 +49,33 @@ namespace BetterGameUI.UI
                 return;
             }
 
+
+            if (HoldingLeftMouse) {
+                if (!PlayerInput.Triggers.Current.MouseLeft) {
+                    HoldingLeftMouse = false;
+                }
+            }
+
+            //NewText($"{PlayerInput.IgnoreMouseInterface}, {mouseRight}, {mouseRightRelease}");
             Rectangle rec = GetDimensions().ToRectangle();
             int hoveredIcon = -1;
-            int iconsBegin = (int)UIScrollbar.ScrolledNotches * IconColsCount;
-            int iconsEnd = Math.Min(Mod.ActiveBuffsIndexes.Count - iconsBegin, IconRowsCount * IconColsCount);
+            int iconsBegin = (int)UIScrollbar.ScrolledNotches * ColumnsCountCount;
+            int iconsEnd = Math.Min(Mod.ActiveBuffsIndexes.Count - iconsBegin, RowsCountCount * ColumnsCountCount);
             for (int iconsI = 0; iconsI < iconsEnd; ++iconsI) {
                 int x = 0;
                 switch (IconsHorOrder) {
                     case BuffIconsHorOrder.LeftToRight:
-                        x = rec.Left + (IconWidth + IconToIconPad) * (iconsI % IconColsCount);
+                        x = rec.Left + (IconWidth + IconToIconPad) * (iconsI % ColumnsCountCount);
                         break;
                     case BuffIconsHorOrder.RightToLeft:
-                        x = rec.Left + (IconWidth + IconToIconPad) * (IconColsCount - 1 - (iconsI % IconColsCount));
+                        x = rec.Left + (IconWidth + IconToIconPad) * (ColumnsCountCount - 1 - (iconsI % ColumnsCountCount));
                         break;
                 }
                 if (ScrollbarPosition == ScrollbarRelPos.LeftOfIcons) {
                     x += ScrollbarReservedWidth;
                 }
 
-                int y = rec.Top + (IconHeight + IconTextHeight + IconToIconPad) * (iconsI / IconColsCount);
+                int y = rec.Top + (IconHeight + IconTextHeight + IconToIconPad) * (iconsI / ColumnsCountCount);
 
                 hoveredIcon = DrawBuffIcon(hoveredIcon, Mod.ActiveBuffsIndexes[iconsI + iconsBegin], x, y);
             }
@@ -92,9 +102,9 @@ namespace BetterGameUI.UI
 
         public virtual void UpdateClientConfigDependencies() {
             Width = StyleDimension.FromPixels(((IconWidth + IconToIconPad) *
-                IconColsCount) - IconToIconPad + ScrollbarReservedWidth);
+                ColumnsCountCount) - IconToIconPad + ScrollbarReservedWidth);
             Height = StyleDimension.FromPixels(((IconHeight + IconTextHeight + IconToIconPad) *
-                IconRowsCount) - IconToIconPad);
+                RowsCountCount) - IconToIconPad);
 
             switch (ScrollbarPosition) {
                 case ScrollbarRelPos.LeftOfIcons:
@@ -105,7 +115,7 @@ namespace BetterGameUI.UI
                     break;
             }
 
-            UIScrollbar.UIScroller.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.MinScrollerHeight);
+            UIScrollbar.UIScroller.MinHeight = StyleDimension.FromPixels(Mod.ClientConfig.BuffsBars_MinimalScrollersHeight);
         }
 
         public virtual bool IsLocked() {
@@ -120,8 +130,8 @@ namespace BetterGameUI.UI
         public virtual bool IsMouseHoveringHitbox() {
             float mouseX = PlayerInput.MouseInfo.X / Main.UIScale;
             float mouseY = PlayerInput.MouseInfo.Y / Main.UIScale;
-            return GetDimensions().GrowFromCenter(Mod.ClientConfig.BuffsBarHitboxMod).
-                Contains(mouseX, mouseY);
+            // TODO: is there still a need for this?
+            return GetDimensions().Contains(mouseX, mouseY);
         }
 
         public int DrawBuffIcon(int hoveredIcon, int buffSlotOnPlayer, int x, int y) {
@@ -143,10 +153,16 @@ namespace BetterGameUI.UI
                 hoveredIcon = buffSlotOnPlayer;
                 buffAlpha[buffSlotOnPlayer] += 0.15f;
 
-                player[myPlayer].mouseInterface = true;
-                if (mouseRight && mouseRightRelease) {
-                    if (BuffLoader.RightClick(buffTy, buffSlotOnPlayer)) {
-                        TryRemovingBuff(buffSlotOnPlayer, buffTy);
+                if (PlayerInput.Triggers.JustPressed.MouseLeft) {
+                    HoldingLeftMouse = true;
+                }
+
+                if (!PlayerInput.Triggers.Current.MouseLeft || HoldingLeftMouse) {
+                    Main.LocalPlayer.mouseInterface = true;
+                    if (mouseRight && mouseRightRelease) {
+                        if (BuffLoader.RightClick(buffTy, buffSlotOnPlayer)) {
+                            TryRemovingBuff(buffSlotOnPlayer, buffTy);
+                        }
                     }
                 }
             }

@@ -4,31 +4,38 @@ using MonoMod.Utils.Cil;
 using System.Reflection;
 using Terraria;
 
-namespace BetterGameUI
+namespace BetterGameUI.Edits
 {
     public static class BuffsBarsEdits
     {
-        public static void Load() {
-            try {
+        public static void Load()
+        {
+            try
+            {
                 IL.Terraria.Main.DrawInventory += IL_Main_DrawInventory;
             }
-            catch (System.Reflection.TargetInvocationException e) {
-                throw new BetterGameUI.Exception.LoadingBuffsBarsEdits(e);
+            catch (TargetInvocationException e)
+            {
+                throw new Exception.LoadingBuffsBarsEdits(e);
             }
-            catch (System.Exception e) {
-                throw new BetterGameUI.Exception.LoadingBuffsBarsEdits(e);
+            catch (System.Exception e)
+            {
+                throw new Exception.LoadingBuffsBarsEdits(e);
             }
         }
 
-        public static void IL_Main_DrawInventory(ILContext il) {
+        public static void IL_Main_DrawInventory(ILContext il)
+        {
             var c = new ILCursor(il);
 
+            // TODO: document
             var mouseTextHackZoomInfo = typeof(Main).GetMethod("MouseTextHackZoom",
                     BindingFlags.Public | BindingFlags.Instance,
                     new[] { typeof(string), typeof(int), typeof(byte), typeof(string) });
 
-            if (!c.TryGotoNext(MoveType.After, x => x.MatchCall(mouseTextHackZoomInfo))) {
-                throw new BetterGameUI.Exception.InstructionNotFound();
+            if (!c.TryGotoNext(MoveType.After, x => x.MatchCall(mouseTextHackZoomInfo)))
+            {
+                throw new Exception.InstructionNotFound();
             }
 
             var afterVanillaBuffsBarDrawLabel = c.MarkLabel();
@@ -36,8 +43,9 @@ namespace BetterGameUI
             if (!c.TryGotoPrev(MoveType.Before,
                 x => x.MatchLdloc(55) &&
                 x.Next.MatchLdcI4(247) &&
-                x.Next.Next.MatchAdd())) {
-                throw new BetterGameUI.Exception.InstructionNotFound();
+                x.Next.Next.MatchAdd()))
+            {
+                throw new Exception.InstructionNotFound();
             }
 
             c.Emit(OpCodes.Ldsfld, typeof(Main).GetField("mH", BindingFlags.NonPublic | BindingFlags.Static));

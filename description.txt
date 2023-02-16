@@ -1,31 +1,32 @@
-[ENG] Mainly QoL mod which improves various UIs in the game while keeping them 'vanilla'.
-Most features of this mod are toggable and tweakable so make sure to look into all of the configs available.
+[ENG] QoL mod which enhances many in-game UIs without changing them drastically.
+Most features of this mod are toggable and tweakable so make sure to have a look into the configs page.
 
 Features: #(not exhaustive)
-- adds scrollbars to both buffs bars
-- adds configs to customize the rows, columns and alpha of each buffs bar
-- changes the locking of the hotbar to now also lock the buffs bar below it
-- adds a keybind to lock/unlock the hotbar
-- allows interacting with the hotbar (scrolling, clicking on, etc.) regardless of an item being in use or auto-select being on
+- adds scrollbars to both buffs bars (do note that this mod does not increase the buff slots available to a player, you can use mods such as Fargo's Mutant Mod for this)
+- includes configs to customize the rows count, columns count and alpha of both buffs bar
+- changes the hotbar's buffs bar to now lock the hotbar is locked
+- changes the minimap to now lock when the hotbar is locked 
+- includes a keybind to lock and unlock the hotbar
+- changes the hotbar to now be interactable (scrolling, clicking on, etc.) regardless of an item being in use
 - changes the hotbar to now scale up the item pointed to by the hotbar, which won't always be the selected item
-- allows scrolling to go up or down the recipes list regardless of an item being in use
-- allows scrolling to zoom in or out on the fullscreen map regardless of an item being in use
-- changes the inventory to now also highlight items selected by auto-select, not just manually selected ones
-- fixes a vanilla bug where the hotbar is drawn for one frame when opening the bestiary or emotes window
-- fixes a vanilla bug where hovered buff icons remain highlighted between toggles of the inventory
+- changes the recipes list to now be scrollable regardless of an item being in use
+- changes the fullscreen map to now be zoomable regardless of an item being in use
+- changes the inventory to now highlight any selected item, not just hotbar ones
+- fixes a vanilla bug where the hotbar was drawn for one frame when opening the bestiary or emotes window
+- fixes a vanilla bug where hovered buff icons remained highlighted between toggles of the inventory
 
-This mod most likely doesn't work whith gamepads.
-Any bug report or suggestion is greatly appreciated. 
+This mod most likely doesn't work with gamepads.
+Any bug report or suggestion is greatly appreciated.
 
 This mod's repo on GitHub: https://github.com/UnknownDevices/BetterGameUI
 My Discord profile: UnknownDevices#5926
 
 
 
-[ESP] Mod principalmente de Calidad de Vida que mejora varias UIs en el juego manteniendolas 'vanilla'.
-La mayoría de las características de este mod son deshabilitables y modificables así que asegurate de tomar un vistazo a todas las configuraciones disponibles.
+[ESP] Mod de Calidad de Vida que mejora varias UIs en el juego sin cambiarlas de manera drastica.
+La mayoría de las características de este mod son desactivables y modificables así que asegúrate de darle un vistazo a la pagina de configuraciones.
 
-Este mod mas que probablemente no funciona con mandos.
+Este mod más que probablemente no funciona con mandos.
 Cualquier reporte de bug o sugerencia es apreciada.
 
 El repositorio de este mod en GitHub: https://github.com/UnknownDevices/BetterGameUI

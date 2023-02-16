@@ -58,10 +58,11 @@ namespace BetterGameUI.UI
         public override void Draw(SpriteBatch spriteBatch) {
             if (IsEnabled) {
                 if (HoldingLeftMouse) {
-                    if (!PlayerInput.Triggers.Current.MouseLeft || !IsHovered()) {
+                    if (!PlayerInput.Triggers.Current.MouseLeft) {
                         HoldingLeftMouse = false;
                     }
-                } else if (PlayerInput.Triggers.JustPressed.MouseLeft && IsHovered()) {
+                }
+                else if (PlayerInput.Triggers.JustPressed.MouseLeft && IsHovered()) {
                     HoldingLeftMouse = true;
                 }
 
@@ -132,8 +133,8 @@ namespace BetterGameUI.UI
                     ScrollerDraggingPointY = (float)Math.Clamp(mouseY - UIScroller.GetDimensions().Y, 0,
                             UIScroller.GetDimensions().Height);
                 }
-                if (!float.IsNaN(ScrollerDraggingPointY) || IsScrollerHitboxHovered() || IsHovered()) {
-                    Main.player[Main.myPlayer].mouseInterface = true;
+                if (IsHovered() && (!PlayerInput.Triggers.Current.MouseLeft || HoldingLeftMouse)) {
+                    Main.LocalPlayer.mouseInterface = true;
                 }
             }
             else {

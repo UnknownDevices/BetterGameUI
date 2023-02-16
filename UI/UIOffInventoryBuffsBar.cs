@@ -16,7 +16,7 @@ namespace BetterGameUI.UI
         }
         
         public override bool IsLocked() {
-            return Mod.ClientConfig.OffInventoryHotbarLockingAlsoLocksThis && Main.player[Main.myPlayer].hbLocked;
+            return Mod.ClientConfig.HotbarsBuffsBar_LockWhenHotbarIsLocked && Main.player[Main.myPlayer].hbLocked;
         }
 
         public override void Draw(SpriteBatch spriteBatch) {
@@ -25,9 +25,9 @@ namespace BetterGameUI.UI
         }
         
         public override void UpdateClientConfigDependencies() {
-            IconRowsCount = (ushort)Mod.ClientConfig.OffInventoryIconRows;
-            IconColsCount = (ushort)Mod.ClientConfig.OffInventoryIconCols;
-            UIScrollbar.UIScroller.Alpha = UIScrollbar.Alpha = Alpha = (float)Mod.ClientConfig.OffInventoryAlpha / 100;
+            RowsCountCount = (ushort)Mod.ClientConfig.HotbarsBuffsBar_RowsCount;
+            ColumnsCountCount = (ushort)Mod.ClientConfig.HotbarsBuffsBar_ColumnsCount;
+            UIScrollbar.UIScroller.Alpha = UIScrollbar.Alpha = Alpha = (float)Mod.ClientConfig.HotbarsBuffsBar_Alpha / 100;
 
             base.UpdateClientConfigDependencies();
         }

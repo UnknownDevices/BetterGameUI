@@ -6,31 +6,37 @@ using MonoMod.Utils.Cil;
 using System;
 using System.Reflection;
 
-namespace BetterGameUI
+namespace BetterGameUI.Edits
 {
     public static class MinimapEdits
     {
-        public static void Load() {
-            try {
+        public static void Load()
+        {
+            try
+            {
                 IL.Terraria.GameContent.UI.Minimap.MinimapFrame.Update += MinimapFrame_Update;
             }
-            catch (System.Reflection.TargetInvocationException e) {
-                throw new BetterGameUI.Exception.LoadingMinimapEdits(e);
+            catch (TargetInvocationException e)
+            {
+                throw new Exception.LoadingMinimapEdits(e);
             }
-            catch (System.Exception e) {
-                throw new BetterGameUI.Exception.LoadingMinimapEdits(e);
+            catch (System.Exception e)
+            {
+                throw new Exception.LoadingMinimapEdits(e);
             }
         }
 
-        private static void MinimapFrame_Update(ILContext il) {
+        private static void MinimapFrame_Update(ILContext il)
+        {
             var c = new ILCursor(il);
 
             // ->: Button buttonUnderMouse = GetButtonUnderMouse();
             if (!c.TryGotoNext(MoveType.After,
                 x => x.MatchStloc(0) &&
-                x.Previous != null && 
-                x.Previous.MatchCall("Terraria.GameContent.UI.Minimap.MinimapFrame", "GetButtonUnderMouse"))) {
-                throw new BetterGameUI.Exception.InstructionNotFound();
+                x.Previous != null &&
+                x.Previous.MatchCall("Terraria.GameContent.UI.Minimap.MinimapFrame", "GetButtonUnderMouse")))
+            {
+                throw new Exception.InstructionNotFound();
             }
 
             var label = c.MarkLabel();
@@ -42,9 +48,9 @@ namespace BetterGameUI
             // ++:     buttonUnderMouse = null;
             // ++: }
             // TODO: emit individual instruccions instead of delegate
-            c.EmitDelegate<Func<bool>>(() => 
-                Mod.ClientConfig.Minimap_HotbarLockingAlsoLocksThis && 
-                Terraria.Main.LocalPlayer.hbLocked && 
+            c.EmitDelegate(() =>
+                Mod.ClientConfig.Minimap_LockWhenHotbarIsLocked &&
+                Terraria.Main.LocalPlayer.hbLocked &&
                 !Terraria.Main.playerInventory);
             c.Emit(OpCodes.Brfalse, label);
             c.Emit(OpCodes.Ldc_I4, 0);

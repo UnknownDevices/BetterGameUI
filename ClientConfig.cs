@@ -16,10 +16,10 @@ namespace BetterGameUI
         // ------------- Notifications Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.NotificationsConfig")]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         [Label("$Mods.BetterGameUI.Config.Label.ShowStartupMessageForImportantChangeNotes")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.ShowStartupMessageForImportantChangeNotes")]
-        public bool ShowStartupMessageForImportantChangeNotes_0_3_8_0 { get; set; }
+        public bool Notifications_ShowStartupMessageForImportantChangeNotes_0_3_9_0 { get; set; }
 
         // ------------- Compatibility Config ------------- //
 
@@ -28,116 +28,110 @@ namespace BetterGameUI
         [DefaultValue(false)]
         [Label("$Mods.BetterGameUI.Config.Label.DisableChangesToTheBuffsBars")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.DisableChangesToTheBuffsBars")]
-        public bool DisableChangesToTheBuffsBars { get; set; }
+        public bool Compatibility_DisableChangesToTheBuffsBars { get; set; }
 
         [ReloadRequired]
         [DefaultValue(false)]
         [Label("$Mods.BetterGameUI.Config.Label.DisableChangesToTheHotbar")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.DisableChangesToTheHotbar")]
-        public bool DisableChangesToTheHotbar { get; set; }
+        public bool Compatibility_DisableChangesToTheHotbar { get; set; }
 
         [ReloadRequired]
         [DefaultValue(false)]
         [Label("$Mods.BetterGameUI.Config.Label.DisableChangesToTheItemSlots")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.DisableChangesToTheItemSlots")]
-        public bool DisableChangesToTheItemSlots { get; set; }
+        public bool Compatibility_DisableChangesToTheItemSlots { get; set; }
 
         [ReloadRequired]
         [DefaultValue(false)]
         [Label("$Mods.BetterGameUI.Config.Label.DisableChangesToTheAccessorySlots")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.DisableChangesToTheAccessorySlots")]
-        public bool DisableChangesToTheAccessorySlots { get; set; }
+        public bool Compatibility_DisableChangesToTheAccessorySlots { get; set; }
 
         [ReloadRequired]
         [DefaultValue(false)]
         [Label("$Mods.BetterGameUI.Config.Label.DisableChangesToTheMinimap")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.DisableChangesToTheMinimap")]
-        public bool DisableChangesToTheMinimap { get; set; }
+        public bool Compatibility_DisableChangesToTheMinimap { get; set; }
 
         // ------------- Buffs Bars Config ------------- //
 
-        [Header("$Mods.BetterGameUI.Config.Header.GeneralBuffsBarConfig")]
-        [DefaultValue(0)]
-        [Range(int.MinValue, int.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.BuffsBarHitboxMod")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.BuffsBarHitboxMod")]
-        public int BuffsBarHitboxMod { get; set; }
-
-        [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.MouseScrollFocusesHoveredBuffsBar")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.MouseScrollFocusesHoveredBuffsBar")]
-        public bool MouseScrollFocusesHoveredBuffsBar { get; set; }
-
+        [Header("$Mods.BetterGameUI.Config.Header.BuffsBarsConfig")]
         [DefaultValue(12)]
         [Range((int)6, int.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.MinScrollerHeight")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.MinScrollerHeight")]
-        public int MinScrollerHeight { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.MinimalScrollersHeight")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.MinimalScrollersHeight")]
+        public int BuffsBars_MinimalScrollersHeight { get; set; }
 
         [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.SmartHideScrollbar")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.SmartHideScrollbar")]
-        public bool SmartHideScrollbar { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.HoverCursorToFocusWheelScroll")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.HoverCursorToFocusWheelScroll")]
+        public bool BuffsBars_HoverCursorToFocusWheelScroll { get; set; }
 
         [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.AllowScrollerDragging")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.AllowScrollerDragging")]
-        public bool AllowScrollerDragging { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.HideScrollbarWhenNotNeeded")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.HideScrollbarWhenNotNeeded")]
+        public bool BuffsBars_HideScrollbarWhenNotNeeded { get; set; }
+
+        [DefaultValue(true)]
+        [Label("$Mods.BetterGameUI.Config.Label.AllowDraggingScroller")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.AllowDraggingScroller")]
+        public bool BuffsBars_AllowDraggingScroller { get; set; }
 
         [DefaultValue(false)]
-        [Label("$Mods.BetterGameUI.Config.Label.InvertReceivedMouseScroll")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertReceivedMouseScroll")]
-        public bool BuffsBars_InvertReceivedMouseScroll { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.InvertWheelScroll")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertWheelScroll")]
+        public bool BuffsBars_InvertWheelScroll { get; set; }
 
         // ------------- Accessory Slots Config ------------- //
-        
+
         [Header("$Mods.BetterGameUI.Config.Header.AccessorySlotsConfig")]
         [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.InvertReceivedMouseScroll")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertReceivedMouseScroll")]
-        public bool AccessorySlots_InvertReceivedMouseScroll { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.InvertWheelScroll")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertWheelScroll")]
+        public bool AccessorySlots_InvertWheelScroll { get; set; }
 
         // ------------- Minimap Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.MinimapConfig")]
         [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.HotbarLockingAlsoLocksThis")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.HotbarLockingAlsoLocksThis")]
-        public bool Minimap_HotbarLockingAlsoLocksThis { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.LockWhenHotbarIsLocked")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.LockWhenHotbarIsLocked")]
+        public bool Minimap_LockWhenHotbarIsLocked { get; set; }
 
         // ------------- Recipes List Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.RecipesListConfig")]
         [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.InvertReceivedMouseScroll")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertReceivedMouseScroll")]
-        public bool RecipesList_InvertReceivedMouseScroll { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.InvertWheelScroll")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertWheelScroll")]
+        public bool RecipesList_InvertWheelScroll { get; set; }
 
         // ------------- Hotbar's Buffs Bar Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.OffInventoryBuffsBarConfig")]
         [DefaultValue(40)]
-        [Range(10, 100)]
+        [Range(5, 100)]
         [Label("$Mods.BetterGameUI.Config.Label.Alpha")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Alpha")]
-        public int OffInventoryAlpha { get; set; }
+        public int HotbarsBuffsBar_Alpha { get; set; }
 
         [DefaultValue(2)]
         [Range((ushort)1, ushort.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.IconRows")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconRows")]
-        public int OffInventoryIconRows { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.RowsCount")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.RowsCount")]
+        public int HotbarsBuffsBar_RowsCount { get; set; }
 
         [DefaultValue(11)]
         [Range((ushort)1, ushort.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.IconCols")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconCols")]
-        public int OffInventoryIconCols { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.ColumnsCount")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.ColumnsCount")]
+        public int HotbarsBuffsBar_ColumnsCount { get; set; }
 
         [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.HotbarLockingAlsoLocksThis")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.HotbarLockingAlsoLocksThis")]
-        public bool OffInventoryHotbarLockingAlsoLocksThis { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.LockWhenHotbarIsLocked")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.LockWhenHotbarIsLocked")]
+        public bool HotbarsBuffsBar_LockWhenHotbarIsLocked { get; set; }
 
         // ------------- Inventory's Buffs Bar Config ------------- //
 
@@ -146,18 +140,18 @@ namespace BetterGameUI
         [Range(10, 100)]
         [Label("$Mods.BetterGameUI.Config.Label.Alpha")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Alpha")]
-        public int InventoryAlpha { get; set; }
+        public int InventorysBuffsBar_Alpha { get; set; }
 
         [DefaultValue(3)]
         [Range((ushort)1, ushort.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.IconRows")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconRows")]
-        public int InventoryIconRows { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.RowsCount")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.RowsCount")]
+        public int InventorysBuffsBar_RowsCount { get; set; }
 
         [DefaultValue(6)]
         [Range((ushort)1, ushort.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.IconCols")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.IconCols")]
-        public int InventoryIconCols { get; set; }
+        [Label("$Mods.BetterGameUI.Config.Label.ColumnsCount")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.ColumnsCount")]
+        public int InventorysBuffsBar_ColumnsCount { get; set; }
     }
 }

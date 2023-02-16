@@ -29,11 +29,11 @@ namespace BetterGameUI.UI
 
         public override bool IsMouseScrollFocusingThis() {
             return Player.MouseScrollIsFocusingBuffsBar |
-                (Mod.ClientConfig.MouseScrollFocusesHoveredBuffsBar && UIBuffsBar.IsMouseHoveringHitbox() && IsEnabled);
+                (Mod.ClientConfig.BuffsBars_HoverCursorToFocusWheelScroll && UIBuffsBar.IsMouseHoveringHitbox() && IsEnabled);
         }
 
         public override bool IsDraggingScrollerAllowed() {
-            return Mod.ClientConfig.AllowScrollerDragging && !UIBuffsBar.IsLocked();
+            return Mod.ClientConfig.BuffsBars_AllowDraggingScroller && !UIBuffsBar.IsLocked();
         }
 
         public override int MouseScroll() {
@@ -47,7 +47,7 @@ namespace BetterGameUI.UI
             }
 
             output += base.MouseScroll();
-            return Mod.ClientConfig.BuffsBars_InvertReceivedMouseScroll ? -output : output;
+            return Mod.ClientConfig.BuffsBars_InvertWheelScroll ? -output : output;
         }
 
         public override bool IsScrollerHitboxHovered() {
@@ -60,10 +60,10 @@ namespace BetterGameUI.UI
 
         public override void Draw(SpriteBatch spriteBatch) {
             MaxScrollNotches = (Mod.ActiveBuffsIndexes.Count <= 0) ? 0 :
-                (uint)Math.Max(Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)UIBuffsBar.IconColsCount) -
-                    UIBuffsBar.IconRowsCount, 0);
+                (uint)Math.Max(Math.Ceiling((double)Mod.ActiveBuffsIndexes.Count / (double)UIBuffsBar.ColumnsCountCount) -
+                    UIBuffsBar.RowsCountCount, 0);
 
-            MaybeDisable(Mod.ClientConfig.SmartHideScrollbar && MaxScrollNotches <= 0);
+            MaybeDisable(Mod.ClientConfig.BuffsBars_HideScrollbarWhenNotNeeded && MaxScrollNotches <= 0);
 
             base.Draw(spriteBatch);
 
