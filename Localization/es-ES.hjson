@@ -1,16 +1,16 @@
 ﻿Mods: {
 	BetterGameUI: {
 		CompactName: "BetterGameUI"
-		Version: "0.3.9.0"
+		Version: "0.3.9.1"
 		ExceptionMessage: {
-			LoadBuffsBarsEdits: "\nEste mod encontró un problema mientras cargaba sus cambios a las barras de bufos.\nPuedes intentar desactivar cualquier mod que pueda estar confligiendo con este.\nTambién puedes reportarme este problema en Discord: UnknownDevices#5926.\n"
-			LoadAccessorySlotsEdits: "\nEste mod encontró un problema mientras cargaba sus cambios al las ranuras de accesorios\nPuedes intentar desactivar cualquier mod que pueda estar confligiendo con este o puedes intentar desactivar los cambios de este mod a la barra de acceso rápido.\nTambién puedes reportarme este problema en Discord: UnknownDevices#5926.\n"
-			LoadHotbarEdits: "\nEste mod encontró un problema mientras cargaba sus cambios a la barra de acceso rápido.\nPuedes intentar desactivar cualquier mod que pueda estar confligiendo con este o puedes intentar desactivar los cambios de este mod a la barra de acceso rápido.\nTambién puedes reportarme este problema en Discord: UnknownDevices#5926.\n"
-			LoadItemSlotsEdits: "\nEste mod encontró un problema mientras cargaba sus cambios a las ranuras de ítems.\nPuedes intentar desactivar cualquier mod que pueda estar confligiendo con este o puedes intentar desactivar los cambios de este mod a las ranuras de ítems.\nTambién puedes reportarme este problema en Discord: UnknownDevices#5926.\n"
-			LoadMinimapEdits: "\nEste mod encontró un problema mientras cargaba sus cambios a al minimapa.\nPuedes intentar desactivar cualquier mod que pueda estar confligiendo con este o puedes intentar desactivar los cambios de este mod a las ranuras de ítems.\nTambién puedes reportarme este problema en Discord: UnknownDevices#5926.\n"
+			LoadBuffsBarsEdits: "\nEl mod encontró un problema mientras cargaba sus cambios a las barras de bufos.\nPuedes intentar desactivar cualquier otro mod que pueda estar confligiendo con este.\nTambién puedes reportarme este problema en Discord: UnknownDevices#5926.\n"
+			LoadAccessorySlotsEdits: "\nEl mod encontró un problema mientras cargaba sus cambios a las ranuras de accesorios\nPuedes intentar desactivar cualquier otro mod que pueda estar confligiendo con este o puedes intentar desactivar los cambios de este mod a la barra de acceso rápido.\nTambién puedes reportarme este problema en Discord: UnknownDevices#5926.\n"
+			LoadHotbarEdits: "\nEl mod encontró un problema mientras cargaba sus cambios a la barra de acceso rápido.\nPuedes intentar desactivar cualquier otro mod que pueda estar confligiendo con este o puedes intentar desactivar los cambios de este mod a la barra de acceso rápido.\nTambién puedes reportarme este problema en Discord: UnknownDevices#5926.\n"
+			LoadItemSlotsEdits: "\nEl mod encontró un problema mientras cargaba sus cambios a las ranuras de ítems.\nPuedes intentar desactivar cualquier otro mod que pueda estar confligiendo con este o puedes intentar desactivar los cambios de este mod a las ranuras de ítems.\nTambién puedes reportarme este problema en Discord: UnknownDevices#5926.\n"
+			LoadMinimapEdits: "\nEl mod encontró un problema mientras cargaba sus cambios al minimapa.\nPuedes intentar desactivar cualquier otro mod que pueda estar confligiendo con este o puedes intentar desactivar los cambios de este mod a las ranuras de ítems.\nTambién puedes reportarme este problema en Discord: UnknownDevices#5926.\n"
 		}
 		Message: {
-			ImportantChangeNotes: "[{0}] - {1}\n*  Ey! solo dejándote saber que la ultima actualización ha revertido varias de las configuraciones de este mod!\n*  Mientras estas allí, asegurate de también desactivar este mensaje para la siguiente vez que entres\n\n*  Como siempre, las notas de cambios de esta actualizacion pueden ser encontradas en el Taller de Steam"
+			ImportantChangeNotes: "[{0}] - {1}\n*  Ey! solo dejándote saber que la ultima actualización ha revertido varias de las configuraciones de el mod!\n*  Mientras estas allí, asegurate de también desactivar este mensaje para la siguiente vez que entres\n\n*  Como siempre, las notas de cambios de esta actualizacion pueden ser encontradas en el Taller de Steam"
 		}
 		Config: {
 			Title: {
@@ -45,20 +45,20 @@
 			}
 			Tooltip: {
 				ShowStartupMessageForImportantChangeNotes: "Si está activado, un mensaje con cualquier nota de cambio importante de la más reciente actualización será mostrado al entrar a un mundo.\nFuturas actualizaciones puede que reactiven esta función."
-				DisableChangesToTheBuffsBars: "Si está activado, este mod no realizará ningún cambio a las barras de bufos.\nÚtil si estos confligen con otro mod que tienes instalado o si prefieres el comportamiento vanilla.\nRequiere recargar los mods."
-				DisableChangesToTheHotbar: "Si está activado, este mod no realizará ningún cambio a la barra de acceso rápido.\nÚtil si estos confligen con otro mod que tienes instalado o si prefieres el comportamiento vanilla.\nRequiere recargar los mods."
-				DisableChangesToTheItemSlots: "Si está activado, este mod no realizará ningún cambio a las ranuras de ítems.\nÚtil si estos confligen con otro mod que tienes instalado o si prefieres el comportamiento vanilla.\nRequiere recargar los mods."
-				DisableChangesToTheAccessorySlots: "Si está activado, este mod no realizará ningún cambio a las ranuras de accesorios.\nÚtil si estos confligen con otro mod que tienes instalado o si prefieres el comportamiento vanilla.\nRequiere recargar los mods."
-				DisableChangesToTheMinimap: "Si está activado, este mod no realizará ningún cambio a minimapa.\nÚtil si estos confligen con otro mod que tienes instalado o si prefieres el comportamiento vanilla.\nRequiere recargar los mods."
+				DisableChangesToTheBuffsBars: "Si está activado, el mod no realizará ningún cambio a las barras de bufos.\nÚtil si estos confligen con otro mod qué estés usando o si prefieres el comportamiento vanilla.\nRequiere recargar los mods."
+				DisableChangesToTheHotbar: "Si está activado, el mod no realizará ningún cambio a la barra de acceso rápido.\nÚtil si estos confligen con otro mod qué estés usando o si prefieres el comportamiento vanilla.\nRequiere recargar los mods."
+				DisableChangesToTheItemSlots: "Si está activado, el mod no realizará ningún cambio a las ranuras de ítems.\nÚtil si estos confligen con otro mod qué estés usando o si prefieres el comportamiento vanilla.\nRequiere recargar los mods."
+				DisableChangesToTheAccessorySlots: "Si está activado, el mod no realizará ningún cambio a las ranuras de accesorios.\nÚtil si estos confligen con otro mod qué estés usando o si prefieres el comportamiento vanilla.\nRequiere recargar los mods."
+				DisableChangesToTheMinimap: "Si está activado, el mod no realizará ningún cambio a minimapa.\nÚtil si estos confligen con otro mod qué estés usando si prefieres el comportamiento vanilla.\nRequiere recargar los mods."
 				MinimalScrollersHeight: "Medido en pixels. Determina la minima altura que el desplazador puede tener.\nEl valor tiene que ser 6 o mayor."
 				HoverCursorToFocusWheelScroll: "Si está activado, colocar el cursor encima de la UI causará que reciba el input del desplazamiento de la rueda."
 				HideScrollbarWhenNotNeeded: "Si está activado, la barra de desplazamiento será ocultada cuando sea redundante, como cuando haya solo una página de contenido."
 				AllowDraggingScroller: "Si está activado, haciendo clic izquierdo en el desplazador permitirá arrastrarlo hasta que el clic izquierdo sea soltado."
 				InvertWheelScroll: "Si está activado, la UI invertirá el input del desplazamiento de la rueda que reciba."
-				Alpha: "Determina el alfa del color de esta UI.\nEl valor tiene que encontrarse entre 5 y 100."
+				Alpha: "Determina el alfa del color de la UI.\nEl valor tiene que encontrarse entre 5 y 100."
 				RowsCount: "Determina la cantidad de filas de iconos de bufos en la UI.\nEl valor tiene que ser 1 o mayor."
 				ColumnsCount: "Determina la cantidad de columnas de iconos de bufos en la UI.\nEl valor tiene que ser 1 o mayor."
-				LockWhenHotbarIsLocked: "Si está activado, la UI se bloqueará cuando la barra de acceso rápido sea bloqueada.\nPuedes bloquear la barra de acceso rápido haciendo clic izquierdo en el icono de cerrojo en la esquina superior-izquierda de la pantalla mientras en el inventario\no a través del atajo de teclado proveído por este mod.\nUIs bloqueadas no interactúan con el cursor."
+				LockWhenHotbarIsLocked: "Si está activado, la UI se bloqueará cuando la barra de acceso rápido sea bloqueada.\nPuedes bloquear la barra de acceso rápido haciendo clic izquierdo en el icono de cerrojo en la esquina superior-izquierda de la pantalla mientras en el inventario\no a través del atajo de teclado proveído por el mod.\nUIs bloqueadas no interactúan con el cursor."
 			}
 		}
 	}

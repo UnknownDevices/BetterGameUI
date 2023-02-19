@@ -1,16 +1,16 @@
 Mods: {
 	BetterGameUI: {
 		CompactName: "BetterGameUI"
-		Version: "0.3.9.0"
+		Version: "0.3.9.1"
 		ExceptionMessage: {
-			LoadBuffsBarsEdits: "\nThis mod encountered an issue while loading its edits to the buffs bars.\nYou can try disabling any mods that might be conflicting with this one.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
-			LoadAccessorySlotsEdits: "\nThis mod encountered an issue while loading its edits to the accessory slots.\nYou can try disabling any mods that might be conflicting with this one or you can try disabling this mod's changes to the hotbar in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
-			LoadHotbarEdits: "\nThis mod encountered an issue while loading its edits to the hotbar.\nYou can try disabling any mods that might be conflicting with this one or you can try disabling this mod's changes to the hotbar in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
-			LoadItemSlotsEdits: "\nThis mod encountered an issue while loading its edits to the item slots.\nYou can try disabling any mods that might be conflicting with this one or you can try disabling this mod's changes to the item slots in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
-			LoadMinimapEdits: "\nThis mod encountered an issue while loading its edits to the minimap.\nYou can try disabling any mods that might be conflicting with this one or you can try disabling this mod's changes to the item slots in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
+			LoadBuffsBarsEdits: "\nThe mod encountered an issue while loading its edits to the buffs bars.\nYou can try disabling any other mod that might be conflicting with this one.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
+			LoadAccessorySlotsEdits: "\nThe mod encountered an issue while loading its edits to the accessory slots.\nYou can try disabling any other mod that might be conflicting with this one or you can try disabling this mod's changes to the hotbar in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
+			LoadHotbarEdits: "\nThe mod encountered an issue while loading its edits to the hotbar.\nYou can try disabling any other mod that might be conflicting with this one or you can try disabling this mod's changes to the hotbar in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
+			LoadItemSlotsEdits: "\nThe mod encountered an issue while loading its edits to the item slots.\nYou can try disabling any other mod that might be conflicting with this one or you can try disabling this mod's changes to the item slots in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
+			LoadMinimapEdits: "\nThe mod encountered an issue while loading its edits to the minimap.\nYou can try disabling any other mod that might be conflicting with this one or you can try disabling this mod's changes to the item slots in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
 		}
 		Message: {
-			ImportantChangeNotes: "[{0}] - {1}\n*  Hey! just letting you know the latest update has set many of this mod's configs back to default!\n*  While you see into that, make sure to also disable this message for future startups\n\n*  As always, this update's change notes can be found on the Steam Workshop"
+			ImportantChangeNotes: "[{0}] - {1}\n*  Hey! just letting you know the latest update has set many of the mod's configs back to default!\n*  While you see into that, make sure to also disable this message for future startups\n\n*  As always, this update's change notes can be found on the Steam Workshop"
 		}
 		Config: {
 			Title: {
@@ -45,20 +45,20 @@ Mods: {
 			}
 			Tooltip: {
 				ShowStartupMessageForImportantChangeNotes: "If enabled, a message with any important change notes from the latest update will be shown on startup.\nFuture updates may re-enable this feature."
-				DisableChangesToTheBuffsBars: "If enabled, this mod will not realize any edits to the buffs bars.\nUseful if these conflict with another mod you have installed or if you prefer the vanilla behaviour.\nRequires reloading mods."
-				DisableChangesToTheHotbar: "If enabled, this mod will not realize any edits to the hotbar.\nUseful if these conflict with another mod you have installed or if you prefer the vanilla behaviour.\nRequires reloading mods."
-				DisableChangesToTheItemSlots: "If enabled, this mod will not realize any edits to the item slots.\nUseful if these conflict with another mod you have installed or if you prefer the vanilla behaviour.\nRequires reloading mods."
-				DisableChangesToTheAccessorySlots: "If enabled, this mod will not realize any edits to the accessory slots.\nUseful if these conflict with another mod you have installed or if you prefer the vanilla behaviour.\nRequires reloading mods."
-				DisableChangesToTheMinimap: "If enabled, this mod will not realize any edits to the minimap.\nUseful if these conflict with another mod you have installed or if you prefer the vanilla behaviour.\nRequires reloading mods."
+				DisableChangesToTheBuffsBars: "If enabled, the mod will not realize any edits to the buffs bars.\nUseful if these conflict with another mod you're using or if you prefer the vanilla behaviour.\nRequires reloading mods."
+				DisableChangesToTheHotbar: "If enabled, the mod will not realize any edits to the hotbar.\nUseful if these conflict with another mod you or if you prefer the vanilla behaviour.\nRequires reloading mods."
+				DisableChangesToTheItemSlots: "If enabled, the mod will not realize any edits to the item slots.\nUseful if these conflict with another mod you're using or if you prefer the vanilla behaviour.\nRequires reloading mods."
+				DisableChangesToTheAccessorySlots: "If enabled, the mod will not realize any edits to the accessory slots.\nUseful if these conflict with another mod you're using or if you prefer the vanilla behaviour.\nRequires reloading mods."
+				DisableChangesToTheMinimap: "If enabled, the mod will not realize any edits to the minimap.\nUseful if these conflict with another mod you're using or if you prefer the vanilla behaviour.\nRequires reloading mods."
 				MinimalScrollersHeight: "Measured in pixels. Determines the smallest height the scroller can have.\nValue must be 6 or greater."
 				HoverCursorToFocusWheelScroll: "If enabled, hovering your cursor over the UI will cause it to receive the wheel scroll input."
 				HideScrollbarWhenNotNeeded: "If enabled, the scrollbar will be hidden when not needed, such as when there is only one page of content."
 				AllowDraggingScroller: "If enabled, left clicking on the scroller will allow dragging it until the left click is released."
 				InvertWheelScroll: "If enabled, the UI will invert the wheel scroll input it receives."
-				Alpha: "Determines the alpha of this UI's color.\nValue must be between 5 and 100"
+				Alpha: "Determines the alpha of the UI's color.\nValue must be between 5 and 100"
 				RowsCount: "Determines the count of buff icons' rows on the UI.\nValue must be 1 or greater."
 				ColumnsCount: "Determines the count of buff icons' columns on the UI.\nValue must be 1 or greater."
-				LockWhenHotbarIsLocked: "If enabled, this UI will lock itself when the hotbar is locked.\nYou can lock the hotbar by left clicking the lock icon on the top-left of the screen while on the inventory or through this mod's provided hotkey.\nLocked UIs don't interact with the cursor."
+				LockWhenHotbarIsLocked: "If enabled, the UI will lock itself when the hotbar is locked.\nYou can lock the hotbar by left clicking the lock icon on the top-left of the screen while on the inventory or through the mod's provided hotkey.\nLocked UIs don't interact with the cursor."
 			}
 		}
 	}

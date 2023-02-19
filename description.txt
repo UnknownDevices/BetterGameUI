@@ -4,7 +4,7 @@ Most features of this mod are toggable and tweakable so make sure to have a look
 Features: #(not exhaustive)
 - adds scrollbars to both buffs bars (do note that this mod does not increase the buff slots available to a player, you can use mods such as Fargo's Mutant Mod for this)
 - includes configs to customize the rows count, columns count and alpha of both buffs bar
-- changes the hotbar's buffs bar to now lock the hotbar is locked
+- changes the hotbar's buffs bar to now lock when the hotbar is locked
 - changes the minimap to now lock when the hotbar is locked 
 - includes a keybind to lock and unlock the hotbar
 - changes the hotbar to now be interactable (scrolling, clicking on, etc.) regardless of an item being in use

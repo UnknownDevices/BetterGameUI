@@ -16,10 +16,10 @@ namespace BetterGameUI
         // ------------- Notifications Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.NotificationsConfig")]
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         [Label("$Mods.BetterGameUI.Config.Label.ShowStartupMessageForImportantChangeNotes")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.ShowStartupMessageForImportantChangeNotes")]
-        public bool Notifications_ShowStartupMessageForImportantChangeNotes_0_3_9_0 { get; set; }
+        public bool Notifications_ShowStartupMessageForImportantChangeNotes_0_3_9_1 { get; set; }
 
         // ------------- Compatibility Config ------------- //
 

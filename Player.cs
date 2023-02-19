@@ -12,7 +12,7 @@ namespace BetterGameUI
         public static bool MouseScrollIsFocusingBuffsBar { get; internal set; }
 
         public override void OnEnterWorld(Terraria.Player player) {
-            if (BetterGameUI.Mod.ClientConfig.Notifications_ShowStartupMessageForImportantChangeNotes_0_3_9_0) {
+            if (BetterGameUI.Mod.ClientConfig.Notifications_ShowStartupMessageForImportantChangeNotes_0_3_9_1) {
                 Main.NewText(Messages.ImportantChangeNotes(), Color.Yellow);
             }
         }
