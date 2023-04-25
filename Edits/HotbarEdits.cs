@@ -8,6 +8,7 @@ using MonoMod.Cil;
 using ReLogic.Graphics;
 using System;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameInput;
 using Terraria.Graphics.Capture;
 using static Terraria.Main;
@@ -367,6 +368,9 @@ namespace BetterGameUI.Edits
                 return true;
             }
 
+            Texture2D value = TextureAssets.HbLock[(!player[myPlayer].hbLocked) ? 1 : 0].Value;
+            spriteBatch.Draw(value, new Vector2(0, 21), value.Frame(2), Microsoft.Xna.Framework.Color.White, 0f, default(Vector2), 0.9f, SpriteEffects.None, 0f);
+
             // set to 'items' in case the next conditional turns out false
             string text = Lang.inter[37].Value;
             // if selected item has a name AND that name is not empty
@@ -404,7 +408,7 @@ namespace BetterGameUI.Edits
                     }
 
                     // NOTE: clicking on item is reflected one frame late
-                    if (mouseLeft && !blockMouse)
+                    if (mouseLeft && mouseLeftRelease && !blockMouse)
                     {
                         player[myPlayer].changeItem = i;
                     }
@@ -439,6 +443,5 @@ namespace BetterGameUI.Edits
 
             return true;
         }
-
     }
 }

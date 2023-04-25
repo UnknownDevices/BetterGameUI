@@ -19,7 +19,7 @@ namespace BetterGameUI
         [DefaultValue(false)]
         [Label("$Mods.BetterGameUI.Config.Label.ShowStartupMessageForImportantChangeNotes")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.ShowStartupMessageForImportantChangeNotes")]
-        public bool Notifications_ShowStartupMessageForImportantChangeNotes_0_3_9_1 { get; set; }
+        public bool Notifications_ShowStartupMessageForImportantChangeNotes_0_3_10_0 { get; set; }
 
         // ------------- Compatibility Config ------------- //
 
@@ -35,6 +35,12 @@ namespace BetterGameUI
         [Label("$Mods.BetterGameUI.Config.Label.DisableChangesToTheHotbar")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.DisableChangesToTheHotbar")]
         public bool Compatibility_DisableChangesToTheHotbar { get; set; }
+
+        [ReloadRequired]
+        [DefaultValue(false)]
+        [Label("$Mods.BetterGameUI.Config.Label.DisableChangesToTheToolbar")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.DisableChangesToTheToolbar")]
+        public bool Compatibility_DisableChangesToTheToolbar { get; set; }
 
         [ReloadRequired]
         [DefaultValue(false)]
@@ -54,7 +60,7 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.DisableChangesToTheMinimap")]
         public bool Compatibility_DisableChangesToTheMinimap { get; set; }
 
-        // ------------- Buffs Bars Config ------------- //
+        // ------------- Buff Lists Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.BuffsBarsConfig")]
         [DefaultValue(12)]
@@ -78,7 +84,7 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.AllowDraggingScroller")]
         public bool BuffsBars_AllowDraggingScroller { get; set; }
 
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         [Label("$Mods.BetterGameUI.Config.Label.InvertWheelScroll")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertWheelScroll")]
         public bool BuffsBars_InvertWheelScroll { get; set; }
@@ -99,7 +105,7 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.LockWhenHotbarIsLocked")]
         public bool Minimap_LockWhenHotbarIsLocked { get; set; }
 
-        // ------------- Recipes List Config ------------- //
+        // ------------- Recipe List Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.RecipesListConfig")]
         [DefaultValue(true)]
@@ -107,7 +113,7 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.InvertWheelScroll")]
         public bool RecipesList_InvertWheelScroll { get; set; }
 
-        // ------------- Hotbar's Buffs Bar Config ------------- //
+        // ------------- Hotbar's Buff List Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.OffInventoryBuffsBarConfig")]
         [DefaultValue(40)]
@@ -133,7 +139,7 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.LockWhenHotbarIsLocked")]
         public bool HotbarsBuffsBar_LockWhenHotbarIsLocked { get; set; }
 
-        // ------------- Inventory's Buffs Bar Config ------------- //
+        // ------------- Equip Page's Buff List Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.InventoryBuffsBarConfig")]
         [DefaultValue(65)]

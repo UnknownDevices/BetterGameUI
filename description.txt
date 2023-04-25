@@ -1,33 +1,28 @@
 [ENG] QoL mod which enhances many in-game UIs without changing them drastically.
-Most features of this mod are toggable and tweakable so make sure to have a look into the configs page.
+Do note that most features of this mod can be toggled and tweaked from the configs page.
 
-Features: #(not exhaustive)
-- adds scrollbars to both buffs bars (do note that this mod does not increase the buff slots available to a player, you can use mods such as Fargo's Mutant Mod for this)
-- includes configs to customize the rows count, columns count and alpha of both buffs bar
-- changes the hotbar's buffs bar to now lock when the hotbar is locked
-- changes the minimap to now lock when the hotbar is locked 
-- includes a keybind to lock and unlock the hotbar
-- changes the hotbar to now be interactable (scrolling, clicking on, etc.) regardless of an item being in use
-- changes the hotbar to now scale up the item pointed to by the hotbar, which won't always be the selected item
-- changes the recipes list to now be scrollable regardless of an item being in use
-- changes the fullscreen map to now be zoomable regardless of an item being in use
-- changes the inventory to now highlight any selected item, not just hotbar ones
-- fixes a vanilla bug where the hotbar was drawn for one frame when opening the bestiary or emotes window
-- fixes a vanilla bug where hovered buff icons remained highlighted between toggles of the inventory
+--- Features ---
+- Limit the screen space a buff list can take by making it scrollable if it grows too big
+- Have the hotbar, fullscreen map, and recipe list be fully interactable while using an item
+- Have the buff lists no longer cancel your current left click when you hover over them
+- Lock the minimap and the buff list under the hotbar when only the hotbar would normally be locked
+- Include a convenient keybind (N) for locking and unlocking the UI
+- Fix various minor visual bugs present in the vanilla game
+...And lots of other minor tweaks that you may not even notice
 
-This mod most likely doesn't work with gamepads.
-Any bug report or suggestion is greatly appreciated.
+--- Warnings ---
+- This mod does not increase the buff slots available to a player, see mods like Fargo's Mutant mod for this.
+- This mod does not work with gamepads at the moment.
 
-This mod's repo on GitHub: https://github.com/UnknownDevices/BetterGameUI
-My Discord profile: UnknownDevices#5926
+--- Resources ---
+- Repository on GitHub: https://github.com/UnknownDevices/BetterGameUI
+- My Discord contact: UnknownDevices#5926
 
 
 
-[ESP] Mod de Calidad de Vida que mejora varias UIs en el juego sin cambiarlas de manera drastica.
-La mayoría de las características de este mod son desactivables y modificables así que asegúrate de darle un vistazo a la pagina de configuraciones.
+[ESP] Mod de Calidad de Vida que mejora varias UIs en el juego sin cambiarlas de manera drástica.
+Toma en cuenta que la mayoría de las características de este mod se pueden desactivar y modificar desde la página de configuraciones.
 
-Este mod más que probablemente no funciona con mandos.
-Cualquier reporte de bug o sugerencia es apreciada.
-
-El repositorio de este mod en GitHub: https://github.com/UnknownDevices/BetterGameUI
-Mi perfil de Discord: UnknownDevices#5926
+--- Recursos ---
+- Repositorio en GitHub: https://github.com/UnknownDevices/BetterGameUI
+- Mi contacto en Discord: UnknownDevices#5926

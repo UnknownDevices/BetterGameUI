@@ -20,10 +20,7 @@ namespace BetterGameUI
         // TODO: highlight the selected item even when this is in a coin or ammo slot
         // TODO: play sound when auto use item changes
         // TODO: signal auto select being active through some other, unique way
-        // TODO: consider crafting item clicked on crafting window
         // TODO: consider displaying item's name on top of hotbar even while the inventory is up
-        // TODO: OnServerConfigChanged is not needed at the time but do consider it
-        // TODO: visually signal somehow when the hotbar is locked without needing to open the inventory
         // FIXME: text of baner buff icon has trouble displaying full text if the icon is too low on the screen - 12/22/22: can't replicate bug
         public static event Action OnClientConfigChanged;
         public static ClientConfig ClientConfig { get; internal set; }
@@ -38,6 +35,9 @@ namespace BetterGameUI
             if (!ClientConfig.Compatibility_DisableChangesToTheHotbar) {
                 HotbarEdits.Load();
             }
+            if (!ClientConfig.Compatibility_DisableChangesToTheToolbar) {
+                ToolbarEdits.Load();
+            }
             if (!ClientConfig.Compatibility_DisableChangesToTheItemSlots) {
                 ItemSlotsEdits.Load();
             }
@@ -45,7 +45,7 @@ namespace BetterGameUI
                 AccessorySlotsEdits.Load();
             }
             if (!ClientConfig.Compatibility_DisableChangesToTheMinimap) {
-                MinimapEdits.Load(); ;
+                MinimapEdits.Load();
             }
 
             if (Main.netMode != NetmodeID.Server) {

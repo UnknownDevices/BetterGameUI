@@ -12,14 +12,17 @@ namespace BetterGameUI
         public static bool MouseScrollIsFocusingBuffsBar { get; internal set; }
 
         public override void OnEnterWorld(Terraria.Player player) {
-            if (BetterGameUI.Mod.ClientConfig.Notifications_ShowStartupMessageForImportantChangeNotes_0_3_9_1) {
-                Main.NewText(Messages.ImportantChangeNotes(), Color.Yellow);
+            if (BetterGameUI.Mod.ClientConfig.Notifications_ShowStartupMessageForImportantChangeNotes_0_3_10_0) {
+                var text = Messages.ImportantChangeNotes();
+                if (text != "") {
+                    Main.NewText(text, Color.Yellow);
+                }
             }
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet) {
             if (KeybindSystem.LockHotbar.JustPressed) {
-                Main.player[Main.myPlayer].hbLocked ^= true;
+                Main.LocalPlayer.hbLocked ^= true;
                 Reflection.SoundEngineReflection.PlaySound(22);
             }
 

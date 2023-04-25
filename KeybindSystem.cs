@@ -9,7 +9,7 @@ namespace BetterGameUI
 
         public override void Load() {
             MouseScrollToFocusBuffsBar = KeybindLoader.RegisterKeybind(Mod, "Mouse Scroll Focuses Buffs Bar", "LeftAlt");
-            LockHotbar = KeybindLoader.RegisterKeybind(Mod, "Lock Hotbar", "N");
+            LockHotbar = KeybindLoader.RegisterKeybind(Mod, "Toggle UI Lock", "N");
         }
 
         public override void Unload() {
