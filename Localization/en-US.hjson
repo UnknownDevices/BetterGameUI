@@ -1,7 +1,7 @@
 Mods: {
 	BetterGameUI: {
 		CompactName: "BetterGameUI"
-		Version: "0.3.11.0"
+		Version: "0.3.11.1"
 		ExceptionMessage: {
 			LoadBuffsBarsEdits: "\nThe mod encountered an issue while loading its edits to the buff lists.\nYou can try disabling any other mod that might be conflicting with this one or you can try disabling this mod's changes to the hotbar in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"
 			LoadHotbarEdits: "\nThe mod encountered an issue while loading its edits to the hotbar.\nYou can try disabling any other mod that might be conflicting with this one or you can try disabling this mod's changes to the hotbar in config.\nYou can also report this issue to me on Discord: UnknownDevices#5926.\n"

@@ -19,7 +19,7 @@ namespace BetterGameUI
         [DefaultValue(false)]
         [Label("$Mods.BetterGameUI.Config.Label.ShowStartupMessageForImportantChangeNotes")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.ShowStartupMessageForImportantChangeNotes")]
-        public bool Notifications_ShowStartupMessageForImportantChangeNotes_0_3_11_0 { get; set; }
+        public bool Notifications_ShowStartupMessageForImportantChangeNotes_0_3_11_1 { get; set; }
 
         // ------------- Compatibility Config ------------- //
 

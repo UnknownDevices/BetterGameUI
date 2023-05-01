@@ -10,8 +10,7 @@ namespace BetterGameUI.UI
         public override bool IsVisible => Parent.IsVisible && 0 < PagesCount - PagesShownAtOnce;
         public override bool CanScrollerBeDragged => !Parent.IsLocked && IsVisible 
             && Mod.ClientConfig.BuffsBars_AllowDraggingScroller;
-        public override bool CanListenToWheelScroll => !Parent.IsLocked && IsVisible 
-            && (Player.BuffListHasWheelScrollFocus 
+        public override bool CanListenToWheelScroll => IsVisible && (Player.BuffListHasWheelScrollFocus 
             || (Mod.ClientConfig.BuffsBars_HoverCursorToFocusWheelScroll && Parent.IsHovered));
         public override bool InvertWheelScroll => Mod.ClientConfig.BuffsBars_InvertWheelScroll;
         public override float BarAlpha => Parent.Alpha;
