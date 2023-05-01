@@ -1,7 +1,7 @@
 ﻿Mods: {
 	BetterGameUI: {
 		CompactName: "BetterGameUI"
-		Version: "0.3.10.0"
+		Version: "0.3.11.0"
 		ExceptionMessage: {
 			LoadBuffsBarsEdits: "\nEl mod encontró un problema mientras cargaba sus cambios a las listas de bufos.\nPuedes intentar desactivar cualquier otro mod que pueda estar confligiendo con este.\nTambién puedes reportarme este problema en Discord: UnknownDevices#5926.\n"
 			LoadHotbarEdits: "\nEl mod encontró un problema mientras cargaba sus cambios a la barra de acceso rápido.\nPuedes intentar desactivar cualquier otro mod que pueda estar confligiendo con este o puedes intentar desactivar los cambios de este mod a la barra de acceso rápido.\nTambién puedes reportarme este problema en Discord: UnknownDevices#5926.\n"
@@ -26,6 +26,7 @@
 			Header: {
 				NotificationsConfig: "Configuración De Notificaciones"
 				CompatibilityConfig: "Configuración De Compatibilidad"
+				HotbarConfig: " Configuración De La Barra De Acceso Rápido"
 				BuffsBarsConfig: "Configuración De Las Listas De Bufos"
 				AccessorySlotsConfig: "Configuración De Las Ranuras De Accesorios"
 				MinimapConfig: "Configuración Del Minimapa"

@@ -3,13 +3,13 @@ using Terraria.ModLoader;
 
 namespace BetterGameUI.Exception
 {
-    public class LoadingHotbarEdits : System.Exception
+    public class FailedToLoadHotbarEdits : System.Exception
     {
-        public LoadingHotbarEdits() :  base(
+        public FailedToLoadHotbarEdits() :  base(
             LocalizationLoader.GetOrCreateTranslation("Mods.BetterGameUI.ExceptionMessage.LoadHotbarEdits").
-            GetTranslation(Language.ActiveCulture)) { }
-        public LoadingHotbarEdits(System.Exception innerException) : base(
+                GetTranslation(Language.ActiveCulture)) { }
+        public FailedToLoadHotbarEdits(System.Exception innerException) : base(
             LocalizationLoader.GetOrCreateTranslation("Mods.BetterGameUI.ExceptionMessage.LoadHotbarEdits").
-            GetTranslation(Language.ActiveCulture), innerException) { }
+                GetTranslation(Language.ActiveCulture), innerException) { }
     }
 }

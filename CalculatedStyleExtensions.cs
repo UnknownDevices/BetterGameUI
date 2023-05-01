@@ -1,4 +1,5 @@
-﻿using Terraria.UI;
+﻿using Terraria;
+using Terraria.UI;
 
 namespace BetterGameUI
 {

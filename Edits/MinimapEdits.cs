@@ -14,19 +14,19 @@ namespace BetterGameUI.Edits
         {
             try
             {
-                IL.Terraria.GameContent.UI.Minimap.MinimapFrame.Update += MinimapFrame_Update;
+                IL.Terraria.GameContent.UI.Minimap.MinimapFrame.Update += IL_MinimapFrame_Update;
             }
             catch (TargetInvocationException e)
             {
-                throw new Exception.LoadingMinimapEdits(e);
+                throw new Exception.FailedToLoadMinimapEdits(e);
             }
             catch (System.Exception e)
             {
-                throw new Exception.LoadingMinimapEdits(e);
+                throw new Exception.FailedToLoadMinimapEdits(e);
             }
         }
 
-        private static void MinimapFrame_Update(ILContext il)
+        private static void IL_MinimapFrame_Update(ILContext il)
         {
             var c = new ILCursor(il);
 

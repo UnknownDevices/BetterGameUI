@@ -10,18 +10,18 @@ namespace BetterGameUI.Edits
     {
         public static void Load() {
             try {
-                IL.Terraria.Main.DrawHotbarLockIcon += Main_DrawHotbarLockIcon;
+                IL.Terraria.Main.DrawHotbarLockIcon += IL_Main_DrawHotbarLockIcon;
             }
             // TODO: proper error message
             catch (System.Reflection.TargetInvocationException e) {
-                throw new Exception.LoadingToolbarEdits(e);
+                throw new Exception.FailedToLoadToolbarEdits(e);
             }
             catch (Exception.InstructionNotFound e) {
-                throw new Exception.LoadingToolbarEdits(e);
+                throw new Exception.FailedToLoadToolbarEdits(e);
             }
         }
 
-        public static void Main_DrawHotbarLockIcon(ILContext il) {
+        public static void IL_Main_DrawHotbarLockIcon(ILContext il) {
             var c = new ILCursor(il);
 
             // ->: MouseText(Lang.inter[5].Value, 0, 0);

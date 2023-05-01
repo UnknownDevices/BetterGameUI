@@ -4,15 +4,30 @@ using Terraria;
 using Terraria.GameInput;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.GameInput;
 
 namespace BetterGameUI
 {
-    public class Player : ModPlayer
-    {
-        public static bool MouseScrollIsFocusingBuffsBar { get; internal set; }
+    public class Player : ModPlayer {
+        public static bool BuffListHasWheelScrollFocus { get; internal set; }
+        public static float MouseX => PlayerInput.MouseInfo.X / Main.UIScale;
+        public static float MouseY => PlayerInput.MouseInfo.Y / Main.UIScale;
+        public static int WheelScrollAndXButtons {
+            get {
+                int value = 0;
+                if (PlayerInput.Triggers.JustPressed.MouseXButton1) {
+                    value += 1;
+                }
+                if (PlayerInput.Triggers.JustPressed.MouseXButton2) {
+                    value -= 1;
+                }
+
+                return value - PlayerInput.ScrollWheelDeltaForUI / 120;
+            }
+        }
 
         public override void OnEnterWorld(Terraria.Player player) {
-            if (BetterGameUI.Mod.ClientConfig.Notifications_ShowStartupMessageForImportantChangeNotes_0_3_10_0) {
+            if (BetterGameUI.Mod.ClientConfig.Notifications_ShowStartupMessageForImportantChangeNotes_0_3_11_0) {
                 var text = Messages.ImportantChangeNotes();
                 if (text != "") {
                     Main.NewText(text, Color.Yellow);
@@ -26,7 +41,8 @@ namespace BetterGameUI
                 Reflection.SoundEngineReflection.PlaySound(22);
             }
 
-            MouseScrollIsFocusingBuffsBar = KeybindSystem.MouseScrollToFocusBuffsBar.Current;
+            BuffListHasWheelScrollFocus = KeybindSystem.MouseScrollToFocusBuffsBar.Current;
         }
+
     }
 }

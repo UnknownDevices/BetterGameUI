@@ -17,16 +17,15 @@ namespace BetterGameUI.Edits
         {
             try
             {
-                IL.Terraria.Main.DrawInventory +=
-                    IL_Main_DrawInventory;
+                IL.Terraria.Main.DrawInventory += IL_Main_DrawInventory;
             }
             catch (System.Reflection.TargetInvocationException e)
             {
-                throw new Exception.LoadingAccessorySlotsEdits(e);
+                throw new Exception.FailedToLoadAccessorySlotsEdits(e);
             }
             catch (Exception.InstructionNotFound e)
             {
-                throw new Exception.LoadingAccessorySlotsEdits(e);
+                throw new Exception.FailedToLoadAccessorySlotsEdits(e);
             }
         }
 

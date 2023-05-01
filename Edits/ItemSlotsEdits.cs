@@ -14,11 +14,11 @@ namespace BetterGameUI.Edits
             }
             catch (System.Reflection.TargetInvocationException e)
             {
-                throw new Exception.LoadingItemSlotsEdits(e);
+                throw new Exception.FailedToLoadItemSlotsEdits(e);
             }
             catch (Exception.InstructionNotFound e)
             {
-                throw new Exception.LoadingItemSlotsEdits(e);
+                throw new Exception.FailedToLoadItemSlotsEdits(e);
             }
         }
 

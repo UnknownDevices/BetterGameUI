@@ -2,16 +2,17 @@
 Do note that most features of this mod can be toggled and tweaked from the configs page.
 
 --- Features ---
-- Limit the screen space a buff list can take by making it scrollable if it grows too big
+- Limit the screen space buff lists can take by making them scrollable if they grow too big
 - Have the hotbar, fullscreen map, and recipe list be fully interactable while using an item
-- Have the buff lists no longer cancel your current left click when you hover over them
-- Lock the minimap and the buff list under the hotbar when only the hotbar would normally be locked
-- Include a convenient keybind (N) for locking and unlocking the UI
+- Have buff lists no longer cancel your current left click when you hover over them
+- Lock the minimap and the buff list under the hotbar when the hotbar is locked
+- Include a convenient keybind (N) for locking and unlocking the previously mentioned UIs
+- Include toggles for inverting the scroll for various UIs
 - Fix various minor visual bugs present in the vanilla game
 ...And lots of other minor tweaks that you may not even notice
 
 --- Warnings ---
-- This mod does not increase the buff slots available to a player, see mods like Fargo's Mutant mod for this.
+- This mod does not increase the buff slots available to a player, see mods like Fargo's Mutant Mod for this.
 - This mod does not work with gamepads at the moment.
 
 --- Resources ---
@@ -24,5 +25,5 @@ Do note that most features of this mod can be toggled and tweaked from the confi
 Toma en cuenta que la mayoría de las características de este mod se pueden desactivar y modificar desde la página de configuraciones.
 
 --- Recursos ---
-- Repositorio en GitHub: https://github.com/UnknownDevices/BetterGameUI
+- El repositorio en GitHub: https://github.com/UnknownDevices/BetterGameUI
 - Mi contacto en Discord: UnknownDevices#5926

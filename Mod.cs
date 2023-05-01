@@ -30,7 +30,7 @@ namespace BetterGameUI
 
         public override void Load() {
             if (!ClientConfig.Compatibility_DisableChangesToTheBuffsBars) {
-                BuffsBarsEdits.Load();
+                BuffListsEdits.Load();
             }
             if (!ClientConfig.Compatibility_DisableChangesToTheHotbar) {
                 HotbarEdits.Load();

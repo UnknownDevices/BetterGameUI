@@ -28,11 +28,11 @@ namespace BetterGameUI.Edits
             }
             catch (System.Reflection.TargetInvocationException e)
             {
-                throw new Exception.LoadingHotbarEdits(e);
+                throw new Exception.FailedToLoadHotbarEdits(e);
             }
             catch (Exception.InstructionNotFound e)
             {
-                throw new Exception.LoadingHotbarEdits(e);
+                throw new Exception.FailedToLoadHotbarEdits(e);
             }
 
             On.Terraria.Player.ScrollHotbar += On_Player_ScrollHotbar;
@@ -90,6 +90,8 @@ namespace BetterGameUI.Edits
         public static void On_Player_ScrollHotbar(On.Terraria.Player.orig_ScrollHotbar orig, Terraria.Player player,
             int Offset)
         {
+            Offset *= Mod.ClientConfig.Hotbar_InvertWheelScroll ? 1 : -1;
+
             if (PointedToItem >= 10)
             {
                 return;
