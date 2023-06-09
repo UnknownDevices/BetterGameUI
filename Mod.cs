@@ -3,7 +3,6 @@
 
 using BetterGameUI.IL;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 

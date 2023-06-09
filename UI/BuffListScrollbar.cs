@@ -13,7 +13,7 @@ namespace BetterGameUI.UI
         public override bool CanScrollerBeDragged => !Parent.IsLocked && IsVisible;
 
         public override bool CanListenToWheelScroll => IsVisible && KeybindSystem.BuffListScrollIsActive.Current
-            || ((Mod.Config.General_HoverToActivateHotbarsBuffListScroll || !Main.playerInventory) && Parent.IsHovered );
+            || ((Mod.Config.General_HoverToActivateHotbarsBuffListScroll || !Main.playerInventory) && Parent.IsHovered);
 
         public override float BarAlpha => Parent.Alpha;
         public override float ScrollerMinAlpha => Parent.Alpha;

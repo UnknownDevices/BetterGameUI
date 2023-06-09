@@ -55,7 +55,7 @@ namespace BetterGameUI
         }
 
         public override void OnEnterWorld(Terraria.Player player) {
-            if (BetterGameUI.Mod.Config.Notifications_ShowStartupMessageForImportantChangeNotes_0_4_0) {
+            if (BetterGameUI.Mod.Config.Notifications_ShowStartupMessageForImportantChangeNotes_0_4_0_1) {
                 var text = Language.GetTextValue("Mods.BetterGameUI.Message.ImportantChangeNotes",
                     Language.GetTextValue("Mods.BetterGameUI.CompactName"),
                     Language.GetTextValue("Mods.BetterGameUI.Version"));

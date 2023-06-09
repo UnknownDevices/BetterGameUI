@@ -2,7 +2,6 @@
 using BetterGameUI.UI;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.GameInput;
 using Terraria.ModLoader;
 
 namespace BetterGameUI
