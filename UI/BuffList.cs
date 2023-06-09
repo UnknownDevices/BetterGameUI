@@ -1,18 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.GameInput;
 using Terraria.ModLoader;
-using Terraria.GameContent;
-using Terraria.DataStructures;
-using ReLogic.Graphics;
 using Terraria.UI;
 
 namespace BetterGameUI.UI
@@ -22,6 +18,7 @@ namespace BetterGameUI.UI
         LeftToRight,
         RightToLeft,
     }
+
     public enum ScrollbarRelPos : short
     {
         LeftOfIcons,
@@ -36,6 +33,9 @@ namespace BetterGameUI.UI
         public const int IconToIconPad = 6;
         public const int ScrollbarReservedWidth = 14;
 
+        private static bool currentMouseLeftBegunInBufffList;
+        public static bool CurrentMouseLeftBegunInBufffList { get => currentMouseLeftBegunInBufffList; set => currentMouseLeftBegunInBufffList = value; }
+
         public CalculatedStyle Dimensions;
         public bool IsHovered => Dimensions.GrowFromCenter(4).Contains(Player.MouseX, Player.MouseY);
         public virtual bool IsVisible => true;
@@ -45,7 +45,6 @@ namespace BetterGameUI.UI
         public virtual ushort ColsCount => 1;
         public virtual BuffIconsHorOrder IconsHorOrder => BuffIconsHorOrder.LeftToRight;
         public virtual ScrollbarRelPos ScrollbarRelPos => ScrollbarRelPos.LeftOfIcons;
-        public bool LeftMouseCurrent { get; set; }
         public int HoveredIcon { get; set; }
         public BuffListScrollbar Scrollbar { get; set; }
 
@@ -53,15 +52,24 @@ namespace BetterGameUI.UI
             Scrollbar = new BuffListScrollbar(this);
         }
 
+        // TODO: I could absolutely just inject CIL instructions instead
+        // TODO: take fields as variables instead
         public virtual void Update() {
             if (!IsVisible) {
                 Scrollbar.Update();
                 return;
             }
 
-            if (LeftMouseCurrent) {
+            if (CurrentMouseLeftBegunInBufffList) {
                 if (!PlayerInput.Triggers.Current.MouseLeft) {
-                    LeftMouseCurrent = false;
+                    CurrentMouseLeftBegunInBufffList = false;
+                }
+            }
+
+            var activeBuffsIndexes = new List<int>(Terraria.Player.MaxBuffs);
+            for (int i = 0; i < Terraria.Player.MaxBuffs; ++i) {
+                if (Main.LocalPlayer.buffType[i] > 0) {
+                    activeBuffsIndexes.Add(i);
                 }
             }
 
@@ -71,25 +79,26 @@ namespace BetterGameUI.UI
 
             int hoveredIcon = -1;
             int iconsBegin = (int)Scrollbar.ScrolledPages * ColsCount;
-            int iconsEnd = Math.Min(Mod.ActiveBuffsIndexes.Count - iconsBegin, RowsCount * ColsCount);
+            int iconsEnd = Math.Min(activeBuffsIndexes.Count - iconsBegin, RowsCount * ColsCount);
             for (int iconsI = 0; iconsI < iconsEnd; ++iconsI) {
                 int x = 0;
                 switch (IconsHorOrder) {
                     case BuffIconsHorOrder.LeftToRight:
                         x = rec.Left + (IconWidth + IconToIconPad) * (iconsI % ColsCount);
                         break;
+
                     case BuffIconsHorOrder.RightToLeft:
                         x = rec.Left + (IconWidth + IconToIconPad) * (ColsCount - 1 - (iconsI % ColsCount));
                         break;
                 }
-                
+
                 if (ScrollbarRelPos == ScrollbarRelPos.LeftOfIcons) {
                     x += ScrollbarReservedWidth;
                 }
 
                 int y = rec.Top + (IconHeight + IconTextHeight + IconToIconPad) * (iconsI / ColsCount);
 
-                hoveredIcon = UpdateBuffIcon(hoveredIcon, Mod.ActiveBuffsIndexes[iconsI + iconsBegin], x, y);
+                hoveredIcon = Main.DrawBuffIcon(hoveredIcon, activeBuffsIndexes[iconsI + iconsBegin], x, y);
             }
 
             if (hoveredIcon >= 0) {
@@ -111,16 +120,21 @@ namespace BetterGameUI.UI
                 }
             }
 
-            Scrollbar.Update();
+            Scrollbar.Update(activeBuffsIndexes.Count);
         }
 
-        public int UpdateBuffIcon(int hoveredIcon, int buffSlotOnPlayer, int x, int y) {
-            int buffTy = Main.LocalPlayer.buffType[buffSlotOnPlayer];
-            if (buffTy <= 0) {
-                return hoveredIcon;
-            }
+        public int UpdateBuffIcon(int drawBuffText, int buffSlotOnPlayer, int x, int y) {
+            // aka buffType
+            int num = Main.LocalPlayer.buffType[buffSlotOnPlayer];
+            if (num <= 0)
+                return drawBuffText;
 
-            Asset<Texture2D> buffAsset = TextureAssets.Buff[buffTy];
+            //Main.buffAlpha[buffSlotOnPlayer] = Math.Clamp(Main.buffAlpha[buffSlotOnPlayer], Alpha, 1f);
+
+            var color = new Color(Main.buffAlpha[buffSlotOnPlayer], Main.buffAlpha[buffSlotOnPlayer], Main.buffAlpha[buffSlotOnPlayer],
+                Main.buffAlpha[buffSlotOnPlayer]);
+
+            Asset<Texture2D> buffAsset = TextureAssets.Buff[num];
             Texture2D texture = buffAsset.Value;
             Vector2 drawPosition = new Vector2(x, y);
             int width = buffAsset.Width();
@@ -128,34 +142,11 @@ namespace BetterGameUI.UI
             Vector2 textPosition = new Vector2(x, y + height);
             Rectangle sourceRectangle = new Rectangle(0, 0, width, height);
             Rectangle mouseRectangle = new Rectangle(x, y, width, height);
-
-            if (!IsLocked && mouseRectangle.Contains(Main.mouseX, Main.mouseY)) {
-                hoveredIcon = buffSlotOnPlayer;
-                Main.buffAlpha[buffSlotOnPlayer] += 0.15f;
-
-                if (PlayerInput.Triggers.JustPressed.MouseLeft) {
-                    LeftMouseCurrent = true;
-                }
-
-                if (!PlayerInput.Triggers.Current.MouseLeft || LeftMouseCurrent) {
-                    Main.LocalPlayer.mouseInterface = true;
-                    if (Main.mouseRight && Main.mouseRightRelease) {
-                        if (BuffLoader.RightClick(buffTy, buffSlotOnPlayer)) {
-                            Main.TryRemovingBuff(buffSlotOnPlayer, buffTy);
-                        }
-                    }
-                }
-            }
-
-            Main.buffAlpha[buffSlotOnPlayer] = Math.Clamp(Main.buffAlpha[buffSlotOnPlayer], Alpha, 1f);
-
-            var color = new Color(Main.buffAlpha[buffSlotOnPlayer], Main.buffAlpha[buffSlotOnPlayer], Main.buffAlpha[buffSlotOnPlayer],
-                Main.buffAlpha[buffSlotOnPlayer]);
             Color drawColor = color;
 
             BuffDrawParams drawParams = new BuffDrawParams(texture, drawPosition, textPosition, sourceRectangle, mouseRectangle, drawColor);
 
-            bool skipped = !BuffLoader.PreDraw(Main.spriteBatch, buffTy, buffSlotOnPlayer, ref drawParams);
+            bool skipped = !BuffLoader.PreDraw(Main.spriteBatch, num, buffSlotOnPlayer, ref drawParams);
 
             (texture, drawPosition, textPosition, sourceRectangle, mouseRectangle, drawColor) = drawParams;
 
@@ -163,17 +154,50 @@ namespace BetterGameUI.UI
                 Main.spriteBatch.Draw(texture, drawPosition, sourceRectangle, drawColor, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
             }
 
-            BuffLoader.PostDraw(Main.spriteBatch, buffTy, buffSlotOnPlayer, drawParams);
+            BuffLoader.PostDraw(Main.spriteBatch, num, buffSlotOnPlayer, drawParams);
 
             if (Main.TryGetBuffTime(buffSlotOnPlayer, out int buffTimeValue) && buffTimeValue > 2) {
                 string text = Lang.LocalizedDuration(new TimeSpan(0, 0, buffTimeValue / 60), abbreviated: true, showAllAvailableUnits: false);
                 Main.spriteBatch.DrawString(FontAssets.ItemStack.Value, text, textPosition, color, 0f, default(Vector2), 0.8f, SpriteEffects.None, 0f);
             }
 
-            if (PlayerInput.UsingGamepad && !Main.playerInventory)
-                hoveredIcon = -1;
+            if ((!Main.LocalPlayer.hbLocked || Main.playerInventory) && mouseRectangle.Contains(new Point(Main.mouseX, Main.mouseY))) {
+                drawBuffText = buffSlotOnPlayer;
+                Main.buffAlpha[buffSlotOnPlayer] += 0.1f;
 
-            return hoveredIcon;
+                if (Main.mouseLeft && Main.mouseLeftRelease) {
+                    CurrentMouseLeftBegunInBufffList = true;
+                }
+
+                bool flag = Main.mouseRight && Main.mouseRightRelease && (!Main.mouseLeft || CurrentMouseLeftBegunInBufffList);
+                if (PlayerInput.UsingGamepad) {
+                    flag = (Main.mouseLeft && Main.mouseLeftRelease && Main.playerInventory);
+                    if (Main.playerInventory)
+                        Main.player[Main.myPlayer].mouseInterface = true;
+                }
+                else if (!Main.mouseLeft || CurrentMouseLeftBegunInBufffList) {
+                    Main.player[Main.myPlayer].mouseInterface = true;
+                }
+
+                if (flag)
+                    flag &= BuffLoader.RightClick(num, buffSlotOnPlayer);
+
+                if (flag)
+                    Main.TryRemovingBuff(buffSlotOnPlayer, num);
+            }
+            else {
+                Main.buffAlpha[buffSlotOnPlayer] -= 0.05f;
+            }
+
+            if (Main.buffAlpha[buffSlotOnPlayer] > 1f)
+                Main.buffAlpha[buffSlotOnPlayer] = 1f;
+            else if ((double)Main.buffAlpha[buffSlotOnPlayer] < 0.4)
+                Main.buffAlpha[buffSlotOnPlayer] = 0.4f;
+
+            if (PlayerInput.UsingGamepad && !Main.playerInventory)
+                drawBuffText = -1;
+
+            return drawBuffText;
         }
     }
 }

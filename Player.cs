@@ -1,34 +1,64 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Security.Cryptography.X509Certificates;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.GameInput;
 
 namespace BetterGameUI
 {
-    public class Player : ModPlayer {
-        public static bool BuffListHasWheelScrollFocus { get; internal set; }
+    public class Player : ModPlayer
+    {
+        private static int preselectedItem;
+        private static bool hasControlUseItemStoppedSinceItemAnimationStarted;
+
+        public static int PreselectedItem { get => preselectedItem; set => preselectedItem = value; }
+
+        public static bool HasControlUseItemStoppedSinceItemAnimationStarted {
+            get => hasControlUseItemStoppedSinceItemAnimationStarted;
+            set => hasControlUseItemStoppedSinceItemAnimationStarted = value;
+        }
+
         public static float MouseX => PlayerInput.MouseInfo.X / Main.UIScale;
         public static float MouseY => PlayerInput.MouseInfo.Y / Main.UIScale;
-        public static int WheelScrollAndXButtons {
+
+        public static int Scroll {
             get {
-                int value = 0;
-                if (PlayerInput.Triggers.JustPressed.MouseXButton1) {
-                    value += 1;
-                }
-                if (PlayerInput.Triggers.JustPressed.MouseXButton2) {
-                    value -= 1;
+                int output = -PlayerInput.ScrollWheelDeltaForUI / 120;
+
+                output += XButtonsWithCD;
+                return output;
+            }
+        }
+
+        public static int XButtonsWithCD {
+            get {
+                int buttons = PlayerInput.Triggers.Current.HotbarPlus.ToInt() - PlayerInput.Triggers.Current.HotbarMinus.ToInt();
+                if (PlayerInput.CurrentProfile.HotbarAllowsRadial && buttons != 0 && PlayerInput.Triggers.Current.HotbarHoldTime > PlayerInput.CurrentProfile.HotbarRadialHoldTimeRequired && PlayerInput.CurrentProfile.HotbarRadialHoldTimeRequired != -1) {
+                    PlayerInput.MiscSettingsTEMP.HotbarRadialShouldBeUsed = true;
+                    PlayerInput.Triggers.Current.HotbarScrollCD = 2;
                 }
 
-                return value - PlayerInput.ScrollWheelDeltaForUI / 120;
+                if (PlayerInput.CurrentProfile.HotbarRadialHoldTimeRequired != -1) {
+                    buttons = PlayerInput.Triggers.JustReleased.HotbarPlus.ToInt() - PlayerInput.Triggers.JustReleased.HotbarMinus.ToInt();
+                    if (PlayerInput.Triggers.Current.HotbarScrollCD == 1)
+                        buttons = 0;
+                }
+
+                if (PlayerInput.Triggers.Current.HotbarScrollCD == 0 && buttons != 0) {
+                    PlayerInput.Triggers.Current.HotbarScrollCD = 8;
+                    return buttons;
+                }
+                else {
+                    return 0;
+                }
             }
         }
 
         public override void OnEnterWorld(Terraria.Player player) {
-            if (BetterGameUI.Mod.ClientConfig.Notifications_ShowStartupMessageForImportantChangeNotes_0_3_11_1) {
-                var text = Messages.ImportantChangeNotes();
+            if (BetterGameUI.Mod.Config.Notifications_ShowStartupMessageForImportantChangeNotes_0_4_0) {
+                var text = Language.GetTextValue("Mods.BetterGameUI.Message.ImportantChangeNotes",
+                    Language.GetTextValue("Mods.BetterGameUI.CompactName"),
+                    Language.GetTextValue("Mods.BetterGameUI.Version"));
                 if (text != "") {
                     Main.NewText(text, Color.Yellow);
                 }
@@ -40,9 +70,6 @@ namespace BetterGameUI
                 Main.LocalPlayer.hbLocked ^= true;
                 Reflection.SoundEngineReflection.PlaySound(22);
             }
-
-            BuffListHasWheelScrollFocus = KeybindSystem.MouseScrollToFocusBuffsBar.Current;
         }
-
     }
 }

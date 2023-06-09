@@ -10,16 +10,17 @@ namespace BetterGameUI.Reflection
     public class AccessorySlotLoaderReflection
     {
         public static readonly PropertyInfo DrawVerticalAlignmentInfo;
-        public static int GetDrawVerticalAlignment()
-            => (int)DrawVerticalAlignmentInfo.GetValue(null);
-        public static void SetDrawVerticalAlignment(int val) 
+
+        public static void SetDrawVerticalAlignment(int val)
             => DrawVerticalAlignmentInfo.SetValue(null, val);
 
         public static readonly PropertyInfo DefenseIconPositionInfo;
+
         public static void SetDefenseIconPosition(Vector2 val)
             => DefenseIconPositionInfo.SetValue(null, val);
 
         public static readonly FieldInfo ListInfo;
+
         public static List<ModAccessorySlot> GetList(AccessorySlotLoader self)
             => ListInfo.GetValue(self) as List<ModAccessorySlot>;
 
@@ -28,15 +29,15 @@ namespace BetterGameUI.Reflection
         public static readonly Action<AccessorySlotLoader> DrawScrollSwitch;
 
         static AccessorySlotLoaderReflection() {
-            DrawVerticalAlignmentInfo = typeof(AccessorySlotLoader).GetProperty("DrawVerticalAlignment", 
+            DrawVerticalAlignmentInfo = typeof(AccessorySlotLoader).GetProperty("DrawVerticalAlignment",
                 BindingFlags.Public | BindingFlags.Static);
-            DefenseIconPositionInfo = typeof(AccessorySlotLoader).GetProperty("DefenseIconPosition", 
+            DefenseIconPositionInfo = typeof(AccessorySlotLoader).GetProperty("DefenseIconPosition",
                 BindingFlags.Public | BindingFlags.Static);
-            ListInfo = typeof(AccessorySlotLoader).GetField("list", BindingFlags.NonPublic | 
+            ListInfo = typeof(AccessorySlotLoader).GetField("list", BindingFlags.NonPublic |
                 BindingFlags.Instance);
             ModSlotPlayer = typeof(AccessorySlotLoader).
                 GetMethod("ModSlotPlayer", BindingFlags.NonPublic | BindingFlags.Static).
-                CreateDelegate(typeof(Func<Terraria.Player, ModAccessorySlotPlayer>)) as Func<Terraria.Player, 
+                CreateDelegate(typeof(Func<Terraria.Player, ModAccessorySlotPlayer>)) as Func<Terraria.Player,
                 ModAccessorySlotPlayer>;
             GetAccessorySlotPerColumn = typeof(AccessorySlotLoader).
                 GetMethod("GetAccessorySlotPerColumn", BindingFlags.NonPublic | BindingFlags.Instance).

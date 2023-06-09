@@ -1,19 +1,26 @@
-﻿using Terraria.ModLoader;
+﻿using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace BetterGameUI
 {
     public class KeybindSystem : ModSystem
     {
-        public static ModKeybind MouseScrollToFocusBuffsBar { get; set; }
+        public static ModKeybind BuffListScrollIsActive { get; set; }
         public static ModKeybind LockHotbar { get; set; }
 
         public override void Load() {
-            MouseScrollToFocusBuffsBar = KeybindLoader.RegisterKeybind(Mod, "Mouse Scroll Focuses Buffs Bar", "LeftAlt");
-            LockHotbar = KeybindLoader.RegisterKeybind(Mod, "Toggle UI Lock", "N");
+            BuffListScrollIsActive = KeybindLoader.RegisterKeybind(
+                Mod,
+                LocalizationLoader.GetOrCreateTranslation("Mods.BetterGameUI.Keybinds.ActivateBuffListScroll").GetTranslation(Language.ActiveCulture),
+                "B");
+            LockHotbar = KeybindLoader.RegisterKeybind(
+                Mod,
+                LocalizationLoader.GetOrCreateTranslation("Mods.BetterGameUI.Keybinds.ToggleUILock").GetTranslation(Language.ActiveCulture),
+                "N");
         }
 
         public override void Unload() {
-            MouseScrollToFocusBuffsBar = null;
+            BuffListScrollIsActive = null;
             LockHotbar = null;
         }
     }

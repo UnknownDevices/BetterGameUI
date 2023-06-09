@@ -1,5 +1,4 @@
-﻿using IL.Terraria.DataStructures;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -8,10 +7,13 @@ using Terraria.UI;
 
 namespace BetterGameUI.UI
 {
+    // TODO: consider making overridable methods protected
     // TODO: maybe do use UIElement
-    public abstract class Scrollbar {
+    public abstract class Scrollbar
+    {
         // TODO: allow using other textures as well
         public const int BarCornerHeight = 4;
+
         public const int ScrollerCornerHeight = 2;
         public const uint BarMinHeight = 10;
         public const uint ScrollerMinHeight = 6;
@@ -23,35 +25,34 @@ namespace BetterGameUI.UI
         public virtual bool IsVisible => true;
         public virtual bool CanScrollerBeDragged => true;
         public virtual bool CanListenToWheelScroll => true;
-        public virtual bool InvertWheelScroll => true;
+        public virtual bool InvertedMouseScroll => false;
         public virtual float BarAlpha => 0.5f;
         public virtual float ScrollerMinAlpha => 0.5f;
         public virtual float ScrollerMaxAlpha => 1f;
         public virtual uint PagesCount => 1;
         public virtual uint PagesShownAtOnce => 1;
         public bool IsScrollerBeingDragged { get; set; }
-        public bool MouseLeftCurrent { get; set; }
+        public bool CurrentMouseLeftBegunInScrollbar { get; set; }
         public float ScrollerAlpha { get; set; }
         public uint ScrolledPages { get; set; }
 
         public virtual void Update() {
             if (!IsVisible) {
-                // Reset state
                 IsScrollerBeingDragged = false;
-                MouseLeftCurrent = false;
+                CurrentMouseLeftBegunInScrollbar = false;
                 ScrollerAlpha = ScrollerMinAlpha;
                 return;
             }
 
-            if (MouseLeftCurrent) {
+            if (CurrentMouseLeftBegunInScrollbar) {
                 if (!PlayerInput.Triggers.Current.MouseLeft) {
-                    MouseLeftCurrent = false;
+                    CurrentMouseLeftBegunInScrollbar = false;
                 }
             }
             else if (PlayerInput.Triggers.JustPressed.MouseLeft && IsBarHovered) {
-                MouseLeftCurrent = true;
+                CurrentMouseLeftBegunInScrollbar = true;
             }
-            
+
             ScrollerDimensions.Height = (BarDimensions.Height <= 0)
                 ? 0f : (float)Math.Clamp(Math.Ceiling(
                     BarDimensions.Height / PagesCount * PagesShownAtOnce),
@@ -71,7 +72,7 @@ namespace BetterGameUI.UI
 
             ScrollerDimensions.Y = BarDimensions.Y + (float)Math.Round(pxsPerNotch * ScrolledPages);
 
-            if (IsBarHovered && (!PlayerInput.Triggers.Current.MouseLeft || MouseLeftCurrent)) {
+            if (IsBarHovered && (!PlayerInput.Triggers.Current.MouseLeft || CurrentMouseLeftBegunInScrollbar)) {
                 Main.LocalPlayer.mouseInterface = true;
             }
 
@@ -88,7 +89,7 @@ namespace BetterGameUI.UI
                 return 0;
             }
 
-            return InvertWheelScroll ? -Player.WheelScrollAndXButtons : Player.WheelScrollAndXButtons;
+            return InvertedMouseScroll ? -Player.Scroll : Player.Scroll;
         }
 
         private long HandleScrollerDragging() {
@@ -117,7 +118,7 @@ namespace BetterGameUI.UI
                     IsScrollerBeingDragged = true;
                     return 0;
                 }
-                if (MouseLeftCurrent && IsBarHovered) {
+                if (CurrentMouseLeftBegunInScrollbar && IsBarHovered) {
                     if (Player.MouseY < ScrollerDimensions.Y) {
                         return -1;
                     }
@@ -133,7 +134,7 @@ namespace BetterGameUI.UI
             return 0;
         }
 
-        private void Draw(Texture2D texture, Rectangle rec, float alpha, int cornerHeight) {
+        private static void Draw(Texture2D texture, Rectangle rec, float alpha, int cornerHeight) {
             var color = new Color(alpha, alpha, alpha, alpha);
             Main.spriteBatch.Draw(texture,
                 new Rectangle(rec.X, rec.Y, rec.Width, cornerHeight),

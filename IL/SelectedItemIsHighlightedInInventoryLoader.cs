@@ -1,32 +1,23 @@
-﻿using Mono.Cecil.Cil;
-using MonoMod.Cil;
+﻿using MonoMod.Cil;
 
-namespace BetterGameUI.Edits
+namespace BetterGameUI.IL
 {
-    public static class ItemSlotsEdits
+    public class SelectedItemIsHighlightedInInventoryLoader
     {
-        public static void Load()
-        {
-            try
-            {
-                IL.Terraria.UI.ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color +=
-                    IL_ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color;
+        public static void Load() {
+            try {
+                global::IL.Terraria.UI.ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color +=
+                    ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color_SelectedItemIsHighlightedInInventory;
             }
-            catch (System.Reflection.TargetInvocationException e)
-            {
-                throw new Exception.FailedToLoadItemSlotsEdits(e);
-            }
-            catch (Exception.InstructionNotFound e)
-            {
-                throw new Exception.FailedToLoadItemSlotsEdits(e);
+            catch (System.Exception e) {
+                throw new Exception.FailedToLoadFeature("Mods.BetterGameUI.Config.Label.Feature_SelectedItemIsHighlightedInInventory", e);
             }
         }
 
-        public static void IL_ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color(ILContext il)
-        {
+        private static void ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color_SelectedItemIsHighlightedInInventory(ILContext il) {
             var c = new ILCursor(il);
 
-            // ->: if (context == 0 && slot < [...] && player.selectedItem == slot) {
+            // ->: if (context == 0 && slot < {...} && player.selectedItem == slot) {
             if (!c.TryGotoNext(MoveType.Before,
                 x => x.MatchLdarg(2) &&
                 x.Next.MatchBrtrue(out _) &&
@@ -36,12 +27,11 @@ namespace BetterGameUI.Edits
                 x.Next.Next.Next.Next.Next.MatchLdloc(0) &&
                 x.Next.Next.Next.Next.Next.Next.MatchLdfld("Terraria.Player", "selectedItem") &&
                 x.Next.Next.Next.Next.Next.Next.Next.MatchLdarg(3) &&
-                x.Next.Next.Next.Next.Next.Next.Next.Next.MatchBneUn(out _)))
-            {
+                x.Next.Next.Next.Next.Next.Next.Next.Next.MatchBneUn(out _))) {
                 throw new Exception.InstructionNotFound();
             }
 
-            // --: if (context == 0 && slot < [...] && player.selectedItem == slot) {
+            // --: if (context == 0 && slot < {...} && player.selectedItem == slot) {
             // ++: if (context == 0 && slot < 50 && player.selectedItem == slot) {
             c.Next.Next.Next.Next.Operand = 50;
 
@@ -53,8 +43,7 @@ namespace BetterGameUI.Edits
                 x.Next.Next.Next.MatchCeq() &&
                 x.Next.Next.Next.Next.MatchLdloc(10) &&
                 x.Next.Next.Next.Next.Next.MatchAnd() &&
-                x.Next.Next.Next.Next.Next.Next.MatchBrfalse(out _)))
-            {
+                x.Next.Next.Next.Next.Next.Next.MatchBrfalse(out _))) {
                 throw new Exception.InstructionNotFound();
             }
 
@@ -66,8 +55,7 @@ namespace BetterGameUI.Edits
                 x.Next.MatchBrtrue(out _) &&
                 x.Next.Next.MatchLdarg(3) &&
                 x.Next.Next.Next.MatchLdcI4(out _) &&
-                x.Next.Next.Next.Next.MatchBge(out _)))
-            {
+                x.Next.Next.Next.Next.MatchBge(out _))) {
                 throw new Exception.InstructionNotFound();
             }
 

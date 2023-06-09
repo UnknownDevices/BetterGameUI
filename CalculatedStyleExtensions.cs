@@ -1,5 +1,4 @@
-﻿using Terraria;
-using Terraria.UI;
+﻿using Terraria.UI;
 
 namespace BetterGameUI
 {
@@ -23,10 +22,8 @@ namespace BetterGameUI
             return self;
         }
 
-        public static bool Contains(this CalculatedStyle self, float x, float y)
-        {
-            if (self.X <= x && x < self.X + self.Width && self.Y <= y)
-            {
+        public static bool Contains(this CalculatedStyle self, float x, float y) {
+            if (self.X <= x && x < self.X + self.Width && self.Y <= y) {
                 return y < self.Y + self.Height;
             }
 

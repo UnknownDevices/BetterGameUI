@@ -1,29 +1,25 @@
-[ENG] QoL mod which enhances many in-game UIs without changing them drastically.
-Do note that most features of this mod can be toggled and tweaked from the configs page.
+[c/FFE900:A collection of improvements over some in-game UIs]
 
---- Features ---
-- Limit the screen space buff lists can take by making them scrollable if they grow too big
-- Have the hotbar, fullscreen map, and recipe list be fully interactable while using an item
-- Have buff lists no longer cancel your current left click when you hover over them
+Every feature of this mod is individually toggable for your convenience
+_________________________
+
+  [c/FFE900: Notable Features]
+_________________________
+
+- Equip the buff list with a scrollbar similar to the one provided for the accessory slots
+- Replace the accessory slots' scrollbar for an improved one provided by this mod
+- Have the hotbar, recipe list, and full-screen map remain interactive while an item is being used
+- Have the recipe list be scrollable with the X buttons of the mouse, similar to how the hotbar is
+- Have dragging a click over a buff icon no longer interrupt the click
 - Lock the minimap and the buff list under the hotbar when the hotbar is locked
 - Include a convenient keybind (N) for locking and unlocking the previously mentioned UIs
-- Include toggles for inverting the scroll for various UIs
-- Fix various minor visual bugs present in the vanilla game
-...And lots of other minor tweaks that you may not even notice
+- Fix a couple of minor visual bugs present in the vanilla game
+_________________________
 
---- Warnings ---
-- This mod does not increase the buff slots available to a player, see mods like Fargo's Mutant Mod for this.
-- This mod does not work with gamepads at the moment.
+  [c/FFE900: Notes]
+_________________________
 
---- Resources ---
-- Repository on GitHub: https://github.com/UnknownDevices/BetterGameUI
-- My Discord contact: UnknownDevices#5926
+- This mod does not increase the buff slots available to a player, which means that you will not see the scrollbar for the buff list unless you have another mod that increases so
+_________________________
 
-
-
-[ESP] Mod de Calidad de Vida que mejora varias UIs en el juego sin cambiarlas de manera drástica.
-Toma en cuenta que la mayoría de las características de este mod se pueden desactivar y modificar desde la página de configuraciones.
-
---- Recursos ---
-- El repositorio en GitHub: https://github.com/UnknownDevices/BetterGameUI
-- Mi contacto en Discord: UnknownDevices#5926
+Any bug reports or suggestions are more than welcome either through this mod's Steam Workshop page or GitHub repository.
