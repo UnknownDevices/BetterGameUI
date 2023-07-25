@@ -8,7 +8,7 @@ namespace BetterGameUI.UI
     public sealed class BuffListScrollbar : Scrollbar
     {
         private uint pagesCount;
-        public override bool IsVisible => Parent.IsVisible && 0 < PagesCount - PagesShownAtOnce;
+        public override bool IsVisible => Parent.IsVisible && 0 < NotchesCount - NotchesPerPage;
 
         public override bool CanScrollerBeDragged => !Parent.IsLocked && IsVisible;
 
@@ -17,8 +17,8 @@ namespace BetterGameUI.UI
 
         public override float BarAlpha => Parent.Alpha;
         public override float ScrollerMinAlpha => Parent.Alpha;
-        public override uint PagesCount => pagesCount;
-        public override uint PagesShownAtOnce => Parent.RowsCount;
+        public override uint NotchesCount => pagesCount;
+        public override uint NotchesPerPage => Parent.RowsCount;
         public BuffList Parent { get; set; }
 
         public BuffListScrollbar(BuffList parent) {
@@ -37,11 +37,11 @@ namespace BetterGameUI.UI
 
         public void Update(int totalActiveBuffIndexes) {
             switch (Parent.ScrollbarRelPos) {
-                case ScrollbarRelPos.LeftOfIcons:
+                case ScrollbarRelPos.Left:
                     BarDimensions.X = Parent.Dimensions.X;
                     break;
 
-                case ScrollbarRelPos.RightOfIcons:
+                case ScrollbarRelPos.Right:
                     BarDimensions.X = Parent.Dimensions.X + Parent.Dimensions.Width - BuffList.ScrollbarReservedWidth;
                     break;
 

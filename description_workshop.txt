@@ -1,25 +1,27 @@
 ﻿[h1]Better Game UI[/h1]
-A collection of improvements over some in-game UIs
+A collection of improvements over some in-game UIs.
 
-Every feature of this mod is individually toggable for your convenience
+Every feature of this mod is individually toggable.
 
 [hr]
-[h2]Notable Features:[/h2]
+[h2]Features:[/h2]
 [list]
-[*] Equip the buff list with a scrollbar similar to the one provided for the accessory slots
-[*] Replace the accessory slots' scrollbar for an improved one provided by this mod
-[*] Have the hotbar, recipe list, and full-screen map remain interactive while an item is being used
-[*] Have the recipe list be scrollable with the X buttons of the mouse, similar to how the hotbar is
-[*] Have dragging a click over a buff icon no longer interrupt the click
-[*] Lock the minimap and the buff list under the hotbar when the hotbar is locked
-[*] Include a convenient keybind (N) for locking and unlocking the previously mentioned UIs
-[*] Fix a couple of minor visual bugs present in the vanilla game
+[*] Add a scrollbar to the buffs bars and NPC house icons.
+[*] Improve the accessory slots scrollbar.
+[*] Have the hotbar, fullscreen map, and recipe list remain responsive while an items is used.
+[*] Make the recipe list and accessory slots scrollable with the mouse wheel buttons.
+[*] Have dragging a click over a buff icon no longer interrupt the click.
+[*] Make locking the hotbar also lock other off-inventory UIs.
+[*] Add a keybind (N) for quickly toggling locking the previous UIs.
+[*] Invert the scroll for recipe list, which scrolled opposite to most other UIs.
+[*] Fix various minor visual bugs and inconsistencies.
 [/list]
 
 [hr]
 [h2]Notes:[/h2]
 [list]
-[*] This mod does not increase the buff slots available to a player, which means that you will not see the scrollbar for the buff list unless you have another mod that increases so
+[*] No gamepad support.
+[*] This mod does not increase the buff slots available to the player, which is 22 as per vanilla Terraria.
 [/list]
 
 Any bug reports or suggestions are more than welcome either through here or through this mod's [url=https://github.com/UnknownDevices/BetterGameUI]GitHub repository[/url]

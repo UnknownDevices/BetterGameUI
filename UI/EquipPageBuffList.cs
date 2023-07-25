@@ -10,7 +10,7 @@ namespace BetterGameUI.UI
         public override ushort RowsCount => (ushort)Mod.Config.General_EquipPagesBuffListRows;
         public override ushort ColsCount => 5;
         public override BuffIconsHorOrder IconsHorOrder => BuffIconsHorOrder.RightToLeft;
-        public override ScrollbarRelPos ScrollbarRelPos => ScrollbarRelPos.RightOfIcons;
+        public override ScrollbarRelPos ScrollbarRelPos => ScrollbarRelPos.Right;
 
         public EquipPageBuffList() {
             Dimensions = new CalculatedStyle();

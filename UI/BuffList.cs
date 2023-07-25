@@ -21,8 +21,8 @@ namespace BetterGameUI.UI
 
     public enum ScrollbarRelPos : short
     {
-        LeftOfIcons,
-        RightOfIcons,
+        Left,
+        Right,
     }
 
     public class BuffList
@@ -44,7 +44,7 @@ namespace BetterGameUI.UI
         public virtual ushort RowsCount => 1;
         public virtual ushort ColsCount => 1;
         public virtual BuffIconsHorOrder IconsHorOrder => BuffIconsHorOrder.LeftToRight;
-        public virtual ScrollbarRelPos ScrollbarRelPos => ScrollbarRelPos.LeftOfIcons;
+        public virtual ScrollbarRelPos ScrollbarRelPos => ScrollbarRelPos.Left;
         public int HoveredIcon { get; set; }
         public BuffListScrollbar Scrollbar { get; set; }
 
@@ -78,7 +78,7 @@ namespace BetterGameUI.UI
             Rectangle rec = Dimensions.ToRectangle();
 
             int hoveredIcon = -1;
-            int iconsBegin = (int)Scrollbar.ScrolledPages * ColsCount;
+            int iconsBegin = (int)Scrollbar.ScrolledNotches * ColsCount;
             int iconsEnd = Math.Min(activeBuffsIndexes.Count - iconsBegin, RowsCount * ColsCount);
             for (int iconsI = 0; iconsI < iconsEnd; ++iconsI) {
                 int x = 0;
@@ -92,7 +92,7 @@ namespace BetterGameUI.UI
                         break;
                 }
 
-                if (ScrollbarRelPos == ScrollbarRelPos.LeftOfIcons) {
+                if (ScrollbarRelPos == ScrollbarRelPos.Left) {
                     x += ScrollbarReservedWidth;
                 }
 

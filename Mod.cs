@@ -29,6 +29,10 @@ namespace BetterGameUI
                     BuffListScrollbarLoader.Load();
                 }
 
+                if (Config.Feature_NPCHouseIconsScrollbar) { 
+                    NPCHouseIconsScrollbarLoader.Load();
+                }
+
                 if (Config.Feature_AccessorySlotsImprovedScrollbar) {
                     AccessorySlotsImprovedScrollbarLoader.Load();
                 }

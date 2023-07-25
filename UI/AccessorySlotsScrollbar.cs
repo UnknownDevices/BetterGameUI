@@ -13,7 +13,7 @@ namespace BetterGameUI.UI
         private uint pagesShowAtOnce;
         private CalculatedStyle parentDimensions;
 
-        public override bool IsVisible => 0 < PagesCount - PagesShownAtOnce
+        public override bool IsVisible => 0 < NotchesCount - NotchesPerPage
             && ModAccessorySlotPlayerReflection.GetScrollSlots(AccessorySlotLoaderReflection.ModSlotPlayer(Main.LocalPlayer));
 
         public override bool CanScrollerBeDragged => IsVisible;
@@ -23,8 +23,8 @@ namespace BetterGameUI.UI
 
         public override float BarAlpha => 0.65f;
         public override float ScrollerMinAlpha => 0.65f;
-        public override uint PagesCount => pagesCount;
-        public override uint PagesShownAtOnce => pagesShowAtOnce;
+        public override uint NotchesCount => pagesCount;
+        public override uint NotchesPerPage => pagesShowAtOnce;
 
         public CalculatedStyle ParentDimensions => parentDimensions;
 

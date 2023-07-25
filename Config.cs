@@ -19,7 +19,7 @@ namespace BetterGameUI
         [DefaultValue(false)]
         [Label("$Mods.BetterGameUI.Config.Label.Notifications_ShowStartupMessageForImportantChangeNotes")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Notifications_ShowStartupMessageForImportantChangeNotes")]
-        public bool Notifications_ShowStartupMessageForImportantChangeNotes_0_4_0_1 { get; set; }
+        public bool Notifications_ShowStartupMessageForImportantChangeNotes_0_4_1_0 { get; set; }
 
         // ------------- General ------------- //
 
@@ -41,6 +41,12 @@ namespace BetterGameUI
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.General_EquipPagesBuffListRows")]
         public int General_EquipPagesBuffListRows { get; set; }
 
+        [DefaultValue(3)]
+        [Range((ushort)1, ushort.MaxValue)]
+        [Label("$Mods.BetterGameUI.Config.Label.General_NPCHouseIconsColumns")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.General_NPCHouseIconsColumns")]
+        public int General_NPCHouseIconsColumns { get; set; }
+
         // ------------- Features Config ------------- //
 
         [Header("$Mods.BetterGameUI.Config.Header.Features")]
@@ -49,6 +55,12 @@ namespace BetterGameUI
         [Label("$Mods.BetterGameUI.Config.Label.Feature_BuffListsScrollbar")]
         [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Feature_BuffListsScrollbar")]
         public bool Feature_BuffListsScrollbar { get; set; }
+
+        [ReloadRequired]
+        [DefaultValue(true)]
+        [Label("$Mods.BetterGameUI.Config.Label.Feature_NPCHouseIconsScrollbar")]
+        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Feature_NPCHouseIconsScrollbar")]
+        public bool Feature_NPCHouseIconsScrollbar { get; set; }
 
         [ReloadRequired]
         [DefaultValue(true)]

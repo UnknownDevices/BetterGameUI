@@ -59,7 +59,7 @@ namespace BetterGameUI
             BetterGameUI.UISystem.AccessorySlotsScrollbar.Update(accessoryPerColumn, slotsToRender);
 
             ModAccessorySlotPlayerReflection.SetScrollbarSlotPosition(AccessorySlotLoaderReflection.ModSlotPlayer
-                (Main.LocalPlayer), (int)BetterGameUI.UISystem.AccessorySlotsScrollbar.ScrolledPages);
+                (Main.LocalPlayer), (int)BetterGameUI.UISystem.AccessorySlotsScrollbar.ScrolledNotches);
         }
     }
 }
