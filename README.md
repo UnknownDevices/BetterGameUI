@@ -1,19 +1,19 @@
 # Better Game UI
 A collection of improvements over some in-game UIs
 
-Every feature of this mod is individually toggable for your convenience
+If you encounter an incompatible mod with this, try disabling features until you find the troublesome ones and do consider reporting the issue.
 
-## Notable Features
-- Equip the buff list with a scrollbar similar to the one provided for the accessory slots
-- Replace the accessory slots' scrollbar for an improved one provided by this mod
-- Have the hotbar, recipe list, and full-screen map remain interactive while an item is being used
-- Have the recipe list be scrollable with the X buttons of the mouse, similar to how the hotbar is
-- Have dragging a click over a buff icon no longer interrupt the click
-- Lock the minimap and the buff list under the hotbar when the hotbar is locked
-- Include a convenient keybind (N) for locking and unlocking the previously mentioned UIs
-- Fix a couple of minor visual bugs present in the vanilla game
+## Features
+- Add a scrollbar to the buffs bars.
+- Improve the accessory slots scrollbar.
+- Have dragging a click over a buff icon no longer interrupt the click.
+- Make locking the hotbar also lock all the other off-inventory UIs.
+- Add a keybind (N) for quickly toggling locking the previous UIs.
+- Fix various minor visual bugs and inconsistencies.
 
 ## Notes
-- This mod does not increase the buff slots available to a player, which means that you will not see the scrollbar for the buff list unless you have another mod that increases so
+- Some features present in the version for Terraria 1.4.3 were not ported to this version. They will be brought one by one in consequent updates.
+- No gamepad support.
+- This mod does not increase the buff slots available to the player, which is 22 as per vanilla Terraria.
 
 Any bug reports or suggestions are more than welcome either through here or through this mod's [Steam Workshop page](https://steamcommunity.com/sharedfiles/filedetails/?id=2903065706)
