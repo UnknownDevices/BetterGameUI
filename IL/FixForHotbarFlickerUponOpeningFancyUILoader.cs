@@ -8,12 +8,7 @@ namespace BetterGameUI.IL
     public class FixForHotbarFlickerUponOpeningFancyUILoader
     {
         public static void Load() {
-            try {
-                global::IL.Terraria.Main.GUIHotbarDrawInner += Main_GUIHotbarDrawInner_FixForHotbarFlickerUponOpeningFancyUI;
-            }
-            catch (System.Exception e) {
-                throw new Exception.FailedToLoadFeature("Mods.BetterGameUI.Config.Label.Feature_FixForHotbarFlickerUponOpeningFancyUI", e);
-            }
+            Terraria.IL_Main.GUIHotbarDrawInner += Main_GUIHotbarDrawInner_FixForHotbarFlickerUponOpeningFancyUI;
         }
 
         private static void Main_GUIHotbarDrawInner_FixForHotbarFlickerUponOpeningFancyUI(ILContext il) {

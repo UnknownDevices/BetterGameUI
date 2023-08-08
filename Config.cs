@@ -15,105 +15,73 @@ namespace BetterGameUI
 
         // ------------- Notifications ------------- //
 
-        [Header("$Mods.BetterGameUI.Config.Header.Notifications")]
+        [Header("Notifications")]
         [DefaultValue(false)]
-        [Label("$Mods.BetterGameUI.Config.Label.Notifications_ShowStartupMessageForImportantChangeNotes")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Notifications_ShowStartupMessageForImportantChangeNotes")]
-        public bool Notifications_ShowStartupMessageForImportantChangeNotes_0_4_1_0 { get; set; }
+        public bool Notifications_ShowStartupMessageForImportantChangeNotes_2_0_0 { get; set; }
 
         // ------------- General ------------- //
 
-        [Header("$Mods.BetterGameUI.Config.Header.General")]
+        [Header("General")]
         [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.General_HoverToActivateHotbarsBuffListScroll")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.General_HoverToActivateHotbarsBuffListScroll")]
         public bool General_HoverToActivateHotbarsBuffListScroll { get; set; }
 
         [DefaultValue(2)]
         [Range((ushort)1, ushort.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.General_HotbarsBuffListRows")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.General_HotbarsBuffListRows")]
-        public int General_HotbarsBuffListRows { get; set; }
+        public int General_HotbarsBuffsBarRows { get; set; }
 
         [DefaultValue(4)]
         [Range((ushort)1, ushort.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.General_EquipPagesBuffListRows")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.General_EquipPagesBuffListRows")]
-        public int General_EquipPagesBuffListRows { get; set; }
+        public int General_EquipPagesBuffsBarRows { get; set; }
 
-        [DefaultValue(3)]
-        [Range((ushort)1, ushort.MaxValue)]
-        [Label("$Mods.BetterGameUI.Config.Label.General_NPCHouseIconsColumns")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.General_NPCHouseIconsColumns")]
-        public int General_NPCHouseIconsColumns { get; set; }
+        //[DefaultValue(3)]
+        //[Range((ushort)1, ushort.MaxValue)]
+        //public int General_NPCHouseIconsColumns { get; set; }
 
         // ------------- Features Config ------------- //
 
-        [Header("$Mods.BetterGameUI.Config.Header.Features")]
+        [Header("Features")]
         [ReloadRequired]
         [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.Feature_BuffListsScrollbar")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Feature_BuffListsScrollbar")]
-        public bool Feature_BuffListsScrollbar { get; set; }
+        public bool Feature_BuffsBarScrollbar { get; set; }
+
+        //[ReloadRequired]
+        //[DefaultValue(true)]
+        //public bool Feature_NPCHouseIconsScrollbar { get; set; }
 
         [ReloadRequired]
         [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.Feature_NPCHouseIconsScrollbar")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Feature_NPCHouseIconsScrollbar")]
-        public bool Feature_NPCHouseIconsScrollbar { get; set; }
-
-        [ReloadRequired]
-        [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.Feature_AccessorySlotsImprovedScrollbar")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Feature_AccessorySlotsImprovedScrollbar")]
         public bool Feature_AccessorySlotsImprovedScrollbar { get; set; }
 
-        [ReloadRequired]
-        [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.Feature_InteractiveUIsWhileUsingItem")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Feature_InteractiveUIsWhileUsingItem")]
-        public bool Feature_InteractiveUIsWhileUsingItem { get; set; }
+        //[ReloadRequired]
+        //[DefaultValue(true)]
+        //public bool Feature_InteractiveUIsWhileUsingItem { get; set; }
+
+        //[ReloadRequired]
+        //[DefaultValue(true)]
+        //public bool Feature_MouseWheelButtonsScrollRecipeList { get; set; }
+
+        //[ReloadRequired]
+        //[DefaultValue(true)]
+        //public bool Feature_InvertedMouseScrollForRecipeList { get; set; }
 
         [ReloadRequired]
         [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.Feature_XButtonsScrollRecipeList")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Feature_XButtonsScrollRecipeList")]
-        public bool Feature_XButtonsScrollRecipeList { get; set; }
-
-        [ReloadRequired]
-        [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.Feature_InvertedMouseScrollForRecipeList")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Feature_InvertedMouseScrollForRecipeList")]
-        public bool Feature_InvertedMouseScrollForRecipeList { get; set; }
-
-        [ReloadRequired]
-        [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.Feature_DraggingOverHotbarSlotDoesntSelectItem")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Feature_DraggingOverHotbarSlotDoesntSelectItem")]
         public bool Feature_DraggingOverHotbarSlotDoesntSelectItem { get; set; }
 
         [ReloadRequired]
         [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.Feature_DraggingOverBuffIconDoesntInterruptClick")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Feature_DraggingOverBuffIconDoesntInterruptClick")]
         public bool Feature_DraggingOverBuffIconDoesntInterruptClick { get; set; }
 
         [ReloadRequired]
         [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.Feature_LockingHotbarLocksAdditionalUIs")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Feature_LockingHotbarLocksAdditionalUIs")]
         public bool Feature_LockingHotbarLocksAdditionalUIs { get; set; }
 
-        [ReloadRequired]
-        [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.Feature_SelectedItemIsHighlightedInInventory")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Feature_SelectedItemIsHighlightedInInventory")]
-        public bool Feature_SelectedItemIsHighlightedInInventory { get; set; }
+        //[ReloadRequired]
+        //[DefaultValue(true)]
+        //public bool Feature_SelectedItemIsHighlightedInInventory { get; set; }
 
         [ReloadRequired]
         [DefaultValue(true)]
-        [Label("$Mods.BetterGameUI.Config.Label.Feature_FixForHotbarFlickerUponOpeningFancyUI")]
-        [Tooltip("$Mods.BetterGameUI.Config.Tooltip.Feature_FixForHotbarFlickerUponOpeningFancyUI")]
         public bool Feature_FixForHotbarFlickerUponOpeningFancyUI { get; set; }
     }
 }

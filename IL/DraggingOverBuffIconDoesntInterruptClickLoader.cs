@@ -9,12 +9,7 @@ namespace BetterGameUI.IL
     public class DraggingOverBuffIconDoesntInterruptClickLoader
     {
         public static void Load() {
-            try {
-                global::IL.Terraria.Main.DrawBuffIcon += Main_DrawBuffIcon_DraggingOverBuffIconDoesntInterruptClick;
-            }
-            catch (System.Exception e) {
-                throw new Exception.FailedToLoadFeature("Mods.BetterGameUI.Config.Label.Feature_DraggingOverBuffIconDoesntInterruptClick", e);
-            }
+            Terraria.IL_Main.DrawBuffIcon += Main_DrawBuffIcon_DraggingOverBuffIconDoesntInterruptClick;
         }
 
         private static void Main_DrawBuffIcon_DraggingOverBuffIconDoesntInterruptClick(ILContext il) {

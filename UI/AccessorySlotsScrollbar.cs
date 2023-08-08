@@ -28,7 +28,7 @@ namespace BetterGameUI.UI
 
         public CalculatedStyle ParentDimensions => parentDimensions;
 
-        public bool IsParentHovered => ParentDimensions.GrowFromCenter(4).Contains(Player.MouseX, Player.MouseY);
+        public bool IsParentHovered => ParentDimensions.GrowFromCenter(4).Contains(Player.UIMouseX, Player.UIMouseY);
 
         public AccessorySlotsScrollbar() {
             BarDimensions = new CalculatedStyle

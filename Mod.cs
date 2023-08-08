@@ -10,6 +10,7 @@ namespace BetterGameUI
 {
     public class Mod : Terraria.ModLoader.Mod
     {
+        // TODO: have the UI lock toggle work off inventory
         // TODO: highlight the selected item even when this is in a coin or ammo slot
         // TODO: play sound when auto use item changes
         // TODO: signal auto select being active through some other, unique way
@@ -25,45 +26,53 @@ namespace BetterGameUI
                 BetterGameUI.Assets.Load();
                 BetterGameUI.UISystem.Load();
 
-                if (Config.Feature_BuffListsScrollbar) {
-                    BuffListScrollbarLoader.Load();
+                if (Config.Feature_BuffsBarScrollbar) {
+                    BuffsBarScrollbarLoader.Load();
                 }
 
-                if (Config.Feature_NPCHouseIconsScrollbar) { 
-                    NPCHouseIconsScrollbarLoader.Load();
-                }
+                //if (Config.Feature_NPCHouseIconsScrollbar)
+                //{
+                //    NPCHouseIconsScrollbarLoader.Load();
+                //}
 
                 if (Config.Feature_AccessorySlotsImprovedScrollbar) {
                     AccessorySlotsImprovedScrollbarLoader.Load();
                 }
 
-                if (Config.Feature_InteractiveUIsWhileUsingItem) {
-                    InteractiveUIsWhileUsingItemLoader.Load();
-                }
+                //if (Config.Feature_InteractiveUIsWhileUsingItem)
+                //{
+                //    InteractiveUIsWhileUsingItemLoader.Load();
+                //}
 
-                if (Config.Feature_XButtonsScrollRecipeList) {
-                    XButtonsScrollRecipeListLoader.Load();
-                }
+                //if (Config.Feature_MouseWheelButtonsScrollRecipeList)
+                //{
+                //    MouseWheelButtonsScrollRecipeListLoader.Load();
+                //}
 
-                if (Config.Feature_InvertedMouseScrollForRecipeList) {
-                    InvertedMouseScrollForRecipeListLoader.Load();
-                }
+                //if (Config.Feature_InvertedMouseScrollForRecipeList)
+                //{
+                //    InvertedMouseScrollForRecipeListLoader.Load();
+                //}
 
-                if (Config.Feature_DraggingOverHotbarSlotDoesntSelectItem) {
+                if (Config.Feature_DraggingOverHotbarSlotDoesntSelectItem)
+                {
                     DraggingOverHotbarSlotDoesntSelectItemLoader.Load();
                 }
 
-                if (Config.Feature_DraggingOverBuffIconDoesntInterruptClick) {
+                if (Config.Feature_DraggingOverBuffIconDoesntInterruptClick)
+                {
                     DraggingOverBuffIconDoesntInterruptClickLoader.Load();
                 }
 
-                if (Config.Feature_LockingHotbarLocksAdditionalUIs) {
+                if (Config.Feature_LockingHotbarLocksAdditionalUIs)
+                {
                     LockingHotbarLocksAdditionalUIsLoader.Load();
                 }
 
-                if (Config.Feature_SelectedItemIsHighlightedInInventory) {
-                    SelectedItemIsHighlightedInInventoryLoader.Load();
-                }
+                //if (Config.Feature_SelectedItemIsHighlightedInInventory)
+                //{
+                //    SelectedItemIsHighlightedInInventoryLoader.Load();
+                //}
 
                 if (Config.Feature_FixForHotbarFlickerUponOpeningFancyUI) {
                     FixForHotbarFlickerUponOpeningFancyUILoader.Load();

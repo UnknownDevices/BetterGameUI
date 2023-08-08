@@ -5,23 +5,23 @@ namespace BetterGameUI
 {
     public class KeybindSystem : ModSystem
     {
-        public static ModKeybind BuffListScrollIsActive { get; set; }
-        public static ModKeybind LockHotbar { get; set; }
+        public static ModKeybind ActivateBuffsBarScroll { get; set; }
+        public static ModKeybind ToggleLockingUIs { get; set; }
 
         public override void Load() {
-            BuffListScrollIsActive = KeybindLoader.RegisterKeybind(
+            ActivateBuffsBarScroll = KeybindLoader.RegisterKeybind(
                 Mod,
-                LocalizationLoader.GetOrCreateTranslation("Mods.BetterGameUI.Keybinds.ActivateBuffListScroll").GetTranslation(Language.ActiveCulture),
+                "ActivateBuffsBarScroll",
                 "B");
-            LockHotbar = KeybindLoader.RegisterKeybind(
+            ToggleLockingUIs = KeybindLoader.RegisterKeybind(
                 Mod,
-                LocalizationLoader.GetOrCreateTranslation("Mods.BetterGameUI.Keybinds.ToggleUILock").GetTranslation(Language.ActiveCulture),
+                "ToggleLockingUIs",
                 "N");
         }
 
         public override void Unload() {
-            BuffListScrollIsActive = null;
-            LockHotbar = null;
+            ActivateBuffsBarScroll = null;
+            ToggleLockingUIs = null;
         }
     }
 }

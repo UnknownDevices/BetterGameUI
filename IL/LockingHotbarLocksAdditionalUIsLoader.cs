@@ -12,16 +12,11 @@ namespace BetterGameUI.IL
     public class LockingHotbarLocksAdditionalUIsLoader
     {
         public static void Load() {
-            try {
-                global::IL.Terraria.Main.DrawBuffIcon += Main_DrawBuffIcon_LockingHotbarLocksMoreUIs;
-                global::IL.Terraria.Main.DrawHotbarLockIcon += Main_DrawHotbarLockIcon_LockingHotbarLocksAdditionalUIs;
-                global::IL.Terraria.Main.GUIHotbarDrawInner += Main_GUIHotbarDrawInner_LockingHotbarLocksAdditionalUIs;
-                global::IL.Terraria.GameContent.UI.Minimap.MinimapFrame.Update +=
-                    MinimapFrame_Update_LockingHotbarLocksAdditionalUIs;
-            }
-            catch (System.Exception e) {
-                throw new Exception.FailedToLoadFeature("Mods.BetterGameUI.Config.Label.Feature_LockingHotbarLocksAdditionalUIs", e);
-            }
+            Terraria.IL_Main.DrawBuffIcon += Main_DrawBuffIcon_LockingHotbarLocksMoreUIs;
+            Terraria.IL_Main.DrawHotbarLockIcon += Main_DrawHotbarLockIcon_LockingHotbarLocksAdditionalUIs;
+            Terraria.IL_Main.GUIHotbarDrawInner += Main_GUIHotbarDrawInner_LockingHotbarLocksAdditionalUIs;
+            Terraria.GameContent.UI.Minimap.IL_MinimapFrame.Update +=
+                MinimapFrame_Update_LockingHotbarLocksAdditionalUIs;
         }
 
         private static void Main_DrawBuffIcon_LockingHotbarLocksMoreUIs(ILContext il) {

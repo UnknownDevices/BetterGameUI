@@ -4,18 +4,13 @@ using System.Reflection;
 
 namespace BetterGameUI.IL
 {
-    public class XButtonsScrollRecipeListLoader
+    public class MouseWheelButtonsScrollRecipeListLoader
     {
         public static void Load() {
-            try {
-                global::IL.Terraria.Player.Update += Player_Update_XButtonsScrollRecipeList;
-            }
-            catch (System.Exception e) {
-                throw new Exception.FailedToLoadFeature("Mods.BetterGameUI.Config.Label.Feature_XButtonsScrollRecipeList", e);
-            }
+            Terraria.IL_Player.Update += Player_Update_MouseWheelButtonsScrollRecipeList;
         }
 
-        private static void Player_Update_XButtonsScrollRecipeList(ILContext il) {
+        private static void Player_Update_MouseWheelButtonsScrollRecipeList(ILContext il) {
             var c = new ILCursor(il);
 
             //->: int num8 = GetMouseScrollDelta();

@@ -37,7 +37,7 @@ namespace BetterGameUI.UI
         public static bool CurrentMouseLeftBegunInBufffList { get => currentMouseLeftBegunInBufffList; set => currentMouseLeftBegunInBufffList = value; }
 
         public CalculatedStyle Dimensions;
-        public bool IsHovered => Dimensions.GrowFromCenter(4).Contains(Player.MouseX, Player.MouseY);
+        public bool IsHovered => Dimensions.GrowFromCenter(4).Contains(Player.UIMouseX, Player.UIMouseY);
         public virtual bool IsVisible => true;
         public virtual bool IsLocked => false;
         public virtual float Alpha => 1f;
@@ -115,7 +115,7 @@ namespace BetterGameUI.UI
                         Main.bannerMouseOver = true;
                     }
 
-                    BuffLoader.ModifyBuffTip(buffTy, ref buffTooltip, ref buffRarity);
+                    //BuffLoader.ModifyBuffTip(buffTy, ref buffTooltip, ref buffRarity);
                     Main.instance.MouseTextHackZoom(buffName, buffRarity, 0, buffTooltip);
                 }
             }

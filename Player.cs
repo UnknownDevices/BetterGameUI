@@ -18,8 +18,8 @@ namespace BetterGameUI
             set => hasControlUseItemStoppedSinceItemAnimationStarted = value;
         }
 
-        public static float MouseX => PlayerInput.MouseInfo.X / Main.UIScale;
-        public static float MouseY => PlayerInput.MouseInfo.Y / Main.UIScale;
+        public static float UIMouseX => PlayerInput.MouseInfo.X / Main.UIScale;
+        public static float UIMouseY => PlayerInput.MouseInfo.Y / Main.UIScale;
 
         public static int Scroll {
             get {
@@ -54,8 +54,8 @@ namespace BetterGameUI
             }
         }
 
-        public override void OnEnterWorld(Terraria.Player player) {
-            if (BetterGameUI.Mod.Config.Notifications_ShowStartupMessageForImportantChangeNotes_0_4_1_0) {
+        public override void OnEnterWorld() {
+            if (BetterGameUI.Mod.Config.Notifications_ShowStartupMessageForImportantChangeNotes_2_0_0) {
                 var text = Language.GetTextValue("Mods.BetterGameUI.Message.ImportantChangeNotes",
                     Language.GetTextValue("Mods.BetterGameUI.CompactName"),
                     Language.GetTextValue("Mods.BetterGameUI.Version"));
@@ -66,7 +66,7 @@ namespace BetterGameUI
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet) {
-            if (KeybindSystem.LockHotbar.JustPressed) {
+            if (KeybindSystem.ToggleLockingUIs.JustPressed) {
                 Main.LocalPlayer.hbLocked ^= true;
                 Reflection.SoundEngineReflection.PlaySound(22);
             }

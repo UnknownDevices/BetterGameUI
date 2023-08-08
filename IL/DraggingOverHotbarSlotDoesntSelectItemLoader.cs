@@ -8,12 +8,7 @@ namespace BetterGameUI.IL
     public class DraggingOverHotbarSlotDoesntSelectItemLoader
     {
         public static void Load() {
-            try {
-                global::IL.Terraria.Main.GUIHotbarDrawInner += Main_GUIHotbarDrawInner_DraggingOverHotbarSlotDoesntSelectItem;
-            }
-            catch (System.Exception e) {
-                throw new Exception.FailedToLoadFeature("Mods.BetterGameUI.Config.Label.Feature_DraggingOverHotbarSlotDoesntSelectItem", e);
-            }
+            Terraria.IL_Main.GUIHotbarDrawInner += Main_GUIHotbarDrawInner_DraggingOverHotbarSlotDoesntSelectItem;
         }
 
         private static void Main_GUIHotbarDrawInner_DraggingOverHotbarSlotDoesntSelectItem(ILContext il) {

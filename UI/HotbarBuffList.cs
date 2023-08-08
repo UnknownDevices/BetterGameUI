@@ -11,7 +11,7 @@ namespace BetterGameUI.UI
             || (Mod.Config.Feature_LockingHotbarLocksAdditionalUIs && Main.LocalPlayer.hbLocked);
 
         public override float Alpha => 0.4f;
-        public override ushort RowsCount => (ushort)Mod.Config.General_HotbarsBuffListRows;
+        public override ushort RowsCount => (ushort)Mod.Config.General_HotbarsBuffsBarRows;
         public override ushort ColsCount => 10;
 
         public HotbarBuffList() {

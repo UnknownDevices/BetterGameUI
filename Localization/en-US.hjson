@@ -1,65 +1,149 @@
 Mods: {
 	BetterGameUI: {
-		CompactName: "BetterGameUI"
-		Version: "0.4.0.1"
-		Message: {
-			ImportantChangeNotes: ""
-		}
-		ExceptionMessage: {
-			FailedToLoadFeature: "\nWhile loading the [{0}] feature of this mod.\nSince this has most likely been caused by a conflict with another enabled mod, you can either track down and disable the other conflicting mod or disable the feature in question of this mod.\nReporting this error so that a compatibility patch can be worked on would be greatly appreciated: UnknownDevices#5926.\n"
-		}
+		CompactName: BetterGameUI
+		Version: 0.4.0.1
+		Message.ImportantChangeNotes: ""
+
 		UI: {
 			Tooltip: {
-				UILocked: "UI locked"
-				UIUnlocked: "UI unlocked"
+				UILocked: UI locked
+				UIUnlocked: UI unlocked
 			}
 		}
+
 		Keybinds: {
-			ActivateBuffListScroll: "Activate Buffs Bar Scroll"
-			ToggleUILock: "Toggle UI Lock"
+			ToggleUILock.DisplayName: Toggle UI Lock
+			ActivateBuffListScroll.DisplayName: Activate Buffs Bar Scroll
+			ActivateBuffsBarScroll.DisplayName: Activate Buffs Bar Scroll
+			ToggleLockingUIs.DisplayName: Toggle Locking U Is
 		}
-		Config: {
-			Title: "Config"
-			Header: {
-				Notifications: "Notifications"
-				General: "General"
-				Features: "Features"
-			}
-			Label: {
-				Notifications_ShowStartupMessageForImportantChangeNotes: "Show Startup Message For Important Change Notes"
-				General_HoverToActivateHotbarsBuffListScroll: "Hover To Activate Hotbar's Buffs Bar Scroll"
-				General_HotbarsBuffListRows: "Hotbar's Buffs Bar Rows" 
-				General_EquipPagesBuffListRows: "Equip Page's Buff's Bar Rows"
-				General_NPCHouseIconsColumns: "NPC House Icons Colums"
-				Feature_BuffListsScrollbar: "Buffs Bar's Scrollbar"
-				Feature_NPCHouseIconsScrollbar: "NPC House Icons' Scrollbar"
-				Feature_AccessorySlotsImprovedScrollbar: "Accessory Slots' Improved Scrollbar"
-				Feature_InteractiveUIsWhileUsingItem: "Responsive UIs While Using Item"
-				Feature_XButtonsScrollRecipeList: "Mouse Wheel Buttons Scroll Recipe List"
-				Feature_InvertedMouseScrollForRecipeList: "Inverted Mouse Scroll For Recipe List"
-				Feature_DraggingOverHotbarSlotDoesntSelectItem: "Dragging Over Hotbar Slot Doesn't Select Item"
-				Feature_DraggingOverBuffIconDoesntInterruptClick: "Dragging Over Buff Icon Doesn't Interrupt Click"
-				Feature_LockingHotbarLocksAdditionalUIs: "Locking Hotbar Locks Additional UIs"
-				Feature_SelectedItemIsHighlightedInInventory: "Selected Item Is Highlighted In Inventory"
-				Feature_FixForHotbarFlickerUponOpeningFancyUI: "Fix For Hotbar Flicker Upon Opening Fancy UI" 
-			}
-			Tooltip: {
-				Notifications_ShowStartupMessageForImportantChangeNotes: "Displays a message with any important change notes from this mod's latest update on world enter.\nNew updates may turn this toggle back on."
-				General_HoverToActivateHotbarsBuffListScroll: "Makes this buff listen for the mouse wheel and mouse wheel buttons if it is being hovered.\nOnly takes effect if the [Buffs Bars's Scrollbar] feature of this mod is enabled."
-				General_HotbarsBuffListRows: "How many buff icon rows to display at once at most in this buffs bar.\nOnly effective if the [Buffs Bar's Scrollbar] feature is enabled."
-				General_EquipPagesBuffListRows: "How many buff icon rows to display at once at most in this buffs bar.\nOnly effective if the [Buffs Bar's Scrollbar] feature is enabled."
-				General_NPCHouseIconsColumns: "How many NPC house icon colums to display at once at most.\nOnly effective if the [NPC House Icons' Scrollbar] feature is enabled."
-				Feature_BuffListsScrollbar: "Adds a scrollbar to the buff bars that can be scrolled with the mouse wheel, the buttons of the mouse wheel, or by dragging by the scroller."
-				Feature_NPCHouseIconsScrollbar: "Adds a scrollbar to the NPC house icons that can be scrolled with the mouse wheel, the buttons of the mouse wheel, or by dragging by the scroller."
-				Feature_AccessorySlotsImprovedScrollbar: "Replaces the accessory slots' scrollbar for an improved that can be scrolled with the mouse wheel, the buttons of the mouse wheel, or by dragging by the scroller."
-				Feature_InteractiveUIsWhileUsingItem: "Has the hotbar, recipe list, and full-screen map remain responsive while an item is being used.\nFor the hotbar in particular, this means a much nicer experience with swapping the selected item during combat."
-				Feature_XButtonsScrollRecipeList: "Makes the recipe list scrollable with the buttons of the mouse wheel, similar to how the hotbar is."
-				Feature_InvertedMouseScrollForRecipeList: "Inverts the mouse scroll input received by the recipe list, bringing it in line to how most other UIs in the game perceive the mouse scroll input."
-				Feature_DraggingOverHotbarSlotDoesntSelectItem: "Has dragging a click over a hotbar slot no longer select the item.\nHowever, clicking on a hotbar slot will still select the item."
-				Feature_DraggingOverBuffIconDoesntInterruptClick: "Has dragging a click over a buff icon no longer interrupt the click, which would usually interrupt whatever auto-reusable item was being used.\nHowever, clicking on a buff icon will still not pass the click input to the selected item."
-				Feature_LockingHotbarLocksAdditionalUIs: "Locks the minimap and the buffs bar under the hotbar when the hotbar is locked.\nLocked UIs do not react to mouse clicks or the cursor, allowing the selected item to receive the click input instead.\nTo toggle locking the hotbar, either click on its toolbar icon, which is found next to the inventory, or use the keybind provided by this mod."
-				Feature_SelectedItemIsHighlightedInInventory: "Highlights with a bright yellow the slot of whatever item is selected, similar to how they are highlighted in the hotbar."
-				Feature_FixForHotbarFlickerUponOpeningFancyUI: "Fixes a vanilla bug where the hotbar was drawn for one frame when a fancy UI, such as the emotes window or the bestiary, was opened." 
+
+		Configs: {
+			Config: {
+				DisplayName: Config
+
+				Headers: {
+					Notifications: Notifications
+					General: General
+					Features: Features
+				}
+
+				Notifications_ShowStartupMessageForImportantChangeNotes_2_0_0: {
+					Label: Show Startup Message For Important Change Notes
+					Tooltip:
+						'''
+						Displays a message with any important change notes from this mod's latest update on world enter.
+						New updates may turn this toggle back on.
+						'''
+				}
+
+				General_HoverToActivateHotbarsBuffListScroll: {
+					Label: Hover To Activate Hotbar's Buff List Scroll
+					Tooltip:
+						'''
+						Has this buffs bar listen to the mouse wheel and mouse wheel buttons while hovered.
+						Only relevant if the [Buffs Bar Scrollbar] feature is enabled.
+						'''
+				}
+
+				General_HotbarsBuffsBarRows: {
+					Label: Hotbar's Buffs Bar Rows
+					Tooltip:
+						'''
+						How many buff icon rows to display at most on this buffs bar.
+						Only relevant if the [Buffs Bar Scrollbar] feature is enabled.
+						'''
+				}
+
+				General_EquipPagesBuffsBarRows: {
+					Label: Equip Page's Buffs Bar Rows
+					Tooltip:
+						'''
+						How many buff icon rows to display at most on this buffs bar.
+						Only relevant if the [Buffs Bar Scrollbar] feature is enabled.
+						'''
+				}
+
+				General_NPCHouseIconsColumns: {
+					Label: NPC House Icons Columns
+					Tooltip:
+						'''
+						How many buff icon columns to display at most on the NPC house icons.
+						Only relevant if the [NPC House Icons Scrollbar] feature is enabled.
+						'''
+				}
+
+				Feature_BuffsBarScrollbar: {
+					Label: Buffs Bar Scrollbar
+					Tooltip: Adds a scrollbar to the buffs bars that can be scrolled with the mouse wheel or mouse wheel buttons or by dragging the scroller.
+				}
+
+				Feature_NPCHouseIconsScrollbar: {
+					Label: NPC House Icons Scrollbar
+					Tooltip: Adds a scrollbar to the NPC house icons that can be scrolled with the mouse wheel or mouse wheel buttons or by dragging the scroller.
+				}
+
+				Feature_AccessorySlotsImprovedScrollbar: {
+					Label: Accessory Slots Improved Scrollbar
+					Tooltip: Replaces the accessory slots scrollbar for one that can be scrolled with the mouse wheel or mouse wheel buttons or by dragging the scroller.
+				}
+
+				Feature_InteractiveUIsWhileUsingItem: {
+					Label: Interactive UIs While Using Item
+					Tooltip:
+						'''
+						Has the hotbar, recipe list, and full-screen map remain responsive while an item is being used.
+						For the hotbar in particular, this means a much nicer time with swapping the selected item during combat."
+						'''
+				}
+
+				Feature_MouseWheelButtonsScrollRecipeList: {
+					Label: Mouse Wheel Buttons Scroll Recipe List
+					Tooltip: Makes the recipe list scrollable with the mouse wheel buttons similar to how the hotbar is.
+				}
+
+				Feature_InvertedMouseScrollForRecipeList: {
+					Label: Inverted Mouse Scroll For Recipe List
+					Tooltip: Inverts the mouse scroll input received by the recipe list, since this scrolled opposite to most other UIs.
+				}
+
+				Feature_DraggingOverHotbarSlotDoesntSelectItem: {
+					Label: Dragging Over Hotbar Slot Doesnt Select Item
+					Tooltip:
+						'''
+						Has dragging a click over a hotbar slot no longer select the item.
+						However, clicking on a hotbar slot will still select the item.
+						'''
+				}
+
+				Feature_DraggingOverBuffIconDoesntInterruptClick: {
+					Label: Dragging Over Buff Icon Doesnt Interrupt Click
+					Tooltip:
+						'''
+						Has dragging a click over a buff icon no longer interrupt the click, which would interrupt any auto-reusable item being used.
+						However, clicking on a buff icon will still not use the selected item.
+						'''
+				}
+
+				Feature_LockingHotbarLocksAdditionalUIs: {
+					Label: Locking Hotbar Locks Additional UIs
+					Tooltip:
+						'''
+						Locks the minimap and buffs bar under the hotbar when the hotbar is locked.
+						Locked UIs do not respond to mouse clicks or the cursor, allowing the selected item to receive the input instead.
+						To toggle locking these UIs, either click on the relevant toolbar icon, or use the keybind provided by this mod.
+						'''
+				}
+
+				Feature_SelectedItemIsHighlightedInInventory: {
+					Label: Selected Item Is Highlighted In Inventory
+					Tooltip: Highlights the inventory slot of the selected item, similar to how they're highlighted in the hotbar.
+				}
+
+				Feature_FixForHotbarFlickerUponOpeningFancyUI: {
+					Label: Fix For Hotbar Flicker Upon Opening Fancy U I
+					Tooltip: Fixes a vanilla bug where the hotbar is drawn for one frame when a fancy UI (such as the emotes window or bestiary) is opened.
+				}
 			}
 		}
 	}

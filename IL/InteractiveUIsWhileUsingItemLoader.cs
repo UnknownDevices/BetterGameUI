@@ -9,14 +9,9 @@ namespace BetterGameUI.IL
     public class InteractiveUIsWhileUsingItemLoader
     {
         public static void Load() {
-            try {
-                global::IL.Terraria.Main.GUIHotbarDrawInner += Main_GUIHotbarDrawInner_InteractiveUIsWhileUsingItem;
-                global::IL.Terraria.Player.Update += Player_Update_InteractiveUIsWhileUsingItem;
-                global::IL.Terraria.Player.ScrollHotbar += Player_ScrollHotbar_InteractiveUIsWhileUsingItem;
-            }
-            catch (System.Exception e) {
-                throw new Exception.FailedToLoadFeature("Mods.BetterGameUI.Config.Label.Feature_InteractiveUIsWhileUsingItem", e);
-            }
+            Terraria.IL_Main.GUIHotbarDrawInner += Main_GUIHotbarDrawInner_InteractiveUIsWhileUsingItem;
+            Terraria.IL_Player.Update += Player_Update_InteractiveUIsWhileUsingItem;
+            Terraria.IL_Player.ScrollHotbar += Player_ScrollHotbar_InteractiveUIsWhileUsingItem;
         }
 
         private static void Main_GUIHotbarDrawInner_InteractiveUIsWhileUsingItem(ILContext il) {

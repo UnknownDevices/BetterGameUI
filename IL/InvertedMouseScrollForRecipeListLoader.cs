@@ -6,12 +6,7 @@ namespace BetterGameUI.IL
     public class InvertedMouseScrollForRecipeListLoader
     {
         public static void Load() {
-            try {
-                global::IL.Terraria.Player.Update += Player_Update_InvertedMouseScrollForRecipeList;
-            }
-            catch (System.Exception e) {
-                throw new Exception.FailedToLoadFeature("Mods.BetterGameUI.Config.Label.Feature_InvertedMouseScrollForRecipeList", e);
-            }
+            Terraria.IL_Player.Update += Player_Update_InvertedMouseScrollForRecipeList;
         }
 
         private static void Player_Update_InvertedMouseScrollForRecipeList(ILContext il) {

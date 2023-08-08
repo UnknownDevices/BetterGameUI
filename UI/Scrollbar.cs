@@ -17,8 +17,8 @@ namespace BetterGameUI.UI
 
         public CalculatedStyle BarDimensions;
         public CalculatedStyle ScrollerDimensions;
-        public bool IsBarHovered => BarDimensions.GrowFromCenter(4).Contains(Player.MouseX, Player.MouseY);
-        public bool IsScrollerHovered => ScrollerDimensions.GrowFromCenter(4).Contains(Player.MouseX, Player.MouseY);
+        public bool IsBarHovered => BarDimensions.GrowFromCenter(4).Contains(Player.UIMouseX, Player.UIMouseY);
+        public bool IsScrollerHovered => ScrollerDimensions.GrowFromCenter(4).Contains(Player.UIMouseX, Player.UIMouseY);
         public virtual bool IsVisible => true;
         public virtual bool CanScrollerBeDragged => true;
         public virtual bool CanListenToWheelScroll => true;
@@ -98,11 +98,11 @@ namespace BetterGameUI.UI
                     }
 
                     float draggedDistInPxs;
-                    if (Player.MouseY < ScrollerDimensions.Y) {
-                        draggedDistInPxs = Player.MouseY - ScrollerDimensions.Y;
+                    if (Player.UIMouseY < ScrollerDimensions.Y) {
+                        draggedDistInPxs = Player.UIMouseY - ScrollerDimensions.Y;
                     }
-                    else if (ScrollerDimensions.Y + ScrollerDimensions.Height < Player.MouseY) {
-                        draggedDistInPxs = Player.MouseY - ScrollerDimensions.Y - ScrollerDimensions.Height;
+                    else if (ScrollerDimensions.Y + ScrollerDimensions.Height < Player.UIMouseY) {
+                        draggedDistInPxs = Player.UIMouseY - ScrollerDimensions.Y - ScrollerDimensions.Height;
                     }
                     else {
                         return 0;
@@ -116,10 +116,10 @@ namespace BetterGameUI.UI
                     return 0;
                 }
                 if (CurrentMouseLeftBegunInScrollbar && IsBarHovered) {
-                    if (Player.MouseY < ScrollerDimensions.Y) {
+                    if (Player.UIMouseY < ScrollerDimensions.Y) {
                         return -1;
                     }
-                    if (ScrollerDimensions.Y + ScrollerDimensions.Height < Player.MouseY) {
+                    if (ScrollerDimensions.Y + ScrollerDimensions.Height < Player.UIMouseY) {
                         return 1;
                     }
                     IsScrollerBeingDragged = true;

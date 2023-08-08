@@ -7,12 +7,7 @@ namespace BetterGameUI.IL
     public class AccessorySlotsImprovedScrollbarLoader
     {
         public static void Load() {
-            try {
-                global::IL.Terraria.Main.DrawInventory += Main_DrawInventory_AccessorySlotsImprovedScrollbar;
-            }
-            catch (System.Exception e) {
-                throw new Exception.FailedToLoadFeature("Mods.BetterGameUI.Config.Label.Feature_AccessorySlotsImprovedScrollbar", e);
-            }
+            Terraria.IL_Main.DrawInventory += Main_DrawInventory_AccessorySlotsImprovedScrollbar;
         }
 
         public static void Main_DrawInventory_AccessorySlotsImprovedScrollbar(ILContext il) {

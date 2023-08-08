@@ -5,13 +5,8 @@ namespace BetterGameUI.IL
     public class SelectedItemIsHighlightedInInventoryLoader
     {
         public static void Load() {
-            try {
-                global::IL.Terraria.UI.ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color +=
-                    ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color_SelectedItemIsHighlightedInInventory;
-            }
-            catch (System.Exception e) {
-                throw new Exception.FailedToLoadFeature("Mods.BetterGameUI.Config.Label.Feature_SelectedItemIsHighlightedInInventory", e);
-            }
+            Terraria.UI.IL_ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color +=
+                ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color_SelectedItemIsHighlightedInInventory;
         }
 
         private static void ItemSlot_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color_SelectedItemIsHighlightedInInventory(ILContext il) {

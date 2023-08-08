@@ -6,7 +6,7 @@ using Terraria;
 
 namespace BetterGameUI.IL
 {
-    public class BuffListScrollbarLoader
+    public class BuffsBarScrollbarLoader
     {
         public static HotbarBuffList HotbarBuffList;
         public static EquipPageBuffList EquipPageBuffList;
@@ -15,14 +15,9 @@ namespace BetterGameUI.IL
             HotbarBuffList = new HotbarBuffList();
             EquipPageBuffList = new EquipPageBuffList();
 
-            try {
-                global::IL.Terraria.Main.DrawInventory += Main_DrawInventory_BuffListScrollbar;
-                global::IL.Terraria.Main.DrawInterface_27_Inventory += Main_DrawInterface_27_Inventory_BuffListScrollbar;
-                global::IL.Terraria.Main.GUIBarsDrawInner += Main_GUIBarsDrawInner_BuffListScrollbar;
-            }
-            catch (System.Exception e) {
-                throw new Exception.FailedToLoadFeature("Mods.BetterGameUI.Config.Label.Feature_BuffListScrollbar", e);
-            }
+            Terraria.IL_Main.DrawInventory += Main_DrawInventory_BuffListScrollbar;
+            Terraria.IL_Main.DrawInterface_27_Inventory += Main_DrawInterface_27_Inventory_BuffListScrollbar;
+            Terraria.IL_Main.GUIBarsDrawInner += Main_GUIBarsDrawInner_BuffListScrollbar;
         }
 
         private static void Main_GUIBarsDrawInner_BuffListScrollbar(ILContext il) {
