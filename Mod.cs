@@ -39,10 +39,10 @@ namespace BetterGameUI
                     AccessorySlotsImprovedScrollbarLoader.Load();
                 }
 
-                //if (Config.Feature_InteractiveUIsWhileUsingItem)
-                //{
-                //    InteractiveUIsWhileUsingItemLoader.Load();
-                //}
+                if (Config.Feature_InteractiveUIsWhileUsingItem)
+                {
+                    InteractiveUIsWhileUsingItemLoader.Load();
+                }
 
                 //if (Config.Feature_MouseWheelButtonsScrollRecipeList)
                 //{

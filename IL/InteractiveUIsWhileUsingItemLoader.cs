@@ -27,8 +27,9 @@ namespace BetterGameUI.IL
                 && x.Next.MatchLdsfld("Terraria.Main", "myPlayer")
                 && x.Next.Next.MatchLdelemRef()
                 && x.Next.Next.Next.MatchLdfld("Terraria.Player", "selectedItem")
-                && !x.Next.Next.Next.Next.MatchStloc(3)
-            )) {
+                && !x.Next.Next.Next.Next.MatchStloc(2)
+            ))
+            {
                 c.RemoveRange(4);
                 c.Emit(OpCodes.Ldsfld, preselectedItemField);
             }
@@ -85,7 +86,7 @@ namespace BetterGameUI.IL
             if (!c.TryGotoNext(MoveType.Before,
                 x => x.MatchLdarg(0)
                 && x.Next.MatchLdfld("Terraria.Player", "selectedItem")
-                && x.Next.Next.MatchStloc(29))) {
+                && x.Next.Next.MatchStloc(32))) {
                 throw new Exception.InstructionNotFound();
             }
 
@@ -159,7 +160,7 @@ namespace BetterGameUI.IL
             //->: selectedItem = num6;
             if (!c.TryGotoNext(MoveType.Before,
                 x => x.MatchLdarg(0)
-                && x.Next.MatchLdloc(29)
+                && x.Next.MatchLdloc(32)
                 && x.Next.Next.MatchStfld("Terraria.Player", "selectedItem"))) {
                 throw new Exception.InstructionNotFound();
             }
@@ -170,7 +171,7 @@ namespace BetterGameUI.IL
             //->: flag7 = false;
             if (!c.TryGotoNext(MoveType.Before,
                 x => x.MatchLdcI4(0)
-                && x.Next.MatchStloc(30))) {
+                && x.Next.MatchStloc(33))) {
                 throw new Exception.InstructionNotFound();
             }
 
@@ -179,7 +180,7 @@ namespace BetterGameUI.IL
 
             //->: if (num6 != selectedItem) {
             if (!c.TryGotoNext(MoveType.Before,
-                x => x.MatchLdloc(29)
+                x => x.MatchLdloc(32)
                 && x.Next.MatchLdarg(0)
                 && x.Next.Next.MatchLdfld("Terraria.Player", "selectedItem"))) {
                 throw new Exception.InstructionNotFound();
@@ -248,7 +249,7 @@ namespace BetterGameUI.IL
 
             //->: else if (!flag8) {
             if (!c.TryGotoPrev(MoveType.Before,
-                x => x.MatchLdloc(31)
+                x => x.MatchLdloc(34)
                 && x.Next.MatchBrtrue(out _))) {
                 throw new Exception.InstructionNotFound();
             }

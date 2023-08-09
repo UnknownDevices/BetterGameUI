@@ -6,6 +6,7 @@ If you encounter an incompatible mod with this, try disabling features until you
 ## Features
 - Add a scrollbar to the buffs bars.
 - Improve the accessory slots scrollbar.
+- Have the hotbar, full-screen  map, and recipe list remain responsive while an item is being used.
 - Have dragging a click over a buff icon no longer interrupt the click.
 - Make locking the hotbar also lock all the other off-inventory UIs.
 - Add a keybind (N) for quickly toggling locking the previous UIs.

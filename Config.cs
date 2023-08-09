@@ -17,7 +17,7 @@ namespace BetterGameUI
 
         [Header("Notifications")]
         [DefaultValue(false)]
-        public bool Notifications_ShowStartupMessageForImportantChangeNotes_2_0_0 { get; set; }
+        public bool Notifications_ShowStartupMessageForImportantChangeNotes_2_1_0 { get; set; }
 
         // ------------- General ------------- //
 
@@ -52,9 +52,9 @@ namespace BetterGameUI
         [DefaultValue(true)]
         public bool Feature_AccessorySlotsImprovedScrollbar { get; set; }
 
-        //[ReloadRequired]
-        //[DefaultValue(true)]
-        //public bool Feature_InteractiveUIsWhileUsingItem { get; set; }
+        [ReloadRequired]
+        [DefaultValue(true)]
+        public bool Feature_InteractiveUIsWhileUsingItem { get; set; }
 
         //[ReloadRequired]
         //[DefaultValue(true)]

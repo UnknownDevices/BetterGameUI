@@ -55,7 +55,7 @@ namespace BetterGameUI
         }
 
         public override void OnEnterWorld() {
-            if (BetterGameUI.Mod.Config.Notifications_ShowStartupMessageForImportantChangeNotes_2_0_0) {
+            if (BetterGameUI.Mod.Config.Notifications_ShowStartupMessageForImportantChangeNotes_2_1_0) {
                 var text = Language.GetTextValue("Mods.BetterGameUI.Message.ImportantChangeNotes",
                     Language.GetTextValue("Mods.BetterGameUI.CompactName"),
                     Language.GetTextValue("Mods.BetterGameUI.Version"));

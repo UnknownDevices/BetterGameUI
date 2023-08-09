@@ -28,11 +28,11 @@ Mods: {
 					Features: Features
 				}
 
-				Notifications_ShowStartupMessageForImportantChangeNotes_2_0_0: {
+				Notifications_ShowStartupMessageForImportantChangeNotes_2_1_0: {
 					Label: Show Startup Message For Important Change Notes
 					Tooltip:
 						'''
-						Displays a message with any important change notes from this mod's latest update on world enter.
+						Displays a message with any important change notes from the latest update upon entering a world.
 						New updates may turn this toggle back on.
 						'''
 				}
@@ -92,8 +92,8 @@ Mods: {
 					Label: Interactive UIs While Using Item
 					Tooltip:
 						'''
-						Has the hotbar, recipe list, and full-screen map remain responsive while an item is being used.
-						For the hotbar in particular, this means a much nicer time with swapping the selected item during combat."
+						Has the hotbar, full-screen map, and recipe list map remain responsive while an item is being used.
+						For the hotbar in particular, this means a much smoother experience with swapping the selected item during combat.
 						'''
 				}
 
