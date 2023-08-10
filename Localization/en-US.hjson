@@ -141,7 +141,7 @@ Mods: {
 				}
 
 				Feature_FixForHotbarFlickerUponOpeningFancyUI: {
-					Label: Fix For Hotbar Flicker Upon Opening Fancy U I
+					Label: Fix For Hotbar Flicker Upon Opening Fancy UI
 					Tooltip: Fixes a vanilla bug where the hotbar is drawn for one frame when a fancy UI (such as the emotes window or bestiary) is opened.
 				}
 			}

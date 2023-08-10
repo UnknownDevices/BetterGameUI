@@ -1,10 +1,10 @@
 displayName = Better Game UI
 author = UnknownDevices
-version = 2.1.0
+version = 2.1.1
 hideCode = false
 hideResources  = false
 includeSource = true
-sortAfter = CalamityMod
+sortAfter = CalamityMod, Gensokyo
 homepage = https://github.com/UnknownDevices/BetterGameUI
 buildIgnore = vs/*, *.csproj, *.sln, *.pidb, *.userprefs, *.user, obj/*, bin/* *.md
 side = Client
