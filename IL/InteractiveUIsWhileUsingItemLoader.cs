@@ -3,6 +3,7 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using MonoMod.Utils;
 using System.Reflection;
+using Terraria;
 
 namespace BetterGameUI.IL
 {
@@ -188,21 +189,23 @@ namespace BetterGameUI.IL
 
             //--: if (num6 != selectedItem) {
             //++: if (num6 != BetterGameUI.Player.preselectedItem) {
-            c.Next.Next.Next.Operand = preselectedItemField;
-
-            // NOTE: For some reason, matching the if conditional as well leads to a casting error from Cecil, so f*** it
-            // ->: if (selectedItem != 58) {
-            //   :     SmartSelectLookup()
+            c.Goto(c.Next.Next.Next);
+            c.Next.Operand = preselectedItemField;
+             
+            // ->: if (stoned != lastStoned) {
+            //   :     if (whoAmI == Main.myPlayer && stoned) {
             if (!c.TryGotoNext(MoveType.Before,
                 x => x.MatchLdarg(0)
-                && x.Next.MatchCall("Terraria.Player", "SmartSelectLookup"))) {
+                && x.Next.MatchLdfld("Terraria.Player", "stoned")
+                && x.Next.Next.MatchLdarg(0)
+                && x.Next.Next.Next.MatchLdfld("Terraria.Player", "lastStoned")
+                && x.Next.Next.Next.Next.MatchBeq(out _)
+            )) {
                 throw new Exception.InstructionNotFound();
             }
 
-            // NOTE: we move before the conditional we can't match to
-            c.Goto(c.Previous.Previous.Previous.Previous);
-
-            var beforeSmartSelectLookup = c.MarkLabel();
+            c.MoveAfterLabels();
+            var beforeStonedCheck = c.MarkLabel();
 
             c.Emit(OpCodes.Ldarg_0);
             c.EmitDelegate((Terraria.Player player) =>
@@ -245,7 +248,7 @@ namespace BetterGameUI.IL
             //  :     }
             //--: }
             //--: else {
-            c.Next.Operand = beforeSmartSelectLookup;
+            c.Next.Operand = beforeStonedCheck;
 
             //->: else if (!flag8) {
             if (!c.TryGotoPrev(MoveType.Before,
@@ -259,7 +262,7 @@ namespace BetterGameUI.IL
             //  :     }
             //--: }
             //--: else {
-            c.Next.Next.Operand = beforeSmartSelectLookup;
+            c.Next.Next.Operand = beforeStonedCheck;
         }
 
         private static void Player_ScrollHotbar_InteractiveUIsWhileUsingItem(ILContext il) {

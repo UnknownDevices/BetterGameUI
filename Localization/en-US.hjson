@@ -28,7 +28,7 @@ Mods: {
 					Features: Features
 				}
 
-				Notifications_ShowStartupMessageForImportantChangeNotes_2_1_0: {
+				Notifications_ShowStartupMessageForImportantChangeNotes_2_1_2: {
 					Label: Show Startup Message For Important Change Notes
 					Tooltip:
 						'''
@@ -108,7 +108,7 @@ Mods: {
 				}
 
 				Feature_DraggingOverHotbarSlotDoesntSelectItem: {
-					Label: Dragging Over Hotbar Slot Doesnt Select Item
+					Label: Dragging Over Hotbar Slot Doesn't Select Item
 					Tooltip:
 						'''
 						Has dragging a click over a hotbar slot no longer select the item.
@@ -117,7 +117,7 @@ Mods: {
 				}
 
 				Feature_DraggingOverBuffIconDoesntInterruptClick: {
-					Label: Dragging Over Buff Icon Doesnt Interrupt Click
+					Label: Dragging Over Buff Icon Doesn't Interrupt Click
 					Tooltip:
 						'''
 						Has dragging a click over a buff icon no longer interrupt the click, which would interrupt any auto-reusable item being used.

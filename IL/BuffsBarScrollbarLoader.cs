@@ -107,20 +107,20 @@ namespace BetterGameUI.IL
             //  :num24 += 247;
             //->:num23 += 8;
             if (!c.TryGotoPrev(MoveType.After,
-                x => x.MatchStloc(54)
+                x => x.MatchStloc(52)
                 && x.Previous.MatchAdd()
                 && x.Previous.Previous.MatchLdcI4(out _)
-                && x.Previous.Previous.Previous.MatchLdloc(54)
-                && x.Previous.Previous.Previous.Previous.MatchStloc(55)
+                && x.Previous.Previous.Previous.MatchLdloc(52)
+                && x.Previous.Previous.Previous.Previous.MatchStloc(53)
                 && x.Previous.Previous.Previous.Previous.Previous.MatchAdd()
                 && x.Previous.Previous.Previous.Previous.Previous.Previous.MatchLdcI4(out _)
-                && x.Previous.Previous.Previous.Previous.Previous.Previous.Previous.MatchLdloc(55)
+                && x.Previous.Previous.Previous.Previous.Previous.Previous.Previous.MatchLdloc(53)
             )) {
                 throw new Exception.InstructionNotFound();
             }
 
-            c.Emit(OpCodes.Ldloc, 54);
-            c.Emit(OpCodes.Ldloc, 55);
+            c.Emit(OpCodes.Ldloc, 52);
+            c.Emit(OpCodes.Ldloc, 53);
             c.EmitDelegate((int num23, int num24) =>
             {
                 EquipPageBuffList.Dimensions.X = num23 -
