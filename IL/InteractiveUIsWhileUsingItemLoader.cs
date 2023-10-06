@@ -187,6 +187,7 @@ namespace BetterGameUI.IL
                 throw new Exception.InstructionNotFound();
             }
 
+            // NOTE: not moving one before the instruction to change is what was causing the casting error from Cecil the moment we tried going to next
             //--: if (num6 != selectedItem) {
             //++: if (num6 != BetterGameUI.Player.preselectedItem) {
             c.Goto(c.Next.Next.Next);
@@ -224,7 +225,7 @@ namespace BetterGameUI.IL
                 }
 
                 if (player.selectedItem != 58) {
-                    if (player.itemAnimation == 0 && player.ItemTimeIsZero && player.reuseDelay == 0) {
+                    if (player.itemAnimation == 0 && player.ItemTimeIsZero && player.reuseDelay == 0 && !player.controlTorch) {
                         player.selectedItem = Player.PreselectedItem;
                     }
                     else if (player.ItemAnimationEndingOrEnded && Player.HasControlUseItemStoppedSinceItemAnimationStarted &&

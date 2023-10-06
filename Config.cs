@@ -17,7 +17,7 @@ namespace BetterGameUI
 
         [Header("Notifications")]
         [DefaultValue(false)]
-        public bool Notifications_ShowStartupMessageForImportantChangeNotes_2_1_2 { get; set; }
+        public bool Notifications_ShowStartupMessageForImportantChangeNotes_2_1_3 { get; set; }
 
         // ------------- General ------------- //
 

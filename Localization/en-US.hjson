@@ -28,7 +28,7 @@ Mods: {
 					Features: Features
 				}
 
-				Notifications_ShowStartupMessageForImportantChangeNotes_2_1_2: {
+				Notifications_ShowStartupMessageForImportantChangeNotes_2_1_3: {
 					Label: Show Startup Message For Important Change Notes
 					Tooltip:
 						'''
