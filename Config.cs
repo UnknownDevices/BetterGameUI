@@ -33,9 +33,9 @@ namespace BetterGameUI
         [Range((ushort)1, ushort.MaxValue)]
         public int General_EquipPagesBuffsBarRows { get; set; }
 
-        //[DefaultValue(3)]
-        //[Range((ushort)1, ushort.MaxValue)]
-        //public int General_NPCHouseIconsColumns { get; set; }
+        [DefaultValue(4)]
+        [Range((ushort)1, ushort.MaxValue)]
+        public int General_NPCHouseIconsColumns { get; set; }
 
         // ------------- Features Config ------------- //
 
@@ -44,9 +44,9 @@ namespace BetterGameUI
         [DefaultValue(true)]
         public bool Feature_BuffsBarScrollbar { get; set; }
 
-        //[ReloadRequired]
-        //[DefaultValue(true)]
-        //public bool Feature_NPCHouseIconsScrollbar { get; set; }
+        [ReloadRequired]
+        [DefaultValue(true)]
+        public bool Feature_NPCHouseIconsScrollbar { get; set; }
 
         [ReloadRequired]
         [DefaultValue(true)]

@@ -37,35 +37,35 @@ namespace BetterGameUI.UI
 
         public void Update(int[] npcIndexWhoHoldsHeadIndex, int mH)
         {
-            //int totalHeadsHeldByAnNPC = 1;
-            //for (int k = 0; k < Terraria.GameContent.TextureAssets.NpcHead.Length; k++)
-            //{
-            //    if (npcIndexWhoHoldsHeadIndex[k] != -1)
-            //    {
-            //        totalHeadsHeldByAnNPC++;
-            //    }
-            //}
+            int totalHeadsHeldByAnNPC = 1;
+            for (int k = 0; k < Terraria.GameContent.TextureAssets.NpcHead.Length; k++)
+            {
+                if (npcIndexWhoHoldsHeadIndex[k] != -1)
+                {
+                    totalHeadsHeldByAnNPC++;
+                }
+            }
 
-            //// TODO: some other code already did some of these clamps
-            //notchesCount = (uint)Math.Max(Math.Ceiling((float)totalHeadsHeldByAnNPC / (float)Mod.Config.General_NPCHouseIconsColumns), 0);
-            //notchesPerPage = (uint)Math.Ceiling((float)(Main.screenHeight - 80 - 174 - mH) / ((float)56 * Main.inventoryScale));
-            //ScrolledNotches = (uint)Math.Min(ScrolledNotches, Math.Max(0, (int)notchesCount - (int)notchesPerPage));
+            // TODO: some other code already did some of these clamps
+            notchesCount = (uint)Math.Max(Math.Ceiling((float)totalHeadsHeldByAnNPC / (float)Mod.Config.General_NPCHouseIconsColumns), 0);
+            notchesPerPage = (uint)Math.Ceiling((float)(Main.screenHeight - 80 - 174 - mH) / ((float)56 * Main.inventoryScale));
+            ScrolledNotches = (uint)Math.Min(ScrolledNotches, Math.Max(0, (int)notchesCount - (int)notchesPerPage));
 
-            //parentDimensions = new CalculatedStyle(BarDimensions.X = Main.screenWidth - 64 - 28 - 48 * (Mod.Config.General_NPCHouseIconsColumns - 1),
-            //    174 + mH,
-            //    48 * Mod.Config.General_NPCHouseIconsColumns,
-            //    (float)notchesPerPage * 56 * Main.inventoryScale);
+            parentDimensions = new CalculatedStyle(BarDimensions.X = Main.screenWidth - 64 - 28 - 48 * (Mod.Config.General_NPCHouseIconsColumns - 1),
+                174 + mH,
+                48 * Mod.Config.General_NPCHouseIconsColumns,
+                (float)notchesPerPage * 56 * Main.inventoryScale);
 
-            //BarDimensions.X = ParentDimensions.X + ParentDimensions.Width;
-            //BarDimensions.Y = ParentDimensions.Y;
-            //BarDimensions.Height = ParentDimensions.Height;
+            BarDimensions.X = ParentDimensions.X + ParentDimensions.Width;
+            BarDimensions.Y = ParentDimensions.Y;
+            BarDimensions.Height = ParentDimensions.Height;
 
-            //base.Update();
+            base.Update();
 
-            //if (CanListenToWheelScroll)
-            //{
-            //    PlayerInput.LockVanillaMouseScroll("UIBuffsBarScrollbar");
-            //}
+            if (CanListenToWheelScroll)
+            {
+                PlayerInput.LockVanillaMouseScroll("UIBuffsBarScrollbar");
+            }
         }
     }
 }
