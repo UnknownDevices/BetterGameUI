@@ -14,16 +14,16 @@ namespace BetterGameUI.IL
 
             //->: int num8 = GetMouseScrollDelta();
             if (!c.TryGotoNext(MoveType.After,
-                x => x.MatchStloc(38)
+                x => x.MatchStloc(41)
                 && x.Previous.MatchCall("Terraria.Player", "GetMouseScrollDelta"))) {
                 throw new Exception.InstructionNotFound();
             }
 
             //  : int num8 = GetMouseScrollDelta();
             //++: num8 *= -1;
-            c.Emit(OpCodes.Ldloc, 38);
+            c.Emit(OpCodes.Ldloc, 41);
             c.Emit(OpCodes.Neg);
-            c.Emit(OpCodes.Stloc, 38);
+            c.Emit(OpCodes.Stloc, 41);
         }
     }
 }

@@ -56,13 +56,13 @@ namespace BetterGameUI
         [DefaultValue(true)]
         public bool Feature_InteractiveUIsWhileUsingItem { get; set; }
 
-        //[ReloadRequired]
-        //[DefaultValue(true)]
-        //public bool Feature_MouseWheelButtonsScrollRecipeList { get; set; }
+        [ReloadRequired]
+        [DefaultValue(true)]
+        public bool Feature_MouseWheelButtonsScrollRecipeList { get; set; }
 
-        //[ReloadRequired]
-        //[DefaultValue(true)]
-        //public bool Feature_InvertedMouseScrollForRecipeList { get; set; }
+        [ReloadRequired]
+        [DefaultValue(true)]
+        public bool Feature_InvertedMouseScrollForRecipeList { get; set; }
 
         [ReloadRequired]
         [DefaultValue(true)]

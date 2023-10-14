@@ -44,15 +44,15 @@ namespace BetterGameUI
                     InteractiveUIsWhileUsingItemLoader.Load();
                 }
 
-                //if (Config.Feature_MouseWheelButtonsScrollRecipeList)
-                //{
-                //    MouseWheelButtonsScrollRecipeListLoader.Load();
-                //}
+                if (Config.Feature_MouseWheelButtonsScrollRecipeList)
+                {
+                    MouseWheelButtonsScrollRecipeListLoader.Load();
+                }
 
-                //if (Config.Feature_InvertedMouseScrollForRecipeList)
-                //{
-                //    InvertedMouseScrollForRecipeListLoader.Load();
-                //}
+                if (Config.Feature_InvertedMouseScrollForRecipeList)
+                {
+                    InvertedMouseScrollForRecipeListLoader.Load();
+                }
 
                 if (Config.Feature_DraggingOverHotbarSlotDoesntSelectItem)
                 {
