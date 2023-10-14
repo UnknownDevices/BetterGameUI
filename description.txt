@@ -1,27 +1,29 @@
-[c/FFE900:A collection of improvements over some in-game UIs]
+﻿[c/FFE900:A collection of improvements over some in-game UIs]
 
-If you encounter an incompatible mod with this, try disabling features until you find the troublesome ones and do consider reporting the issue.
+If you encounter an issue, try disabling features until you find the ones giving you trouble, and do consider reporting the issue.
 
 _________________________
 
   [c/FFE900: Features]
 _________________________
 
-- Add a scrollbar to the buffs bars.
+- Add a scrollbar to the buffs bars and NPC house icons.
 - Improve the accessory slots scrollbar.
 - Have the hotbar, full-screen  map, and recipe list remain responsive while an item is being used.
 - Have dragging a click over a buff icon no longer interrupt the click.
+- Have the mouse wheel buttons also scroll the recipe list.
+- Invert the mouse scroll for the recipe list, which scrolled opposite to most other UIs.
 - Make locking the hotbar also lock all the other off-inventory UIs.
 - Add a keybind (N) for quickly toggling locking the previous UIs.
-- Fix various minor visual bugs and inconsistencies.
+- Fix some minor visual bugs and inconsistencies from the vanilla game.
 _________________________
 
   [c/FFE900: Notes]
 _________________________
 
-- Some features present in the version for Terraria 1.4.3 were not ported to this version. They will be brought one by one in consequent updates.
-- No gamepad support.
-- This mod does not increase the buff slots available to the player, which is 22 as per vanilla Terraria.
+- This mod is not tested for gamepad support.
 _________________________
 
-Any bug reports or suggestions are more than welcome either through this mod's Steam Workshop page or GitHub repository.
+If you feel like giving me a thanks for this neat little mod, consider buying me a coffe (https://www.buymeacoffee.com/unknowndev) 👋❤️
+
+Any bug reports or suggestions are more than welcome either through this mod's Discord server (https://discord.gg/HGNmeSnXm4), Steam Workshop page or GitHub repository.

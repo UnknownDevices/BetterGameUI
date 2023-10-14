@@ -28,7 +28,7 @@ Mods: {
 					Features: Features
 				}
 
-				Notifications_ShowStartupMessageForImportantChangeNotes_2_1_3: {
+				Notifications_ShowStartupMessageForImportantChangeNotes_2_2_0: {
 					Label: Show Startup Message For Important Change Notes
 					Tooltip:
 						'''
@@ -104,7 +104,7 @@ Mods: {
 
 				Feature_InvertedMouseScrollForRecipeList: {
 					Label: Inverted Mouse Scroll For Recipe List
-					Tooltip: Inverts the mouse scroll input received by the recipe list, since this scrolled opposite to most other UIs.
+					Tooltip: Inverts the mouse scroll for the recipe list, which scrolled opposite to most other UIs.
 				}
 
 				Feature_DraggingOverHotbarSlotDoesntSelectItem: {
@@ -133,11 +133,6 @@ Mods: {
 						Locked UIs do not respond to mouse clicks or the cursor, allowing the selected item to receive the input instead.
 						To toggle locking these UIs, either click on the relevant toolbar icon, or use the keybind provided by this mod.
 						'''
-				}
-
-				Feature_SelectedItemIsHighlightedInInventory: {
-					Label: Selected Item Is Highlighted In Inventory
-					Tooltip: Highlights the inventory slot of the selected item, similar to how they're highlighted in the hotbar.
 				}
 
 				Feature_FixForHotbarFlickerUponOpeningFancyUI: {

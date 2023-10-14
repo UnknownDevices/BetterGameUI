@@ -69,11 +69,6 @@ namespace BetterGameUI
                     LockingHotbarLocksAdditionalUIsLoader.Load();
                 }
 
-                //if (Config.Feature_SelectedItemIsHighlightedInInventory)
-                //{
-                //    SelectedItemIsHighlightedInInventoryLoader.Load();
-                //}
-
                 if (Config.Feature_FixForHotbarFlickerUponOpeningFancyUI) {
                     FixForHotbarFlickerUponOpeningFancyUILoader.Load();
                 }

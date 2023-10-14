@@ -17,7 +17,7 @@ namespace BetterGameUI
 
         [Header("Notifications")]
         [DefaultValue(false)]
-        public bool Notifications_ShowStartupMessageForImportantChangeNotes_2_1_3 { get; set; }
+        public bool Notifications_ShowStartupMessageForImportantChangeNotes_2_2_0 { get; set; }
 
         // ------------- General ------------- //
 
@@ -47,7 +47,7 @@ namespace BetterGameUI
         [ReloadRequired]
         [DefaultValue(true)]
         public bool Feature_NPCHouseIconsScrollbar { get; set; }
-
+        
         [ReloadRequired]
         [DefaultValue(true)]
         public bool Feature_AccessorySlotsImprovedScrollbar { get; set; }
@@ -75,10 +75,6 @@ namespace BetterGameUI
         [ReloadRequired]
         [DefaultValue(true)]
         public bool Feature_LockingHotbarLocksAdditionalUIs { get; set; }
-
-        //[ReloadRequired]
-        //[DefaultValue(true)]
-        //public bool Feature_SelectedItemIsHighlightedInInventory { get; set; }
 
         [ReloadRequired]
         [DefaultValue(true)]

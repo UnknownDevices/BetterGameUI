@@ -1,6 +1,6 @@
 displayName = Better Game UI
 author = UnknownDevices
-version = 2.1.3
+version = 2.2.0
 hideCode = false
 hideResources  = false
 includeSource = true
