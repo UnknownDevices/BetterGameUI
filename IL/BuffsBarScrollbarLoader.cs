@@ -1,6 +1,7 @@
 ﻿using BetterGameUI.UI;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using System;
 using System.Reflection;
 using Terraria;
 
@@ -59,22 +60,20 @@ namespace BetterGameUI.IL
         private static void Main_DrawInterface_27_Inventory_BuffListScrollbar(ILContext il) {
             var c = new ILCursor(il);
 
-            var updateEquipPageBuffList = () =>
-            {
-                if (Main.ignoreErrors) {
-                    try {
-                        EquipPageBuffList.Update();
-                    }
-                    catch (System.Exception e) {
-                        TimeLogger.DrawException(e);
-                    }
-                }
-                else {
-                    EquipPageBuffList.Update();
-                }
-            };
+			static void updateEquipPageBuffList() {
+				if (Main.ignoreErrors) {
+					try {
+						EquipPageBuffList.Update();
+					}
+					catch (System.Exception e) {
+						TimeLogger.DrawException(e);
+					}
+				} else {
+					EquipPageBuffList.Update();
+				}
+			}
 
-            if (!c.TryGotoNext(MoveType.Before, x => x.MatchRet())) {
+			if (!c.TryGotoNext(MoveType.Before, x => x.MatchRet())) {
                 throw new Exception.InstructionNotFound();
             }
 
@@ -83,12 +82,12 @@ namespace BetterGameUI.IL
             }
             c.MoveAfterLabels();
 
-            c.EmitDelegate(updateEquipPageBuffList);
+            c.EmitDelegate<Action>(updateEquipPageBuffList);
 
             c.GotoPrev(MoveType.Before, x => x.MatchRet());
             c.MoveAfterLabels();
 
-            c.EmitDelegate(updateEquipPageBuffList);
+            c.EmitDelegate<Action>(updateEquipPageBuffList);
         }
 
         public static void Main_DrawInventory_BuffListScrollbar(ILContext il) {
@@ -121,7 +120,7 @@ namespace BetterGameUI.IL
 
             c.Emit(OpCodes.Ldloc, 52);
             c.Emit(OpCodes.Ldloc, 53);
-            c.EmitDelegate((int num23, int num24) =>
+            c.EmitDelegate<Action<int, int>>((int num23, int num24) =>
             {
                 EquipPageBuffList.Dimensions.X = num23 -
                     ((BuffList.IconWidth + BuffList.IconToIconPad) * (EquipPageBuffList.ColsCount - 1));
