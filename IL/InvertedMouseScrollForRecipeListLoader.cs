@@ -15,7 +15,10 @@ namespace BetterGameUI.IL
             //->: int num8 = GetMouseScrollDelta();
             if (!c.TryGotoNext(MoveType.After,
                 x => x.MatchStloc(41)
-                && x.Previous.MatchCall("Terraria.Player", "GetMouseScrollDelta"))) {
+                && (x.Previous.MatchCall("Terraria.Player", "GetMouseScrollDelta")
+                    || (x.Previous.MatchNeg()
+                    && x.Previous.Previous.MatchCall("Terraria.Player", "GetMouseScrollDelta")))
+                )) {
                 throw new Exception.InstructionNotFound();
             }
 

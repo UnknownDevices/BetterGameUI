@@ -18,7 +18,6 @@ If you encounter an issue, try disabling features until you find the ones giving
 [/list]
 
 [hr]
-[/list]
 [h2]Notes:[/h2]
 [list]
 [*] This mod is not tested for gamepad support.

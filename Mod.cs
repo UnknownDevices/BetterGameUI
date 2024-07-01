@@ -30,8 +30,7 @@ namespace BetterGameUI
                     BuffsBarScrollbarLoader.Load();
                 }
 
-                if (Config.Feature_NPCHouseIconsScrollbar)
-                {
+                if (Config.Feature_NPCHouseIconsScrollbar) {
                     NPCHouseIconsScrollbarLoader.Load();
                 }
 
@@ -39,33 +38,27 @@ namespace BetterGameUI
                     AccessorySlotsImprovedScrollbarLoader.Load();
                 }
 
-                if (Config.Feature_InteractiveUIsWhileUsingItem)
-                {
+                if (Config.Feature_InteractiveUIsWhileUsingItem) {
                     InteractiveUIsWhileUsingItemLoader.Load();
                 }
 
-                if (Config.Feature_MouseWheelButtonsScrollRecipeList)
-                {
+                if (Config.Feature_MouseWheelButtonsScrollRecipeList) {
                     MouseWheelButtonsScrollRecipeListLoader.Load();
                 }
 
-                if (Config.Feature_InvertedMouseScrollForRecipeList)
-                {
+                if (Config.Feature_InvertedMouseScrollForRecipeList) {
                     InvertedMouseScrollForRecipeListLoader.Load();
                 }
 
-                if (Config.Feature_DraggingOverHotbarSlotDoesntSelectItem)
-                {
+                if (Config.Feature_DraggingOverHotbarSlotDoesntSelectItem) {
                     DraggingOverHotbarSlotDoesntSelectItemLoader.Load();
                 }
 
-                if (Config.Feature_DraggingOverBuffIconDoesntInterruptClick)
-                {
+                if (Config.Feature_DraggingOverBuffIconDoesntInterruptClick) {
                     DraggingOverBuffIconDoesntInterruptClickLoader.Load();
                 }
 
-                if (Config.Feature_LockingHotbarLocksAdditionalUIs)
-                {
+                if (Config.Feature_LockingHotbarLocksAdditionalUIs) {
                     LockingHotbarLocksAdditionalUIsLoader.Load();
                 }
 
