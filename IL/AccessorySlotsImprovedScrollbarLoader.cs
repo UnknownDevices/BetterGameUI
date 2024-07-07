@@ -24,7 +24,7 @@ namespace BetterGameUI.IL
             // --: LoaderManager.Get<AccessorySlotLoader>().DrawAccSlots(num20);
             // ++: BetterGameUI.AccessorySlotLoaderEdits.DrawAccSlots(LoaderManager.Get<AccessorySlotLoader>(), num20);
             c.Next.Next.OpCode = OpCodes.Call;
-            c.Next.Next.Operand = typeof(BetterGameUI.UISystem).GetMethod("DrawAccSlots", BindingFlags.Static | BindingFlags.Public);
+            c.Next.Next.Operand = il.Import(typeof(BetterGameUI.UISystem).GetMethod("DrawAccSlots", BindingFlags.Static | BindingFlags.Public));
         }
     }
 }

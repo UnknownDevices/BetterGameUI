@@ -2,6 +2,7 @@
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using MonoMod.Utils;
+using System;
 using System.Reflection;
 using Terraria;
 
@@ -80,8 +81,8 @@ namespace BetterGameUI.IL
 
             c.Next.Operand = afterDropItemCheckCall;
 
-            var preselectedItemField = typeof(Player)
-                .GetField("preselectedItem", BindingFlags.NonPublic | BindingFlags.Static);
+            var preselectedItemField = il.Import(typeof(Player)
+                .GetField("preselectedItem", BindingFlags.NonPublic | BindingFlags.Static));
 
             //->: int num6 = selectedItem;
             if (!c.TryGotoNext(MoveType.Before,
@@ -117,9 +118,9 @@ namespace BetterGameUI.IL
                     throw new Exception.InstructionNotFound();
                 }
 
-                //--: selectedItem = 0..9;
-                //++: BetterGameUI.Player.preselectedItem = 0..9;
-                c.Next.Next.Next.Operand = preselectedItemField;
+				//--: selectedItem = 0..9;
+				//++: BetterGameUI.Player.preselectedItem = 0..9;
+				c.Next.Next.Next.Operand = preselectedItemField;
             }
 
             //  : if (selectedItem != nonTorch) {
@@ -207,9 +208,9 @@ namespace BetterGameUI.IL
 
             c.MoveAfterLabels();
             var beforeStonedCheck = c.MarkLabel();
-
+			
             c.Emit(OpCodes.Ldarg_0);
-            c.EmitDelegate((Terraria.Player player) =>
+            c.EmitDelegate<Action<Terraria.Player>>((Terraria.Player player) =>
             {
                 if (player.controlUseItem) {
                     if (player.ItemAnimationJustStarted) {
@@ -270,8 +271,8 @@ namespace BetterGameUI.IL
             var c = new ILCursor(il);
 
             // Replace every read and write of 'Terraria.Player.selectedItem' for 'BetterGameUI.Player.PreselectedItem'
-            var preselectedItemField = typeof(Player)
-                .GetField("preselectedItem", BindingFlags.NonPublic | BindingFlags.Static);
+            var preselectedItemField = il.Import(typeof(Player)
+                .GetField("preselectedItem", BindingFlags.NonPublic | BindingFlags.Static));
             while (c.TryGotoNext(MoveType.Before,
                 x => x.MatchLdfld("Terraria.Player", "selectedItem")
                 || x.MatchStfld("Terraria.Player", "selectedItem")

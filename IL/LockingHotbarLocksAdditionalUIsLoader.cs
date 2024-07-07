@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using System;
 using System.Reflection;
 using Terraria;
 using Terraria.GameContent;
@@ -120,7 +121,7 @@ namespace BetterGameUI.IL
             //++: Texture2D texture = TextureAssets.HbLock[(!Main.player[Main.myPlayer].hbLocked) ? 1 : 0].Value;
             //++: spriteBatch.Draw(texture, new Vector2(0, 21), texture.Frame(2), Color.White,
             //  :   0f, default, 0.9f, SpriteEffects.None, 0f);
-            c.EmitDelegate(() =>
+            c.EmitDelegate<Action>(() =>
             {
                 Texture2D texture = TextureAssets.HbLock[(!Main.player[Main.myPlayer].hbLocked) ? 1 : 0].Value;
                 Main.spriteBatch.Draw(texture, new Vector2(0, 21), texture.Frame(2), Color.White,
@@ -148,7 +149,7 @@ namespace BetterGameUI.IL
             // ++: if (Terraria.Main.LocalPlayer.hbLocked && !Terraria.Main.playerInventory) {
             // ++:     buttonUnderMouse = null;
             // ++: }
-            c.EmitDelegate(() =>
+            c.EmitDelegate<Func<bool>>(() =>
                 Terraria.Main.LocalPlayer.hbLocked &&
                 !Terraria.Main.playerInventory);
             c.Emit(OpCodes.Brfalse, afterButtonUnderMouseAssignment);
